@@ -1,0 +1,32 @@
+{
+    "name":"sonrisa/sitemap-component",
+    "description":"Sitemap and RSS generator for Sonrisa Framework. Build for PHP5.3 and above.",
+    "type":"library",
+    "homepage":"http://sonrisacms.com",
+    "license":"MIT",
+    "authors":
+    [
+        {
+            "name":"Nil Portugués Calderó",
+            "email":"contact@nilportugues.com",
+            "homepage":"http://sonrisacms.com",
+            "role":"Lead Developer"
+        }
+    ],
+    "require":{
+        "php":">=5.3.0",
+        "sonrisa/filesystem-component":"dev-master"
+    },
+    "require-dev":{
+        "phpunit/phpunit":"3.7.*"
+    },
+    "config":{
+        "bin-dir":"bin/"
+    },
+    "autoload":{
+        "psr-0":{
+            "Sonrisa\\Component\\Sitemap":"src/"
+        }
+    },
+    "minimum-stability": "stable"
+}
