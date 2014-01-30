@@ -29,6 +29,11 @@ This component also provides a method to submit the generated sitemaps to the fo
 
 
 
-
 ## 5. Fully tested.
 Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.5 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
+
+
+## 6. Author
+Nil Portugués Calderó
+ - <contact@nilportugues.com>
+ - http://nilportugues.com
