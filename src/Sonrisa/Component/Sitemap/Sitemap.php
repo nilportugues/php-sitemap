@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Author: Nil Portugués Calderó <contact@nilportugues.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Sonrisa\Component\Sitemap;
 
 use \Sonrisa\Component\Sitemap\Exceptions\SitemapException as SitemapException;
@@ -15,24 +20,15 @@ class Sitemap
     /**
      * Submits a Sitemap to the available search engines. If provided it will first to send the GZipped version.
      *
-     * @param $url 			string
-     * @param $url_gzip 	string
+     * @param $url            string
      *
+     * @throws Exceptions\SitemapException
      * @return array Holds the status of the submission for each search engine queried.
      */
-    public static function submit($url,$url_gzip = '')
+    public static function submit($url)
     {
-        $url_response = false;
-        $url_gzip_response = false;
-
-        //Try with gzipped version (always best option)
-        if ( filter_var( $url_gzip, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
-            if ( self::do_head_check($url_gzip) ) {
-                return self::do_submit($url_gzip);
-            }
-        }
         //Validate URL format and Response
-        elseif ( filter_var( $url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
+        if ( filter_var( $url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
             if (self::do_head_check($url)) {
                 return self::do_submit($url);
             }
@@ -45,7 +41,7 @@ class Sitemap
      * Submits a sitemap to the search engines using file_get_contents
      *
      * @param $url string 		Valid URL being submitted.
-     * @return array Array with the search engine submission success status as a boolean.
+     * @return array            Array with the search engine submission success status as a boolean.
      */
     protected static function do_submit($url)
     {
@@ -72,8 +68,7 @@ class Sitemap
             'http'=>array
             (
                 'method'=>"HEAD",
-                'header'=>"Accept-language: en\r\n" .
-                "Cookie: foo=bar\r\n"
+                'header'=>"Accept-language: en\r\n"
             )
         );
 
@@ -83,7 +78,24 @@ class Sitemap
         @fpassthru($fp);
         @fclose($fp);
 
-        return (($http_response_header[0] == "HTTP/1.1 200 OK") || ($http_response_header[0] == "HTTP/1.0 200 OK"));
+        if(!empty($http_response_header))
+        {
+            return
+            (
+                ($http_response_header[0] == "HTTP/1.1 200 OK") ||
+                ($http_response_header[0] == "HTTP/1.0 200 OK") ||
+                ($http_response_header[0] == "HTTP/1.0 301 Moved Permanently") ||
+                ($http_response_header[0] == "HTTP/1.1 301 Moved Permanently") ||
+                ($http_response_header[0] == "HTTP/1.0 301 Moved") ||
+                ($http_response_header[0] == "HTTP/1.1 301 Moved") ||
+                ($http_response_header[0] == "HTTP/1.1 302 Found") ||
+                ($http_response_header[0] == "HTTP/1.0 302 Found")
+            );
+        }
+        else
+        {
+            return false;
+        }
     }
 
 }

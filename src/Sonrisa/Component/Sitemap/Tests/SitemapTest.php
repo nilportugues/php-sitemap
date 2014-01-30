@@ -1,5 +1,10 @@
 <?php
-
+/*
+ * Author: Nil Portugués Calderó <contact@nilportugues.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Sonrisa\Component\Sitemap\Tests;
 
 use \Sonrisa\Component\Sitemap\Sitemap as Sitemap;
@@ -14,7 +19,7 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
         $this->url = 'http://elmundo.feedsportal.com/elmundo/rss/portada.xml';
     }
 
-    public function testSubmitValidSitemapPriorizingNonGzippedUrl()
+    public function testSubmitValidSitemapUrl()
     {
         $result = Sitemap::submit($this->url);
 
@@ -24,38 +29,18 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected,$result);
     }
 
-    public function testSubmitValidSitemapPriorizingGzippedUrl()
+    public function testSubmitValidSitemapNonExisitingUrl()
     {
-        $result = Sitemap::submit('',$this->url);
-
-        $expected = array( 'google' => true, 'bing' => true);
-
-        $this->assertNotEmpty($result);
-        $this->assertEquals($expected,$result);
-    }
-
-    public function testSubmitValidSitemapPriorizingNonGzippedNonExisitingUrl()
-    {
-        $this->setExpectedException("\Sonrisa\Component\Sitemap\Exceptions\SitemapException");
+        $this->setExpectedException("\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
         Sitemap::submit('http://example.com/sitemap/'.rand(1,10000).'.xml');
     }
 
-    public function testSubmitValidSitemapPriorizingGzippedNonExisitingUrl()
-    {
-        $this->setExpectedException("\Sonrisa\Component\Sitemap\Exceptions\SitemapException");
-        Sitemap::submit('','http://example.com/sitemap/'.rand(1,10000).'.xml');
-    }
 
-    public function testSubmitValidSitemapPriorizingNonGzippedNonValidUrl()
+    public function testSubmitValidSitemapNonValidUrl()
     {
-        $this->setExpectedException("\Sonrisa\Component\Sitemap\Exceptions\SitemapException");
+        $this->setExpectedException("\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
         Sitemap::submit('not a valid url');
     }
 
-    public function testSubmitValidSitemapPriorizingGzippedNonValidUrl()
-    {
-        $this->setExpectedException("\Sonrisa\Component\Sitemap\Exceptions\SitemapException");
-        Sitemap::submit('','not a valid url');
-    }
 
 }

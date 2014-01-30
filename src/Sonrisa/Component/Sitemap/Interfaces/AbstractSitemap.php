@@ -1,22 +1,25 @@
 <?php
-
+/*
+ * Author: Nil Portugués Calderó <contact@nilportugues.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Sonrisa\Component\Sitemap\Interfaces;
 
 abstract class AbstractSitemap
 {
-      /**
-     * Quantity of URLs per single sitemap file. According to specification max value is 50.000.
-     */
+    /**
+     * Maximum amount of URLs elements per sitemap file.
+     *
      * @var int
      */
     protected $max_items_per_sitemap = 50000;
 
     protected $max_filesize = 52428800; // 50 MB
 
-    /**
-     * @var string
-     */
-    protected $base_sitemap_url;
+    protected $xml_output = '';
+
 
     /**
      * Generates document with all sitemap items from Sitemap array
@@ -28,12 +31,12 @@ abstract class AbstractSitemap
 
     }
 
-    public function writeFile()
+    public function writeFile($filepath)
     {
 
     }
 
-    public function writeGzipFile()
+    public function writeGzipFile($filepath)
     {
 
     }
