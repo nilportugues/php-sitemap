@@ -16,23 +16,58 @@ abstract class AbstractSitemap
      */
     protected $max_items_per_sitemap = 50000;
 
+    /**
+     * @var int
+     */
     protected $max_filesize = 52428800; // 50 MB
 
-    protected $xml_output = '';
+    /**
+     * @var array
+     */
+    protected $files = array();
 
     /**
-     * Generates document with all sitemap items from Sitemap array
-     *
-     * Returns an array holding as many positions as total links divided by the $max_items_per_sitemap value.
+     * Generates sitemap documents and stores them in $this->data, an array holding as many positions
+     * as total links divided by the $this->max_items_per_sitemap value.
      */
-    public function output()
-    {
+    abstract public function build();
 
+    /**
+     * Returns sitemap generated in an array.
+     *
+     * @return array
+     */
+    public function get()
+    {
+        return $this->files;
     }
 
-    public function writeFile($filepath)
+    /**
+     * @param $filepath
+     * @param $filename
+     */
+    public function write($filepath,$filename)
     {
 
+        //Write to disk.
+        if(!empty($array[0]) && count($array) > 1)
+        {
+            //Write all generated sitemaps to files: sitemap1.xml, sitemap2.xml, etc..
+            $id = 1;
+            foreach($array as $fileNumber => $sitemap)
+            {
+                $i = ($fileNumber == 0) ? 1  : $id;
+                file_put_contents("file/to/sitemap{$i}.xml",$sitemap);
+                $id++;
+            }
+
+            // While not mandatory, it is wise to generated sitemap.xml file containing
+            // the urls to the other sitemap files when more than one file is produced.
+        }
+        else
+        {
+            file_put_contents("file/to/sitemap{$i}.xml",$array[0]);
+        }
     }
 
     public function writeGzipFile($filepath)

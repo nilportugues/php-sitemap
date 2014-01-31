@@ -42,15 +42,19 @@ $status = Sitemap::submit('http://example.com/sitemap.xml');
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
 
-// Get sitemap as an array of data splitted in files,
-// each containing a max. of 50.000 <url> elements per sitemap file.
-$array = $sitemap
-            ->addUrl('http://www.example.com/','1.0','daily','2014-05-10T17:33:30+08:00')
-            ->addUrl('http://www.example.com/blog','0.9','monthly','2014-05-10T17:33:30+08:00')
-            ->addUrl('http://www.example.com/contact','0.8','never','2014-05-10T17:33:30+08:00')
-            ->build()
-            ->getAsArray();
+$sitemap = new XMLSitemap();
 
+$sitemap->addUrl('http://www.example.com/','1.0','daily','2014-05-10T17:33:30+08:00');
+$sitemap->addUrl('http://www.example.com/blog','0.9','monthly','2014-05-10T17:33:30+08:00');
+$sitemap->addUrl('http://www.example.com/contact','0.8','never','2014-05-10T17:33:30+08:00');
+
+//Option 1: Output status of generating sitemap and writing to disk.
+//var_dump($status) should be true
+$status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
+
+//Option 2: Output the generated sitemap as an array.
+//var_dump($array) should be an array holding xml data.
+$array = $sitemap->build()->get();
 
 
 ```

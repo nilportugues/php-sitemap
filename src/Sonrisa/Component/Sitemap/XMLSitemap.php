@@ -63,7 +63,7 @@ class XMLSitemap extends AbstractSitemap
 
 
     /**
-     * @return array
+     * @return mixed
      */
     public function build()
     {
@@ -88,7 +88,11 @@ class XMLSitemap extends AbstractSitemap
             $files[0] = $xml;
         }
 
-        return $files;
+        //Save files array and empty url buffer
+        $this->files = $files;
+        $this->data['url'] = NULL;
+
+        return $this;
     }
 
     /**
