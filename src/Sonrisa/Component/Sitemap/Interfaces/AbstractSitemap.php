@@ -56,8 +56,10 @@ abstract class AbstractSitemap
             $id = 1;
             foreach($array as $fileNumber => $sitemap)
             {
+                // Would be nice to use writeGzipFile instead ;)
+
                 $i = ($fileNumber == 0) ? 1  : $id;
-                file_put_contents("file/to/sitemap{$i}.xml",$sitemap);
+                file_put_contents("file/to/{$baseFilename}-{$i}.xml",$sitemap);
                 $id++;
             }
 
@@ -70,7 +72,7 @@ abstract class AbstractSitemap
         }
     }
 
-    public function writeGzipFile($filepath)
+    protected function writeGzipFile($filepath)
     {
 
     }

@@ -55,8 +55,6 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //Option 2: Output the generated sitemap as an array.
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
-
-
 ```
 ### 4.3 - Build a Image Sitemap
 

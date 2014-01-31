@@ -90,7 +90,6 @@ class XMLSitemap extends AbstractSitemap
 
         //Save files array and empty url buffer
         $this->files = $files;
-        $this->data['url'] = NULL;
 
         return $this;
     }
