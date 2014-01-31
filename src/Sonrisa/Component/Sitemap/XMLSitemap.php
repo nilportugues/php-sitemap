@@ -24,11 +24,11 @@ class XMLSitemap extends AbstractSitemap
     protected $changeFreqValid = array("always","hourly","daily","weekly","monthly","yearly","never");
 
     /**
-     * @param string $url
-     * @param string $priority
-     * @param string $changefreq
-     * @param string $lastmod
-     * @param string $lastmodformat
+     * @param  string $url
+     * @param  string $priority
+     * @param  string $changefreq
+     * @param  string $lastmod
+     * @param  string $lastmodformat
      * @return $this
      */
     public function addUrl($url,$priority='',$changefreq='',$lastmod='',$lastmodformat='Y-m-d\TH:i:sP')
@@ -37,8 +37,7 @@ class XMLSitemap extends AbstractSitemap
         $url = $this->validateUrlLoc($url);
 
         //Make sure we won't be adding a valid but duplicated URL to the sitemap.
-        if(!empty($url) && !in_array($url,$this->recordUrls,true))
-        {
+        if (!empty($url) && !in_array($url,$this->recordUrls,true)) {
 
             $this->recordUrls[] = $url;
 
@@ -54,11 +53,11 @@ class XMLSitemap extends AbstractSitemap
             $dataSet = array_filter($dataSet);
 
             //Append data to existing structure if not empty
-            if(!empty($dataSet))
-            {
+            if (!empty($dataSet)) {
                 $this->data['url'][$dataSet['priority']][] = $dataSet;
             }
         }
+
         return $this;
     }
 
@@ -70,30 +69,25 @@ class XMLSitemap extends AbstractSitemap
     {
         $files = array();
 
-        $urlSetBody = $this->buildUrlSetCollection();
-        if(!empty($urlSetBody))
-        {
-            foreach($urlSetBody as $fileNumber => $urlSet)
-            {
-                $xml = array();
+        $generatedFiles = $this->buildUrlSetCollection();
 
-                $xml[] = '<?xml version="1.0" encoding="UTF-8"?>';
-                $xml[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-                $xml[] = $urlSet;
-                $xml[] = '</urlset>';
+        if (!empty($generatedFiles)) {
+            foreach ($generatedFiles as $fileNumber => $urlSet) {
+                $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
+                        $urlSet."\n".
+                        '</urlset>';
 
-                $files[$fileNumber] = implode("\n",$xml);
+                $files[$fileNumber] = $xml;
             }
-        }
-        else
-        {
-            $xml = array();
+        } else {
+            $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
+                    '</urlset>';
 
-            $xml[] = '<?xml version="1.0" encoding="UTF-8"?>';
-            $xml[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-            $xml[] = '</urlset>';
-            $files[0] = implode("\n",$xml);
+            $files[0] = $xml;
         }
+
         return $files;
     }
 
@@ -105,16 +99,13 @@ class XMLSitemap extends AbstractSitemap
      */
     protected function buildUrlSetCollection()
     {
-        $files = array();
+        $files = array(0 => '');
 
-        if(!empty($this->data['url']))
-        {
+        if (!empty($this->data['url'])) {
             $i = 0;
-            $url =0;
-            foreach( $this->data['url'] as $prioritySets )
-            {
-                foreach($prioritySets as $urlData)
-                {
+            $url = 0;
+            foreach ($this->data['url'] as $prioritySets) {
+                foreach ($prioritySets as $urlData) {
                     $xml = array();
                     $xml[] = "\t".'<url>';
                     $xml[] = (!empty($urlData['loc']))?         "\t\t<loc>{$urlData['loc']}</loc>"                      : '';
@@ -130,16 +121,19 @@ class XMLSitemap extends AbstractSitemap
                     $files[$i][] = implode("\n",$xml);
 
                     //If amount of $url added is above the limit, increment the file counter.
-                    if($url > $this->max_items_per_sitemap )
-                    {
+                    if ($url > $this->max_items_per_sitemap) {
+                        $files[$i] = implode("\n",$files[$i]);
                         $i++;
+                        $url=0;
                     }
                     $url++;
                 }
                 $files[$i] = implode("\n",$files[$i]);
             }
+
             return $files;
         }
+
         return '';
 
     }
@@ -154,10 +148,10 @@ class XMLSitemap extends AbstractSitemap
      */
     protected function validateUrlLoc($value)
     {
-        if( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) )
-        {
+        if ( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
             return $value;
         }
+
         return '';
     }
 
@@ -172,16 +166,12 @@ class XMLSitemap extends AbstractSitemap
      */
     protected function validateUrlLastMod($value, $format)
     {
-        if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false )
-        {
+        if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false ) {
             return $date->format( 'c' );
         }
-        if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false )
-        {
+        if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
             return $date->format( 'c' );
-        }
-        else
-        {
+        } else {
             return '';
         }
     }
@@ -193,10 +183,10 @@ class XMLSitemap extends AbstractSitemap
      */
     protected function validateUrlChangeFreq($value)
     {
-        if( in_array(trim(strtolower($value)),$this->changeFreqValid,true) )
-        {
+        if ( in_array(trim(strtolower($value)),$this->changeFreqValid,true) ) {
             return $value;
         }
+
         return '';
     }
 
@@ -212,14 +202,11 @@ class XMLSitemap extends AbstractSitemap
      */
     protected function validateUrlPriority($value)
     {
-        preg_match('#\d+(\.\d{1,1})?#', $value, $matches);
+        preg_match('/([0-9].[0-9])/', $value, $matches);
 
-        if(!empty($matches[0]) && ($matches[0]<1.2) && ($matches[0]>0.0) )
-        {
-            return $value;
-        }
-        else
-        {
+        if (!empty($matches[0]) && ($matches[0]<1.1) && ($matches[0]>0.0) ) {
+            return $matches[1];
+        } else {
             return 0.5;
         }
     }

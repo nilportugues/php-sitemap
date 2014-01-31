@@ -20,7 +20,6 @@ abstract class AbstractSitemap
 
     protected $xml_output = '';
 
-
     /**
      * Generates document with all sitemap items from Sitemap array
      *

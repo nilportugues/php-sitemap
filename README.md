@@ -42,6 +42,16 @@ $status = Sitemap::submit('http://example.com/sitemap.xml');
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
 
+// Get sitemap as an array of data splitted in files,
+// each containing a max. of 50.000 <url> elements per sitemap file.
+$array = $sitemap
+            ->addUrl('http://www.example.com/','1.0','daily','2014-05-10T17:33:30+08:00')
+            ->addUrl('http://www.example.com/blog','0.9','monthly','2014-05-10T17:33:30+08:00')
+            ->addUrl('http://www.example.com/contact','0.8','never','2014-05-10T17:33:30+08:00')
+            ->build()
+            ->getAsArray();
+
+
 
 ```
 ### 4.3 - Build a Image Sitemap

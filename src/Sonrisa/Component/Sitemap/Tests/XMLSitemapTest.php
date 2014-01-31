@@ -338,6 +338,60 @@ XML;
         $this->assertEquals($expected,$files[0]);
     }
 
+    public function testAddUrlWithValidUrlWithInvalidPriority3()
+    {
+        $expected=<<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+\t<url>
+\t\t<loc>http://www.example.com/</loc>
+\t\t<priority>0.8</priority>
+\t</url>
+</urlset>
+XML;
+
+        $this->sitemap->addUrl('http://www.example.com/','0.88');
+        $files = $this->sitemap->build();
+
+        $this->assertEquals($expected,$files[0]);
+    }
+
+    public function testAddUrlWithValidUrlWithInvalidPriority4()
+    {
+        $expected=<<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+\t<url>
+\t\t<loc>http://www.example.com/</loc>
+\t\t<priority>0.5</priority>
+\t</url>
+</urlset>
+XML;
+
+        $this->sitemap->addUrl('http://www.example.com/','1.88');
+        $files = $this->sitemap->build();
+
+        $this->assertEquals($expected,$files[0]);
+    }
+
+    public function testAddUrlWithValidUrlWithInvalidPriority5()
+    {
+        $expected=<<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+\t<url>
+\t\t<loc>http://www.example.com/</loc>
+\t\t<priority>0.5</priority>
+\t</url>
+</urlset>
+XML;
+
+        $this->sitemap->addUrl('http://www.example.com/',-3.14);
+        $files = $this->sitemap->build();
+
+        $this->assertEquals($expected,$files[0]);
+    }
+
     public function testAddUrlWithValidUrlWithAllFieldsInvalid()
     {
 $expected=<<<XML
@@ -353,6 +407,24 @@ XML;
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
+    }
+
+    public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
+    {
+        //For testing purposes reduce the real limit to 1000 instead of 50000
+        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\XMLSitemap');
+        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property->setAccessible(true);
+        $property->setValue($this->sitemap,'1000');
+
+        //Test limit
+        for ($i=1;$i<=2000; $i++) {
+            $this->sitemap->addUrl('http://www.example.com/page-'.$i.'.html');
+        }
+        $files = $this->sitemap->build();
+
+        $this->assertArrayHasKey('0',$files);
+        $this->assertArrayHasKey('1',$files);
     }
 
 }

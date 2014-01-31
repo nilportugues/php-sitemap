@@ -23,7 +23,7 @@ class Sitemap
      * @param $url            string
      *
      * @throws Exceptions\SitemapException
-     * @return array Holds the status of the submission for each search engine queried.
+     * @return array                       Holds the status of the submission for each search engine queried.
      */
     public static function submit($url)
     {
@@ -41,7 +41,7 @@ class Sitemap
      * Submits a sitemap to the search engines using file_get_contents
      *
      * @param $url string 		Valid URL being submitted.
-     * @return array            Array with the search engine submission success status as a boolean.
+     * @return array Array with the search engine submission success status as a boolean.
      */
     protected static function do_submit($url)
     {
@@ -78,8 +78,7 @@ class Sitemap
         @fpassthru($fp);
         @fclose($fp);
 
-        if(!empty($http_response_header))
-        {
+        if (!empty($http_response_header)) {
             return
             (
                 ($http_response_header[0] == "HTTP/1.1 200 OK") ||
@@ -91,9 +90,7 @@ class Sitemap
                 ($http_response_header[0] == "HTTP/1.1 302 Found") ||
                 ($http_response_header[0] == "HTTP/1.0 302 Found")
             );
-        }
-        else
-        {
+        } else {
             return false;
         }
     }

@@ -12,7 +12,7 @@
         >
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>./src/Sonrisa/Component/Sitemap/Tests</directory>
+            <directory>./src/Sonrisa/Component/Sitemap/Tests/</directory>
         </testsuite>
     </testsuites>
 </phpunit>

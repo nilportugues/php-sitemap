@@ -35,12 +35,10 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
         Sitemap::submit('http://example.com/sitemap/'.rand(1,10000).'.xml');
     }
 
-
     public function testSubmitValidSitemapNonValidUrl()
     {
         $this->setExpectedException("\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
         Sitemap::submit('not a valid url');
     }
-
 
 }
