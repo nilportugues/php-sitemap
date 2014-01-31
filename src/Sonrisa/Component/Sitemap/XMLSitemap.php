@@ -16,6 +16,8 @@ class XMLSitemap extends AbstractSitemap
      */
     protected $data = array();
 
+    protected $recordUrls = array();
+
     /**
      * @var array
      */
@@ -29,13 +31,17 @@ class XMLSitemap extends AbstractSitemap
      * @param string $lastmodformat
      * @return $this
      */
-    public function addUrl($url,$priority='',$changefreq='',$lastmod='',$lastmodformat='Y-m-d H:i:s')
+    public function addUrl($url,$priority='',$changefreq='',$lastmod='',$lastmodformat='Y-m-d\TH:i:sP')
     {
         //Make sure the mandatory value is valid.
         $url = $this->validateUrlLoc($url);
 
-        if(!empty($url))
+        //Make sure we won't be adding a valid but duplicated URL to the sitemap.
+        if(!empty($url) && !in_array($url,$this->recordUrls,true))
         {
+
+            $this->recordUrls[] = $url;
+
             $dataSet = array
             (
                 'loc'           => $url,
@@ -56,6 +62,89 @@ class XMLSitemap extends AbstractSitemap
         return $this;
     }
 
+
+    /**
+     * @return array
+     */
+    public function build()
+    {
+        $files = array();
+
+        $urlSetBody = $this->buildUrlSetCollection();
+        if(!empty($urlSetBody))
+        {
+            foreach($urlSetBody as $fileNumber => $urlSet)
+            {
+                $xml = array();
+
+                $xml[] = '<?xml version="1.0" encoding="UTF-8"?>';
+                $xml[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+                $xml[] = $urlSet;
+                $xml[] = '</urlset>';
+
+                $files[$fileNumber] = implode("\n",$xml);
+            }
+        }
+        else
+        {
+            $xml = array();
+
+            $xml[] = '<?xml version="1.0" encoding="UTF-8"?>';
+            $xml[] = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+            $xml[] = '</urlset>';
+            $files[0] = implode("\n",$xml);
+        }
+        return $files;
+    }
+
+    /**
+     * Loop through $this->data['url'] and build Sitemap.xml
+     * taking into account each urlset can hold a max of 50.000 url elements
+     *
+     * @return array
+     */
+    protected function buildUrlSetCollection()
+    {
+        $files = array();
+
+        if(!empty($this->data['url']))
+        {
+            $i = 0;
+            $url =0;
+            foreach( $this->data['url'] as $prioritySets )
+            {
+                foreach($prioritySets as $urlData)
+                {
+                    $xml = array();
+                    $xml[] = "\t".'<url>';
+                    $xml[] = (!empty($urlData['loc']))?         "\t\t<loc>{$urlData['loc']}</loc>"                      : '';
+                    $xml[] = (!empty($urlData['lastmod']))?     "\t\t<lastmod>{$urlData['lastmod']}</lastmod>"          : '';
+                    $xml[] = (!empty($urlData['changefreq']))?  "\t\t<changefreq>{$urlData['changefreq']}</changefreq>" : '';
+                    $xml[] = (!empty($urlData['priority']))?    "\t\t<priority>{$urlData['priority']}</priority>"       : '';
+                    $xml[] = "\t".'</url>';
+
+                    //Remove empty fields
+                    $xml = array_filter($xml);
+
+                    //Build string
+                    $files[$i][] = implode("\n",$xml);
+
+                    //If amount of $url added is above the limit, increment the file counter.
+                    if($url > $this->max_items_per_sitemap )
+                    {
+                        $i++;
+                    }
+                    $url++;
+                }
+                $files[$i] = implode("\n",$files[$i]);
+            }
+            return $files;
+        }
+        return '';
+
+    }
+
+
     /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
      *
@@ -65,7 +154,7 @@ class XMLSitemap extends AbstractSitemap
      */
     protected function validateUrlLoc($value)
     {
-        if( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) )===true )
+        if( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) )
         {
             return $value;
         }
@@ -85,11 +174,11 @@ class XMLSitemap extends AbstractSitemap
     {
         if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false )
         {
-            return $date->format('Y-m-d\TH:i:sP');
+            return $date->format( 'c' );
         }
         if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false )
         {
-            return $date->format('Y-m-d\TH:i:sP');
+            return $date->format( 'c' );
         }
         else
         {
