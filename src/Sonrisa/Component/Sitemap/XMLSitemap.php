@@ -67,7 +67,7 @@ class XMLSitemap extends AbstractSitemap
      *
      * @param string $url URL is used to append to the <url> the imageData added by $imageData
      * @param array $imageData
-     * 
+     *
      * @return $this
      */
     public function addImage($url,array $imageData)
@@ -154,11 +154,18 @@ class XMLSitemap extends AbstractSitemap
             foreach ($this->data['url'] as $prioritySets) {
                 foreach ($prioritySets as $urlData) {
                     $xml = array();
+
+                    //Open <url>
                     $xml[] = "\t".'<url>';
                     $xml[] = (!empty($urlData['loc']))?         "\t\t<loc>{$urlData['loc']}</loc>"                      : '';
                     $xml[] = (!empty($urlData['lastmod']))?     "\t\t<lastmod>{$urlData['lastmod']}</lastmod>"          : '';
                     $xml[] = (!empty($urlData['changefreq']))?  "\t\t<changefreq>{$urlData['changefreq']}</changefreq>" : '';
                     $xml[] = (!empty($urlData['priority']))?    "\t\t<priority>{$urlData['priority']}</priority>"       : '';
+
+                    //Append images if any
+                    $xml[] = $this->buildUrlImageCollection($urlData['loc']);
+
+                    //Close <url>
                     $xml[] = "\t".'</url>';
 
                     //Remove empty fields
@@ -185,6 +192,39 @@ class XMLSitemap extends AbstractSitemap
 
     }
 
+    /**
+     * Builds the XML for the image data.
+     * @param $url
+     */
+    protected function buildUrlImageCollection($url)
+    {
+        if(!empty( $this->data['images'][$url]))
+        {
+            $images = array();
+            foreach( $this->data['images'][$url] as $imageData )
+            {
+                $xml = array();
+
+                $xml[] = "\t\t".'<image:image>';
+
+                $xml[] = (!empty($imageData['loc']))         ? "\t\t\t".'<image:loc><![CDATA['.$imageData['loc'].']]></image:loc>' : '';
+                $xml[] = (!empty($imageData['title']))       ? "\t\t\t".'<image:title><![CDATA['.$imageData['title'].']]></image:title>' : '';
+                $xml[] = (!empty($imageData['caption']))     ? "\t\t\t".'<image:caption><![CDATA['.$imageData['caption'].']]></image:caption>' : '';
+                $xml[] = (!empty($imageData['geolocation'])) ? "\t\t\t".'<image:geolocation><![CDATA['.$imageData['geolocation'].']]></image:geolocation>' : '';
+                $xml[] = (!empty($imageData['license']))     ? "\t\t\t".'<image:license><![CDATA['.$imageData['license'].']]></image:license>' : '';
+
+                $xml[] = "\t\t".'</image:image>';
+
+                //Remove empty fields
+                $xml = array_filter($xml);
+
+                //Build string
+                $images[] = implode("\n",$xml);
+            }
+            return implode("\n",$images);
+        }
+        return '';
+    }
 
     /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
