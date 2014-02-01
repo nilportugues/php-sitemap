@@ -61,6 +61,44 @@ class XMLSitemap extends AbstractSitemap
         return $this;
     }
 
+    /**
+     * XML Schema for the Image Sitemap extension.
+     * Help Center documentation for the Image Sitemap extension: http://www.google.com/support/webmasters/bin/answer.py?answer=178636
+     *
+     * @param string $url URL is used to append to the <url> the imageData added by $imageData
+     * @param array $imageData
+     */
+    public function addImage($url,array $imageData)
+    {
+        //Make sure the mandatory value is valid.
+        $url = $this->validateUrlLoc($url);
+
+        $imageLoc = NULL;
+        if(!empty($imageData['loc']))
+        {
+            $imageLoc = $this->validateUrlLoc($imageData['loc']);
+        }
+
+        if ( !empty($url) && !empty($imageLoc) )
+        {
+            $dataSet = array
+            (
+                'image:loc'             => $imageLoc,
+                'image:title'           => '',
+                'image:caption'         => '',
+                'image:geolocation'     => '',
+                'image:license'         => '',
+            );
+
+            //Remove empty fields
+            $dataSet = array_filter($dataSet);
+
+            //Let the data array know that for a URL there are images
+            $this->data['images'][$url][$imageLoc] = $dataSet;
+        }
+        return $this;
+    }
+
 
     /**
      * @return mixed
@@ -74,7 +112,7 @@ class XMLSitemap extends AbstractSitemap
         if (!empty($generatedFiles)) {
             foreach ($generatedFiles as $fileNumber => $urlSet) {
                 $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n".
                         $urlSet."\n".
                         '</urlset>';
 
@@ -82,7 +120,7 @@ class XMLSitemap extends AbstractSitemap
             }
         } else {
             $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n".
                     '</urlset>';
 
             $files[0] = $xml;

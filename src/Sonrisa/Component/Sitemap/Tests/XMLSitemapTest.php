@@ -22,7 +22,7 @@ class XMLSitemapTest extends \PHPUnit_Framework_TestCase
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
@@ -41,7 +41,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<lastmod>2012-07-05T10:43:00+02:00</lastmod>
@@ -61,7 +61,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
@@ -88,7 +88,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>
 XML;
         $this->sitemap->addUrl('not/valid/url','0.8','monthly','2005-05-10T17:33:30+08:00');
@@ -102,7 +102,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
@@ -121,7 +121,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>always</changefreq>
@@ -142,7 +142,7 @@ XML;
 
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>hourly</changefreq>
@@ -163,7 +163,7 @@ XML;
 
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>daily</changefreq>
@@ -184,7 +184,7 @@ XML;
 
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>weekly</changefreq>
@@ -205,7 +205,7 @@ XML;
 
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>monthly</changefreq>
@@ -226,7 +226,7 @@ XML;
 
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>yearly</changefreq>
@@ -247,7 +247,7 @@ XML;
 
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>never</changefreq>
@@ -269,7 +269,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.8</priority>
@@ -287,7 +287,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>monthly</changefreq>
@@ -306,7 +306,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
@@ -325,7 +325,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.5</priority>
@@ -343,7 +343,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.5</priority>
@@ -361,7 +361,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.8</priority>
@@ -379,7 +379,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.5</priority>
@@ -397,7 +397,7 @@ XML;
     {
         $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.5</priority>
@@ -415,7 +415,7 @@ XML;
     {
 $expected=<<<XML
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<priority>0.5</priority>

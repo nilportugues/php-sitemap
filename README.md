@@ -16,7 +16,6 @@ This component builds sitemaps supported by the main search engines, Google and 
 The **Sitemap Component** is able of building the following types of sitemaps:
 
 - **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet.
-- **images.xml**: Image sitemaps, image resources that can be shared with image search engines.
 - **media.xml**: Media sitemaps, videos files belong here. Usually used as for podcasts.
  
 ## 3. Automatic sitemap submission
@@ -37,7 +36,7 @@ $status = Sitemap::submit('http://example.com/sitemap.xml');
 
 ```
 
-### 4.2 - Build a Sitemap
+### 4.2 - Build a Sitemap without Images
 ```php
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
@@ -56,11 +55,11 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
 ```
-### 4.3 - Build a Image Sitemap
+### 4.3 - Build a Sitemap with Images
 
 ```php
 <?php
-use Sonrisa\Component\Sitemap\ImageSitemap;
+use Sonrisa\Component\Sitemap\XMLSitemap;
 
 
 ```
