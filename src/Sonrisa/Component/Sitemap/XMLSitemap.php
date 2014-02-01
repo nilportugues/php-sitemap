@@ -67,13 +67,15 @@ class XMLSitemap extends AbstractSitemap
      *
      * @param string $url URL is used to append to the <url> the imageData added by $imageData
      * @param array $imageData
+     * 
+     * @return $this
      */
     public function addImage($url,array $imageData)
     {
-        //Make sure the mandatory value is valid.
-        $url = $this->validateUrlLoc($url);
-
         $imageLoc = NULL;
+
+        //Make sure the mandatory values are valid.
+        $url = $this->validateUrlLoc($url);
         if(!empty($imageData['loc']))
         {
             $imageLoc = $this->validateUrlLoc($imageData['loc']);
@@ -84,17 +86,21 @@ class XMLSitemap extends AbstractSitemap
             $dataSet = array
             (
                 'image:loc'             => $imageLoc,
-                'image:title'           => '',
-                'image:caption'         => '',
-                'image:geolocation'     => '',
-                'image:license'         => '',
+                'image:title'           => (!empty($imageData['title']))? $imageData['title']               : '',
+                'image:caption'         => (!empty($imageData['caption']))? $imageData['caption']           : '',
+                'image:geolocation'     => (!empty($imageData['geolocation']))? $imageData['geolocation']   : '',
+                'image:license'         => (!empty($imageData['license']))? $imageData['license']           : '',
             );
 
             //Remove empty fields
             $dataSet = array_filter($dataSet);
 
-            //Let the data array know that for a URL there are images
-            $this->data['images'][$url][$imageLoc] = $dataSet;
+            // Check if there are less than 1001 images for this url
+            if(count($this->data['images'][$url]) <= $this->max_images_per_url)
+            {
+                //Let the data array know that for a URL there are images
+                $this->data['images'][$url][$imageLoc] = $dataSet;
+            }
         }
         return $this;
     }

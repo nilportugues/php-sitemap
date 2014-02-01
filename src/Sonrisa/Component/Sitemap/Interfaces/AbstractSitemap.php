@@ -17,6 +17,13 @@ abstract class AbstractSitemap
     protected $max_items_per_sitemap = 50000;
 
     /**
+     * Maximum amount of <image:loc> elements per <url> element.
+     *
+     * @var int
+     */
+    protected $max_images_per_url = 1000;
+
+    /**
      * @var int
      */
     protected $max_filesize = 52428800; // 50 MB
