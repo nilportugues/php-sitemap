@@ -1,4 +1,4 @@
-Sitemap Component
+[![Build Status](https://travis-ci.org/sonrisa/sitemap-component.png)](https://travis-ci.org/sonrisa/sitemap-component) Sitemap Component
 =================
 
 ## 1.Installation
