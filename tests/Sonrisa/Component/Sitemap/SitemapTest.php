@@ -5,7 +5,6 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Sonrisa\Component\Sitemap\Tests;
 
 use \Sonrisa\Component\Sitemap\Sitemap as Sitemap;
 use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
