@@ -40,7 +40,7 @@ abstract class AbstractSitemap
     abstract public function build();
 
     /**
-     * Returns sitemap generated in an array.
+     * @todo: Returns sitemap generated in an array.
      *
      * @return array
      */
