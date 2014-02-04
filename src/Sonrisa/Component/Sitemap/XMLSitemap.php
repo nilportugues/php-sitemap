@@ -14,7 +14,11 @@ class XMLSitemap extends AbstractSitemap
     /**
      * @var array
      */
-    protected $data = array();
+    protected $data = array
+    (
+        'images' => array(),
+        'url'   => array(),
+    );
 
     protected $recordUrls = array();
 
@@ -95,6 +99,10 @@ class XMLSitemap extends AbstractSitemap
             //Remove empty fields
             $dataSet = array_filter($dataSet);
 
+            if(empty($this->data['images'][$url]))
+            {
+                $this->data['images'][$url] = array();
+            }
             // Check if there are less than 1001 images for this url
             if(count($this->data['images'][$url]) <= $this->max_images_per_url)
             {

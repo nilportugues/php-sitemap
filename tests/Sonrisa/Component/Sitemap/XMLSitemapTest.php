@@ -445,4 +445,32 @@ XML;
         $this->assertArrayHasKey('1',$files);
     }
 
+
+    /**-------------------------------------------------------------------------
+     *    SITEMAP WITH IMAGES
+     *-------------------------------------------------------------------------*/
+
+    public function testAddUrlAndImagesWithValidUrlWithAllFields()
+    {
+        $expected=<<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+\t<url>
+\t\t<loc>http://www.example.com/</loc>
+\t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
+\t\t<changefreq>monthly</changefreq>
+\t\t<priority>0.8</priority>
+\t</url>
+</urlset>
+XML;
+        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+
+        $imageData = array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' );
+        $this->sitemap->addImage('http://www.example.com/',$imageData);
+
+        $files = $this->sitemap->build()->get();
+
+        $this->assertEquals($expected,$files[0]);
+    }
+
 }
