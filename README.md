@@ -1,6 +1,25 @@
 [![Build Status](https://travis-ci.org/sonrisa/sitemap-component.png)](https://travis-ci.org/sonrisa/sitemap-component) Sitemap Component
 =================
+Builds sitemaps for URLs, images and submits them automatically to search engines
 
+* [1.Installation](#block1)
+* [2. Build your sitemaps](#block2)
+* [3. Automatic sitemap submission](#block3)
+* [4. Automatic sitemap submission](#block4) 
+    * [4.1. Submit to search engines](#block4.1)
+    * [4.2. Build a Sitemap without Images](#block4.2)
+      * [Creation](#block4.2.1)
+      * [Output](#block4.2.2)
+    * [4.3. Build a Sitemap with Images](#block4.3)
+      * [Creation](#block4.3.1)
+      * [Output](#block4.3.2)
+    * [4.4. Build a Media Sitemap](#block4.4)
+      * [Creation](#block4.4.1)
+      * [Output](#block4.4.2)
+* [5. Fully tested](#block5)
+* [6. Author](#block6)
+
+<a name="block1"></a>
 ## 1.Installation
 Add the following to your `composer.json` file :
 
@@ -10,6 +29,7 @@ Add the following to your `composer.json` file :
 
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
+<a name="block2"></a>
 ## 2. Build your sitemaps
 This component builds sitemaps supported by the main search engines, Google and Bing, in xml and gzip formats.
 
@@ -18,14 +38,17 @@ The **Sitemap Component** is able of building the following types of sitemaps:
 - **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet.
 - **media.xml**: Media sitemaps, videos files belong here. Usually used as for podcasts.
  
+<a name="block3"></a>
 ## 3. Automatic sitemap submission
 
 This component also provides a method to submit the generated sitemaps to the following search engines:
 - Google
 - Bing
 
+<a name="block4"></a>
 ## 4. Usage
 
+<a name="block4.1"></a>
 ### 4.1 - Submit to search engines
 ```php
 <?php
@@ -35,7 +58,7 @@ use Sonrisa\Component\Sitemap\Sitemap;
 $status = Sitemap::submit('http://example.com/sitemap.xml');
 
 ```
-
+<a name="block4.2"></a>
 ### 4.2 - Build a Sitemap without Images
 ```php
 <?php
@@ -55,8 +78,10 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
 ```
+<a name="block4.3"></a>
 ### 4.3 - Build a Sitemap with Images
 
+<a name="block4.3.1"></a>
 #### Creation
 ```php
 <?php
@@ -79,6 +104,7 @@ $this->sitemap->addImage('http://www.example.com/',array(
 
 //Now just do Option 1 or Option 2, as before
 ```
+<a name="block4.3.2"></a>
 #### Output
 ```xml
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
@@ -100,20 +126,20 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>
 ```
 
-
+<a name="block4.4"></a>
 ### 4.4 - Build a Media Sitemap
 
 ```php
 <?php
 use Sonrisa\Component\Sitemap\MediaSitemap;
 
-
 ```
 
+<a name="block5"></a>
 ## 5. Fully tested.
 Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.5 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
 
-
+<a name="block6"></a>
 ## 6. Author
 Nil Portugués Calderó
  - <contact@nilportugues.com>
