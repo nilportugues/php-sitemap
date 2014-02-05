@@ -50,6 +50,22 @@ abstract class AbstractSitemap
     }
 
     /**
+     * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function validateUrlLoc($value)
+    {
+        if ( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
+            return $value;
+        }
+
+        return '';
+    }
+
+    /**
      * @param $filepath
      * @param $filename
      */
