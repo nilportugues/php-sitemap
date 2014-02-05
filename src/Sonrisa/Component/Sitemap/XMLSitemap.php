@@ -89,11 +89,11 @@ class XMLSitemap extends AbstractSitemap
         {
             $dataSet = array
             (
-                'image:loc'             => $imageLoc,
-                'image:title'           => (!empty($imageData['title']))? $imageData['title']               : '',
-                'image:caption'         => (!empty($imageData['caption']))? $imageData['caption']           : '',
-                'image:geolocation'     => (!empty($imageData['geolocation']))? $imageData['geolocation']   : '',
-                'image:license'         => (!empty($imageData['license']))? $imageData['license']           : '',
+                'loc'             => $imageLoc,
+                'title'           => (!empty($imageData['title']))? $imageData['title']               : '',
+                'caption'         => (!empty($imageData['caption']))? $imageData['caption']           : '',
+                'geolocation'     => (!empty($imageData['geolocation']))? $imageData['geolocation']   : '',
+                'license'         => (!empty($imageData['license']))? $imageData['license']           : '',
             );
 
             //Remove empty fields
@@ -123,10 +123,17 @@ class XMLSitemap extends AbstractSitemap
 
         $generatedFiles = $this->buildUrlSetCollection();
 
+        $xmlImages='';
+        if(!empty($this->data['images']))
+        {
+            $xmlImages=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+        }
+
+
         if (!empty($generatedFiles)) {
             foreach ($generatedFiles as $fileNumber => $urlSet) {
                 $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
                         $urlSet."\n".
                         '</urlset>';
 
@@ -134,7 +141,7 @@ class XMLSitemap extends AbstractSitemap
             }
         } else {
             $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
                     '</urlset>';
 
             $files[0] = $xml;
@@ -209,6 +216,7 @@ class XMLSitemap extends AbstractSitemap
         if(!empty( $this->data['images'][$url]))
         {
             $images = array();
+
             foreach( $this->data['images'][$url] as $imageData )
             {
                 $xml = array();
