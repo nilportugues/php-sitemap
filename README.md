@@ -57,6 +57,7 @@ $array = $sitemap->build()->get();
 ```
 ### 4.3 - Build a Sitemap with Images
 
+#### Creation
 ```php
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
@@ -66,12 +67,40 @@ $sitemap = new XMLSitemap();
 $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
 
 //Add images to the sitemap by relating them to a Url.
-$this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-$this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+$this->sitemap->addImage('http://www.example.com/',array(
+ 'loc' => 'http://www.example.com/logo.png', 
+ 'title' => 'Example.com logo' 
+));
+
+$this->sitemap->addImage('http://www.example.com/',array(
+ 'loc' => 'http://www.example.com/main.png', 
+ 'title' => 'Main image' 
+));
 
 //Now just do Option 1 or Option 2, as before
-
 ```
+#### Output
+```xml
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+  <url>
+    <loc>http://www.example.com/</loc>
+    <lastmod>2005-05-10T17:33:30+08:00</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+    <image:image>
+      <image:loc><![CDATA[http://www.example.com/logo.png]]></image:loc>
+      <image:title><![CDATA[Example.com logo]]></image:title>
+    </image:image>
+    <image:image>
+      <image:loc><![CDATA[http://www.example.com/main.png]]></image:loc>
+      <image:title><![CDATA[Main image]]></image:title>
+    </image:image>
+  </url>
+</urlset>
+```
+
+
 ### 4.4 - Build a Media Sitemap
 
 ```php
