@@ -5,7 +5,7 @@ Builds sitemaps for URLs, images and submits them automatically to search engine
 * [1.Installation](#block1)
 * [2. Build your sitemaps](#block2)
 * [3. Automatic sitemap submission](#block3)
-* [4. Automatic sitemap submission](#block4) 
+* [4. Usage](#block4) 
     * [4.1. Submit to search engines](#block4.1)
     * [4.2. Build a Sitemap without Images](#block4.2)
       * [Creation](#block4.2.1)
