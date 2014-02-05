@@ -4,7 +4,7 @@
 ## 1.Installation
 Add the following to your `composer.json` file :
 
-```
+```js
 "sonrisa/sitemap-component":"dev-master"
 ```
 
@@ -61,6 +61,15 @@ $array = $sitemap->build()->get();
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
 
+$sitemap = new XMLSitemap();
+
+$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+
+//Add images to the sitemap by relating them to a Url.
+$this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+$this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+
+//Now just do Option 1 or Option 2, as before
 
 ```
 ### 4.4 - Build a Media Sitemap

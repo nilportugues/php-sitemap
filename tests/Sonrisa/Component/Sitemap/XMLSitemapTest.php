@@ -1113,6 +1113,7 @@ XML;
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');
 
+        //For testing purposes reduce the real limit to 10 instead of 5000
         $property = $reflectionClass->getProperty('max_images_per_url');
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'10');
@@ -1123,7 +1124,7 @@ XML;
 
             for ($j=1;$j<=10; $j++)
             {
-                $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/image_'.$j.'.png', 'title' => 'Main image '.$j ));
+                $this->sitemap->addImage('http://www.example.com/page-'.$i.'.html',array('loc' => 'http://www.example.com/image_'.$j.'.png', 'title' => 'Main image '.$j ));
             }
         }
 
