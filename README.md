@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/sonrisa/sitemap-component.png)](https://travis-ci.org/sonrisa/sitemap-component) Sitemap Component
 =================
-Builds sitemaps for URLs, images and submits them automatically to search engines
+
+Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
 * [1.Installation](#block1)
 * [2. Build your sitemaps](#block2)
@@ -26,9 +27,6 @@ Add the following to your `composer.json` file :
 ```js
 "sonrisa/sitemap-component":"dev-master"
 ```
-
-Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
-
 <a name="block2"></a>
 ## 2. Build your sitemaps
 This component builds sitemaps supported by the main search engines, Google and Bing, in xml and gzip formats.
