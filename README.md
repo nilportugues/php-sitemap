@@ -100,7 +100,13 @@ $this->sitemap->addImage('http://www.example.com/',array(
  'title' => 'Main image' 
 ));
 
-//Now just do Option 1 or Option 2, as before
+//Option 1: Output status of generating sitemap and writing to disk.
+//var_dump($status) should be true
+$status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
+
+//Option 2: Output the generated sitemap as an array.
+//var_dump($array) should be an array holding xml data.
+$array = $sitemap->build()->get();
 ```
 <a name="block4.3.2"></a>
 #### Output
@@ -128,10 +134,56 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <a name="block4.4"></a>
 ### 4.4 - Build a Media Sitemap
 
+#### Creation
 ```php
 <?php
 use Sonrisa\Component\Sitemap\MediaSitemap;
 
+$sitemap = new MediaSitemap();
+
+$sitemap->setTitle('Media RSS de ejemplo');
+$sitemap->setLink('http://www.example.com/ejemplos/mrss/');
+$sitemap->setDescription('Ejemplo de MRSS');
+$sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+(
+    'mimetype'      =>  'video/x-flv',
+    'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
+    'duration'      =>  120,
+    'title'         =>  'Barbacoas en verano',
+    'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
+    'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
+    'height'        =>  120,
+    'width'         =>  160,
+));
+
+//Option 1: Output status of generating sitemap and writing to disk.
+//var_dump($status) should be true
+$status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
+
+//Option 2: Output the generated sitemap as an array.
+//var_dump($array) should be an array holding xml data.
+$array = $sitemap->build()->get();
+```
+
+#### Output
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
+<channel>
+  <title>Media RSS de ejemplo</title>
+  <link>http://www.example.com/ejemplos/mrss/</link>
+  <description>Ejemplo de MRSS</description>
+  <item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <link>http://www.example.com/examples/mrss/example.html</link>
+    <media:content type="video/x-flv" duration="120">
+      <media:player url="http://www.example.com/shows/example/video.swf?flash_params" />
+      <media:title>Barbacoas en verano</media:title>
+      <media:description>Consigue que los filetes queden perfectamente hechos siempre</media:description>
+      <media:thumbnail url="http://www.example.com/examples/mrss/example.png" height="120" width="160"/>
+    </media:content>
+  </item>
+</channel>
+</rss>
 ```
 
 <a name="block5"></a>

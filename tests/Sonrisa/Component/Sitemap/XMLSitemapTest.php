@@ -6,15 +6,13 @@
  * file that was distributed with this source code.
  */
 
-use Sonrisa\Component\Sitemap\XMLSitemap;
-
 class XMLSitemapTest extends \PHPUnit_Framework_TestCase
 {
     protected $sitemap;
 
     public function setUp()
     {
-        $this->sitemap = new XMLSitemap();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLSitemap();
     }
 
     public function testAddUrlWithValidUrlWithAllFields()
