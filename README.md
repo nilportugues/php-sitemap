@@ -144,17 +144,31 @@ $sitemap = new MediaSitemap();
 $sitemap->setTitle('Media RSS de ejemplo');
 $sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 $sitemap->setDescription('Ejemplo de MRSS');
-$sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+
+$sitemap->addItem('http://www.example.com/examples/mrss/example1.html',array
 (
     'mimetype'      =>  'video/x-flv',
     'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
     'duration'      =>  120,
     'title'         =>  'Barbacoas en verano',
     'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-    'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
+    'thumbnail'     =>  'http://www.example.com/examples/mrss/example1.png',
     'height'        =>  120,
     'width'         =>  160,
 ));
+
+$sitemap->addItem('http://www.example.com/examples/mrss/example2.html',array
+(
+    'mimetype'      =>  'video/x-flv',
+    'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
+    'duration'      =>  240,
+    'title'         =>  'Barbacoas en invierno',
+    'description'   =>  'Consigue unos filetes frios',
+    'thumbnail'     =>  'http://www.example.com/examples/mrss/example2.png',
+    'height'        =>  120,
+    'width'         =>  160,
+));
+
 
 //Option 1: Output status of generating sitemap and writing to disk.
 //var_dump($status) should be true
@@ -174,12 +188,21 @@ $array = $sitemap->build()->get();
   <link>http://www.example.com/ejemplos/mrss/</link>
   <description>Ejemplo de MRSS</description>
   <item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
-    <link>http://www.example.com/examples/mrss/example.html</link>
+    <link>http://www.example.com/examples/mrss/example1.html</link>
     <media:content type="video/x-flv" duration="120">
       <media:player url="http://www.example.com/shows/example/video.swf?flash_params" />
       <media:title>Barbacoas en verano</media:title>
       <media:description>Consigue que los filetes queden perfectamente hechos siempre</media:description>
-      <media:thumbnail url="http://www.example.com/examples/mrss/example.png" height="120" width="160"/>
+      <media:thumbnail url="http://www.example.com/examples/mrss/example1.png" height="120" width="160"/>
+    </media:content>
+  </item>
+  <item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
+    <link>http://www.example.com/examples/mrss/example2.html</link>
+    <media:content type="video/x-flv" duration="240">
+      <media:player url="http://www.example.com/shows/example/video.swf?flash_params" />
+      <media:title>Barbacoas en invierno</media:title>
+      <media:description>Consigue unos filetes frios</media:description>
+      <media:thumbnail url="http://www.example.com/examples/mrss/example2.png" height="120" width="160"/>
     </media:content>
   </item>
 </channel>
