@@ -8,20 +8,21 @@ Builds sitemaps for pages, images and media files and provides a class to submit
 * [3. Automatic sitemap submission](#block3)
 * [4. Usage](#block4) 
     * [4.1. Submit to search engines](#block4.1)
-    * [4.2. Build a simple Sitemap](#block4.2)
-      * [Creation](#block4.2.1)
-      * [Output](#block4.2.2)
-    * [4.3. Build a Sitemap with Images](#block4.3)
+    * [4.2. Build a Sitemap Index](#block4.2)
+    * [4.3. Build a simple Sitemap](#block4.3)
       * [Creation](#block4.3.1)
       * [Output](#block4.3.2)
-    * [4.4. Build a Sitemap with Videos](#block4.3)
-      * [Creation](#block4.3.1)
-      * [Output](#block4.3.2)
-    * [4.5. Build a Media Sitemap](#block4.5)
+    * [4.4. Build a Sitemap with Images](#block4.4)
+      * [Creation](#block4.4.1)
+      * [Output](#block4.4.2)
+    * [4.5. Build a Sitemap with Videos](#block4.5)
       * [Creation](#block4.5.1)
       * [Output](#block4.5.2)
-* [6. Fully tested](#block6)
-* [7. Author](#block7)
+    * [4.6. Build a Media Sitemap](#block4.6)
+      * [Creation](#block4.6.1)
+      * [Output](#block4.6.2)
+* [5. Fully tested](#block5)
+* [6. Author](#block6)
 
 <a name="block1"></a>
 ## 1.Installation
@@ -59,11 +60,31 @@ This component also provides a method to submit the generated sitemaps to the fo
 use Sonrisa\Component\Sitemap\Sitemap;
 
 // $status = array('google' => true, 'bing' => true); if everything went OK.
-$status = Sitemap::submit('http://example.com/sitemap.xml');
-
+$status = Sitemap::submit('http://example.com/sitemap-index.xml');
 ```
+
 <a name="block4.2"></a>
-### 4.2 - Build a simple Sitemap
+### 4.2 - Build a Sitemap Index
+
+In order to use a Sitemap Index, you need to build sitemap files first. Check out 4.3, 4.4 and 4.5.
+
+<a name="block4.2.1"></a>
+#### Creation
+```php
+<?php
+use Sonrisa\Component\Sitemap\XMLSitemapIndex;
+```
+<a name="block4.2.2"></a>
+#### Output
+```xml
+```
+
+
+<a name="block4.3"></a>
+### 4.3 - Build a simple Sitemap
+
+<a name="block4.3.1"></a>
+#### Creation
 ```php
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
@@ -82,10 +103,13 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
 ```
-<a name="block4.3"></a>
-### 4.3 - Build a Sitemap with Images
+<a name="block4.3.2"></a>
+#### Output
 
-<a name="block4.3.1"></a>
+<a name="block4.4"></a>
+### 4.4 - Build a Sitemap with Images
+
+<a name="block4.4.1"></a>
 #### Creation
 ```php
 <?php
@@ -114,7 +138,7 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
 ```
-<a name="block4.3.2"></a>
+<a name="block4.4.2"></a>
 #### Output
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -137,23 +161,23 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>
 ```
 
-<a name="block4.4"></a>
-### 4.4 - Build a Sitemap with videos
-<a name="block4.4.1"></a>
+<a name="block4.5"></a>
+### 4.5 - Build a Sitemap with videos
+<a name="block4.5.1"></a>
 #### Creation
 ```php
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
 ```
-<a name="block4.4.2"></a>
+<a name="block4.5.2"></a>
 #### Output
 ```xml
 ```
 
-<a name="block4.5"></a>
-### 4.4 - Build a Media Sitemap
+<a name="block4.6"></a>
+### 4.6 - Build a Media Sitemap
 
-<a name="block4.5.1"></a>
+<a name="block4.6.1"></a>
 #### Creation
 ```php
 <?php
@@ -198,7 +222,7 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
 ```
-<a name="block4.5.2"></a>
+<a name="block4.6.2"></a>
 #### Output
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -229,12 +253,12 @@ $array = $sitemap->build()->get();
 </rss>
 ```
 
-<a name="block6"></a>
-## 6. Fully tested.
+<a name="block5"></a>
+## 5. Fully tested.
 Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.5 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
 
-<a name="block7"></a>
-## 7. Author
+<a name="block6"></a>
+## 6. Author
 Nil Portugués Calderó
  - <contact@nilportugues.com>
  - http://nilportugues.com
