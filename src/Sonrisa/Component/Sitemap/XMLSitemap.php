@@ -17,6 +17,7 @@ class XMLSitemap extends AbstractSitemap
     protected $data = array
     (
         'images' => array(),
+        'videos' => array(),
         'url'   => array(),
     );
 
@@ -115,6 +116,19 @@ class XMLSitemap extends AbstractSitemap
 
 
     /**
+     * @param string $url URL is used to append to the <url> the videoData added by $videoData
+     * @param array $videoData
+     *
+     * @return $this
+     */
+    public function addVideo($url,array $videoData)
+    {
+        //Must be valid: video:player_loc, video:content_loc
+        return $this;
+    }
+
+
+    /**
      * @return mixed
      */
     public function build()
@@ -126,9 +140,13 @@ class XMLSitemap extends AbstractSitemap
         $xmlImages='';
         if(!empty($this->data['images']))
         {
-            $xmlImages=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+            $xmlImages.=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
         }
 
+        if(!empty($this->data['videos']))
+        {
+            $xmlImages.=' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"';
+        }
 
         if (!empty($generatedFiles)) {
             foreach ($generatedFiles as $fileNumber => $urlSet) {
@@ -179,6 +197,9 @@ class XMLSitemap extends AbstractSitemap
 
                     //Append images if any
                     $xml[] = $this->buildUrlImageCollection($urlData['loc']);
+
+                    //Append videos if any
+                    $xml[] = $this->buildUrlVideoCollection($urlData['loc']);
 
                     //Close <url>
                     $xml[] = "\t".'</url>';
@@ -243,26 +264,17 @@ class XMLSitemap extends AbstractSitemap
         return '';
     }
 
+
     /**
-     * The date must conform to the W3C DATETIME format (http://www.w3.org/TR/NOTE-datetime).
-     * Example: 2005-05-10 Lastmod may also contain a timestamp or 2005-05-10T17:33:30+08:00
-     *
-     * @param string $value
-     * @param string $format
-     *
+     * Builds the XML for the video data.
+     * @param $url
      * @return string
      */
-    protected function validateUrlLastMod($value, $format)
+    protected function buildUrlVideoCollection($url)
     {
-        if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false ) {
-            return $date->format( 'c' );
-        }
-        if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
-            return $date->format( 'c' );
-        } else {
-            return '';
-        }
+
     }
+
 
     /**
      * @param string $value

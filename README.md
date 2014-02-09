@@ -4,7 +4,7 @@
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
 * [1.Installation](#block1)
-* [2. Build your sitemaps](#block2)
+* [2. Features](#block2)
 * [3. Automatic sitemap submission](#block3)
 * [4. Usage](#block4) 
     * [4.1. Submit to search engines](#block4.1)
@@ -31,14 +31,16 @@ Add the following to your `composer.json` file :
 "sonrisa/sitemap-component":"dev-master"
 ```
 <a name="block2"></a>
-## 2. Build your sitemaps
+## 2. Features
 This component builds sitemaps supported by the main search engines, Google and Bing, in xml and gzip formats.
 
 The **Sitemap Component** is able of building the following types of sitemaps:
 
-- **sitemap-index.xml**: A sitemap that contains sitemap.xml files.
+- **sitemap-index.xml**: A sitemap that serves as a index containing references to other sitemap.xml files.
 - **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet. Can be used for images and videos too.
-- **media.xml**: Media sitemaps, anything not being images and videos, such as word documents, pdf, etc. belong here. 
+- **media.xml**: Media sitemaps, media such as music and and any other playable file format not being video or images can used to populate this sitemap.
+
+The sitemap component is 100% with the standards, meaning that it follows strictly the 50k items / 10mB per files contrains.
  
 <a name="block3"></a>
 ## 3. Automatic sitemap submission
@@ -137,7 +139,16 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
 <a name="block4.4"></a>
 ### 4.4 - Build a Sitemap with videos
-
+<a name="block4.4.1"></a>
+#### Creation
+```php
+<?php
+use Sonrisa\Component\Sitemap\XMLSitemap;
+```
+<a name="block4.4.2"></a>
+#### Output
+```xml
+```
 
 <a name="block4.5"></a>
 ### 4.4 - Build a Media Sitemap

@@ -66,6 +66,27 @@ abstract class AbstractSitemap
     }
 
     /**
+     * The date must conform to the W3C DATETIME format (http://www.w3.org/TR/NOTE-datetime).
+     * Example: 2005-05-10 Lastmod may also contain a timestamp or 2005-05-10T17:33:30+08:00
+     *
+     * @param string $value
+     * @param string $format
+     *
+     * @return string
+     */
+    protected function validateUrlLastMod($value, $format)
+    {
+        if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false ) {
+            return $date->format( 'c' );
+        }
+        if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
+            return $date->format( 'c' );
+        } else {
+            return '';
+        }
+    }
+
+    /**
      * @param $filepath
      * @param $filename
      */
