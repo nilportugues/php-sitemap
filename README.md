@@ -8,17 +8,20 @@ Builds sitemaps for pages, images and media files and provides a class to submit
 * [3. Automatic sitemap submission](#block3)
 * [4. Usage](#block4) 
     * [4.1. Submit to search engines](#block4.1)
-    * [4.2. Build a Sitemap without Images](#block4.2)
+    * [4.2. Build a simple Sitemap](#block4.2)
       * [Creation](#block4.2.1)
       * [Output](#block4.2.2)
     * [4.3. Build a Sitemap with Images](#block4.3)
       * [Creation](#block4.3.1)
       * [Output](#block4.3.2)
-    * [4.4. Build a Media Sitemap](#block4.4)
-      * [Creation](#block4.4.1)
-      * [Output](#block4.4.2)
-* [5. Fully tested](#block5)
-* [6. Author](#block6)
+    * [4.4. Build a Sitemap with Videos](#block4.3)
+      * [Creation](#block4.3.1)
+      * [Output](#block4.3.2)
+    * [4.5. Build a Media Sitemap](#block4.5)
+      * [Creation](#block4.5.1)
+      * [Output](#block4.5.2)
+* [6. Fully tested](#block6)
+* [7. Author](#block7)
 
 <a name="block1"></a>
 ## 1.Installation
@@ -33,8 +36,9 @@ This component builds sitemaps supported by the main search engines, Google and 
 
 The **Sitemap Component** is able of building the following types of sitemaps:
 
-- **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet.
-- **media.xml**: Media sitemaps, videos files belong here. Usually used as for podcasts.
+- **sitemap-index.xml**: A sitemap that contains sitemap.xml files.
+- **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet. Can be used for images and videos too.
+- **media.xml**: Media sitemaps, anything not being images and videos, such as word documents, pdf, etc. belong here. 
  
 <a name="block3"></a>
 ## 3. Automatic sitemap submission
@@ -57,7 +61,7 @@ $status = Sitemap::submit('http://example.com/sitemap.xml');
 
 ```
 <a name="block4.2"></a>
-### 4.2 - Build a Sitemap without Images
+### 4.2 - Build a simple Sitemap
 ```php
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemap;
@@ -132,8 +136,13 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ```
 
 <a name="block4.4"></a>
+### 4.4 - Build a Sitemap with videos
+
+
+<a name="block4.5"></a>
 ### 4.4 - Build a Media Sitemap
 
+<a name="block4.5.1"></a>
 #### Creation
 ```php
 <?php
@@ -178,7 +187,7 @@ $status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 //var_dump($array) should be an array holding xml data.
 $array = $sitemap->build()->get();
 ```
-
+<a name="block4.5.2"></a>
 #### Output
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -209,12 +218,12 @@ $array = $sitemap->build()->get();
 </rss>
 ```
 
-<a name="block5"></a>
-## 5. Fully tested.
+<a name="block6"></a>
+## 6. Fully tested.
 Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.5 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
 
-<a name="block6"></a>
-## 6. Author
+<a name="block7"></a>
+## 7. Author
 Nil Portugués Calderó
  - <contact@nilportugues.com>
  - http://nilportugues.com
