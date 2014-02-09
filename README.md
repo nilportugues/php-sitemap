@@ -146,9 +146,9 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\MediaSitemap;
+use Sonrisa\Component\Sitemap\XMLMediaSitemap;
 
-$sitemap = new MediaSitemap();
+$sitemap = new XMLMediaSitemap();
 
 $sitemap->setTitle('Media RSS de ejemplo');
 $sitemap->setLink('http://www.example.com/ejemplos/mrss/');

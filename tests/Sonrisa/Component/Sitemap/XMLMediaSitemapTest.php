@@ -6,12 +6,12 @@
  * file that was distributed with this source code.
  */
 
-class MediaSitemapTest extends \PHPUnit_Framework_TestCase
+class XMLMediaSitemapTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\MediaSitemap();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLMediaSitemap();
     }
 
 
