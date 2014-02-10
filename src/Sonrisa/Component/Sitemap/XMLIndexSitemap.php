@@ -9,17 +9,9 @@ namespace Sonrisa\Component\Sitemap;
 
 use \Sonrisa\Component\Sitemap\Interfaces\AbstractSitemap as AbstractSitemap;
 
-class XMLSitemapIndex extends AbstractSitemap
+class XMLIndexSitemap extends AbstractSitemap
 {
-    /**
-     * @var array
-     */
-    protected $data = array();
 
-    /**
-     * @var array
-     */
-    protected $recordUrls = array();
 
     /**
      * Generates sitemap documents and stores them in $this->data, an array holding as many positions

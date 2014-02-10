@@ -23,6 +23,9 @@ Builds sitemaps for pages, images and media files and provides a class to submit
     * [4.6. Build a Media Sitemap (mRSS feed as a Sitemap)](#block4.6)
       * [Creation](#block4.6.1)
       * [Output](#block4.6.2)
+    * [4.7 - Build a Sitemap for News](#block4.7)
+      * [Creation](#block4.7.1)
+      * [Output](#block4.7.2)
 * [5. Fully tested](#block5)
 * [6. Author](#block6)
 
@@ -44,14 +47,18 @@ This component builds sitemaps supported by the main search engines, Google and 
 The **Sitemap Component** is able of building the following types of sitemaps:
 
 - **sitemap-index.xml**: A sitemap that serves as a index containing references to other sitemap.xml files.
-- **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet. Can be used for images and videos too.
-- **media.xml**: Media sitemaps, media such as music and and any other playable file format not being video or images can used to populate this RSS feed. More documentation can be found [here](https://support.google.com/webmasters/answer/183265?hl=en).
+- **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet.
+- **sitemap.images.xml**: Sitemap for for images.
+- **sitemap.videos.xml**: Sitemap for for videos.
+- **media.xml**: Alternative for video sitemaps . More documentation can be found [here](https://support.google.com/webmasters/answer/183265?hl=en).
+- **sitemap.news.xml**: Sitemap for news articles.
 
 The sitemap component follow 100% the standards, meaning that it follows strictly the contrains:
 
 - A sitemap file cannot contain **50000 items per file**.
-- A sitemap file cannot be larger than **10485760 Bytes uncompressed**.
- 
+- A sitemap file cannot be larger than **50 MBytes, uncompressed**.
+- An image sitemap file cannot contain more than **1000 images** per `<url>` element.
+
 <a name="block3"></a>
 ## 3. Automatic sitemap submission
 
@@ -81,9 +88,9 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLSitemapIndex;
+use Sonrisa\Component\Sitemap\XMLIndexSitemap;
 
-$sitemapIndex = new XMLSitemapIndex();
+$sitemapIndex = new XMLIndexSitemap();
 $sitemapIndex->addSitemap('http://www.example.com/sitemap.content.xml','2005-05-10T17:33:30+08:00');
 $sitemapIndex->addSitemap('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00');
 
@@ -135,7 +142,7 @@ files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLSitemap;
+use Sonrisa\Component\Sitemap\XMLImageSitemap;
 
 $sitemap = new XMLSitemap();
 $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
@@ -183,7 +190,7 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLSitemap;
+use Sonrisa\Component\Sitemap\XMLVideoSitemap;
 ```
 <a name="block4.5.2"></a>
 #### Output
@@ -260,6 +267,19 @@ $files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
   </item>
 </channel>
 </rss>
+```
+
+<a name="block4.7"></a>
+### 4.7 - Build a Sitemap for News
+<a name="block4.7.1"></a>
+#### Creation
+```php
+<?php
+use Sonrisa\Component\Sitemap\XMLNewsSitemap;
+```
+<a name="block4.7.2"></a>
+#### Output
+```xml
 ```
 
 <a name="block5"></a>

@@ -10,6 +10,16 @@ namespace Sonrisa\Component\Sitemap\Interfaces;
 abstract class AbstractSitemap
 {
     /**
+     * @var array
+     */
+    protected $data = array();
+
+    /**
+     * @var array
+     */
+    protected $recordUrls = array();
+
+    /**
      * Maximum amount of URLs elements per sitemap file.
      *
      * @var int
@@ -83,6 +93,41 @@ abstract class AbstractSitemap
             return htmlentities($date->format( 'c' ));
         } else {
             return '';
+        }
+    }
+
+    /**
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function validateUrlChangeFreq($value)
+    {
+        if ( in_array(trim(strtolower($value)),$this->changeFreqValid,true) ) {
+            return htmlentities($value);
+        }
+
+        return '';
+    }
+
+    /**
+     * The priority of a particular URL relative to other pages on the same site.
+     * The value for this element is a number between 0.0 and 1.0 where 0.0 identifies the lowest priority page(s).
+     * The default priority of a page is 0.5. Priority is used to select between pages on your site.
+     * Setting a priority of 1.0 for all URLs will not help you, as the relative priority of pages on your site is what will be considered.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    protected function validateUrlPriority($value)
+    {
+        preg_match('/([0-9].[0-9])/', $value, $matches);
+
+        if (!empty($matches[0]) && ($matches[0]<1.1) && ($matches[0]>0.0) ) {
+            return $matches[1];
+        } else {
+            return 0.5;
         }
     }
 

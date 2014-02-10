@@ -6,14 +6,14 @@
  * file that was distributed with this source code.
  */
 
-class XMLSitemapIndexTest extends \PHPUnit_Framework_TestCase
+class XMLIndexSitemapTest extends \PHPUnit_Framework_TestCase
 {
     protected $sitemap;
 
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLSitemapIndex();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLIndexSitemap();
     }
 
     public function testAddUrlWithValidUrlWithAllFields()
@@ -116,7 +116,7 @@ XML;
     public function testAddUrlAbovetheSitemapMaxSitemapElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
-        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\XMLSitemapIndex');
+        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\XMLIndexSitemap');
         $property = $reflectionClass->getProperty('max_items_per_sitemap');
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');

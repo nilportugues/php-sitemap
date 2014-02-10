@@ -1,6 +1,6 @@
 {
     "name":"sonrisa/sitemap-component",
-    "description":"Sitemap and RSS generator for Sonrisa Framework. Build for PHP5.3 and above.",
+    "description":"Sitemap generator for Sonrisa Framework. Build for PHP5.3 and above.",
     "type":"library",
     "homepage":"http://sonrisacms.com",
     "license":"MIT",

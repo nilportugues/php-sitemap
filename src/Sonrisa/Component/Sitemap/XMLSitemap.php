@@ -16,18 +16,13 @@ class XMLSitemap extends AbstractSitemap
      */
     protected $data = array
     (
-        'images' => array(),
-        'videos' => array(),
         'url'   => array(),
     );
-
-    protected $recordUrls = array();
 
     /**
      * @var array
      */
     protected $changeFreqValid = array("always","hourly","daily","weekly","monthly","yearly","never");
-
 
     /**
      * @return mixed
@@ -35,23 +30,12 @@ class XMLSitemap extends AbstractSitemap
     public function build()
     {
         $files = array();
-        $xmlImages='';
         $generatedFiles = $this->buildUrlSetCollection();
-
-        if(!empty($this->data['images']))
-        {
-            $xmlImages.=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
-        }
-
-        if(!empty($this->data['videos']))
-        {
-            $xmlImages.=' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"';
-        }
 
         if (!empty($generatedFiles)) {
             foreach ($generatedFiles as $fileNumber => $urlSet) {
                 $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
                         $urlSet."\n".
                         '</urlset>';
 
@@ -61,7 +45,7 @@ class XMLSitemap extends AbstractSitemap
         else
         {
             $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
                     '</urlset>';
 
             $files[0] = $xml;
@@ -111,68 +95,6 @@ class XMLSitemap extends AbstractSitemap
         return $this;
     }
 
-    /**
-     * XML Schema for the Image Sitemap extension.
-     * Help Center documentation for the Image Sitemap extension: http://www.google.com/support/webmasters/bin/answer.py?answer=178636
-     *
-     * @param string $url URL is used to append to the <url> the imageData added by $imageData
-     * @param array $imageData
-     *
-     * @return $this
-     */
-    public function addImage($url,array $imageData)
-    {
-        $imageLoc = NULL;
-
-        //Make sure the mandatory values are valid.
-        $url = $this->validateUrlLoc($url);
-        if(!empty($imageData['loc']))
-        {
-            $imageLoc = $this->validateUrlLoc($imageData['loc']);
-        }
-
-        if ( !empty($url) && !empty($imageLoc) )
-        {
-            $dataSet = array
-            (
-                'loc'             => $imageLoc,
-                'title'           => (!empty($imageData['title']))? htmlentities($imageData['title'])               : '',
-                'caption'         => (!empty($imageData['caption']))? htmlentities($imageData['caption'])           : '',
-                'geolocation'     => (!empty($imageData['geolocation']))? htmlentities($imageData['geolocation'])   : '',
-                'license'         => (!empty($imageData['license']))? htmlentities($imageData['license'])           : '',
-            );
-
-            //Remove empty fields
-            $dataSet = array_filter($dataSet);
-
-            if(empty($this->data['images'][$url]))
-            {
-                $this->data['images'][$url] = array();
-            }
-            // Check if there are less than 1001 images for this url
-            if(count($this->data['images'][$url]) <= $this->max_images_per_url)
-            {
-                //Let the data array know that for a URL there are images
-                $this->data['images'][$url][$imageLoc] = $dataSet;
-            }
-        }
-        return $this;
-    }
-
-
-    /**
-     * @param string $url URL is used to append to the <url> the videoData added by $videoData
-     * @param array $videoData
-     *
-     * @return $this
-     */
-    public function addVideo($url,array $videoData)
-    {
-        //Must be valid: video:player_loc, video:content_loc
-        return $this;
-    }
-
-
 
 
     /**
@@ -199,13 +121,7 @@ class XMLSitemap extends AbstractSitemap
                     $xml[] = (!empty($urlData['changefreq']))?  "\t\t<changefreq>{$urlData['changefreq']}</changefreq>" : '';
                     $xml[] = (!empty($urlData['priority']))?    "\t\t<priority>{$urlData['priority']}</priority>"       : '';
 
-                    //Append images if any
-                    $xml[] = $this->buildUrlImageCollection($urlData['loc']);
-
-                    //Append videos if any
-                    $xml[] = $this->buildUrlVideoCollection($urlData['loc']);
-
-                    //Close <url>
+                     //Close <url>
                     $xml[] = "\t".'</url>';
 
                     //Remove empty fields
@@ -232,86 +148,4 @@ class XMLSitemap extends AbstractSitemap
 
     }
 
-    /**
-     * Builds the XML for the image data.
-     * @param $url
-     * @return string
-     */
-    protected function buildUrlImageCollection($url)
-    {
-        if(!empty( $this->data['images'][$url]))
-        {
-            $images = array();
-
-            foreach( $this->data['images'][$url] as $imageData )
-            {
-                $xml = array();
-
-                $xml[] = "\t\t".'<image:image>';
-
-                $xml[] = (!empty($imageData['loc']))         ? "\t\t\t".'<image:loc><![CDATA['.$imageData['loc'].']]></image:loc>' : '';
-                $xml[] = (!empty($imageData['title']))       ? "\t\t\t".'<image:title><![CDATA['.$imageData['title'].']]></image:title>' : '';
-                $xml[] = (!empty($imageData['caption']))     ? "\t\t\t".'<image:caption><![CDATA['.$imageData['caption'].']]></image:caption>' : '';
-                $xml[] = (!empty($imageData['geolocation'])) ? "\t\t\t".'<image:geolocation><![CDATA['.$imageData['geolocation'].']]></image:geolocation>' : '';
-                $xml[] = (!empty($imageData['license']))     ? "\t\t\t".'<image:license><![CDATA['.$imageData['license'].']]></image:license>' : '';
-
-                $xml[] = "\t\t".'</image:image>';
-
-                //Remove empty fields
-                $xml = array_filter($xml);
-
-                //Build string
-                $images[] = implode("\n",$xml);
-            }
-            return implode("\n",$images);
-        }
-        return '';
-    }
-
-
-    /**
-     * Builds the XML for the video data.
-     * @param $url
-     * @return string
-     */
-    protected function buildUrlVideoCollection($url)
-    {
-
-    }
-
-
-    /**
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function validateUrlChangeFreq($value)
-    {
-        if ( in_array(trim(strtolower($value)),$this->changeFreqValid,true) ) {
-            return htmlentities($value);
-        }
-
-        return '';
-    }
-
-    /**
-     * The priority of a particular URL relative to other pages on the same site.
-     * The value for this element is a number between 0.0 and 1.0 where 0.0 identifies the lowest priority page(s).
-     * The default priority of a page is 0.5. Priority is used to select between pages on your site.
-     * Setting a priority of 1.0 for all URLs will not help you, as the relative priority of pages on your site is what will be considered.
-     *
-     * @param string $value
-     *
-     * @return string
-     */
-    protected function validateUrlPriority($value)
-    {
-        preg_match('/([0-9].[0-9])/', $value, $matches);
-
-        if (!empty($matches[0]) && ($matches[0]<1.1) && ($matches[0]>0.0) ) {
-            return $matches[1];
-        } else {
-            return 0.5;
-        }
-    }
 }

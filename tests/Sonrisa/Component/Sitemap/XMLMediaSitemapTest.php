@@ -385,6 +385,43 @@ XML;
         $this->assertEquals($expected,$files[0]);
     }
 
+
+    public function testValidMediaSitemapWillAllFieldsExceptItemHeightAndWidth()
+    {
+        $expected=<<<XML
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
+<channel>
+\t<title>Media RSS de ejemplo</title>
+\t<link>http://www.example.com/ejemplos/mrss/</link>
+\t<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
+\t\t<link>http://www.example.com/examples/mrss/example.html</link>
+\t\t<media:content type="video/x-flv" duration="120">
+\t\t\t<media:player url="http://www.example.com/shows/example/video.swf?flash_params" />
+\t\t\t<media:title>Barbacoas en verano</media:title>
+\t\t\t<media:thumbnail url="http://www.example.com/examples/mrss/example.png"/>
+\t\t</media:content>
+\t</item>
+</channel>
+</rss>
+XML;
+        $this->sitemap->setTitle('Media RSS de ejemplo');
+        $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
+
+        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        (
+            'mimetype'      =>  'video/x-flv',
+            'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
+            'duration'      =>  120,
+            'title'         =>  'Barbacoas en verano',
+            'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png'
+        ));
+
+
+        $files = $this->sitemap->build()->get();
+        $this->assertEquals($expected,$files[0]);
+    }
+
     public function testValidMediaSitemapWillAllFieldsExceptItemThumbnail()
     {
         $expected=<<<XML

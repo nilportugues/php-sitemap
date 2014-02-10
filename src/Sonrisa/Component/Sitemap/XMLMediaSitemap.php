@@ -26,16 +26,6 @@ class XMLMediaSitemap extends AbstractSitemap
      */
     protected $description;
 
-    /**
-     * @var array
-     */
-    protected $data = array();
-
-    /**
-     * @var array
-     */
-    protected $recordUrls = array();
-
 
     /**
      * @param $title
@@ -263,11 +253,6 @@ class XMLMediaSitemap extends AbstractSitemap
         {
             return implode("\n",$data);
         }
-        else
-        {
-            return '';
-        }
-
     }
 
 }
