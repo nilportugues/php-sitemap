@@ -9,6 +9,8 @@ Builds sitemaps for pages, images and media files and provides a class to submit
 * [4. Usage](#block4) 
     * [4.1. Submit to search engines](#block4.1)
     * [4.2. Build a Sitemap Index](#block4.2)
+      * [Creation](#block4.2.1)
+      * [Output](#block4.2.2)
     * [4.3. Build a simple Sitemap](#block4.3)
       * [Creation](#block4.3.1)
       * [Output](#block4.3.2)
@@ -18,7 +20,7 @@ Builds sitemaps for pages, images and media files and provides a class to submit
     * [4.5. Build a Sitemap with Videos](#block4.5)
       * [Creation](#block4.5.1)
       * [Output](#block4.5.2)
-    * [4.6. Build a Media Sitemap](#block4.6)
+    * [4.6. Build a Media Sitemap (mRSS feed as a Sitemap)](#block4.6)
       * [Creation](#block4.6.1)
       * [Output](#block4.6.2)
 * [5. Fully tested](#block5)
@@ -29,7 +31,11 @@ Builds sitemaps for pages, images and media files and provides a class to submit
 Add the following to your `composer.json` file :
 
 ```js
-"sonrisa/sitemap-component":"dev-master"
+{
+    "require": {
+        "sonrisa/sitemap-component":"dev-master"
+    }
+}
 ```
 <a name="block2"></a>
 ## 2. Features
@@ -39,9 +45,12 @@ The **Sitemap Component** is able of building the following types of sitemaps:
 
 - **sitemap-index.xml**: A sitemap that serves as a index containing references to other sitemap.xml files.
 - **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet. Can be used for images and videos too.
-- **media.xml**: Media sitemaps, media such as music and and any other playable file format not being video or images can used to populate this sitemap.
+- **media.xml**: Media sitemaps, media such as music and and any other playable file format not being video or images can used to populate this RSS feed. More documentation can be found [here](https://support.google.com/webmasters/answer/183265?hl=en).
 
-The sitemap component is 100% with the standards, meaning that it follows strictly the 50k items / 10mB per files contrains.
+The sitemap component follow 100% the standards, meaning that it follows strictly the contrains:
+
+- A sitemap file cannot contain **50000 items per file**.
+- A sitemap file cannot be larger than **10485760 Bytes uncompressed**.
  
 <a name="block3"></a>
 ## 3. Automatic sitemap submission
@@ -78,13 +87,9 @@ $sitemapIndex = new XMLSitemapIndex();
 $sitemapIndex->addSitemap('http://www.example.com/sitemap.content.xml','2005-05-10T17:33:30+08:00');
 $sitemapIndex->addSitemap('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00');
 
-//Option 1: Output status of generating sitemap and writing to disk.
-//var_dump($status) should be true
-$status = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
+//var_dump($files) should be an array holding the sitemap files created.
+$files = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
 
-//Option 2: Output the generated sitemap as an array.
-//var_dump($array) should be an array holding xml data.
-$array = $sitemapIndex->build()->get();
 ```
 <a name="block4.2.2"></a>
 #### Output
@@ -113,18 +118,12 @@ $array = $sitemapIndex->build()->get();
 use Sonrisa\Component\Sitemap\XMLSitemap;
 
 $sitemap = new XMLSitemap();
-
 $sitemap->addUrl('http://www.example.com/','1.0','daily','2014-05-10T17:33:30+08:00');
 $sitemap->addUrl('http://www.example.com/blog','0.9','monthly','2014-05-10T17:33:30+08:00');
 $sitemap->addUrl('http://www.example.com/contact','0.8','never','2014-05-10T17:33:30+08:00');
 
-//Option 1: Output status of generating sitemap and writing to disk.
-//var_dump($status) should be true
-$status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
-
-//Option 2: Output the generated sitemap as an array.
-//var_dump($array) should be an array holding xml data.
-$array = $sitemap->build()->get();
+//var_dump($files) should be an array holding the sitemap files created.
+files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 ```
 <a name="block4.3.2"></a>
 #### Output
@@ -139,7 +138,6 @@ $array = $sitemap->build()->get();
 use Sonrisa\Component\Sitemap\XMLSitemap;
 
 $sitemap = new XMLSitemap();
-
 $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
 
 //Add images to the sitemap by relating them to a Url.
@@ -153,13 +151,8 @@ $this->sitemap->addImage('http://www.example.com/',array(
  'title' => 'Main image' 
 ));
 
-//Option 1: Output status of generating sitemap and writing to disk.
-//var_dump($status) should be true
-$status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
-
-//Option 2: Output the generated sitemap as an array.
-//var_dump($array) should be an array holding xml data.
-$array = $sitemap->build()->get();
+//var_dump($files) should be an array holding the sitemap files created.
+$files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 ```
 <a name="block4.4.2"></a>
 #### Output
@@ -198,7 +191,7 @@ use Sonrisa\Component\Sitemap\XMLSitemap;
 ```
 
 <a name="block4.6"></a>
-### 4.6 - Build a Media Sitemap
+### 4.6 - Build a Media Sitemap (mRSS feed as a Sitemap)
 
 <a name="block4.6.1"></a>
 #### Creation
@@ -207,7 +200,6 @@ use Sonrisa\Component\Sitemap\XMLSitemap;
 use Sonrisa\Component\Sitemap\XMLMediaSitemap;
 
 $sitemap = new XMLMediaSitemap();
-
 $sitemap->setTitle('Media RSS de ejemplo');
 $sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 $sitemap->setDescription('Ejemplo de MRSS');
@@ -236,14 +228,8 @@ $sitemap->addItem('http://www.example.com/examples/mrss/example2.html',array
     'width'         =>  160,
 ));
 
-
-//Option 1: Output status of generating sitemap and writing to disk.
-//var_dump($status) should be true
-$status = $sitemap->build()->write('path/to/public/www','sitemap.xml');
-
-//Option 2: Output the generated sitemap as an array.
-//var_dump($array) should be an array holding xml data.
-$array = $sitemap->build()->get();
+//var_dump($files) should be an array holding the sitemap files created.
+$files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 ```
 <a name="block4.6.2"></a>
 #### Output
