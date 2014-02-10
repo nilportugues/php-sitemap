@@ -33,8 +33,9 @@ class XMLSitemapIndex extends AbstractSitemap
 
         if (!empty($generatedFiles)) {
             foreach ($generatedFiles as $fileNumber => $sitemapSet) {
+
                 $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
+                        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n".
                         $sitemapSet."\n".
                         '</sitemapindex>';
 
@@ -42,7 +43,7 @@ class XMLSitemapIndex extends AbstractSitemap
             }
         } else {
             $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n"
+                    '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n"
                     .'</sitemapindex>';
 
             $files[0] = $xml;
@@ -98,6 +99,38 @@ class XMLSitemapIndex extends AbstractSitemap
      */
     protected function buildSitemapSetCollection()
     {
+        $files = array(0 => '');
+        if ( !empty($this->data) )
+        {
+            $i = 0;
+            $url = 0;
 
+            foreach($this->data as $sitemapSet)
+            {
+                $xml = array();
+
+                $xml[] = "\t".'<sitemap>';
+                $xml[] = (!empty($sitemapSet['loc']))?         "\t\t<loc>{$sitemapSet['loc']}</loc>"                      : '';
+                $xml[] = (!empty($sitemapSet['lastmod']))?     "\t\t<lastmod>{$sitemapSet['lastmod']}</lastmod>"          : '';
+                $xml[] = "\t".'</sitemap>';
+                //Remove empty fields
+                $xml = array_filter($xml);
+
+                //Build string
+                $files[$i][] = implode("\n",$xml);
+
+                //If amount of $url added is above the limit, increment the file counter.
+                if ($url > $this->max_items_per_sitemap) {
+                    $files[$i] = implode("\n",$files[$i]);
+                    $i++;
+                    $url=0;
+                }
+                $url++;
+            }
+            $files[$i] = implode("\n",$files[$i]);
+
+            return $files;
+        }
+        return '';
     }
 }
