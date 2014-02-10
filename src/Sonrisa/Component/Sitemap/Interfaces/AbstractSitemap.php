@@ -59,7 +59,7 @@ abstract class AbstractSitemap
     protected function validateUrlLoc($value)
     {
         if ( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
-            return $value;
+            return htmlentities($value);
         }
 
         return '';
@@ -77,10 +77,10 @@ abstract class AbstractSitemap
     protected function validateUrlLastMod($value, $format)
     {
         if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false ) {
-            return $date->format( 'c' );
+            return htmlentities($date->format( 'c' ));
         }
         if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
-            return $date->format( 'c' );
+            return htmlentities($date->format( 'c' ));
         } else {
             return '';
         }

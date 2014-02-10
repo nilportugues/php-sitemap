@@ -48,7 +48,7 @@ class XMLSitemap extends AbstractSitemap
 
             $dataSet = array
             (
-                'loc'           => $url,
+                'loc'           => htmlentities($url),
                 'lastmod'       => $this->validateUrlLastMod($lastmod,$lastmodformat),
                 'changefreq'    => $this->validateUrlChangeFreq($changefreq),
                 'priority'      => $this->validateUrlPriority($priority),
@@ -91,10 +91,10 @@ class XMLSitemap extends AbstractSitemap
             $dataSet = array
             (
                 'loc'             => $imageLoc,
-                'title'           => (!empty($imageData['title']))? $imageData['title']               : '',
-                'caption'         => (!empty($imageData['caption']))? $imageData['caption']           : '',
-                'geolocation'     => (!empty($imageData['geolocation']))? $imageData['geolocation']   : '',
-                'license'         => (!empty($imageData['license']))? $imageData['license']           : '',
+                'title'           => (!empty($imageData['title']))? htmlentities($imageData['title'])               : '',
+                'caption'         => (!empty($imageData['caption']))? htmlentities($imageData['caption'])           : '',
+                'geolocation'     => (!empty($imageData['geolocation']))? htmlentities($imageData['geolocation'])   : '',
+                'license'         => (!empty($imageData['license']))? htmlentities($imageData['license'])           : '',
             );
 
             //Remove empty fields
@@ -284,7 +284,7 @@ class XMLSitemap extends AbstractSitemap
     protected function validateUrlChangeFreq($value)
     {
         if ( in_array(trim(strtolower($value)),$this->changeFreqValid,true) ) {
-            return $value;
+            return htmlentities($value);
         }
 
         return '';

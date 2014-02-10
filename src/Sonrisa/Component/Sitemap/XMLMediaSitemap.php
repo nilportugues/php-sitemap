@@ -89,14 +89,14 @@ class XMLMediaSitemap extends AbstractSitemap
             $dataSet = array
             (
                 'link'          =>  $url,
-                'player'        =>  ( !empty($media['player']) && ( $player = $this->validateUrlLoc($media['player']))!=false ) ? $player : '',
-                'duration'      =>  ( !empty($media['duration']) && filter_var($media['duration'],FILTER_SANITIZE_NUMBER_INT))? $media['duration'] : '',
-                'title'         =>  ( !empty($media['title']) )? $media['title'] : '',
-                'mimetype'      =>  ( !empty($media['mimetype']) )? $media['mimetype'] : '',
-                'description'   =>  ( !empty($media['description']) )? $media['description'] : '',
-                'thumbnail'     =>  ( !empty($media['thumbnail']) && ( $thumbnail = $this->validateUrlLoc($media['thumbnail']))!=false ) ? $thumbnail : '',
-                'height'        =>  ( !empty($media['height']) && filter_var($media['height'],FILTER_SANITIZE_NUMBER_INT))? $media['height'] : '',
-                'width'         =>  ( !empty($media['width']) && filter_var($media['width'],FILTER_SANITIZE_NUMBER_INT))? $media['width'] : '',
+                'player'        =>  ( !empty($media['player']) && ( $player = $this->validateUrlLoc($media['player']))!=false ) ? htmlentities($player) : '',
+                'duration'      =>  ( !empty($media['duration']) && filter_var($media['duration'],FILTER_SANITIZE_NUMBER_INT))? htmlentities($media['duration']) : '',
+                'title'         =>  ( !empty($media['title']) )? htmlentities($media['title']) : '',
+                'mimetype'      =>  ( !empty($media['mimetype']) )? htmlentities($media['mimetype']) : '',
+                'description'   =>  ( !empty($media['description']) )? htmlentities($media['description']) : '',
+                'thumbnail'     =>  ( !empty($media['thumbnail']) && ( $thumbnail = $this->validateUrlLoc($media['thumbnail']))!=false ) ? htmlentities($thumbnail) : '',
+                'height'        =>  ( !empty($media['height']) && filter_var($media['height'],FILTER_SANITIZE_NUMBER_INT))? htmlentities($media['height']) : '',
+                'width'         =>  ( !empty($media['width']) && filter_var($media['width'],FILTER_SANITIZE_NUMBER_INT))? htmlentities($media['width']) : '',
             );
 
             //Remove empty fields
