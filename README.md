@@ -73,10 +73,33 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 ```php
 <?php
 use Sonrisa\Component\Sitemap\XMLSitemapIndex;
+
+$sitemapIndex = new XMLSitemapIndex();
+$sitemapIndex->addSitemap('http://www.example.com/sitemap.content.xml','2005-05-10T17:33:30+08:00');
+$sitemapIndex->addSitemap('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00');
+
+//Option 1: Output status of generating sitemap and writing to disk.
+//var_dump($status) should be true
+$status = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
+
+//Option 2: Output the generated sitemap as an array.
+//var_dump($array) should be an array holding xml data.
+$array = $sitemapIndex->build()->get();
 ```
 <a name="block4.2.2"></a>
 #### Output
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>http://www.example.com/sitemap.content.xml</loc>
+    <lastmod>2005-05-10T17:33:30+08:00</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>http://www.example.com/sitemap.media.xml</loc>
+    <lastmod>2005-05-10T17:33:30+08:00</lastmod>
+  </sitemap>
+</sitemapindex>
 ```
 
 

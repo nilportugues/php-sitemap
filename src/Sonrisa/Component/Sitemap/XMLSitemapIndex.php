@@ -74,7 +74,7 @@ class XMLSitemapIndex extends AbstractSitemap
 
             $dataSet = array
             (
-                'loc'           => $url,
+                'loc'           => htmlentities($url),
                 'lastmod'       => $this->validateUrlLastMod($lastmod,$lastmodformat),
             );
 

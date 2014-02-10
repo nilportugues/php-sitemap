@@ -28,6 +28,51 @@ class XMLSitemap extends AbstractSitemap
      */
     protected $changeFreqValid = array("always","hourly","daily","weekly","monthly","yearly","never");
 
+
+    /**
+     * @return mixed
+     */
+    public function build()
+    {
+        $files = array();
+        $xmlImages='';
+        $generatedFiles = $this->buildUrlSetCollection();
+
+        if(!empty($this->data['images']))
+        {
+            $xmlImages.=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
+        }
+
+        if(!empty($this->data['videos']))
+        {
+            $xmlImages.=' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"';
+        }
+
+        if (!empty($generatedFiles)) {
+            foreach ($generatedFiles as $fileNumber => $urlSet) {
+                $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                        $urlSet."\n".
+                        '</urlset>';
+
+                $files[$fileNumber] = $xml;
+            }
+        }
+        else
+        {
+            $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                    '</urlset>';
+
+            $files[0] = $xml;
+        }
+
+        //Save files array and empty url buffer
+        $this->files = $files;
+
+        return $this;
+    }
+
     /**
      * @param  string $url
      * @param  string $priority
@@ -128,48 +173,7 @@ class XMLSitemap extends AbstractSitemap
     }
 
 
-    /**
-     * @return mixed
-     */
-    public function build()
-    {
-        $files = array();
 
-        $generatedFiles = $this->buildUrlSetCollection();
-
-        $xmlImages='';
-        if(!empty($this->data['images']))
-        {
-            $xmlImages.=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
-        }
-
-        if(!empty($this->data['videos']))
-        {
-            $xmlImages.=' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1"';
-        }
-
-        if (!empty($generatedFiles)) {
-            foreach ($generatedFiles as $fileNumber => $urlSet) {
-                $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
-                        $urlSet."\n".
-                        '</urlset>';
-
-                $files[$fileNumber] = $xml;
-            }
-        } else {
-            $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
-                    '</urlset>';
-
-            $files[0] = $xml;
-        }
-
-        //Save files array and empty url buffer
-        $this->files = $files;
-
-        return $this;
-    }
 
     /**
      * Loop through $this->data['url'] and build Sitemap.xml
