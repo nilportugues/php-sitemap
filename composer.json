@@ -14,8 +14,7 @@
         }
     ],
     "require":{
-        "php":">=5.3.0",
-        "sonrisa/filesystem-component":"dev-master"
+        "php":">=5.3.0"
     },
     "require-dev":{
         "phpunit/phpunit":"3.7.*"
