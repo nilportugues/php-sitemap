@@ -67,7 +67,7 @@ class XMLIndexSitemap extends AbstractSitemap
             $dataSet = array
             (
                 'loc'           => htmlentities($url),
-                'lastmod'       => $this->validateUrlLastMod($lastmod,$lastmodformat),
+                'lastmod'       => $this->validateDate($lastmod,$lastmodformat),
             );
 
             //Remove empty fields

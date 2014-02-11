@@ -84,7 +84,7 @@ abstract class AbstractSitemap
      *
      * @return string
      */
-    protected function validateUrlLastMod($value, $format)
+    protected function validateDate($value, $format)
     {
         if ( ($date = \DateTime::createFromFormat( $format, $value )) !== false ) {
             return htmlentities($date->format( 'c' ));

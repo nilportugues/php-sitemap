@@ -29,21 +29,46 @@ class XMLVideoSitemap extends XMLSitemap
         //Make sure the mandatory values are valid.
         $url = $this->validateUrlLoc($url);
 
-        if(!empty($videoData['player_loc']) && !empty($videoData['content_loc']))
+        if( !empty($url) && !empty($videoData['player_loc']) && !empty($videoData['content_loc']))
         {
             $playerLoc = $this->validateUrlLoc($videoData['player_loc']);
             $contentLoc = $this->validateUrlLoc($videoData['content_loc']);
 
-            if ( !empty($url) && !empty($playerLoc) && !empty($contentLoc) )
+            if ( !empty($playerLoc) && !empty($contentLoc) )
             {
                 $dataSet = array
                 (
-
+                    'video'                 => '',
+                    'thumbnail_loc'         => '',
+                    'title'                 => '',
+                    'description'           => '',
+                    'content_loc'           => $contentLoc,
+                    'player_loc'            => $playerLoc,
+                    'duration'              => '',
+                    'expiration_date'       => $this->validateDate($videoData['expiration_date']),
+                    'rating'                => '',
+                    'view_count'            => '',
+                    'publication_date'      => $this->validateDate($videoData['publication_date']),
+                    'family_friendly'       => '',
+                    'tag'                   => '',
+                    'restriction'           => '',
+                    'gallery_loc'           => '',
+                    'requires_subscription' => '',
+                    'uploader'              => '',
+                    'platform'              => '',
+                    'live'                  => '',
                 );
 
                 $dataSet = array_filter($dataSet);
+
+
             }
         }
         return $this;
+    }
+
+    protected function validateDuration($int)
+    {
+        //value must range from 1 second to 8 hours
     }
 } 

@@ -78,7 +78,7 @@ class XMLSitemap extends AbstractSitemap
             $dataSet = array
             (
                 'loc'           => htmlentities($url),
-                'lastmod'       => $this->validateUrlLastMod($lastmod,$lastmodformat),
+                'lastmod'       => $this->validateDate($lastmod,$lastmodformat),
                 'changefreq'    => $this->validateUrlChangeFreq($changefreq),
                 'priority'      => $this->validateUrlPriority($priority),
             );
