@@ -119,7 +119,7 @@ class XMLVideoSitemap extends XMLSitemap
                 'platform'              => (!empty($videoData['platform'])) ? $this->validatePlatform($videoData['platform']) : '',
                 'platform_access'       => (!empty($videoData['platform_access'])) ? $this->validateRestrictionAccess($videoData['platform_access']) : '',
                 'live'                  => (!empty($videoData['live'])) ? $this->validateYesNo($videoData['live']) : '',
-                
+
                 //are arrays
                 'tag'                   => (!empty($videoData['tag'])) ? $this->validateTags($videoData['tag']) : array(),
                 'price'                 => (!empty($videoData['price'])) ? $this->validatePrices($videoData['price']) : array(),
@@ -134,18 +134,77 @@ class XMLVideoSitemap extends XMLSitemap
 
     protected function validatePrices(array $prices)
     {
+        $valid = array();
         foreach($prices as &$value)
         {
             if(is_array($value))
             {
-                $value['price'];
-                $value['currency'];
-                $value['resolution'];
-                $value['type'];
+                if
+                (
+                    !empty($value['price']) && !empty($value['currency']) &&
+                    ( filter_var($value['price'], FILTER_VALIDATE_FLOAT) || filter_var($value['price'], FILTER_VALIDATE_INT) ) &&
+                    array_search(strtoupper($value['currency']),$this->iso_4217,true)
+                )
+                {
+                    $value['currency'] = strtoupper($value['currency']);
 
-                $value = array_filter($value);
+                    if(!empty($value['resolution']))
+                    {
+                        $value['resolution'] = $this->validatePriceResolution($value['resolution']);
+                    }
+
+                    if(!empty($value['type']))
+                    {
+                        $value['type'] = $this->validatePriceType($value['type']);
+                    }
+
+                    $value = array_filter($value);
+                    $valid = $value;
+                }
+
             }
         }
+        return $valid;
+    }
+
+    /**
+     * @param $resolution
+     * @return string
+     */
+    protected function validatePriceResolution($resolution)
+    {
+        $resolution = strtoupper($resolution);
+        if(strtoupper($resolution) == 'HD')
+        {
+            return 'HD';
+        }
+
+        if(strtoupper($resolution) == 'SD')
+        {
+            return 'SD';
+        }
+
+        return '';
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    protected function validatePriceType($type)
+    {
+        $type = strtolower($type);
+        if(strtolower($type) == 'rent')
+        {
+            return 'rent';
+        }
+
+        if(strtolower($type) == 'own')
+        {
+            return 'own';
+        }
+
+        return 'own';
     }
 
     /**
