@@ -76,6 +76,129 @@ class XMLVideoSitemap extends XMLSitemap
     );
 
     /**
+     * @return mixed
+     */
+    public function build()
+    {
+        $files = array();
+        $xmlImages='';
+        $generatedFiles = $this->buildUrlSetCollection();
+
+        if(!empty($this->data['videos']))
+        {
+            $xmlImages.=' xmlns:image="http://www.google.com/schemas/sitemap-video/1.1"';
+        }
+
+        if (!empty($generatedFiles)) {
+            foreach ($generatedFiles as $fileNumber => $urlSet) {
+                $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                        $urlSet."\n".
+                        '</urlset>';
+
+                $files[$fileNumber] = $xml;
+            }
+        }
+        else
+        {
+            $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                    '</urlset>';
+
+            $files[0] = $xml;
+        }
+
+        //Save files array and empty url buffer
+        $this->files = $files;
+
+        return $this;
+    }
+
+    /**
+     * Loop through $this->data['url'] and build Sitemap.xml
+     * taking into account each urlset can hold a max of 50.000 url elements
+     *
+     * @return array
+     */
+    protected function buildUrlSetCollection()
+    {
+        $files = array(0 => '');
+
+        if (!empty($this->data['url'])) {
+            $i = 0;
+            $url = 0;
+            foreach ($this->data['url'] as $prioritySets) {
+                foreach ($prioritySets as $urlData) {
+                    $xml = array();
+
+                    //Open <url>
+                    $xml[] = "\t".'<url>';
+                    $xml[] = (!empty($urlData['loc']))?         "\t\t<loc>{$urlData['loc']}</loc>"                      : '';
+
+                    //Append images if any
+                    $xml[] = $this->buildUrlVideoCollection($urlData['loc']);
+
+                    //Close <url>
+                    $xml[] = "\t".'</url>';
+
+                    //Remove empty fields
+                    $xml = array_filter($xml);
+
+                    //Build string
+                    $files[$i][] = implode("\n",$xml);
+
+                    //If amount of $url added is above the limit, increment the file counter.
+                    if ($url > $this->max_items_per_sitemap) {
+                        $files[$i] = implode("\n",$files[$i]);
+                        $i++;
+                        $url=0;
+                    }
+                    $url++;
+                }
+                $files[$i] = implode("\n",$files[$i]);
+            }
+
+            return $files;
+        }
+
+        return '';
+
+    }
+
+    /**
+     * Builds the XML for the video data.
+     * @param $url
+     * @return string
+     */
+    protected function buildUrlVideoCollection($url)
+    {
+        if(!empty( $this->data['videos'][$url]))
+        {
+            $videos = array();
+
+            foreach( $this->data['videos'][$url] as $videosData )
+            {
+                $xml = array();
+
+                $xml[] = "\t\t".'<video:video>';
+
+               // $xml[] = (!empty($videosData['loc']))         ? "\t\t\t".'<image:loc><![CDATA['.$videosData['loc'].']]></image:loc>' : '';
+
+
+                $xml[] = "\t\t".'</video:video>';
+
+                //Remove empty fields
+                $xml = array_filter($xml);
+
+                //Build string
+                $videos[] = implode("\n",$xml);
+            }
+            return implode("\n",$videos);
+        }
+        return '';
+    }
+
+    /**
      * @param string $url URL is used to append to the <url> the videoData added by $videoData
      * @param array $videoData
      *
