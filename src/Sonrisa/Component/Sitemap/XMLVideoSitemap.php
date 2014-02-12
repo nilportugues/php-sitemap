@@ -93,6 +93,8 @@ class XMLVideoSitemap extends XMLSitemap
         //Validate all remaining data.
         if( (!empty($url) && (!empty($playerLoc) || !empty($contentLoc)) && !empty($thumbnail_loc) && !empty($title)) )
         {
+            $this->recordUrls[] = $url;
+
             //Date validation
             $expiration_date = $this->validateVideoDate($videoData['expiration_date']);
             $publication_date = $this->validateVideoDate($videoData['publication_date']);
@@ -127,6 +129,17 @@ class XMLVideoSitemap extends XMLSitemap
 
             $dataSet = array_filter($dataSet);
 
+            if(empty($this->data['videos'][$url]))
+            {
+                $this->data['videos'][$url] = array();
+            }
+            
+            // Check if there are less than 1001 videos for this url
+            if(count($this->data['videos'][$url]) <= $this->max_images_per_url)
+            {
+                //Let the data array know that for a URL there are videos
+                $this->data['videos'][$url][] = $dataSet;
+            }
 
         }
         return $this;
