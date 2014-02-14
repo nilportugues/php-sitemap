@@ -48,7 +48,12 @@ class IndexItem extends AbstractItem
             $xml[] = "\t".'</sitemap>';
 
             $xml = array_filter($xml);
-            return implode("\n",$xml);
+
+            if(!empty($xml))
+            {
+                return implode("\n",$xml);
+            }
+            
         }
         return '';
     }
