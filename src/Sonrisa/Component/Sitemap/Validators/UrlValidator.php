@@ -29,6 +29,7 @@ class UrlValidator extends AbstractValidator
 
     /**
      * @param $changefreq
+     *
      * @return string
      */
     public static function validateChangefreq($changefreq)
@@ -56,8 +57,7 @@ class UrlValidator extends AbstractValidator
 
         if (!empty($matches[0]) && ($matches[0]<1.1) && ($matches[0]>0.0) ) {
             return $matches[1];
-        } else {
-            return 0.5;
-        }
+        } 
+        return "0.5";
     }
 } 

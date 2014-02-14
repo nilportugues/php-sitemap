@@ -40,13 +40,17 @@ abstract class AbstractValidator
      */
     protected static function validateDate($value)
     {
-        if ( ($date = \DateTime::createFromFormat( 'c', $value )) !== false ) {
+        if ( ($date = \DateTime::createFromFormat( 'Y-m-d\TH:i:sP', $value )) !== false ) {
             return htmlentities($date->format( 'c' ));
         }
 
         if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
             return htmlentities($date->format( 'c' ));
         }
+
+        if ( ($date = \DateTime::createFromFormat( 'c', $value )) !== false ) {
+            return htmlentities($date->format( 'c' ));
+        }        
         return '';
     }
 } 

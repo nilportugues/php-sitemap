@@ -6,14 +6,14 @@
  * file that was distributed with this source code.
  */
 
-class XMLSitemapTest extends \PHPUnit_Framework_TestCase
+class SitemapTest extends \PHPUnit_Framework_TestCase
 {
     protected $sitemap;
 
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLSitemap();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\Sitemap();
     }
 
     public function testAddUrlWithValidUrlWithAllFields()
@@ -29,31 +29,13 @@ class XMLSitemapTest extends \PHPUnit_Framework_TestCase
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
 
-    public function testAddUrlWithValidUrlWithAllFieldsCustomDate()
-    {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t\t<lastmod>2012-07-05T10:43:00+02:00</lastmod>
-\t\t<changefreq>monthly</changefreq>
-\t\t<priority>0.8</priority>
-\t</url>
-</urlset>
-XML;
-        date_default_timezone_set('Europe/Madrid');
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2012-07-05 10:43AM',"Y-m-d h:iA");
-        $files = $this->sitemap->build()->get();
-
-        $this->assertEquals($expected,$files[0]);
-    }
+ 
 
     public function testAddUrlWithValidDuplicateUrlWithAllFields()
     {
@@ -68,14 +50,11 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.7','weekly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.6','weekly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.5','weekly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.4','daily','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.3','never','2005-05-10T17:33:30+08:00');
 
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
 
@@ -89,8 +68,9 @@ XML;
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </urlset>
 XML;
-        $this->sitemap->addUrl('not/valid/url','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $files = $this->sitemap->build()->get();
+
+        $this->sitemap->add(array( 'loc' => 'not/valid/url', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
 
@@ -108,9 +88,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-
-        $this->sitemap->addUrl('http://www.example.com/','','','2005-05-10T17:33:30+08:00');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -128,8 +107,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','always');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','','always'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -149,8 +128,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','hourly');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/', 'changefreq' => 'hourly'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -170,8 +149,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','daily');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'daily'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
 
@@ -191,8 +170,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','weekly');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'weekly'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
 
@@ -212,8 +191,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','monthly');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'monthly'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
 
@@ -233,8 +212,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','yearly');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'yearly'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
 
@@ -254,8 +233,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','never');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'never'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -275,8 +254,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.8');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.8'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -294,8 +273,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','AAAAA');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.8','monthly','AAAAA'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -313,8 +292,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.8','AAAAA','2005-05-10T17:33:30+08:00');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.8','AAAAA','2005-05-10T17:33:30+08:00'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -331,8 +310,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','6');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','6'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -349,8 +328,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','AAAAA');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','AAAAA'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -367,8 +346,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.88');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.88'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -385,8 +364,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','1.88');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','1.88'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -403,8 +382,8 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/',-3.14);
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/',-3.14));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -420,8 +399,8 @@ $expected=<<<XML
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','AAAAAA','AAAAA','AAAAAA');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','AAAAAA','AAAAA','AAAAAA'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -436,9 +415,9 @@ XML;
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {
-            $this->sitemap->addUrl('http://www.example.com/page-'.$i.'.html');
+            $this->sitemap->add(array('loc' => 'http://www.example.com/page-'.$i.'.html'));
         }
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
 
         $this->assertArrayHasKey('0',$files);
         $this->assertArrayHasKey('1',$files);
