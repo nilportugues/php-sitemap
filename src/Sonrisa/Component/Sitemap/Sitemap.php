@@ -7,92 +7,82 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException as SitemapException;
+use Sonrisa\Component\Sitemap\Items\UrlItem;
+use Sonrisa\Component\Sitemap\Validators\UrlValidator;
 
-class Sitemap
+/**
+ * Class Sitemap
+ * @package Sonrisa\Component\Sitemap
+ */
+class Sitemap extends AbstractSitemap
 {
-    protected static $sites = array
-    (
-        'google' 	=> 'http://www.google.com/webmasters/tools/ping?sitemap={{sitemap}}',
-        'bing'		=> 'http://www.bing.com/webmaster/ping.aspx?siteMap={{sitemap}}',
-    );
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = new UrlValidator();
+    }
 
     /**
-     * Submits a Sitemap to the available search engines. If provided it will first to send the GZipped version.
-     *
-     * @param $url            string
-     *
-     * @throws Exceptions\SitemapException
-     * @return array                       Holds the status of the submission for each search engine queried.
+     * @param $data
+     * @return $this
      */
-    public static function submit($url)
+    public function add($data)
     {
-        //Validate URL format and Response
-        if ( filter_var( $url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
-            if (self::do_head_check($url)) {
-                return self::do_submit($url);
+        if(!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true)){
+
+            //Mark URL as used.
+            $this->used_urls[] = $data['loc'];
+
+            $item = new UrlItem($this->validator);
+
+            //Populate the item with the given data.
+            foreach($data as $key => $value)
+            {
+                $item->setField($key,$value);
             }
-            throw new SitemapException("The URL provided ({$url}) holds no accessible sitemap file.");
+
+            //Check constrains
+            $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
+
+            //Check if new file is needed or not. ONLY create a new file if the constrains are met.
+            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) )
+            {
+                //add bytes to total
+                $this->current_file_byte_size = $item->getItemSize();
+
+                //add item to the item array
+                $this->items[] = $item->buildItem();
+
+                $this->files[$this->total_files] = implode("\n",$this->items);
+
+                $this->total_items++;
+            }
+            else
+            {
+                //reset count
+                $this->current_file_byte_size = 0;
+
+                //copy items to the files array.
+                $this->total_files=$this->total_files+1;
+                $this->files[$this->total_files] = implode("\n",$this->items);
+
+                //reset the item count by inserting the first new item
+                $this->items = array($item);
+                $this->total_items=1;
+            }
         }
-        throw new SitemapException("The URLs provided do not hold accessible sitemap files.");
+        return $this;
     }
 
     /**
-     * Submits a sitemap to the search engines using file_get_contents
-     *
-     * @param $url string 		Valid URL being submitted.
-     * @return array Array with the search engine submission success status as a boolean.
+     * @return array
      */
-    protected static function do_submit($url)
+    public function build()
     {
-        $response = array();
-
-        foreach (self::$sites as $site => $submit_url) {
-            file_get_contents((str_replace('{{sitemap}}',$url,$submit_url)));
-            $response[$site] = (($http_response_header[0] == "HTTP/1.1 200 OK") || ($http_response_header[0] == "HTTP/1.0 200 OK"));
-        }
-
-        return $response;
-    }
-
-    /**
-     * Validates if the URL to submit as a sitemap actually exists and is accessible.
-     *
-     * @param $url string 		URL being submitted.
-     * @return boolean
-     */
-    protected static function do_head_check($url)
-    {
-        $opts = array
-        (
-            'http'=>array
-            (
-                'method'=>"HEAD",
-                'header'=>"Accept-language: en\r\n"
-            )
-        );
-
-        $context = stream_context_create($opts);
-
-        $fp = @fopen($url, 'r', false, $context);
-        @fpassthru($fp);
-        @fclose($fp);
-
-        if (!empty($http_response_header)) {
-            return
-            (
-                ($http_response_header[0] == "HTTP/1.1 200 OK") ||
-                ($http_response_header[0] == "HTTP/1.0 200 OK") ||
-                ($http_response_header[0] == "HTTP/1.0 301 Moved Permanently") ||
-                ($http_response_header[0] == "HTTP/1.1 301 Moved Permanently") ||
-                ($http_response_header[0] == "HTTP/1.0 301 Moved") ||
-                ($http_response_header[0] == "HTTP/1.1 301 Moved") ||
-                ($http_response_header[0] == "HTTP/1.1 302 Found") ||
-                ($http_response_header[0] == "HTTP/1.0 302 Found")
-            );
-        } else {
-            return false;
-        }
-    }
+        $item = new UrlItem($this->validator);
+        return self::buildFiles($item);
+    }  
 
 }

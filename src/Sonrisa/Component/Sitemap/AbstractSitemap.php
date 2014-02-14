@@ -5,8 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Sonrisa\Component\Sitemap\Interfaces;
+namespace Sonrisa\Component\Sitemap;
+use Sonrisa\Component\Sitemap\Items\AbstractItem;
 
+/**
+ * Class AbstractSitemap
+ * @package Sonrisa\Component\Sitemap
+ */
 abstract class AbstractSitemap
 {
     /**
@@ -15,9 +20,52 @@ abstract class AbstractSitemap
     protected $data = array();
 
     /**
+     * @var Validators\AbstractValidator
+     */
+    protected $validator;
+
+    /**
+     * @var Items\AbstractItem
+     */
+    protected $item;
+
+    /**
+     * Variable holding the items added to a file.
+     *
+     * @var int
+     */
+    protected $total_items = 0;
+
+    /**
      * @var array
      */
-    protected $recordUrls = array();
+    protected $items = array();
+
+    /**
+     * Array holding the files created by this class.
+     *
+     * @var array
+     */
+    protected $files = array();
+
+    /**
+     * Variable holding the number of files created by this class.
+     *
+     * @var int
+     */
+    protected $total_files = 1;
+
+    /**
+     * @var int
+     */
+    protected $current_file_byte_size = 0;
+
+    /**
+     * Keep a track of the used URLs.
+     *
+     * @var array
+     */
+    protected $used_urls = array();
 
     /**
      * Maximum amount of URLs elements per sitemap file.
@@ -27,21 +75,16 @@ abstract class AbstractSitemap
     protected $max_items_per_sitemap = 50000;
 
     /**
-     * Maximum amount of <image:loc> elements per <url> element.
-     *
-     * @var int
-     */
-    protected $max_images_per_url = 1000;
-
-    /**
      * @var int
      */
     protected $max_filesize = 52428800; // 50 MB
 
+
     /**
-     * @var array
+     * @param array $data
+     * @return AbstractItem
      */
-    protected $files = array();
+    abstract public function add($data);
 
     /**
      * Generates sitemap documents and stores them in $this->data, an array holding as many positions
@@ -50,13 +93,22 @@ abstract class AbstractSitemap
     abstract public function build();
 
     /**
-     * @todo: Returns sitemap generated in an array.
-     *
+     * @param AbstractItem $item
      * @return array
      */
-    public function get()
+    protected function buildFiles(AbstractItem $item)
     {
-        return $this->files;
+        $output = array();
+        if(!empty($this->files))
+        {
+            foreach($this->files as $file)
+            {
+                $output[] = $item->getHeader()."\n".
+                            $file."\n".
+                            $item->getFooter();
+            }
+        }
+        return $output;
     }
 
 
@@ -90,6 +142,9 @@ abstract class AbstractSitemap
         }
     }
 
+    /**
+     * @param $filepath
+     */
     protected function writeGzipFile($filepath)
     {
 
