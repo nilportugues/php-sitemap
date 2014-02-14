@@ -23,9 +23,6 @@ class XMLImageSitemapTest extends \PHPUnit_Framework_TestCase
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
-\t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
-\t\t<changefreq>monthly</changefreq>
-\t\t<priority>0.8</priority>
 \t\t<image:image>
 \t\t\t<image:loc><![CDATA[http://www.example.com/logo.png]]></image:loc>
 \t\t\t<image:title><![CDATA[Example.com logo]]></image:title>
@@ -37,10 +34,10 @@ class XMLImageSitemapTest extends \PHPUnit_Framework_TestCase
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -69,10 +66,10 @@ XML;
 </urlset>
 XML;
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2012-07-05 10:43AM',"Y-m-d h:iA");
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2012-07-05 10:43AM',"Y-m-d h:iA");
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -101,16 +98,16 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.7','weekly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.6','weekly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.5','weekly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.4','daily','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addUrl('http://www.example.com/','0.3','never','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.7','weekly','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.6','weekly','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.5','weekly','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.4','daily','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.3','never','2005-05-10T17:33:30+08:00');
 
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -126,10 +123,10 @@ XML;
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>
 XML;
-        $this->sitemap->addUrl('not/valid/url','0.8','monthly','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('not/valid/url','0.8','monthly','2005-05-10T17:33:30+08:00');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -158,10 +155,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','','','2005-05-10T17:33:30+08:00');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -189,10 +186,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','always');
+        //$this->sitemap->addUrl('http://www.example.com/','','always');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -222,10 +219,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','hourly');
+        //$this->sitemap->addUrl('http://www.example.com/','','hourly');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -255,10 +252,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','daily');
+        //$this->sitemap->addUrl('http://www.example.com/','','daily');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -288,10 +285,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','weekly');
+        //$this->sitemap->addUrl('http://www.example.com/','','weekly');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -321,10 +318,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','monthly');
+        //$this->sitemap->addUrl('http://www.example.com/','','monthly');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -354,10 +351,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','yearly');
+        //$this->sitemap->addUrl('http://www.example.com/','','yearly');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -387,10 +384,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','','never');
+        //$this->sitemap->addUrl('http://www.example.com/','','never');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -420,10 +417,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.8');
+        //$this->sitemap->addUrl('http://www.example.com/','0.8');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -451,10 +448,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','AAAAA');
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','AAAAA');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -482,10 +479,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.8','AAAAA','2005-05-10T17:33:30+08:00');
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','AAAAA','2005-05-10T17:33:30+08:00');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -512,10 +509,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','6');
+        //$this->sitemap->addUrl('http://www.example.com/','6');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -542,10 +539,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','AAAAA');
+        //$this->sitemap->addUrl('http://www.example.com/','AAAAA');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -572,10 +569,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','0.88');
+        //$this->sitemap->addUrl('http://www.example.com/','0.88');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -602,10 +599,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/','1.88');
+        //$this->sitemap->addUrl('http://www.example.com/','1.88');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -632,10 +629,10 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->addUrl('http://www.example.com/',-3.14);
+        //$this->sitemap->addUrl('http://www.example.com/',-3.14);
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -661,10 +658,10 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','AAAAAA','AAAAA','AAAAAA');
+        //$this->sitemap->addUrl('http://www.example.com/','AAAAAA','AAAAA','AAAAAA');
 
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => 'Example.com logo' ));
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/main.png', 'title' => 'Main image' ));
 
         $files = $this->sitemap->build()->get();
 
@@ -686,11 +683,11 @@ XML;
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {
-            $this->sitemap->addUrl('http://www.example.com/page-'.$i.'.html');
+            //$this->sitemap->addUrl('http://www.example.com/page-'.$i.'.html');
 
             for ($j=1;$j<=10; $j++)
             {
-                $this->sitemap->addImage('http://www.example.com/page-'.$i.'.html',array('loc' => 'http://www.example.com/image_'.$j.'.png', 'title' => 'Main image '.$j ));
+                $this->sitemap->add('http://www.example.com/page-'.$i.'.html',array('loc' => 'http://www.example.com/image_'.$j.'.png', 'title' => 'Main image '.$j ));
             }
         }
 
@@ -720,8 +717,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'no/a/proper/url', 'title' => 'Example.com logo' ));
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'no/a/proper/url', 'title' => 'Example.com logo' ));
         $files = $this->sitemap->build()->get();
         $this->assertEquals($expected,$files[0]);
     }
@@ -739,8 +736,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addImage('http://www.example.com/',array('title' => 'Example.com logo' ));
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        $this->sitemap->add('http://www.example.com/',array('title' => 'Example.com logo' ));
         $files = $this->sitemap->build()->get();
         $this->assertEquals($expected,$files[0]);
     }
@@ -761,8 +758,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => '', 'geolocation' => '', 'license' => '', 'caption' =>'' ));
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'title' => '', 'geolocation' => '', 'license' => '', 'caption' =>'' ));
         $files = $this->sitemap->build()->get();
         $this->assertEquals($expected,$files[0]);
     }
@@ -784,8 +781,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'geolocation' => 'Limerick, Ireland' ));
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'geolocation' => 'Limerick, Ireland' ));
         $files = $this->sitemap->build()->get();
         $this->assertEquals($expected,$files[0]);
     }   
@@ -807,8 +804,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'license' => 'MIT' ));
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'license' => 'MIT' ));
         $files = $this->sitemap->build()->get();
         $this->assertEquals($expected,$files[0]);
     }   
@@ -829,8 +826,8 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addImage('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'caption' => 'This place is called Limerick, Ireland' ));
+        //$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+        $this->sitemap->add('http://www.example.com/',array('loc' => 'http://www.example.com/logo.png', 'caption' => 'This place is called Limerick, Ireland' ));
         $files = $this->sitemap->build()->get();
         $this->assertEquals($expected,$files[0]);
     }   

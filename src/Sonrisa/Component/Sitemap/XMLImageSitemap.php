@@ -17,24 +17,23 @@ class XMLImageSitemap extends XMLSitemap
         'images' => array(),
         'url'   => array(),
     );
+
+    protected $files = array();
+
     /**
      * @return mixed
      */
     public function build()
     {
         $files = array();
-        $xmlImages='';
-        $generatedFiles = $this->buildUrlSetCollection();
+        $generatedFiles = $this->buildUrlImageCollection();
 
-        if(!empty($this->data['images']))
-        {
-            $xmlImages.=' xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"';
-        }
+        var_dump($generatedFiles); die();
 
         if (!empty($generatedFiles)) {
             foreach ($generatedFiles as $fileNumber => $urlSet) {
                 $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" >'."\n".
                         $urlSet."\n".
                         '</urlset>';
 
@@ -44,7 +43,7 @@ class XMLImageSitemap extends XMLSitemap
         else
         {
             $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'.$xmlImages.'>'."\n".
+                    '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n".
                     '</urlset>';
 
             $files[0] = $xml;
@@ -56,59 +55,6 @@ class XMLImageSitemap extends XMLSitemap
         return $this;
     }
 
-    /**
-     * Loop through $this->data['url'] and build Sitemap.xml
-     * taking into account each urlset can hold a max of 50.000 url elements
-     *
-     * @return array
-     */
-    protected function buildUrlSetCollection()
-    {
-        $files = array(0 => '');
-
-        if (!empty($this->data['url'])) {
-            $i = 0;
-            $url = 0;
-            foreach ($this->data['url'] as $prioritySets) {
-                foreach ($prioritySets as $urlData) {
-                    $xml = array();
-
-                    //Open <url>
-                    $xml[] = "\t".'<url>';
-                    $xml[] = (!empty($urlData['loc']))?         "\t\t<loc>{$urlData['loc']}</loc>"                      : '';
-                    $xml[] = (!empty($urlData['lastmod']))?     "\t\t<lastmod>{$urlData['lastmod']}</lastmod>"          : '';
-                    $xml[] = (!empty($urlData['changefreq']))?  "\t\t<changefreq>{$urlData['changefreq']}</changefreq>" : '';
-                    $xml[] = (!empty($urlData['priority']))?    "\t\t<priority>{$urlData['priority']}</priority>"       : '';
-
-                    //Append images if any
-                    $xml[] = $this->buildUrlImageCollection($urlData['loc']);
-
-                    //Close <url>
-                    $xml[] = "\t".'</url>';
-
-                    //Remove empty fields
-                    $xml = array_filter($xml);
-
-                    //Build string
-                    $files[$i][] = implode("\n",$xml);
-
-                    //If amount of $url added is above the limit, increment the file counter.
-                    if ($url > $this->max_items_per_sitemap) {
-                        $files[$i] = implode("\n",$files[$i]);
-                        $i++;
-                        $url=0;
-                    }
-                    $url++;
-                }
-                $files[$i] = implode("\n",$files[$i]);
-            }
-
-            return $files;
-        }
-
-        return '';
-
-    }
 
     /**
      * XML Schema for the Image Sitemap extension.
@@ -119,7 +65,7 @@ class XMLImageSitemap extends XMLSitemap
      *
      * @return $this
      */
-    public function addImage($url,array $imageData)
+    public function add($url,array $imageData)
     {
         $imageLoc = NULL;
 
@@ -132,27 +78,18 @@ class XMLImageSitemap extends XMLSitemap
 
             if ( !empty($url) && !empty($imageLoc) )
             {
-                $dataSet = array
-                (
-                    'loc'             => $imageLoc,
-                    'title'           => (!empty($imageData['title']))? htmlentities($imageData['title'])               : '',
-                    'caption'         => (!empty($imageData['caption']))? htmlentities($imageData['caption'])           : '',
-                    'geolocation'     => (!empty($imageData['geolocation']))? htmlentities($imageData['geolocation'])   : '',
-                    'license'         => (!empty($imageData['license']))? htmlentities($imageData['license'])           : '',
-                );
-
-                //Remove empty fields
-                $dataSet = array_filter($dataSet);
-
                 if(empty($this->data['images'][$url]))
                 {
                     $this->data['images'][$url] = array();
+                    echo 1;
                 }
+
                 // Check if there are less than 1001 images for this url
                 if(count($this->data['images'][$url]) <= $this->max_images_per_url)
                 {
                     //Let the data array know that for a URL there are images
-                    $this->data['images'][$url][$imageLoc] = $dataSet;
+                    $this->data['images'][$url][$imageLoc] = $imageData;
+
                 }
             }
         }
@@ -164,32 +101,51 @@ class XMLImageSitemap extends XMLSitemap
      * @param $url
      * @return string
      */
-    protected function buildUrlImageCollection($url)
+    protected function buildUrlImageCollection()
     {
-        if(!empty( $this->data['images'][$url]))
+
+        if(!empty( $this->data['images']))
         {
             $images = array();
 
-            foreach( $this->data['images'][$url] as $imageData )
+
+            foreach( $this->data['images'] as $dataSet )
             {
-                $xml = array();
+                $url = key($dataSet);
 
-                $xml[] = "\t\t".'<image:image>';
+                $images[] = "\t<url>";
+                $images[] = "\t\t<loc>{$url}</loc>";
 
-                $xml[] = (!empty($imageData['loc']))         ? "\t\t\t".'<image:loc><![CDATA['.$imageData['loc'].']]></image:loc>' : '';
-                $xml[] = (!empty($imageData['title']))       ? "\t\t\t".'<image:title><![CDATA['.$imageData['title'].']]></image:title>' : '';
-                $xml[] = (!empty($imageData['caption']))     ? "\t\t\t".'<image:caption><![CDATA['.$imageData['caption'].']]></image:caption>' : '';
-                $xml[] = (!empty($imageData['geolocation'])) ? "\t\t\t".'<image:geolocation><![CDATA['.$imageData['geolocation'].']]></image:geolocation>' : '';
-                $xml[] = (!empty($imageData['license']))     ? "\t\t\t".'<image:license><![CDATA['.$imageData['license'].']]></image:license>' : '';
+                foreach($dataSet as $imageData)
+                {
+                    $xml = array();
+                    $xml[] = "\t\t".'<image:image>';
 
-                $xml[] = "\t\t".'</image:image>';
+                    $xml[] = (!empty($imageData['loc']))         ? "\t\t\t".'<image:loc><![CDATA['.$imageData['loc'].']]></image:loc>' : '';
+                    $xml[] = (!empty($imageData['title']))       ? "\t\t\t".'<image:title><![CDATA['.$imageData['title'].']]></image:title>' : '';
+                    $xml[] = (!empty($imageData['caption']))     ? "\t\t\t".'<image:caption><![CDATA['.$imageData['caption'].']]></image:caption>' : '';
+                    $xml[] = (!empty($imageData['geolocation'])) ? "\t\t\t".'<image:geolocation><![CDATA['.$imageData['geolocation'].']]></image:geolocation>' : '';
+                    $xml[] = (!empty($imageData['license']))     ? "\t\t\t".'<image:license><![CDATA['.$imageData['license'].']]></image:license>' : '';
 
-                //Remove empty fields
-                $xml = array_filter($xml);
+                    $xml[] = "\t\t".'</image:image>';
 
-                //Build string
-                $images[] = implode("\n",$xml);
+                    //Remove empty fields
+                    $xml = array_filter($xml);
+
+                    //Build string
+                    $images[] = implode("\n",$xml);
+                }
+
+                $images[] = "\t".'<\url>';
+
+                //validate if size is above the max or not. If so, add to array as a new file
+
+
             }
+
+
+
+
             return implode("\n",$images);
         }
         return '';
