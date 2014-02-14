@@ -7,7 +7,10 @@
  */
 namespace Sonrisa\Component\Sitemap\Items;
 
-
+/**
+ * Class NewsItem
+ * @package Sonrisa\Component\Sitemap\Items
+ */
 class NewsItem extends AbstractItem
 {
     /**

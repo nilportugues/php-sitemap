@@ -14,11 +14,30 @@ namespace Sonrisa\Component\Sitemap\Items;
  */
 class MediaItem extends AbstractItem
 {
-/**
- * Collapses the item to its string XML representation.
- *
- * @return string
- */
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
+                '<channel>';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFooter()
+    {
+        return "</channel>";
+    }
+
+
+    /**
+     * Collapses the item to its string XML representation.
+     *
+     * @return string
+     */
     public function buildItem()
     {
         //Create item ONLY if all mandatory data is present.

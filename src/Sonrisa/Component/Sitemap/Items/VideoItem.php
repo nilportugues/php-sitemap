@@ -7,12 +7,30 @@
  */
 namespace Sonrisa\Component\Sitemap\Items;
 
+
 /**
  * Class VideoItem
  * @package Sonrisa\Component\Sitemap\Items
  */
 class VideoItem extends AbstractItem
 {
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+                '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFooter()
+    {
+        return "</urlset>";
+    }
+
     /**
      * Collapses the item to its string XML representation.
      *
@@ -114,5 +132,6 @@ class VideoItem extends AbstractItem
             $xml = array_filter($xml);
             return implode("\n",$xml);
         }
+        return '';
     }
 }

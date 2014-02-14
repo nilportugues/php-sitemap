@@ -10,6 +10,10 @@ namespace Sonrisa\Component\Sitemap\Items;
 
 use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
 
+/**
+ * Class AbstractItem
+ * @package Sonrisa\Component\Sitemap\Items
+ */
 abstract class AbstractItem
 {
     /**
@@ -96,8 +100,6 @@ abstract class AbstractItem
 
         if(method_exists($this->validator,'validate'.$keyFunction))
         {
-
-
             $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
 
             if(!empty($value))

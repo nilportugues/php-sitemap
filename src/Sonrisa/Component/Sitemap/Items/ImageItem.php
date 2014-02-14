@@ -7,9 +7,29 @@
  */
 namespace Sonrisa\Component\Sitemap\Items;
 
-
+/**
+ * Class ImageItem
+ * @package Sonrisa\Component\Sitemap\Items
+ */
 class ImageItem extends AbstractItem
 {
+    /**
+     * @return string
+     */
+    public function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
+    }
+
+    /**
+     * @return string
+     */
+    public function getFooter()
+    {
+        return "</urlset>";
+    }
+
     /**
      * Collapses the item to its string XML representation.
      *
