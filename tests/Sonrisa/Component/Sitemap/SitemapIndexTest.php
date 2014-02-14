@@ -6,15 +6,19 @@
  * file that was distributed with this source code.
  */
 
-class XMLIndexSitemapTest extends \PHPUnit_Framework_TestCase
+/**
+ * Class IndexSitemapTest
+ */
+class IndexSitemapTest extends \PHPUnit_Framework_TestCase
 {
     protected $sitemap;
 
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLIndexSitemap();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\IndexSitemap();
     }
+
 
     public function testAddUrlWithValidUrlWithAllFields()
     {
@@ -31,9 +35,9 @@ class XMLIndexSitemapTest extends \PHPUnit_Framework_TestCase
 \t</sitemap>
 </sitemapindex>
 XML;
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.xml','2005-05-10T17:33:30+08:00');
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.xml', 'lastmod' => '2005-05-10T17:33:30+08:00'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.media.xml','lastmod' => '2005-05-10T17:33:30+08:00'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -51,9 +55,9 @@ XML;
 \t</sitemap>
 </sitemapindex>
 XML;
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.xml');
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.media.xml');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.xml'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.media.xml'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -65,9 +69,9 @@ XML;
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 </sitemapindex>
 XML;
-        $this->sitemap->addSitemap('no/a/real/path/www.example.com/sitemap.xml');
-        $this->sitemap->addSitemap('no/a/real/path/sitemap.media.xml');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'no/a/real/path/www.example.com/sitemap.xml'));
+        $this->sitemap->add(array('loc' => 'no/a/real/path/sitemap.media.xml'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -85,29 +89,9 @@ XML;
 \t</sitemap>
 </sitemapindex>
 XML;
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.xml','AAAAAAA');
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.media.xml','AAAAAAA');
-        $files = $this->sitemap->build()->get();
-
-        $this->assertEquals($expected,$files[0]);
-    }
-
-    public function testAddUrlWithValidUrlWithInvalidDateFormat()
-    {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<sitemap>
-\t\t<loc>http://www.example.com/sitemap.xml</loc>
-\t</sitemap>
-\t<sitemap>
-\t\t<loc>http://www.example.com/sitemap.media.xml</loc>
-\t</sitemap>
-</sitemapindex>
-XML;
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.xml','2005-05-10T17:33:30+08:00','AAAAAAA');
-        $this->sitemap->addSitemap('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00','AAAAAAA');
-        $files = $this->sitemap->build()->get();
+        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.xml','lastmod' => 'AAAAAAA'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.media.xml','lastmod' => 'AAAAAAA'));
+        $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
     }
@@ -124,9 +108,9 @@ XML;
         //Test limit
         for ($i=1;$i<=2000; $i++)
         {
-            $this->sitemap->addSitemap('http://www.example.com/sitemap-'.$i.'.xml');
+            $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap-'.$i.'.xml'));
         }
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
 
         $this->assertArrayHasKey('0',$files);
         $this->assertArrayHasKey('1',$files);
