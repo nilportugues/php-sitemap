@@ -103,12 +103,13 @@ abstract class AbstractSitemap
         {
             foreach($this->files as $file)
             {
-                if(!empty($file)){
+                if( str_replace("\n",'',$file) == '' )
+                {
                     $output[] = $item->getHeader()."\n".$file."\n".$item->getFooter();
                 }
                 else
                 {
-                    $output[] = $item->getHeader()."\n".$item->getFooter();
+                    $output[] = $item->getHeader().$item->getFooter();
                 }
                 
             }
