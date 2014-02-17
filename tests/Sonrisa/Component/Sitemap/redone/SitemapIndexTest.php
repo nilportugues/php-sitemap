@@ -64,16 +64,11 @@ XML;
 
     public function testAddUrlWithValidUrlWithInvalidLoc()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-</sitemapindex>
-XML;
         $this->sitemap->add(array('loc' => 'no/a/real/path/www.example.com/sitemap.xml'));
         $this->sitemap->add(array('loc' => 'no/a/real/path/sitemap.media.xml'));
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEmpty($files);
     }
 
     public function testAddUrlWithValidUrlWithInvalidDate()

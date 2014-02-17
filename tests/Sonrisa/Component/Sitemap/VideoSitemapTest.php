@@ -6,14 +6,17 @@
  * file that was distributed with this source code.
  */
 
-class XMLVideoSitemapTest extends \PHPUnit_Framework_TestCase
+/**
+ * Class VideoSitemapTest
+ */
+class VideoSitemapTest extends \PHPUnit_Framework_TestCase
 {
     protected $sitemap;
 
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLVideoSitemap();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\VideoSitemap();
     }
 
     public function testAddVideoWithAllFields()

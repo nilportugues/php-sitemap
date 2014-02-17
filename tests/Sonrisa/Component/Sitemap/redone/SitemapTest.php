@@ -63,16 +63,10 @@ XML;
 
     public function testAddUrlWithInvalidUrlWontGetAdded()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-</urlset>
-XML;
-
         $this->sitemap->add(array( 'loc' => 'not/valid/url', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEmpty($files);
 
     }
 

@@ -54,11 +54,16 @@ class IndexSitemap extends AbstractSitemap
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
-                $this->items[] = $item->buildItem();
+                $built = $item->buildItem();
+                if(!empty($built))
+                {
+                    $this->items[] = $built;
 
-                $this->files[$this->total_files] = implode("\n",$this->items);
+                    $this->files[$this->total_files] = implode("\n",$this->items);
 
-                $this->total_items++;
+                    $this->total_items++;
+                }
+
             }
             else
             {

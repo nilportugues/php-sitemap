@@ -7,7 +7,7 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
-class XMLVideoSitemap extends XMLSitemap
+class VideoSitemap extends XMLSitemap
 {
     /**
      * @var array

@@ -7,9 +7,11 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
-use \Sonrisa\Component\Sitemap\Interfaces\AbstractSitemap as AbstractSitemap;
-
-class XMLMediaSitemap extends AbstractSitemap
+/**
+ * Class MediaSitemap
+ * @package Sonrisa\Component\Sitemap
+ */
+class MediaSitemap extends AbstractSitemap
 {
     /**
      * @var string
