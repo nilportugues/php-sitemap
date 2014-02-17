@@ -76,7 +76,7 @@ This component also provides a method to submit the generated sitemaps to the fo
 use Sonrisa\Component\Sitemap\SubmitSitemap;
 
 // $status = array('google' => true, 'bing' => true); if everything went OK.
-$status = SubmitSitemap::submit('http://example.com/sitemap-index.xml');
+$status = SubmitSitemap::send('http://example.com/sitemap-index.xml');
 ```
 
 <a name="block4.2"></a>
