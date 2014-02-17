@@ -101,7 +101,8 @@ $sitemapIndex->add(array(
 ));
 
 //var_dump($files) should be an array holding the sitemap files created.
-$files = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
+$files = $sitemapIndex->build();
+$sitemap->write('path/to/public/www','sitemap.index.xml');
 
 ```
 <a name="block4.2.2"></a>
@@ -153,7 +154,8 @@ $sitemap->add(array(
 ));
 
 //var_dump($files) should be an array holding the sitemap files created.
-files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
+files = $sitemap->build();
+$sitemap->write('path/to/public/www','sitemap.xml');
 ```
 <a name="block4.3.2"></a>
 #### Output
@@ -204,7 +206,8 @@ $this->sitemap->add(array(
 ),'http://www.example.com/');
 
 //var_dump($files) should be an array holding the sitemap files created.
-$files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
+$files = $sitemap->build()
+$sitemap->write('path/to/public/www','sitemap.images.xml');
 ```
 <a name="block4.4.2"></a>
 #### Output
@@ -232,11 +235,88 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\VideoSitemap;
+$sitemap = new \Sonrisa\Component\Sitemap\VideoSitemap();
+
+$data = array
+(
+    'thumbnail_loc'             => 'http://www.example.com/thumbs/123.jpg',
+    'title'                     => 'Grilling steaks for summer',
+    'description'               => 'Alkis shows you how to get perfectly done steaks everytime',
+    'content_loc'               => 'http://www.example.com/video123.flv',
+    'player_loc'                => 'http://www.example.com/videoplayer.swf?video=123',
+    'allow_embed'               => 'yes',
+    'autoplay'                  => 'ap=1',
+    'duration'                  => '600',
+    'expiration_date'           => '2009-11-05T19:20:30+08:00',
+    'rating'                    => '4.2',
+    'view_count'                => '12345',
+    'publication_date'          => '2007-11-05T19:20:30+08:00',
+    'family_friendly'           => 'yes',
+    'restriction'               => 'IE GB US CA',
+    'restriction_relationship'  => 'allow',
+    'gallery_loc'               => 'http://cooking.example.com',
+    'gallery_loc_title'         => 'Cooking Videos',
+    'price' => array
+    (
+        array
+        (
+            'price'             => '0.99',
+            'price_currency'    => 'EUR',
+            'resolution'        => 'HD',
+            'type'              => 'rent',
+        ),
+        array
+        (
+            'price'             => '0.75',
+            'price_currency'    => 'EUR',
+            'resolution'        => 'SD',
+            'type'              => 'rent',
+        ),
+
+    ),
+    'category'                  => 'cooking',
+    'tag'                       => array('action','drama','entrepreneur'),
+    'requires_subscription'     => 'yes',
+    'uploader'                  => 'GrillyMcGrillerson',
+    'uploader_info'             => 'http://www.example.com/users/grillymcgrillerson',
+    'platform'                  => 'web mobile tv',
+    'platform_relationship'     => 'allow',
+    'live'                      => 'no',
+);
+
+$sitemap->add($data,'http://www.example.com/');
+$files = $sitemap->build();
+$sitemap->write('path/to/public/www','sitemap.videos.xml');
 ```
 <a name="block4.5.2"></a>
 #### Output
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+	<url>
+		<loc>http://www.example.com/</loc>
+		<video:video>
+			<video:thumbnail_loc><![CDATA[http://www.example.com/thumbs/123.jpg]]></video:thumbnail_loc>
+			<video:title><![CDATA[Grilling steaks for summer]]></video:title>
+			<video:description><![CDATA[Alkis shows you how to get perfectly done steaks everytime]]></video:description>
+			<video:content_loc><![CDATA[http://www.example.com/video123.flv]]></video:content_loc>
+			<video:duration><![CDATA[600]]></video:duration>
+			<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+			<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
+			<video:restriction relationship="allow">IE GB US CA</video:restriction>
+			<video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
+			<video:price currency="EUR" type="rent" resolution="HD" >0.99</video:price>
+			<video:price currency="EUR" type="rent" resolution="SD" >0.75</video:price>
+			<video:tag>action</video:tag>
+			<video:tag>drama</video:tag>
+			<video:tag>entrepreneur</video:tag>
+			<video:requires_subscription><![CDATA[yes]]></video:requires_subscription>
+			<video:uploader>GrillyMcGrillerson</video:uploader>
+			<video:platform relationship="allow">web mobile tv</video:platform>
+			<video:live><![CDATA[no]]></video:live>
+		</video:video>
+	</url>
+</urlset>
 ```
 
 <a name="block4.6"></a>
@@ -278,7 +358,8 @@ $sitemap->addItem('http://www.example.com/examples/mrss/example2.html',array
 ));
 
 //var_dump($files) should be an array holding the sitemap files created.
-$files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
+$files = $sitemap->build();
+$sitemap->write('path/to/public/www','sitemap.media.xml');
 ```
 <a name="block4.6.2"></a>
 #### Output
