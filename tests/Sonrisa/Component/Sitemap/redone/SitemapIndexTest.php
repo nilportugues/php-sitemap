@@ -100,7 +100,7 @@ XML;
     public function testAddUrlAbovetheSitemapMaxSitemapElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
-        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\XMLIndexSitemap');
+        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\IndexSitemap');
         $property = $reflectionClass->getProperty('max_items_per_sitemap');
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');

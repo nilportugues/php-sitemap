@@ -84,7 +84,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -102,12 +101,11 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>always</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','','always'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/', 'changefreq' => 'always'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -123,7 +121,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>hourly</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -144,7 +141,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>daily</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -165,7 +161,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>weekly</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -186,7 +181,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>monthly</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -207,7 +201,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>yearly</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -228,7 +221,6 @@ XML;
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
 \t\t<changefreq>never</changefreq>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
@@ -254,7 +246,7 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.8'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/', 'priority' => '0.8'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -273,7 +265,7 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.8','monthly','AAAAA'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority'=>'0.8', 'changefreq' => 'monthly','lastmod' => 'AAAAA'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -292,7 +284,7 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.8','AAAAA','2005-05-10T17:33:30+08:00'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority'=>'0.8','changefreq' => 'AAAAA','lastmod' => '2005-05-10T17:33:30+08:00'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -305,12 +297,10 @@ XML;
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
-
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','6'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => '6'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -323,12 +313,11 @@ XML;
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','AAAAA'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => 'AAAAA'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -346,7 +335,7 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','0.88'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => '0.88'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -359,12 +348,11 @@ XML;
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','1.88'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => '1.88'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -377,12 +365,11 @@ XML;
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/',-3.14));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => -3.14));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -395,11 +382,10 @@ $expected=<<<XML
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
 \t\t<loc>http://www.example.com/</loc>
-\t\t<priority>0.5</priority>
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','AAAAAA','AAAAA','AAAAAA'));
+        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => 'AAAAAA', 'changefreq' => 'AAAAA', 'lastmod' => 'AAAAAA'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -408,7 +394,7 @@ XML;
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
-        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\XMLSitemap');
+        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\Sitemap');
         $property = $reflectionClass->getProperty('max_items_per_sitemap');
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');

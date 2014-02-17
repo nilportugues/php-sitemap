@@ -58,6 +58,6 @@ class UrlValidator extends AbstractValidator
         if (!empty($matches[0]) && ($matches[0]<1.1) && ($matches[0]>0.0) ) {
             return $matches[1];
         } 
-        return "0.5";
+        return "";
     }
 } 
