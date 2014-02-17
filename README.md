@@ -157,6 +157,29 @@ files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 ```
 <a name="block4.3.2"></a>
 #### Output
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>http://www.example.com/</loc>
+    <lastmod>2014-05-10T17:33:30+08:00</lastmod>    
+    <changefreq>daily</changefreq>    
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>http://www.example.com/blog</loc>
+    <lastmod>2014-05-10T17:33:30+08:00</lastmod>    
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>    
+  </url>
+  <url>
+    <loc>http://www.example.com/contact</loc>
+    <lastmod>2014-05-10T17:33:30+08:00</lastmod>    
+    <changefreq>never</changefreq>
+    <priority>0.8</priority>
+  </url>    
+</urlset>
+```
 
 <a name="block4.4"></a>
 ### 4.4 - Build a Sitemap with Images
