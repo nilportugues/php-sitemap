@@ -6,10 +6,10 @@
  * file that was distributed with this source code.
  */
 
-use \Sonrisa\Component\Sitemap\Sitemap as Sitemap;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
-
-class SitemapTest extends \PHPUnit_Framework_TestCase
+/**
+ * Class SitemapTest
+ */
+class SubmitSitemap extends \PHPUnit_Framework_TestCase
 {
     protected $url;
 
@@ -21,7 +21,7 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
 
     public function testSubmitValidSitemapUrl()
     {
-        $result = Sitemap::submit($this->url);
+        $result = \Sonrisa\Component\Sitemap\SubmitSitemap::send($this->url);
 
         $expected = array( 'google' => true, 'bing' => true);
 
@@ -32,13 +32,13 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
     public function testSubmitValidSitemapNonExisitingUrl()
     {
         $this->setExpectedException("\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
-        Sitemap::submit('http://example.com/sitemap/'.rand(1,10000).'.xml');
+        \Sonrisa\Component\Sitemap\SubmitSitemap::send('http://example.com/sitemap/'.rand(1,10000).'.xml');
     }
 
     public function testSubmitValidSitemapNonValidUrl()
     {
         $this->setExpectedException("\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
-        Sitemap::submit('not a valid url');
+        \Sonrisa\Component\Sitemap\SubmitSitemap::send('not a valid url');
     }
 
 }
