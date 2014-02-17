@@ -89,25 +89,43 @@ class VideoItem extends AbstractItem
                 $xml[] = "\t\t\t".'<video:gallery_loc>'.$this->data['gallery_loc'].'</video:gallery_loc>';
             }
 
-            //Loop price array
-            foreach($this->data['price'] as $price)
+            if(!empty($this->data['price']))
             {
-                if(!empty($price['price']) && !empty($price['price_currency']))
+                //Loop price array
+                foreach($this->data['price'] as $price)
                 {
-                    $xml[] = "\t\t\t".'<video:price title="'.$price['price_currency'].'">'.$price['gallery_loc'].'</video:price>';
-                }
-                elseif(!empty($price['price']) )
-                {
-                    $xml[] = "\t\t\t".'<video:price>'.$price['price'].'</video:price>';
+                    if(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) && !empty($price['resolution']))
+                    {
+                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'" resolution="'.$price['resolution'].'" >'.$price['price'].'</video:price>';
+                    }
+                    elseif(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['resolution']))
+                    {
+                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" resolution="'.$price['resolution'].'" >'.$price['price'].'</video:price>';
+                    }
+                    elseif(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) )
+                    {
+                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'">'.$price['price'].'</video:price>';
+                    }
+                    elseif(!empty($price['price']) && !empty($price['price_currency'])  )
+                    {
+                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'">'.$price['price'].'</video:price>';
+                    }
+                    elseif(!empty($price['price']) )
+                    {
+                        $xml[] = "\t\t\t".'<video:price>'.$price['price'].'</video:price>';
+                    }
                 }
             }
 
             $xml[] = (!empty($this->data['category']))          ? "\t\t\t".'<video:category><![CDATA['.$this->data['category'].']]></video:category>' : '';
 
             //Loop tag array
-            foreach($this->data['tag'] as $tag)
+            if(!empty($this->data['tag']))
             {
-               $xml[] = "\t\t\t".'<video:tag>'.$tag.'</video:tag>';
+                foreach($this->data['tag'] as $tag)
+                {
+                   $xml[] = "\t\t\t".'<video:tag>'.$tag.'</video:tag>';
+                }
             }
 
             $xml[] = (!empty($this->data['requires_subscription']))  ? "\t\t\t".'<video:requires_subscription><![CDATA['.$this->data['requires_subscription'].']]></video:requires_subscription>' : '';
@@ -121,6 +139,17 @@ class VideoItem extends AbstractItem
             elseif(!empty($this->data['uploader']) )
             {
                 $xml[] = "\t\t\t".'<video:uploader>'.$this->data['uploader'].'</video:uploader>';
+            }
+
+
+            //platform
+            if(!empty($this->data['platform']) && !empty($this->data['platform_relationship']))
+            {
+                $xml[] = "\t\t\t".'<video:platform relationship="'.$this->data['platform_relationship'].'">'.$this->data['platform'].'</video:platform>';
+            }
+            elseif(!empty($this->data['platform']) )
+            {
+                $xml[] = "\t\t\t".'<video:platform>'.$this->data['platform'].'</video:platform>';
             }
 
             $xml[] = (!empty($this->data['live']))              ? "\t\t\t".'<video:live><![CDATA['.$this->data['live'].']]></video:live>' : '';

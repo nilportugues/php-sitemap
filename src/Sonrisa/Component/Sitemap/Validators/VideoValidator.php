@@ -303,28 +303,26 @@ class VideoValidator extends AbstractValidator
      */
     public static function validatePlatform($platform)
     {
-        switch( strtolower($platform) )
+        $platforms = explode(" ",$platform);
+        array_filter($platforms);
+
+        foreach($platforms as $key => $platform)
         {
-            case 'tv':
-                return 'tv';
-                break;
+            if( strtolower($platform)!='tv' && strtolower($platform)!='mobile' && strtolower($platform)!='web')
+            {
+                unset($platforms[$key]);
+            }
 
-            case 'mobile':
-                return 'mobile';
-                break;
-
-            case 'web':
-                return 'web';
-                break;
         }
-        return '';
+
+        return implode(' ',$platforms);
     }
 
     /**
      * @param $platform_access
      * @return string
      */
-    public static function validatePlatformAccess($platform_access)
+    public static function validatePlatformRelationship($platform_access)
     {
         return self::validateAllowDeny($platform_access);
     }
@@ -394,7 +392,7 @@ class VideoValidator extends AbstractValidator
                     }
 
                     $value = array_filter($value);
-                    $valid = $value;
+                    $valid[] = $value;
                 }
 
             }
