@@ -73,10 +73,10 @@ This component also provides a method to submit the generated sitemaps to the fo
 ### 4.1 - Submit to search engines
 ```php
 <?php
-use Sonrisa\Component\Sitemap\Sitemap;
+use Sonrisa\Component\Sitemap\SubmitSitemap;
 
 // $status = array('google' => true, 'bing' => true); if everything went OK.
-$status = Sitemap::submit('http://example.com/sitemap-index.xml');
+$status = SubmitSitemap::submit('http://example.com/sitemap-index.xml');
 ```
 
 <a name="block4.2"></a>
@@ -88,9 +88,9 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLIndexSitemap;
+use Sonrisa\Component\Sitemap\IndexSitemap;
 
-$sitemapIndex = new XMLIndexSitemap();
+$sitemapIndex = new IndexSitemap();
 $sitemapIndex->addSitemap('http://www.example.com/sitemap.content.xml','2005-05-10T17:33:30+08:00');
 $sitemapIndex->addSitemap('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00');
 
@@ -122,9 +122,9 @@ $files = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLSitemap;
+use Sonrisa\Component\Sitemap\Sitemap;
 
-$sitemap = new XMLSitemap();
+$sitemap = new Sitemap();
 $sitemap->addUrl('http://www.example.com/','1.0','daily','2014-05-10T17:33:30+08:00');
 $sitemap->addUrl('http://www.example.com/blog','0.9','monthly','2014-05-10T17:33:30+08:00');
 $sitemap->addUrl('http://www.example.com/contact','0.8','never','2014-05-10T17:33:30+08:00');
@@ -142,21 +142,20 @@ files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLImageSitemap;
+use Sonrisa\Component\Sitemap\ImageSitemap;
 
-$sitemap = new XMLSitemap();
-$this->sitemap->addUrl('http://www.example.com/','0.8','monthly','2005-05-10T17:33:30+08:00');
+$sitemap = new ImageSitemap();
 
 //Add images to the sitemap by relating them to a Url.
-$this->sitemap->addImage('http://www.example.com/',array(
+$this->sitemap->addImage(array(
  'loc' => 'http://www.example.com/logo.png', 
  'title' => 'Example.com logo' 
-));
+),'http://www.example.com/');
 
-$this->sitemap->addImage('http://www.example.com/',array(
+$this->sitemap->addImage(array(
  'loc' => 'http://www.example.com/main.png', 
  'title' => 'Main image' 
-));
+),'http://www.example.com/');
 
 //var_dump($files) should be an array holding the sitemap files created.
 $files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
@@ -169,9 +168,6 @@ $files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>http://www.example.com/</loc>
-    <lastmod>2005-05-10T17:33:30+08:00</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
     <image:image>
       <image:loc><![CDATA[http://www.example.com/logo.png]]></image:loc>
       <image:title><![CDATA[Example.com logo]]></image:title>
@@ -190,7 +186,7 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLVideoSitemap;
+use Sonrisa\Component\Sitemap\VideoSitemap;
 ```
 <a name="block4.5.2"></a>
 #### Output
@@ -204,9 +200,9 @@ use Sonrisa\Component\Sitemap\XMLVideoSitemap;
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLMediaSitemap;
+use Sonrisa\Component\Sitemap\MediaSitemap;
 
-$sitemap = new XMLMediaSitemap();
+$sitemap = new MediaSitemap();
 $sitemap->setTitle('Media RSS de ejemplo');
 $sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 $sitemap->setDescription('Ejemplo de MRSS');
@@ -275,7 +271,7 @@ $files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\XMLNewsSitemap;
+use Sonrisa\Component\Sitemap\NewsSitemap;
 ```
 <a name="block4.7.2"></a>
 #### Output
