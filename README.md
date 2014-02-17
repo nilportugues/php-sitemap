@@ -91,8 +91,14 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 use Sonrisa\Component\Sitemap\IndexSitemap;
 
 $sitemapIndex = new IndexSitemap();
-$sitemapIndex->add('http://www.example.com/sitemap.content.xml','2005-05-10T17:33:30+08:00');
-$sitemapIndex->add('http://www.example.com/sitemap.media.xml','2005-05-10T17:33:30+08:00');
+$sitemapIndex->add(array(
+   'loc'     => 'http://www.example.com/sitemap.content.xml',
+   'lastmod' => '2005-05-10T17:33:30+08:00'
+));
+$sitemapIndex->add(array(
+   'loc'     => 'http://www.example.com/sitemap.media.xml',
+   'lastmod' => '2005-05-10T17:33:30+08:00'
+));
 
 //var_dump($files) should be an array holding the sitemap files created.
 $files = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
@@ -125,9 +131,26 @@ $files = $sitemapIndex->build()->write('path/to/public/www','sitemap.xml');
 use Sonrisa\Component\Sitemap\Sitemap;
 
 $sitemap = new Sitemap();
-$sitemap->add('http://www.example.com/','1.0','daily','2014-05-10T17:33:30+08:00');
-$sitemap->add('http://www.example.com/blog','0.9','monthly','2014-05-10T17:33:30+08:00');
-$sitemap->add('http://www.example.com/contact','0.8','never','2014-05-10T17:33:30+08:00');
+$sitemap->add(array(
+   'loc'       => 'http://www.example.com/',
+   'priority'  => '1.0',
+   'changefreq'=> 'daily',
+   'lastmod'   => '2014-05-10T17:33:30+08:00'
+));
+
+$sitemap->add(array(
+   'loc'       => 'http://www.example.com/blog',
+   'priority'  => '0.9',
+   'changefreq'=> 'monthly',
+   'lastmod'   => '2014-05-10T17:33:30+08:00'
+   
+));
+$sitemap->add(array(
+   'loc'       => 'http://www.example.com/contact',
+   'priority'  => '0.8',
+   'changefreq'=> 'never',
+   'lastmod'   => '2014-05-10T17:33:30+08:00'
+));
 
 //var_dump($files) should be an array holding the sitemap files created.
 files = $sitemap->build()->write('path/to/public/www','sitemap.xml');
