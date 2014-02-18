@@ -6,12 +6,11 @@
  * file that was distributed with this source code.
  */
 
-class XMLMediaSitemapTest extends \PHPUnit_Framework_TestCase
+class MediaSitemapTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
-        date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\XMLMediaSitemap();
+        $this->sitemap = new \Sonrisa\Component\Sitemap\MediaSitemap();
     }
 
 
@@ -39,7 +38,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -49,10 +48,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -78,7 +77,7 @@ XML;
 XML;
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -88,24 +87,19 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptChannelLink()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
-<channel></channel>
-</rss>
-XML;
+
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->addItem(null,array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -115,24 +109,20 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),NULL);
 
 
-        $files = $this->sitemap->build()->get();
-        $this->assertEquals($expected,$files[0]);
+        $this->setExpectedException("\Exception");
+        $this->sitemap->build();
+
     }
 
     public function testValidMediaSitemapWillAllFieldsAndChannelLinkInvalid()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
-<channel></channel>
-</rss>
-XML;
+
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->addItem('not/a/valid/URL',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -142,11 +132,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'not/a/valid/URL');
 
-
-        $files = $this->sitemap->build()->get();
-        $this->assertEquals($expected,$files[0]);
+        $files = $this->sitemap->build();
+        $this->assertEmpty($files);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptChannelDescription()
@@ -171,8 +160,7 @@ XML;
 XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
-
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -182,10 +170,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -213,8 +201,7 @@ XML;
 XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
-
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
             'duration'      =>  120,
@@ -223,10 +210,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -253,7 +240,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'duration'      =>  120,
@@ -262,10 +249,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -291,8 +278,7 @@ XML;
 XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
-
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -301,10 +287,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -330,7 +316,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -339,10 +325,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -369,7 +355,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -378,10 +364,10 @@ XML;
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -408,17 +394,17 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
             'duration'      =>  120,
             'title'         =>  'Barbacoas en verano',
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png'
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -444,7 +430,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -453,10 +439,10 @@ XML;
             'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
             'height'        =>  120,
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -483,7 +469,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -492,10 +478,10 @@ XML;
             'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'width'         =>  160,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 
@@ -522,7 +508,7 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 
-        $this->sitemap->addItem('http://www.example.com/examples/mrss/example.html',array
+        $this->sitemap->add(array
         (
             'mimetype'      =>  'video/x-flv',
             'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
@@ -531,10 +517,10 @@ XML;
             'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
             'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
             'height'        =>  120,
-        ));
+        ),'http://www.example.com/examples/mrss/example.html');
 
 
-        $files = $this->sitemap->build()->get();
+        $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
 }
