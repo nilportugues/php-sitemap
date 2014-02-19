@@ -333,8 +333,9 @@ $sitemap->setTitle('Media RSS de ejemplo');
 $sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 $sitemap->setDescription('Ejemplo de MRSS');
 
-$sitemap->addItem('http://www.example.com/examples/mrss/example1.html',array
+$sitemap->add(array
 (
+    'link'          =>  'http://www.example.com/examples/mrss/example1.html',
     'mimetype'      =>  'video/x-flv',
     'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
     'duration'      =>  120,
@@ -345,8 +346,9 @@ $sitemap->addItem('http://www.example.com/examples/mrss/example1.html',array
     'width'         =>  160,
 ));
 
-$sitemap->addItem('http://www.example.com/examples/mrss/example2.html',array
+$sitemap->add(array
 (
+    'link'          =>  'http://www.example.com/examples/mrss/example2.html',
     'mimetype'      =>  'video/x-flv',
     'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
     'duration'      =>  240,
