@@ -7,6 +7,9 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
+use Sonrisa\Component\Sitemap\Items\MediaItem;
+use Sonrisa\Component\Sitemap\Validators\MediaValidator;
+
 /**
  * Class MediaSitemap
  * @package Sonrisa\Component\Sitemap
@@ -28,6 +31,14 @@ class MediaSitemap extends AbstractSitemap
      */
     protected $description;
 
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = new MediaValidator();
+    }
 
     /**
      * @param $title
@@ -62,199 +73,96 @@ class MediaSitemap extends AbstractSitemap
         return $this;
     }
 
-    /**
-     * @param $url
-     * @param array $media
-     *
-     * @return $this
-     */
-    public function addItem($url,array $media)
-    {
-        //Make sure the mandatory value is valid.
-        $url = $this->validateUrlLoc($url);
-
-        //Make sure we won't be adding a valid but duplicated URL to the sitemap.
-        if (!empty($url) && !in_array($url,$this->recordUrls,true))
-        {
-            $this->recordUrls[] = $url;
-
-            $dataSet = array
-            (
-                'link'          =>  $url,
-                'player'        =>  ( !empty($media['player']) && ( $player = $this->validateUrlLoc($media['player']))!=false ) ? htmlentities($player) : '',
-                'duration'      =>  ( !empty($media['duration']) && filter_var($media['duration'],FILTER_SANITIZE_NUMBER_INT))? htmlentities($media['duration']) : '',
-                'title'         =>  ( !empty($media['title']) )? htmlentities($media['title']) : '',
-                'mimetype'      =>  ( !empty($media['mimetype']) )? htmlentities($media['mimetype']) : '',
-                'description'   =>  ( !empty($media['description']) )? htmlentities($media['description']) : '',
-                'thumbnail'     =>  ( !empty($media['thumbnail']) && ( $thumbnail = $this->validateUrlLoc($media['thumbnail']))!=false ) ? htmlentities($thumbnail) : '',
-                'height'        =>  ( !empty($media['height']) && filter_var($media['height'],FILTER_SANITIZE_NUMBER_INT))? htmlentities($media['height']) : '',
-                'width'         =>  ( !empty($media['width']) && filter_var($media['width'],FILTER_SANITIZE_NUMBER_INT))? htmlentities($media['width']) : '',
-            );
-
-            //Remove empty fields
-            $dataSet = array_filter($dataSet);
-
-            //Append data to existing structure if not empty
-            if (!empty($dataSet)) {
-                $this->data[] = $dataSet;
-            }
-
-        }
-        return $this;
-    }
 
     /**
+     * @param $data
      * @return $this
      */
-    public function build()
+    public function add($data)
     {
-        $files = array();
-
-        $rssHeader = $this->buildRssHeader();
-        $generatedFiles = $this->buildItemCollection();
-
-        if (!empty($generatedFiles))
+        if(!empty($data['link']))
         {
-            foreach ($generatedFiles as $fileNumber => $itemSet) {
-                $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
-                        '<channel>'."\n".
-                        $rssHeader."\n".
-                        $itemSet."\n".
-                        '</channel>'."\n".
-                        '</rss>';
 
-                $files[$fileNumber] = $xml;
+            $item = new MediaItem($this->validator);
+
+            //Populate the item with the given data.
+            foreach($data as $key => $value)
+            {
+                $item->setField($key,$value);
+            }
+
+            //Check constrains
+            $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
+
+            //Check if new file is needed or not. ONLY create a new file if the constrains are met.
+            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) )
+            {
+                //add bytes to total
+                $this->current_file_byte_size = $item->getItemSize();
+
+                //add item to the item array
+                $built = $item->buildItem();
+                if(!empty($built))
+                {
+                    $this->items[] = $built;
+
+                    $this->files[$this->total_files] = implode("\n",$this->items);
+
+                    $this->total_items++;
+                }
+
+            }
+            else
+            {
+                //reset count
+                $this->current_file_byte_size = 0;
+
+                //copy items to the files array.
+                $this->total_files=$this->total_files+1;
+                $this->files[$this->total_files] = implode("\n",$this->items);
+
+                //reset the item count by inserting the first new item
+                $this->items = array($item);
+                $this->total_items=1;
             }
         }
-        else
-        {
-            $xml =  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                    '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
-                    '<channel></channel>'."\n".
-                    '</rss>';
-
-            $files[0] = $xml;
-        }
-
-        //Save files array and empty url buffer
-        $this->files = $files;
-
         return $this;
     }
 
     /**
      * @return array
      */
-    protected function buildItemCollection()
+    public function build()
     {
-        $files = array(0 => '');
+        $item = new MediaItem($this->validator);
 
-        if (!empty($this->data))
+        $output = array();
+        if(!empty($this->files))
         {
-            $i = 0;
-            $url = 0;
-
-            foreach ($this->data as $itemData)
+            if(!empty($this->title))
             {
-                $xml = array();
-
-                //Open <item>
-                $xml[] = "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
-                $xml[] = (!empty($itemData['link']))?         "\t\t<link>{$itemData['link']}</link>"                      : '';
-
-                $mimetype = '';
-
-                //Open <media:content>
-                if(!empty($itemData['duration']) && !empty($itemData['mimetype']))
-                {
-                    $xml[] = "\t\t<media:content type=\"{$itemData['mimetype']}\" duration=\"{$itemData['duration']}\">";
-                }
-                elseif( empty($itemData['duration']) && !empty($itemData['mimetype']))
-                {
-                    $xml[] = "\t\t<media:content type=\"{$itemData['mimetype']}\">";
-                }
-                elseif( !empty($itemData['duration']) && empty($itemData['mimetype']))
-                {
-                    $xml[] = "\t\t<media:content duration=\"{$itemData['duration']}\">";
-                }
-
-                $xml[] = (!empty($itemData['player']))?       "\t\t\t<media:player url=\"{$itemData['player']}\" />"                     : '';
-                $xml[] = (!empty($itemData['title']))?        "\t\t\t<media:title>{$itemData['title']}</media:title>"                    : '';
-                $xml[] = (!empty($itemData['description']))?  "\t\t\t<media:description>{$itemData['description']}</media:description>"  : '';
-
-
-                if( !empty($itemData['thumbnail']) && !empty($itemData['height']) && !empty($itemData['width']) )
-                {
-                    $xml[] = "\t\t\t<media:thumbnail url=\"{$itemData['thumbnail']}\" height=\"{$itemData['height']}\" width=\"{$itemData['width']}\"/>";
-                }
-                elseif( !empty($itemData['thumbnail']) && !empty($itemData['height']) )
-                {
-                    $xml[] = "\t\t\t<media:thumbnail url=\"{$itemData['thumbnail']}\" height=\"{$itemData['height']}\"/>";
-                }
-                elseif( !empty($itemData['thumbnail']) && !empty($itemData['width']) )
-                {
-                    $xml[] = "\t\t\t<media:thumbnail url=\"{$itemData['thumbnail']}\" width=\"{$itemData['width']}\"/>";
-                }
-                elseif( !empty($itemData['thumbnail']) )
-                {
-                    $xml[] = "\t\t\t<media:thumbnail url=\"{$itemData['thumbnail']}\"/>";
-                }
-
-                //Close <media:content>
-                $xml[] = "\t\t".'</media:content>';
-                //Close <item>
-                $xml[] = "\t".'</item>';
-
-                //Remove empty fields
-                $xml = array_filter($xml);
-
-                //Build string
-                $files[$i][] = implode("\n",$xml);
-
-                //If amount of $url added is above the limit, increment the file counter.
-                if ($url > $this->max_items_per_sitemap)
-                {
-                    $files[$i] = implode("\n",$files[$i]);
-                    $i++;
-                    $url=0;
-                }
-                $url++;
+                $this->title = "\t<title>{$this->title}</title>\n";
             }
-            $files[$i] = implode("\n",$files[$i]);
 
-            return $files;
+            if(!empty($this->link))
+            {
+                $this->link = "\t<link>{$this->link}</link>\n";
+            }
+
+            if(!empty($this->description))
+            {
+                $this->description = "\t<description>{$this->description}</description>\n";
+            }
+
+            foreach($this->files as $file)
+            {
+                if( str_replace(array("\n","\t"),'',$file) != '' )
+                {
+                    $output[] = $item->getHeader()."\n".$this->title.$this->link.$this->description.$file."\n".$item->getFooter();
+                }
+            }
         }
-        return '';
-    }
-
-    /**
-     * Builds the title, link and description tags.
-     * @return string
-     */
-    protected function buildRssHeader()
-    {
-        $data = array();
-
-        if(!empty($this->title))
-        {
-            $data[] = "\t<title>{$this->title}</title>";
-        }
-
-        if(!empty($this->link))
-        {
-            $data[] = "\t<link>{$this->link}</link>";
-        }
-
-        if(!empty($this->description))
-        {
-            $data[] = "\t<description>{$this->description}</description>";
-        }
-
-        if(!empty($data))
-        {
-            return implode("\n",$data);
-        }
+        return $output;
     }
 
 }

@@ -29,7 +29,7 @@ class MediaItem extends AbstractItem
      */
     public function getFooter()
     {
-        return "</channel>";
+        return "</channel>\n</rss>";
     }
 
 

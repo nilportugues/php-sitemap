@@ -14,6 +14,15 @@ namespace Sonrisa\Component\Sitemap\Validators;
 class MediaValidator extends AbstractValidator
 {
     /**
+     * @param $title
+     * @return string
+     */
+    public static function validateTitle($title)
+    {
+        return $title;
+    }
+
+    /**
      * @param $mimetype
      * @return string
      */
@@ -21,6 +30,16 @@ class MediaValidator extends AbstractValidator
     {
         return $mimetype;
     }
+
+    /**
+     * @param $link
+     * @return string
+     */
+    public static function validateLink($link)
+    {
+        return self::validateLoc($link);
+    }
+
 
     /**
      * @param $player

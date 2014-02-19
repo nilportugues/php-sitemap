@@ -11,5 +11,15 @@
  */
 class NewsSitemapTest extends \PHPUnit_Framework_TestCase
 {
+    protected $sitemap;
 
+    public function setUp()
+    {
+        $this->sitemap = new \Sonrisa\Component\Sitemap\ImageSitemap();
+    }
+
+    public function testPlaceholder()
+    {
+        
+    }
 } 
