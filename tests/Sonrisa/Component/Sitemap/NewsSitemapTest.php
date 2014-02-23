@@ -18,7 +18,42 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
         $this->sitemap = new \Sonrisa\Component\Sitemap\NewsSitemap();
     }
 
-    public function testPlaceholder()
+    public function testAllMandatoryValidFieldsOnly()
+    {
+        $expected=<<<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+\t<url>
+\t\t<loc>http://www.example.org/business/article55.html</loc>
+\t\t<news:news>
+\t\t\t<news:publication>
+\t\t\t\t<news:name>The Example Times</news:name>
+\t\t\t\t<news:language>en</news:language>
+\t\t\t</news:publication>
+\t\t\t<news:publication_date>2008-12-23</news:publication_date>
+\t\t\t<news:title>Companies A, B in Merger Talks</news:title>
+\t\t</news:news>
+\t</url>
+</urlset>
+EOF;
+        $this->sitemap->add(
+            array
+            (
+                //mandatory
+                'loc'               => 'http://www.example.org/business/article55.html',
+                'title'             => 'Companies A, B in Merger Talks',
+                'publication_date'  => '2008-12-23',
+                'name'              => 'The Example Times',
+                'language'          => 'en',
+            )
+        );
+
+        $files = $this->sitemap->build();
+
+        $this->assertEquals($expected,$files[0]);
+    }
+    
+    public function testAllValidFields()
     {
 $expected=<<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
@@ -62,6 +97,8 @@ EOF;
 
         $this->assertEquals($expected,$files[0]);
     }
+
+
 
 
 } 
