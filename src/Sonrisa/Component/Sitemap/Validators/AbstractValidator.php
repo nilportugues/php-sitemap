@@ -45,7 +45,7 @@ abstract class AbstractValidator
         }
 
         if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
-            return htmlentities($date->format( 'c' ));
+            return htmlentities($date->format( 'Y-m-d' ));
         }
 
         if ( ($date = \DateTime::createFromFormat( 'c', $value )) !== false ) {

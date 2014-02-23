@@ -22,7 +22,7 @@ class NewsValidator extends AbstractValidator
      * @param $name
      * @return string
      */
-    public static function validatePublicationName($name)
+    public static function validateName($name)
     {
         return $name;
     }
@@ -31,7 +31,7 @@ class NewsValidator extends AbstractValidator
      * @param $language
      * @return string
      */
-    public static function validatePublicationLanguage($language)
+    public static function validateLanguage($language)
     {
         return $language;
     }

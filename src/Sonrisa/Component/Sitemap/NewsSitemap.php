@@ -24,9 +24,6 @@ use Sonrisa\Component\Sitemap\Validators\NewsValidator;
  *      into multiple Sitemaps, and use a Sitemap index file to manage them. Use the XML format provided in the
  *      Sitemap protocol.
  *
- *  -   Your Sitemap index file shouldn't list more than 50,000 Sitemaps. These limits help ensure that your
- *      web server isn't overloaded by serving large files to Google News.
- *
  *  Once you've created your Sitemap, upload it to the highest-level directory that contains your news articles.
  *
  */
@@ -35,7 +32,7 @@ class NewsSitemap extends AbstractSitemap
     /**
      * @var int
      */
-    protected $max_news = 1000;
+    protected $max_items_per_sitemap = 1000;
 
     /**
      *
@@ -51,7 +48,8 @@ class NewsSitemap extends AbstractSitemap
      */
     public function add($data)
     {
-        if(!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true)){
+        if(!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true))
+        {
 
             //Mark URL as used.
             $this->used_urls[] = $data['loc'];
@@ -68,17 +66,24 @@ class NewsSitemap extends AbstractSitemap
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_news) )
+            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) )
             {
+
                 //add bytes to total
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
-                $this->items[] = $item->buildItem();
+                $built = $item->buildItem();
+                if(!empty($built))
+                {
 
-                $this->files[$this->total_files] = implode("\n",$this->items);
+                    $this->items[] = $built;
 
-                $this->total_items++;
+                    $this->files[$this->total_files] = implode("\n",$this->items);
+
+                    $this->total_items++;
+                }
+
             }
             else
             {

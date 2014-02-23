@@ -37,36 +37,39 @@ class NewsItem extends AbstractItem
      */
     public function buildItem()
     {
+
+
         //Create item ONLY if all mandatory data is present.
         if
         (
             !empty($this->data['loc'])
             && !empty($this->data['title'])
-            && !empty($this->data['publication_date'])
-            && !empty($this->data['publication_name'])
-            && !empty($this->data['publication_language'])
+           // && !empty($this->data['publication_date'])
+           // && !empty($this->data['name'])
+           // && !empty($this->data['language'])
         )
         {
+
             $xml = array();
             $xml[] = "\t".'<url>';
             $xml[] = "\t\t".'<loc>'.$this->data['loc'].'</loc>';
 
             $xml[] = "\t\t".'<news:news>';
 
-            if(!empty($this->data['publication_name']) || !empty($this->data['publication_language']) )
+            if(!empty($this->data['name']) && !empty($this->data['language']) )
             {
                 $xml[] = "\t\t\t".'<news:publication>';
-                $xml[] = (!empty($this->data['publication_name']))     ? "\t\t\t\t".'<news:name><![CDATA['.$this->data['publication_name'].']]></news:name>' : '';
-                $xml[] = (!empty($this->data['publication_language'])) ? "\t\t\t\t".'<news:language><![CDATA['.$this->data['publication_language'].']]></news:language>' : '';
+                $xml[] = (!empty($this->data['name']))     ? "\t\t\t\t".'<news:name>'.$this->data['name'].'</news:name>' : '';
+                $xml[] = (!empty($this->data['language'])) ? "\t\t\t\t".'<news:language>'.$this->data['language'].'</news:language>' : '';
                 $xml[] = "\t\t\t".'</news:publication>';
             }
 
-            $xml[] = (!empty($this->data['access']))            ? "\t\t\t".'<news:access><![CDATA['.$this->data['access'].']]></news:access>' : '';
-            $xml[] = (!empty($this->data['genres']))            ? "\t\t\t".'<news:genres><![CDATA['.$this->data['genres'].']]></news:genres>' : '';
-            $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<news:publication_date><![CDATA['.$this->data['publication_date'].']]></news:publication_date>' : '';
-            $xml[] = (!empty($this->data['title']))             ? "\t\t\t".'<news:title><![CDATA['.$this->data['title'].']]></news:title>' : '';
-            $xml[] = (!empty($this->data['keyword']))           ? "\t\t\t".'<news:keyword><![CDATA['.$this->data['keyword'].']]></news:keyword>' : '';
-            $xml[] = (!empty($this->data['stock_tickers']))     ? "\t\t\t".'<news:stock_tickers><![CDATA['.$this->data['stock_tickers'].']]></news:stock_tickers>' : '';
+            $xml[] = (!empty($this->data['access']))            ? "\t\t\t".'<news:access>'.$this->data['access'].'</news:access>' : '';
+            $xml[] = (!empty($this->data['genres']))            ? "\t\t\t".'<news:genres>'.$this->data['genres'].'</news:genres>' : '';
+            $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<news:publication_date>'.$this->data['publication_date'].'</news:publication_date>' : '';
+            $xml[] = (!empty($this->data['title']))             ? "\t\t\t".'<news:title>'.$this->data['title'].'</news:title>' : '';
+            $xml[] = (!empty($this->data['keywords']))           ? "\t\t\t".'<news:keywords>'.$this->data['keywords'].'</news:keywords>' : '';
+            $xml[] = (!empty($this->data['stock_tickers']))     ? "\t\t\t".'<news:stock_tickers>'.$this->data['stock_tickers'].'</news:stock_tickers>' : '';
 
             $xml[] = "\t\t".'</news:news>';
             $xml[] = "\t".'</url>';
