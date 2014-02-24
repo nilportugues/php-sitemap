@@ -40,6 +40,7 @@ class MediaItem extends AbstractItem
      */
     public function buildItem()
     {
+        $data = '';
         //Create item ONLY if all mandatory data is present.
         if(!empty($this->data['link']))
         {
@@ -90,8 +91,8 @@ class MediaItem extends AbstractItem
             //Remove empty fields
             $xml = array_filter($xml);
 
-            return implode("\n",$xml);
+            $data = implode("\n",$xml);
         }
-        return '';
+        return $data;
     }
 }

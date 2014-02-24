@@ -56,11 +56,12 @@ class MediaValidator extends AbstractValidator
      */
     public static function validateDuration($duration)
     {
+        $data = '';
         if( filter_var($duration,FILTER_SANITIZE_NUMBER_INT))
         {
-            return $duration;
+            $data = $duration;
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -87,11 +88,12 @@ class MediaValidator extends AbstractValidator
      */
     public static function validateHeight($height)
     {
+        $data = '';
         if( filter_var($height,FILTER_SANITIZE_NUMBER_INT))
         {
-            return $height;
+            $data = $height;
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -100,10 +102,11 @@ class MediaValidator extends AbstractValidator
      */
     public static function validateWidth($width)
     {
+        $data = '';
         if( filter_var($width,FILTER_SANITIZE_NUMBER_INT))
         {
-            return $width;
+            $data = $width;
         }
-        return '';
+        return $data;
     }
 }

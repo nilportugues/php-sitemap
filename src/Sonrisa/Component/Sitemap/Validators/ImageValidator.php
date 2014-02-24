@@ -20,10 +20,11 @@ class ImageValidator extends AbstractValidator
      */
     public static function validateTitle($title)
     {
+        $data = '';
         if(is_string($title)){
-            return $title;
+            $data = $title;
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -32,11 +33,12 @@ class ImageValidator extends AbstractValidator
      */
     public static function validateCaption($caption)
     {
+        $data = '';
         if(is_string($caption))
         {
-            return $caption;
+            $data = $caption;
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -45,11 +47,11 @@ class ImageValidator extends AbstractValidator
      */
     public static function validateGeolocation($geolocation)
     {
+        $data = '';
         if(is_string($geolocation)){
-            return $geolocation;
+            $data = $geolocation;
         }
-
-        return '';
+        return $data;
     }
 
     /**
@@ -58,9 +60,10 @@ class ImageValidator extends AbstractValidator
      */
     public static function validateLicense($license)
     {
+        $data = '';
         if(is_string($license)){
-            return $license;
+            $data = $license;
         }
-        return '';
+        return $data;
     }
 }

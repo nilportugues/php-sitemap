@@ -37,6 +37,7 @@ class IndexItem extends AbstractItem
      */
     public function buildItem()
     {
+        $data = '';
         //Create item ONLY if all mandatory data is present.
         if(!empty($this->data['loc']))
         {
@@ -51,10 +52,10 @@ class IndexItem extends AbstractItem
 
             if(!empty($xml))
             {
-                return implode("\n",$xml);
+                $data = implode("\n",$xml);
             }
             
         }
-        return '';
+        return $data;
     }
 } 

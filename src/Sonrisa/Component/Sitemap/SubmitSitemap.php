@@ -33,7 +33,7 @@ class SubmitSitemap
     {
         //Validate URL format and Response
         if ( filter_var( $url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
-            if (self::do_head_check($url)) {
+            if (self::do_head_check($url) === true ) {
                 return self::do_submit($url);
             }
             throw new SitemapException("The URL provided ({$url}) holds no accessible sitemap file.");
@@ -67,6 +67,7 @@ class SubmitSitemap
      */
     protected static function do_head_check($url)
     {
+
         $opts = array
         (
             'http'=>array
@@ -82,8 +83,9 @@ class SubmitSitemap
         @fpassthru($fp);
         @fclose($fp);
 
+        $response = false;
         if (!empty($http_response_header)) {
-            return
+            $response =
             (
                 ($http_response_header[0] == "HTTP/1.1 200 OK") ||
                 ($http_response_header[0] == "HTTP/1.0 200 OK") ||
@@ -94,9 +96,8 @@ class SubmitSitemap
                 ($http_response_header[0] == "HTTP/1.1 302 Found") ||
                 ($http_response_header[0] == "HTTP/1.0 302 Found")
             );
-        } else {
-            return false;
         }
+        return $response;
     }
 
 }

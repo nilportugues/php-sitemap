@@ -23,11 +23,12 @@ abstract class AbstractValidator
      */
     public static function validateLoc($value)
     {
+        $data = '';
         if ( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
-            return htmlentities($value);
+            $data = htmlentities($value);
         }
 
-        return '';
+        return $data;
     }
 
     /**
@@ -40,17 +41,18 @@ abstract class AbstractValidator
      */
     protected static function validateDate($value)
     {
+        $data = '';
         if ( ($date = \DateTime::createFromFormat( 'Y-m-d\TH:i:sP', $value )) !== false ) {
-            return htmlentities($date->format( 'c' ));
+            $data = htmlentities($date->format( 'c' ));
         }
 
         if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
-            return htmlentities($date->format( 'Y-m-d' ));
+            $data = htmlentities($date->format( 'Y-m-d' ));
         }
 
         if ( ($date = \DateTime::createFromFormat( 'c', $value )) !== false ) {
-            return htmlentities($date->format( 'c' ));
+            $data = htmlentities($date->format( 'c' ));
         }        
-        return '';
+        return $data;
     }
 } 

@@ -34,11 +34,11 @@ class UrlValidator extends AbstractValidator
      */
     public static function validateChangefreq($changefreq)
     {
+        $data = '';
         if ( in_array(trim(strtolower($changefreq)),self::$changeFreqValid,true) ) {
-            return htmlentities($changefreq);
+            $data = htmlentities($changefreq);
         }
-
-        return '';
+        return $data;
     }
 
     /**
@@ -53,11 +53,12 @@ class UrlValidator extends AbstractValidator
      */
     public static function validatePriority($priority)
     {
+        $data = '';
         preg_match('/([0-9].[0-9])/', $priority, $matches);
 
         if (!empty($matches[0]) && ($matches[0]<1.1) && ($matches[0]>0.0) ) {
-            return $matches[1];
+            $data = $matches[1];
         } 
-        return "";
+        return $data;
     }
 } 

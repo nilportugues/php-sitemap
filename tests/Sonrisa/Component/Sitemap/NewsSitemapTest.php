@@ -52,7 +52,7 @@ EOF;
 
         $this->assertEquals($expected,$files[0]);
     }
-    
+
     public function testAllValidFields()
     {
 $expected=<<<EOF
@@ -99,6 +99,34 @@ EOF;
     }
 
 
+    public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
+    {
+        //For testing purposes reduce the real limit to 1000 instead of 50000
+        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\NewsSitemap');
+        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property->setAccessible(true);
+        $property->setValue($this->sitemap,'1000');
 
+
+        //Test limit
+        for ($i=1;$i<=2000; $i++) {
+            $this->sitemap->add(
+                array
+                (
+                    //mandatory
+                    'loc'               => 'http://www.example.org/business/article-'.$i.'.html',
+                    'title'             => 'Title '.$i,
+                    'publication_date'  => '2008-12-23',
+                    'name'              => 'The Example Times',
+                    'language'          => 'en',
+                )
+            );
+
+        }
+        $files = $this->sitemap->build();
+
+        $this->assertArrayHasKey('0',$files);
+        $this->assertArrayHasKey('1',$files);
+    }
 
 } 

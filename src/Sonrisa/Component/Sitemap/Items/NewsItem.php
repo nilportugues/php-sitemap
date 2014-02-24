@@ -37,8 +37,7 @@ class NewsItem extends AbstractItem
      */
     public function buildItem()
     {
-
-
+        $data = '';
         //Create item ONLY if all mandatory data is present.
         if
         (
@@ -75,8 +74,8 @@ class NewsItem extends AbstractItem
             $xml[] = "\t".'</url>';
             $xml = array_filter($xml);
 
-            return implode("\n",$xml);
+            $data = implode("\n",$xml);
         }
-        return '';
+        return $data;
     }
 }

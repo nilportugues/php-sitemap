@@ -15,4 +15,15 @@
             <directory>./tests/Sonrisa/Component/Sitemap/</directory>
         </testsuite>
     </testsuites>
+
+    <filter>
+        <whitelist>
+            <directory>./</directory>
+            <exclude>
+                <directory>./tests/</directory>
+                <directory>./vendor/</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
 </phpunit>

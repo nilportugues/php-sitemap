@@ -78,6 +78,28 @@ class VideoValidator extends AbstractValidator
     );
 
     /**
+     * @param $value
+     * @return string
+     */
+    public static function validateAllowEmbed($value)
+    {
+        return self::validateYesNo($value);
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public static function validateAutoplay($string)
+    {
+        $data = '';
+        if(!empty($string)){
+            $data = $string;
+        }
+        return $data;
+    }
+
+    /**
      * @param $loc
      * @return string
      */
@@ -291,7 +313,7 @@ class VideoValidator extends AbstractValidator
      * @param $uploader_loc
      * @return string
      */
-    public static function validateUploaderLoc($uploader_loc)
+    public static function validateUploaderInfo($uploader_loc)
     {
         return self::validateLoc($uploader_loc);
     }
@@ -409,18 +431,19 @@ class VideoValidator extends AbstractValidator
      */
     protected static function validateAllowDeny($access)
     {
+        $data = '';
         $access = strtolower($access);
 
         if($access == 'allow')
         {
-            return 'allow';
+            $data = 'allow';
         }
 
         if($access == 'deny')
         {
-            return 'deny';
+            $data = 'deny';
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -429,17 +452,18 @@ class VideoValidator extends AbstractValidator
      */
     protected static function validateYesNo($value)
     {
+        $data = '';
         $value = strtolower($value);
         if($value == 'yes')
         {
-            return 'yes';
+            $data = 'yes';
         }
 
         if($value == 'no')
         {
-            return 'no';
+            $data = 'no';
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -448,18 +472,19 @@ class VideoValidator extends AbstractValidator
      */
     protected static function validatePriceResolution($resolution)
     {
+        $data = '';
         $resolution = strtoupper($resolution);
         if(strtoupper($resolution) == 'HD')
         {
-            return 'HD';
+            $data = 'HD';
         }
 
         if(strtoupper($resolution) == 'SD')
         {
-            return 'SD';
+            $data = 'SD';
         }
 
-        return '';
+        return $data;
     }
 
     /**
@@ -468,17 +493,18 @@ class VideoValidator extends AbstractValidator
      */
     protected static function validatePriceType($type)
     {
+        $data = 'own';
         $type = strtolower($type);
         if(strtolower($type) == 'rent')
         {
-            return 'rent';
+            $data = 'rent';
         }
 
         if(strtolower($type) == 'own')
         {
-            return 'own';
+            $data = 'own';
         }
 
-        return 'own';
+        return $data;
     }
 } 

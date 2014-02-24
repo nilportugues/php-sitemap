@@ -38,6 +38,7 @@ class VideoItem extends AbstractItem
      */
     public function buildItem()
     {
+        $data = '';
         //Create item ONLY if all mandatory data is present.
         if( !empty($this->data['title']) && (!empty($this->data['player_loc']) || !empty($this->data['content_loc']))  )
         {
@@ -55,7 +56,7 @@ class VideoItem extends AbstractItem
             }
             elseif(!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) )
             {
-                $xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'" >'.$this->data['player_loc'].'</video:player_loc>';
+                $xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'">'.$this->data['player_loc'].'</video:player_loc>';
             }
             elseif(!empty($this->data['player_loc']) && !empty($this->data['autoplay']) )
             {
@@ -96,11 +97,11 @@ class VideoItem extends AbstractItem
                 {
                     if(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) && !empty($price['resolution']))
                     {
-                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'" resolution="'.$price['resolution'].'" >'.$price['price'].'</video:price>';
+                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'" resolution="'.$price['resolution'].'">'.$price['price'].'</video:price>';
                     }
                     elseif(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['resolution']))
                     {
-                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" resolution="'.$price['resolution'].'" >'.$price['price'].'</video:price>';
+                        $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" resolution="'.$price['resolution'].'">'.$price['price'].'</video:price>';
                     }
                     elseif(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) )
                     {
@@ -109,10 +110,6 @@ class VideoItem extends AbstractItem
                     elseif(!empty($price['price']) && !empty($price['price_currency'])  )
                     {
                         $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'">'.$price['price'].'</video:price>';
-                    }
-                    elseif(!empty($price['price']) )
-                    {
-                        $xml[] = "\t\t\t".'<video:price>'.$price['price'].'</video:price>';
                     }
                 }
             }
@@ -159,8 +156,8 @@ class VideoItem extends AbstractItem
 
             //Clean up and return
             $xml = array_filter($xml);
-            return implode("\n",$xml);
+            $data = implode("\n",$xml);
         }
-        return '';
+        return $data;
     }
 }

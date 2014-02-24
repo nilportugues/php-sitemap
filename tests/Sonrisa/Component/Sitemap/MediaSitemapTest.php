@@ -553,4 +553,39 @@ XML;
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
+
+    public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
+    {
+        //For testing purposes reduce the real limit to 1000 instead of 50000
+        $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\MediaSitemap');
+        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property->setAccessible(true);
+        $property->setValue($this->sitemap,'1000');
+
+
+        $this->sitemap->setTitle('Media RSS de ejemplo');
+        $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
+        $this->sitemap->setDescription('Ejemplo de MRSS');
+
+
+        //Test limit
+        for ($i=1;$i<=2000; $i++) {
+            $this->sitemap->add(array
+            (
+                'link'          => 'http://www.example.com/examples/mrss/example-'.$i.'.html',
+                'mimetype'      =>  'video/x-flv',
+                'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
+                'duration'      =>  120,
+                'title'         =>  'Barbacoas en verano',
+                'description'   =>  'Description '.$i,
+                'thumbnail'     =>  'http://www.example.com/examples/mrss/example-'.$i.'.png',
+                'height'        =>  120,
+                'width'         =>  160,
+            ));
+        }
+        $files = $this->sitemap->build();
+
+        $this->assertArrayHasKey('0',$files);
+        $this->assertArrayHasKey('1',$files);
+    }
 }
