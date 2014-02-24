@@ -1,9 +1,56 @@
-.idea/
+#---------------------------------------------------
+# PHP Project files to ignore
+#---------------------------------------------------
 vendor/
 bin/
 tmp/
-.DS_Store
-bin/
-tmp/
 composer.lock
-*.php~
+
+#---------------------------------------------------
+# Numerous always-ignore extensions
+#---------------------------------------------------
+*.bak
+*.diff
+*.err
+*.orig
+*.log
+*.rej
+*.swo
+*.swp
+*.vi
+*~
+*.sass-cache
+
+#---------------------------------------------------
+# OS or Editor folders
+#---------------------------------------------------
+.DS_Store
+._*
+Thumbs.db
+.cache
+.project
+.settings
+.tmproj
+nbproject
+*.sublime-project
+*.sublime-workspace
+.idea
+*.komodoproject
+.komodotools
+*.esproj
+*.espressostorage
+*.rbc
+.idea
+
+#---------------------------------------------------
+# Folders to ignore
+#---------------------------------------------------
+.hg
+.svn
+.CVS
+
+#---------------------------------------------------
+# Minified assets
+#---------------------------------------------------
+*.min.js
+*.min.css
