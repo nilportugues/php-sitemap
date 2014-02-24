@@ -401,10 +401,50 @@ $sitemap->write('path/to/public/www','sitemap.media.xml');
 ```php
 <?php
 use Sonrisa\Component\Sitemap\NewsSitemap;
+$sitemap = new NewsSitemap();
+
+$sitemap->add(
+    array
+    (
+        //Mandatory values
+        'loc'               => 'http://www.example.org/business/article55.html',
+        'title'             => 'Companies A, B in Merger Talks',
+        'publication_date'  => '2008-12-23',
+        'name'              => 'The Example Times',
+        'language'          => 'en',
+
+        //Optional
+        'access'            => 'Subscription',
+        'keywords'          => 'business, merger, acquisition, A, B',
+        'stock_tickers'     => 'NASDAQ:A, NASDAQ:B',
+        'genres'            => 'PressRelease, Blog'
+    )
+);
+
+$files = $sitemap->build();
+$sitemap->write('path/to/public/www','sitemap.news.xml');
 ```
 <a name="block4.7.2"></a>
 #### Output
 ```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
+  <url>
+    <loc>http://www.example.org/business/article55.html</loc>
+    <news:news>
+      <news:publication>
+        <news:name>The Example Times</news:name>
+        <news:language>en</news:language>
+      </news:publication>
+      <news:access>Subscription</news:access>
+      <news:genres>PressRelease, Blog</news:genres>
+      <news:publication_date>2008-12-23</news:publication_date>
+      <news:title>Companies A, B in Merger Talks</news:title>
+      <news:keywords>business, merger, acquisition, A, B</news:keywords>
+      <news:stock_tickers>NASDAQ:A, NASDAQ:B</news:stock_tickers>
+    </news:news>
+  </url>
+</urlset>
 ```
 
 <a name="block5"></a>
