@@ -50,9 +50,6 @@ abstract class AbstractValidator
             $data = htmlentities($date->format( 'Y-m-d' ));
         }
 
-        if ( ($date = \DateTime::createFromFormat( 'c', $value )) !== false ) {
-            $data = htmlentities($date->format( 'c' ));
-        }        
         return $data;
     }
 } 
