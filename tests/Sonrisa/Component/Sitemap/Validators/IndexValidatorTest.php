@@ -27,6 +27,18 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->validator = new IndexValidator();
     }
 
+    public function testValidateLocValid()
+    {
+        $result = $this->validator->validateLoc('http://google.com/page');
+        $this->assertEquals('http://google.com/page',$result);
+    }
+
+    public function testValidateLocInvalid()
+    {
+        $result = $this->validator->validateLoc('not-a-url');
+        $this->assertEquals('',$result);
+    }
+
     public function testValidateLastmodValidFormat1()
     {
         $date = new \DateTime('now');

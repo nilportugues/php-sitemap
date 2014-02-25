@@ -444,16 +444,10 @@ class VideoValidator extends AbstractValidator
     protected static function validateAllowDeny($access)
     {
         $data = '';
-        $access = strtolower($access);
-
-        if($access == 'allow')
+        switch( strtolower($access) )
         {
-            $data = 'allow';
-        }
-
-        if($access == 'deny')
-        {
-            $data = 'deny';
+            case 'allow':   $data = 'allow'; break;
+            case 'deny':    $data = 'deny'; break;
         }
         return $data;
     }
@@ -465,15 +459,10 @@ class VideoValidator extends AbstractValidator
     protected static function validateYesNo($value)
     {
         $data = '';
-        $value = strtolower($value);
-        if($value == 'yes')
+        switch( strtolower($value) )
         {
-            $data = 'yes';
-        }
-
-        if($value == 'no')
-        {
-            $data = 'no';
+            case 'yes':   $data = 'yes'; break;
+            case 'no':    $data = 'no'; break;
         }
         return $data;
     }
@@ -485,17 +474,11 @@ class VideoValidator extends AbstractValidator
     protected static function validatePriceResolution($resolution)
     {
         $data = '';
-        $resolution = strtoupper($resolution);
-        if(strtoupper($resolution) == 'HD')
+        switch( strtoupper($resolution) )
         {
-            $data = 'HD';
+            case 'HD':   $data = 'HD'; break;
+            case 'SD':    $data = 'SD'; break;
         }
-
-        if(strtoupper($resolution) == 'SD')
-        {
-            $data = 'SD';
-        }
-
         return $data;
     }
 
@@ -505,18 +488,12 @@ class VideoValidator extends AbstractValidator
      */
     protected static function validatePriceType($type)
     {
-        $data = 'own';
-        $type = strtolower($type);
-        if(strtolower($type) == 'rent')
+        $data = '';
+        switch( strtolower($type) )
         {
-            $data = 'rent';
+            case 'own':     $data = 'own'; break;
+            case 'rent':    $data = 'rent'; break;
         }
-
-        if(strtolower($type) == 'own')
-        {
-            $data = 'own';
-        }
-
         return $data;
     }
 } 

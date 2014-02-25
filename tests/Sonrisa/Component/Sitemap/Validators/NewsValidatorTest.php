@@ -27,8 +27,16 @@ class NewsValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->validator = new NewsValidator();
     }
 
-    public function testPlaceholder()
+    public function testValidateLocValid()
     {
-
+        $result = $this->validator->validateLoc('http://google.com/news');
+        $this->assertEquals('http://google.com/news',$result);
     }
+
+    public function testValidateLocInvalid()
+    {
+        $result = $this->validator->validateLoc('not-a-url');
+        $this->assertEquals('',$result);
+    }
+
 } 
