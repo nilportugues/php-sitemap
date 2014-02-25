@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap;
+use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\AbstractItem;
 
 /**
@@ -107,13 +108,10 @@ abstract class AbstractSitemap
                 {
                     $output[] = $item->getHeader()."\n".$file."\n".$item->getFooter();
                 }
-                else
-                {
-                    $output[] = $item->getHeader()."\n".$item->getFooter();
-                }
-                
             }
         }
+        $this->output = $output;
+
         return $output;
     }
 
@@ -121,37 +119,55 @@ abstract class AbstractSitemap
     /**
      * @param $filepath
      * @param $filename
+     * @return bool
+     * @throws Exceptions\SitemapException
      */
     public function write($filepath,$filename)
     {
-
-        //Write to disk.
-        if(!empty($array[0]) && count($array) > 1)
+        if(empty($this->output))
         {
+            throw new SitemapException('Will not write to directory. Use build() method first.');
+        }
+
+        $success = false;
+        if( is_dir($filepath) && is_writable($filepath))
+        {
+            $filepath = realpath($filepath);
+
+            $path_parts = pathinfo($filename);
+            $basename = $path_parts['basename'];
+            $extension = $path_parts['extension'];
+
             //Write all generated sitemaps to files: sitemap1.xml, sitemap2.xml, etc..
-            $id = 1;
-            foreach($array as $fileNumber => $sitemap)
+            foreach($this->output as $fileNumber => $sitemap)
             {
-                // Would be nice to use writeGzipFile instead ;)
+                $i = ($fileNumber == 0) ? '' : $fileNumber;
 
-                $i = ($fileNumber == 0) ? 1  : $id;
-                file_put_contents("file/to/{$baseFilename}-{$i}.xml",$sitemap);
-                $id++;
+                $sitemapPath = $filepath.DIRECTORY_SEPARATOR."{$basename}{$i}.{$extension}";
+                $status = file_put_contents($sitemapPath,$sitemap);
+
+                if($status !== false)
+                {
+                    $success = true;
+                }
+                else
+                {
+                    throw new SitemapException('Could not write to directory: '.$sitemapPath);
+                }
             }
-
-            // While not mandatory, it is wise to generated sitemap.xml file containing
-            // the urls to the other sitemap files when more than one file is produced.
         }
         else
         {
-            file_put_contents("file/to/sitemap{$i}.xml",$array[0]);
+            throw new SitemapException('Cannot write to directory: '.$filepath);
         }
+        return $success;
     }
 
     /**
      * @param $filepath
+     * @param $filename
      */
-    protected function writeGzipFile($filepath)
+    protected function writeGzipFile($filepath,$filename)
     {
 
     }
