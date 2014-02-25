@@ -33,6 +33,7 @@ class VideoSitemapTest extends \PHPUnit_Framework_TestCase
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction relationship="allow">IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
@@ -117,6 +118,7 @@ XML;
 \t\t\t<video:player_loc autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction relationship="allow">IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
@@ -201,6 +203,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction relationship="allow">IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
@@ -285,6 +288,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
@@ -372,6 +376,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc>http://cooking.example.com</video:gallery_loc>
@@ -459,6 +464,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc>http://cooking.example.com</video:gallery_loc>
@@ -544,6 +550,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc>http://cooking.example.com</video:gallery_loc>
@@ -628,6 +635,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc>http://cooking.example.com</video:gallery_loc>
@@ -710,6 +718,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc>http://cooking.example.com</video:gallery_loc>
@@ -791,6 +800,7 @@ XML;
 \t\t\t<video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
 \t\t\t<video:duration><![CDATA[600]]></video:duration>
 \t\t\t<video:expiration_date><![CDATA[2009-11-05T19:20:30+08:00]]></video:expiration_date>
+\t\t\t<video:rating><![CDATA[4.2]]></video:rating>
 \t\t\t<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>
 \t\t\t<video:restriction>IE GB US CA</video:restriction>
 \t\t\t<video:gallery_loc>http://cooking.example.com</video:gallery_loc>

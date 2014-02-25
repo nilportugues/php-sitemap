@@ -190,13 +190,18 @@ class VideoValidator extends AbstractValidator
      */
     public static function validateRating($rating)
     {
-        preg_match('/([0-9].[0-9])/', $rating, $matches);
-
-        if (!empty($matches[0]) && ($matches[0]<=0.50) && ($matches[0]>=0.1) )
+        $data = '';
+        if ( is_numeric($rating) && $rating > -0.01 && $rating < 5.01 )
         {
-            return $matches[1];
+            preg_match('/([0-9].[0-9])/', $rating, $matches);
+            $matches[0] = floatval($matches[0]);
+
+            if( !empty($matches[0]) && $matches[0]<=5.0 && $matches[0]>=0.0 )
+            {
+                $data = $matches[0];
+            }
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -205,11 +210,12 @@ class VideoValidator extends AbstractValidator
      */
     public static function validateViewCount($view_count)
     {
+        $data = '';
         if(is_integer($view_count) && $view_count > 0 )
         {
-            return $view_count;
+            $data = $view_count;
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -227,11 +233,12 @@ class VideoValidator extends AbstractValidator
      */
     public static function validateFamilyFriendly($family_friendly)
     {
+        $data = '';
         if(ucfirst(strtolower($family_friendly)) == 'No')
         {
-            return 'No';
+            $data = 'No';
         }
-        return '';
+        return $data;
     }
 
     /**
@@ -366,19 +373,24 @@ class VideoValidator extends AbstractValidator
      */
     public static function validateTag($tags)
     {
+        $data = array();
+
         if(is_array($tags))
         {
-            if(count($tags) <= self::$max_video_tag_tags )
+            if(count($tags) > self::$max_video_tag_tags )
             {
-                return array_slice($tags, 0, 32);
+                $data = array_slice($tags, 0, 32);
             }
-            return $tags;
+            else
+            {
+                $data = $tags;
+            }
         }
         elseif(is_string($tags))
         {
-            return array($tags);
+            $data = array($tags);
         }
-        return array();
+        return $data;
     }
 
 
