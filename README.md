@@ -156,7 +156,10 @@ use Sonrisa\Component\Sitemap\Sitemap;
 
 $sitemap = new Sitemap();
 $sitemap->add(array(
+   //Mandatory values
    'loc'       => 'http://www.example.com/',
+   
+   //Optional   
    'priority'  => '1.0',
    'changefreq'=> 'daily',
    'lastmod'   => '2014-05-10T17:33:30+08:00'
