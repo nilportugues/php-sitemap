@@ -119,10 +119,11 @@ abstract class AbstractSitemap
     /**
      * @param $filepath
      * @param $filename
+     * @param bool $gzip
      * @return bool
      * @throws Exceptions\SitemapException
      */
-    public function write($filepath,$filename)
+    public function writeFile($filepath,$filename,$gzip=false)
     {
         if(empty($this->output))
         {
@@ -135,24 +136,23 @@ abstract class AbstractSitemap
             $filepath = realpath($filepath);
 
             $path_parts = pathinfo($filename);
-            $basename = $path_parts['basename'];
+            $basename = $path_parts['filename'];
             $extension = $path_parts['extension'];
 
             //Write all generated sitemaps to files: sitemap1.xml, sitemap2.xml, etc..
             foreach($this->output as $fileNumber => $sitemap)
             {
                 $i = ($fileNumber == 0) ? '' : $fileNumber;
-
                 $sitemapPath = $filepath.DIRECTORY_SEPARATOR."{$basename}{$i}.{$extension}";
-                $status = file_put_contents($sitemapPath,$sitemap);
 
-                if($status !== false)
+                //Writes files to disk
+                if($gzip == true)
                 {
-                    $success = true;
+                    $success = $this->writeGzipFile($sitemapPath.".gz",$sitemap);
                 }
                 else
                 {
-                    throw new SitemapException('Could not write to directory: '.$sitemapPath);
+                    $success = $this->writePlainFile($sitemapPath,$sitemap);
                 }
             }
         }
@@ -165,10 +165,30 @@ abstract class AbstractSitemap
 
     /**
      * @param $filepath
-     * @param $filename
+     * @param $contents
+     * @return bool
      */
-    protected function writeGzipFile($filepath,$filename)
+    protected function writePlainFile($filepath,$contents)
     {
+        return file_put_contents($filepath,$contents);
+    }
+
+    /**
+     * @param $filepath
+     * @param $contents
+     * @return bool
+     */
+    protected function writeGzipFile($filepath,$contents)
+    {
+        $status = false;
+        $fp = gzopen ($filepath, 'w9');
+
+        if($fp !== false)
+        {
+            gzwrite ($fp, $contents);
+            $status = gzclose($fp);
+        }
+        return $status;
 
     }
 }

@@ -6,8 +6,19 @@
  * file that was distributed with this source code.
  */
 
+/**
+ * Class SitemapTest
+ */
 class SitemapTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var array
+     */
+    protected $files = array();
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Sitemap
+     */
     protected $sitemap;
 
     public function setUp()
@@ -401,5 +412,55 @@ XML;
 
         $this->assertArrayHasKey('0',$files);
         $this->assertArrayHasKey('1',$files);
+
+        $this->sitemap->build();
+
+
+    }
+
+    public function testWriteFileWithoutBuild()
+    {
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+
+        $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
+        $this->sitemap->writeFile('./','sitemap.xml',false);
+    }
+
+    public function testWritePlainFile()
+    {
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+
+        $this->sitemap->build();
+        $this->sitemap->writeFile('./','sitemap.xml',false);
+        $this->assertFileExists('sitemap.xml');
+    }
+
+    public function testWritePlainFileThrowException()
+    {
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+
+        $this->sitemap->build();
+
+        $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
+        $this->sitemap->writeFile('./fake/path','sitemap.xml',false);
+    }
+
+    public function testWriteGZipFile()
+    {
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+
+        $this->sitemap->build();
+        $this->sitemap->writeFile('./','sitemap.xml',true);
+        $this->assertFileExists('sitemap.xml.gz');
+    }
+
+    public function testWriteGZipFileThrowException()
+    {
+        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+
+        $this->sitemap->build();
+
+        $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
+        $this->sitemap->writeFile('./fake/path','sitemap.xml',true);
     }
 }
