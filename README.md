@@ -46,18 +46,32 @@ This component builds sitemaps supported by the main search engines, Google and 
 
 The **Sitemap Component** is able of building the following types of sitemaps:
 
-- **sitemap-index.xml**: A sitemap that serves as a index containing references to other sitemap.xml files.
-- **sitemap.xml**: Text content sitemaps, the most common type of sitemap found around the Internet.
-- **sitemap.images.xml**: Sitemap for for images.
-- **sitemap.videos.xml**: Sitemap for for videos.
-- **media.xml**: Alternative for video sitemaps . More documentation can be found [here](https://support.google.com/webmasters/answer/183265?hl=en).
-- **sitemap.news.xml**: Sitemap for news articles.
+### Sitemap Index
+A sitemap that serves as a index containing references to other sitemap.xml files. 
+More documentation can be found [here](https://support.google.com/webmasters/answer/71453?hl=en).
 
+### Basic Sitemap
+Text content sitemaps, the most common type of sitemap found around the Internet. 
+More documentation can be found [here](https://support.google.com/webmasters/answer/183668?hl=en&ref_topic=8476).
+
+### Image Sitemap
+Sitemap for for images. More documentation can be found [here](https://support.google.com/webmasters/answer/178636?hl=en).
+
+### Video Sitemap
+Sitemap for for videos. More documentation can be found [here](https://support.google.com/webmasters/answer/80472?hl=en&ref_topic=10079).
+
+### Media Sitemap
+Alternative for video sitemaps. More documentation can be found [here](https://support.google.com/webmasters/answer/183265?hl=en).
+
+### News Sitemap
+Sitemap for news articles. More documentation can be found [here](https://support.google.com/webmasters/answer/74288?hl=en).
+
+### Standard compilant
 The sitemap component follow 100% the standards, meaning that it follows strictly the contrains:
 
 - A sitemap file cannot contain **50000 items per file**.
 - A sitemap file cannot be larger than **50 MBytes, uncompressed**.
-- An image sitemap file cannot contain more than **1000 images** per `<url>` element.
+- An Image Sitemap file cannot contain more than **1000 images** per `<url>` element.
 
 <a name="block3"></a>
 ## 3. Automatic sitemap submission
@@ -196,12 +210,16 @@ $sitemap = new ImageSitemap();
 
 //Add images to the sitemap by relating them to a Url.
 $this->sitemap->add(array(
+ //Mandatory values 
  'loc' => 'http://www.example.com/logo.png', 
+ //Optional
  'title' => 'Example.com logo' 
 ),'http://www.example.com/');
 
 $this->sitemap->add(array(
+  //Mandatory values 
  'loc' => 'http://www.example.com/main.png', 
+ //Optional
  'title' => 'Main image' 
 ),'http://www.example.com/');
 
@@ -239,11 +257,14 @@ $sitemap = new \Sonrisa\Component\Sitemap\VideoSitemap();
 
 $data = array
 (
-    'thumbnail_loc'             => 'http://www.example.com/thumbs/123.jpg',
+    //Mandatory values
     'title'                     => 'Grilling steaks for summer',
-    'description'               => 'Alkis shows you how to get perfectly done steaks everytime',
     'content_loc'               => 'http://www.example.com/video123.flv',
     'player_loc'                => 'http://www.example.com/videoplayer.swf?video=123',
+
+    //Optional
+    'thumbnail_loc'             => 'http://www.example.com/thumbs/123.jpg', 
+    'description'               => 'Alkis shows you how to get perfectly done steaks everytime',
     'allow_embed'               => 'yes',
     'autoplay'                  => 'ap=1',
     'duration'                  => '600',
@@ -335,7 +356,10 @@ $sitemap->setDescription('Ejemplo de MRSS');
 
 $sitemap->add(array
 (
+    //Mandatory values
     'link'          =>  'http://www.example.com/examples/mrss/example1.html',
+
+    //Optional
     'mimetype'      =>  'video/x-flv',
     'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
     'duration'      =>  120,
@@ -348,7 +372,10 @@ $sitemap->add(array
 
 $sitemap->add(array
 (
+    //Mandatory values
     'link'          =>  'http://www.example.com/examples/mrss/example2.html',
+
+    //Optional
     'mimetype'      =>  'video/x-flv',
     'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
     'duration'      =>  240,
