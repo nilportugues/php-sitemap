@@ -29,6 +29,8 @@ Builds sitemaps for pages, images and media files and provides a class to submit
 * [5. Fully tested](#block5)
 * [6. Author](#block6)
 
+---
+
 <a name="block1"></a>
 ## 1.Installation
 Add the following to your `composer.json` file :
@@ -40,38 +42,43 @@ Add the following to your `composer.json` file :
     }
 }
 ```
+
+---
+
 <a name="block2"></a>
 ## 2. Features
 This component builds sitemaps supported by the main search engines, Google and Bing, in xml and gzip formats.
 
 The **Sitemap Component** is able of building the following types of sitemaps:
 
-### Sitemap Index
+#### Sitemap Index
 A sitemap that serves as a index containing references to other sitemap.xml files. 
 More documentation can be found [here](https://support.google.com/webmasters/answer/71453?hl=en).
 
-### Basic Sitemap
+#### Basic Sitemap
 Text content sitemaps, the most common type of sitemap found around the Internet. 
 More documentation can be found [here](https://support.google.com/webmasters/answer/183668?hl=en&ref_topic=8476).
 
-### Image Sitemap
+#### Image Sitemap
 Sitemap for for images. More documentation can be found [here](https://support.google.com/webmasters/answer/178636?hl=en).
 
-### Video Sitemap
+#### Video Sitemap
 Sitemap for for videos. More documentation can be found [here](https://support.google.com/webmasters/answer/80472?hl=en&ref_topic=10079).
 
-### Media Sitemap
+#### Media Sitemap
 Alternative for video sitemaps. More documentation can be found [here](https://support.google.com/webmasters/answer/183265?hl=en).
 
-### News Sitemap
+#### News Sitemap
 Sitemap for news articles. More documentation can be found [here](https://support.google.com/webmasters/answer/74288?hl=en).
 
-### Standard compilant
+#### Standard compilant
 The sitemap component follow 100% the standards, meaning that it follows strictly the contrains:
 
 - A sitemap file cannot contain **50000 items per file**.
 - A sitemap file cannot be larger than **50 MBytes, uncompressed**.
 - An Image Sitemap file cannot contain more than **1000 images** per `<url>` element.
+
+---
 
 <a name="block3"></a>
 ## 3. Automatic sitemap submission
@@ -79,6 +86,8 @@ The sitemap component follow 100% the standards, meaning that it follows strictl
 This component also provides a method to submit the generated sitemaps to the following search engines:
 - Google
 - Bing
+
+---
 
 <a name="block4"></a>
 ## 4. Usage
@@ -474,9 +483,13 @@ $sitemap->write('path/to/public/www','sitemap.news.xml');
 </urlset>
 ```
 
+---
+
 <a name="block5"></a>
 ## 5. Fully tested.
-Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.5 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
+Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.6 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
+
+---
 
 <a name="block6"></a>
 ## 6. Author
