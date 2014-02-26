@@ -115,7 +115,10 @@ use Sonrisa\Component\Sitemap\IndexSitemap;
 
 $sitemapIndex = new IndexSitemap();
 $sitemapIndex->add(array(
+   //Mandatory values
    'loc'     => 'http://www.example.com/sitemap.content.xml',
+   
+   //Optional
    'lastmod' => '2005-05-10T17:33:30+08:00'
 ));
 $sitemapIndex->add(array(
