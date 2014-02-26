@@ -7,7 +7,6 @@
  */
 namespace Sonrisa\Component\Sitemap\Items;
 
-
 /**
  * Class VideoItem
  * @package Sonrisa\Component\Sitemap\Items
@@ -40,8 +39,7 @@ class VideoItem extends AbstractItem
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.
-        if( !empty($this->data['title']) && (!empty($this->data['player_loc']) || !empty($this->data['content_loc']))  )
-        {
+        if ( !empty($this->data['title']) && (!empty($this->data['player_loc']) || !empty($this->data['content_loc']))  ) {
             $xml = array();
 
             $xml[] = "\t\t".'<video:video>';
@@ -50,16 +48,11 @@ class VideoItem extends AbstractItem
             $xml[] = (!empty($this->data['description']))       ? "\t\t\t".'<video:description><![CDATA['.$this->data['description'].']]></video:description>' : '';
             $xml[] = (!empty($this->data['content_loc']))       ? "\t\t\t".'<video:content_loc><![CDATA['.$this->data['content_loc'].']]></video:content_loc>' : '';
 
-            if(!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) && !empty($this->data['autoplay']))
-            {
+            if (!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) && !empty($this->data['autoplay'])) {
                 $xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'" autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
-            }
-            elseif(!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) )
-            {
+            } elseif (!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) ) {
                 $xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'">'.$this->data['player_loc'].'</video:player_loc>';
-            }
-            elseif(!empty($this->data['player_loc']) && !empty($this->data['autoplay']) )
-            {
+            } elseif (!empty($this->data['player_loc']) && !empty($this->data['autoplay']) ) {
                 $xml[] = "\t\t\t".'<video:player_loc autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
             }
 
@@ -70,45 +63,28 @@ class VideoItem extends AbstractItem
             $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<video:publication_date><![CDATA['.$this->data['publication_date'].']]></video:publication_date>' : '';
             $xml[] = (!empty($this->data['family_friendly']))   ? "\t\t\t".'<video:family_friendly><![CDATA['.$this->data['family_friendly'].']]></video:family_friendly>' : '';
 
-
-            if(!empty($this->data['restriction']) && !empty($this->data['restriction_relationship']) )
-            {
+            if (!empty($this->data['restriction']) && !empty($this->data['restriction_relationship']) ) {
                 $xml[] = "\t\t\t".'<video:restriction relationship="'.$this->data['restriction_relationship'].'">'.$this->data['restriction'].'</video:restriction>';
-            }
-            elseif(!empty($this->data['restriction']) )
-            {
+            } elseif (!empty($this->data['restriction']) ) {
                 $xml[] = "\t\t\t".'<video:restriction>'.$this->data['restriction'].'</video:restriction>';
             }
 
-
-            if(!empty($this->data['gallery_loc']) && !empty($this->data['gallery_loc_title']))
-            {
+            if (!empty($this->data['gallery_loc']) && !empty($this->data['gallery_loc_title'])) {
                 $xml[] = "\t\t\t".'<video:gallery_loc title="'.$this->data['gallery_loc_title'].'">'.$this->data['gallery_loc'].'</video:gallery_loc>';
-            }
-            elseif(!empty($this->data['gallery_loc']) )
-            {
+            } elseif (!empty($this->data['gallery_loc']) ) {
                 $xml[] = "\t\t\t".'<video:gallery_loc>'.$this->data['gallery_loc'].'</video:gallery_loc>';
             }
 
-            if(!empty($this->data['price']))
-            {
+            if (!empty($this->data['price'])) {
                 //Loop price array
-                foreach($this->data['price'] as $price)
-                {
-                    if(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) && !empty($price['resolution']))
-                    {
+                foreach ($this->data['price'] as $price) {
+                    if (!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) && !empty($price['resolution'])) {
                         $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'" resolution="'.$price['resolution'].'">'.$price['price'].'</video:price>';
-                    }
-                    elseif(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['resolution']))
-                    {
+                    } elseif (!empty($price['price']) && !empty($price['price_currency']) && !empty($price['resolution'])) {
                         $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" resolution="'.$price['resolution'].'">'.$price['price'].'</video:price>';
-                    }
-                    elseif(!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) )
-                    {
+                    } elseif (!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) ) {
                         $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'">'.$price['price'].'</video:price>';
-                    }
-                    elseif(!empty($price['price']) && !empty($price['price_currency'])  )
-                    {
+                    } elseif (!empty($price['price']) && !empty($price['price_currency'])  ) {
                         $xml[] = "\t\t\t".'<video:price currency="'.$price['price_currency'].'">'.$price['price'].'</video:price>';
                     }
                 }
@@ -117,35 +93,24 @@ class VideoItem extends AbstractItem
             $xml[] = (!empty($this->data['category']))          ? "\t\t\t".'<video:category><![CDATA['.$this->data['category'].']]></video:category>' : '';
 
             //Loop tag array
-            if(!empty($this->data['tag']))
-            {
-                foreach($this->data['tag'] as $tag)
-                {
+            if (!empty($this->data['tag'])) {
+                foreach ($this->data['tag'] as $tag) {
                    $xml[] = "\t\t\t".'<video:tag>'.$tag.'</video:tag>';
                 }
             }
 
             $xml[] = (!empty($this->data['requires_subscription']))  ? "\t\t\t".'<video:requires_subscription><![CDATA['.$this->data['requires_subscription'].']]></video:requires_subscription>' : '';
 
-
-
-            if(!empty($this->data['uploader']) && !empty($this->data['uploader_info']))
-            {
+            if (!empty($this->data['uploader']) && !empty($this->data['uploader_info'])) {
                 $xml[] = "\t\t\t".'<video:uploader info="'.$this->data['uploader_info'].'">'.$this->data['uploader'].'</video:uploader>';
-            }
-            elseif(!empty($this->data['uploader']) )
-            {
+            } elseif (!empty($this->data['uploader']) ) {
                 $xml[] = "\t\t\t".'<video:uploader>'.$this->data['uploader'].'</video:uploader>';
             }
 
-
             //platform
-            if(!empty($this->data['platform']) && !empty($this->data['platform_relationship']))
-            {
+            if (!empty($this->data['platform']) && !empty($this->data['platform_relationship'])) {
                 $xml[] = "\t\t\t".'<video:platform relationship="'.$this->data['platform_relationship'].'">'.$this->data['platform'].'</video:platform>';
-            }
-            elseif(!empty($this->data['platform']) )
-            {
+            } elseif (!empty($this->data['platform']) ) {
                 $xml[] = "\t\t\t".'<video:platform>'.$this->data['platform'].'</video:platform>';
             }
 
@@ -153,11 +118,11 @@ class VideoItem extends AbstractItem
 
             $xml[] = "\t\t".'</video:video>';
 
-
             //Clean up and return
             $xml = array_filter($xml);
             $data = implode("\n",$xml);
         }
+
         return $data;
     }
 }

@@ -98,12 +98,10 @@ abstract class AbstractItem
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
-        if(method_exists($this->validator,'validate'.$keyFunction))
-        {
+        if (method_exists($this->validator,'validate'.$keyFunction)) {
             $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
 
-            if(!empty($value))
-            {
+            if (!empty($value)) {
                 $this->data[$key] = $value;
             }
         }
@@ -126,4 +124,4 @@ abstract class AbstractItem
     {
        return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
     }
-} 
+}

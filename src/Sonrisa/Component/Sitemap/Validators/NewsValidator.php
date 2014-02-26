@@ -540,8 +540,7 @@ class NewsValidator extends AbstractValidator
     public static function validateLanguage($language)
     {
         $data = '';
-        if(in_array(strtolower($language),self::$valid_language_code,true))
-        {
+        if (in_array(strtolower($language),self::$valid_language_code,true)) {
             $data = strtolower($language);
         }
 
@@ -555,11 +554,11 @@ class NewsValidator extends AbstractValidator
     public static function validateAccess($access)
     {
         $data = '';
-        switch( strtolower($access) )
-        {
+        switch ( strtolower($access) ) {
             case 'subscription': $data = 'Subscription'; break;
             case 'registration': $data = 'Registration'; break;
         }
+
         return $data;
     }
 
@@ -571,19 +570,15 @@ class NewsValidator extends AbstractValidator
     {
         $data = array();
 
-        if(is_string($genres))
-        {
+        if (is_string($genres)) {
             $genres = str_replace(","," ",$genres);
             $genres = explode(" ",$genres);
             $genres = array_filter($genres);
         }
 
-        if(is_array($genres))
-        {
-            foreach($genres as $genre)
-            {
-                if(in_array($genre,self::$genres,true))
-                {
+        if (is_array($genres)) {
+            foreach ($genres as $genre) {
+                if (in_array($genre,self::$genres,true)) {
                     $data[] = $genre;
                 }
             }
@@ -627,4 +622,4 @@ class NewsValidator extends AbstractValidator
     {
         return $stock;
     }
-} 
+}

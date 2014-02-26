@@ -97,6 +97,7 @@ class SubmitSitemap
                 ($http_response_header[0] == "HTTP/1.0 302 Found")
             );
         }
+
         return $response;
     }
 

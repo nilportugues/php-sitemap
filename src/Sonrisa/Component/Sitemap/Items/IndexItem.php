@@ -39,8 +39,7 @@ class IndexItem extends AbstractItem
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.
-        if(!empty($this->data['loc']))
-        {
+        if (!empty($this->data['loc'])) {
             $xml = array();
 
             $xml[] = "\t".'<sitemap>';
@@ -50,12 +49,12 @@ class IndexItem extends AbstractItem
 
             $xml = array_filter($xml);
 
-            if(!empty($xml))
-            {
+            if (!empty($xml)) {
                 $data = implode("\n",$xml);
             }
-            
+
         }
+
         return $data;
     }
-} 
+}

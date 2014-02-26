@@ -13,9 +13,9 @@ class MediaSitemapTest extends \PHPUnit_Framework_TestCase
 {
     public function setUp()
     {
+        date_default_timezone_set('Europe/Madrid');
         $this->sitemap = new \Sonrisa\Component\Sitemap\MediaSitemap();
     }
-
 
     public function testValidMediaSitemapWillAllFields()
     {
@@ -549,7 +549,6 @@ XML;
             'height'        =>  120,
         ));
 
-
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
@@ -562,11 +561,9 @@ XML;
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');
 
-
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {

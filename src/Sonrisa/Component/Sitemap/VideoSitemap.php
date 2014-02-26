@@ -32,7 +32,6 @@ class VideoSitemap extends AbstractSitemap
      */
     protected $used_videos = array();
 
-
     /**
      *
      */
@@ -46,15 +45,14 @@ class VideoSitemap extends AbstractSitemap
      * @return $this
      */
     /**
-     * @param array $data
+     * @param array  $data
      * @param string $url
      * @return $this
      */
     public function add($data,$url='')
     {
         $url = AbstractValidator::validateLoc($url);
-        if( empty($this->used_videos[$url]) )
-        {
+        if ( empty($this->used_videos[$url]) ) {
             $this->used_videos[$url] = array();
         }
 
@@ -75,8 +73,7 @@ class VideoSitemap extends AbstractSitemap
             $item = new VideoItem($this->validator);
 
             //Populate the item with the given data.
-            foreach($data as $key => $value)
-            {
+            foreach ($data as $key => $value) {
                 $item->setField($key,$value);
             }
 
@@ -85,24 +82,20 @@ class VideoSitemap extends AbstractSitemap
                         (count($this->items[$url])*( mb_strlen($this->urlHeader,'UTF-8')+mb_strlen($this->urlFooter,'UTF-8')));
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap))
-            {
+            if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap)) {
                 //add bytes to total
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->buildItem();
-                if(!empty($built))
-                {
+                if (!empty($built)) {
                     $this->items[$url][] = $built;
 
                     $this->files[$this->total_files][$url][] = implode("\n",$this->items[$url]);
 
                     $this->total_items++;
                 }
-            }
-            else
-            {
+            } else {
                 //reset count
                 $this->current_file_byte_size = 0;
 
@@ -115,6 +108,7 @@ class VideoSitemap extends AbstractSitemap
                 $this->total_items=1;
             }
         }
+
         return $this;
     }
 
@@ -126,17 +120,13 @@ class VideoSitemap extends AbstractSitemap
         $item = new VideoItem($this->validator);
         $output = array();
 
-        if(!empty($this->files))
-        {
-            foreach($this->files as $file)
-            {
+        if (!empty($this->files)) {
+            foreach ($this->files as $file) {
                 $fileData = array();
                 $fileData[] = $item->getHeader();
 
-                foreach($file as $url => $urlImages)
-                {
-                    if(!empty($urlImages) && !empty($url))
-                    {
+                foreach ($file as $url => $urlImages) {
+                    if (!empty($urlImages) && !empty($url)) {
                         $fileData[] = $this->urlHeader;
                         $fileData[] = "\t\t<loc>".$url."</loc>";
                         $fileData[] = implode("\n",$urlImages);
@@ -149,6 +139,7 @@ class VideoSitemap extends AbstractSitemap
                 $output[] = implode("\n",$fileData);
             }
         }
+
         return $output;
     }
 }

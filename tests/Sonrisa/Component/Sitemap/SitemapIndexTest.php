@@ -19,7 +19,6 @@ class IndexSitemapTest extends \PHPUnit_Framework_TestCase
         $this->sitemap = new \Sonrisa\Component\Sitemap\IndexSitemap();
     }
 
-
     public function testAddUrlWithValidUrlWithAllFields()
     {
         $expected=<<<XML
@@ -91,7 +90,6 @@ XML;
         $this->assertEquals($expected,$files[0]);
     }
 
-
     public function testAddUrlAbovetheSitemapMaxSitemapElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
@@ -101,8 +99,7 @@ XML;
         $property->setValue($this->sitemap,'1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++)
-        {
+        for ($i=1;$i<=2000; $i++) {
             $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap-'.$i.'.xml'));
         }
         $files = $this->sitemap->build();

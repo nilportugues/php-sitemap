@@ -15,6 +15,7 @@ class ImageSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/Madrid');
         $this->sitemap = new \Sonrisa\Component\Sitemap\ImageSitemap();
     }
 
@@ -82,8 +83,7 @@ XML;
         //Test limit
         for ($i=1;$i<=2000; $i++) {
 
-            for ($j=1;$j<=10; $j++)
-            {
+            for ($j=1;$j<=10; $j++) {
                 $this->sitemap->add(array('loc' => 'http://www.example.com/image_'.$j.'.png', 'title' => 'Main image '.$j ),'http://www.example.com/page-'.$i.'.html');
             }
         }
@@ -144,7 +144,7 @@ XML;
         $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'geolocation' => 'Limerick, Ireland' ),'http://www.example.com/');
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
-    }   
+    }
 
     public function testAddUrlAndImagesWithValidUrlAndLicenseForImages()
     {
@@ -163,7 +163,7 @@ XML;
        $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'license' => 'MIT' ),'http://www.example.com/');
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
-    }   
+    }
     public function testAddUrlAndImagesWithValidUrlAndCaptionForImages()
     {
         $expected=<<<XML
@@ -181,5 +181,5 @@ XML;
         $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'caption' => 'This place is called Limerick, Ireland' ),'http://www.example.com/');
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
-    }   
+    }
 }

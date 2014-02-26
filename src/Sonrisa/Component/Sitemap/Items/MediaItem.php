@@ -32,7 +32,6 @@ class MediaItem extends AbstractItem
         return "</channel>\n</rss>";
     }
 
-
     /**
      * Collapses the item to its string XML representation.
      *
@@ -42,24 +41,17 @@ class MediaItem extends AbstractItem
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.
-        if(!empty($this->data['link']))
-        {
+        if (!empty($this->data['link'])) {
             $xml = array();
 
             $xml[] = "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
             $xml[] = (!empty($this->data['link']))?         "\t\t<link>{$this->data['link']}</link>"                      : '';
 
-
-            if(!empty($this->data['duration']) && !empty($this->data['mimetype']))
-            {
+            if (!empty($this->data['duration']) && !empty($this->data['mimetype'])) {
                 $xml[] = "\t\t<media:content type=\"{$this->data['mimetype']}\" duration=\"{$this->data['duration']}\">";
-            }
-            elseif( empty($this->data['duration']) && !empty($this->data['mimetype']))
-            {
+            } elseif ( empty($this->data['duration']) && !empty($this->data['mimetype'])) {
                 $xml[] = "\t\t<media:content type=\"{$this->data['mimetype']}\">";
-            }
-            elseif( !empty($this->data['duration']) && empty($this->data['mimetype']))
-            {
+            } elseif ( !empty($this->data['duration']) && empty($this->data['mimetype'])) {
                 $xml[] = "\t\t<media:content duration=\"{$this->data['duration']}\">";
             }
 
@@ -67,21 +59,13 @@ class MediaItem extends AbstractItem
             $xml[] = (!empty($this->data['title']))?        "\t\t\t<media:title>{$this->data['title']}</media:title>"                    : '';
             $xml[] = (!empty($this->data['description']))?  "\t\t\t<media:description>{$this->data['description']}</media:description>"  : '';
 
-
-            if( !empty($this->data['thumbnail']) && !empty($this->data['height']) && !empty($this->data['width']) )
-            {
+            if ( !empty($this->data['thumbnail']) && !empty($this->data['height']) && !empty($this->data['width']) ) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" height=\"{$this->data['height']}\" width=\"{$this->data['width']}\"/>";
-            }
-            elseif( !empty($this->data['thumbnail']) && !empty($this->data['height']) )
-            {
+            } elseif ( !empty($this->data['thumbnail']) && !empty($this->data['height']) ) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" height=\"{$this->data['height']}\"/>";
-            }
-            elseif( !empty($this->data['thumbnail']) && !empty($this->data['width']) )
-            {
+            } elseif ( !empty($this->data['thumbnail']) && !empty($this->data['width']) ) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" width=\"{$this->data['width']}\"/>";
-            }
-            elseif( !empty($this->data['thumbnail']) )
-            {
+            } elseif ( !empty($this->data['thumbnail']) ) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\"/>";
             }
 
@@ -93,6 +77,7 @@ class MediaItem extends AbstractItem
 
             $data = implode("\n",$xml);
         }
+
         return $data;
     }
 }

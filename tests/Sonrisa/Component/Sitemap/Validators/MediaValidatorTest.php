@@ -8,7 +8,6 @@
 
 namespace Validators;
 
-
 use Sonrisa\Component\Sitemap\Validators\MediaValidator;
 
 /**
@@ -87,7 +86,6 @@ class MediaValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals('',$result);
     }
 
-
     public function testValidateWidthValid()
     {
         $result = $this->validator->validateWidth(300);
@@ -111,4 +109,4 @@ class MediaValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateHeight('A');
         $this->assertEquals('',$result);
     }
-} 
+}

@@ -8,7 +8,6 @@
 
 namespace Validators;
 
-
 use Sonrisa\Component\Sitemap\Validators\VideoValidator;
 
 /**
@@ -74,7 +73,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateAutoplay('');
         $this->assertEquals('',$result);
     }
-
 
     public function testValidateThumbnailLocValid()
     {
@@ -176,7 +174,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals($expected,$result);
     }
 
-
     public function testValidateContentLocValid()
     {
         $result = $this->validator->validateContentLoc('http://google.com/video');
@@ -240,7 +237,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals('',$result);
     }
 
-
     public function testValidateDurationValid1()
     {
         $result = $this->validator->validateDuration(10000);
@@ -264,7 +260,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateDuration(-1);
         $this->assertEquals('',$result);
     }
-
 
     public function testValidateRatingValid1()
     {
@@ -290,7 +285,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals('',$result);
     }
 
-
     public function testValidateViewCountValid()
     {
         $result = $this->validator->validateViewCount(100);
@@ -315,7 +309,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals('',$result);
     }
 
-
     public function testValidateFamilyFriendlyValid1()
     {
         $result = $this->validator->validateFamilyFriendly('No');
@@ -339,7 +332,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateFamilyFriendly('no');
         $this->assertEquals('No',$result);
     }
-
 
     public function testValidateFamilyFriendlyInvalid1()
     {
@@ -410,7 +402,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals('AFG AGO',$result);
     }
 
-
     public function testValidateGalleryLocValid()
     {
         $result = $this->validator->validateGalleryLoc('http://google.com/gallery');
@@ -434,7 +425,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateGalleryLocTitle('');
         $this->assertEquals('',$result);
     }
-
 
     public function testValidateRequiresSubscriptionValid1()
     {
@@ -544,7 +534,6 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
 
     }
 
-
     public function testValidateRestrictionRelationshipValid1()
     {
         $result = $this->validator->validateRestrictionRelationship('allow');
@@ -628,10 +617,8 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $expected = array();
         $tags = array();
 
-        for($i=1;$i<=40;$i++)
-        {
-            if($i<=32)
-            {
+        for ($i=1;$i<=40;$i++) {
+            if ($i<=32) {
                 $expected[] = "tag $i";
             }
             $tags[] = "tag $i";
@@ -646,4 +633,4 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateTag('one tag');
         $this->assertEquals(array('one tag'),$result);
     }
-} 
+}

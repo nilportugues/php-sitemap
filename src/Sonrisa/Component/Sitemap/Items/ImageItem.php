@@ -39,8 +39,7 @@ class ImageItem extends AbstractItem
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.
-        if(!empty($this->data['loc']))
-        {
+        if (!empty($this->data['loc'])) {
             $xml = array();
 
             $xml[] = "\t\t".'<image:image>';
@@ -54,6 +53,7 @@ class ImageItem extends AbstractItem
 
             $data = implode("\n",$xml);
         }
+
         return $data;
     }
 }

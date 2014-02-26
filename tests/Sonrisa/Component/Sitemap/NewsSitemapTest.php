@@ -15,6 +15,7 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/Madrid');
         $this->sitemap = new \Sonrisa\Component\Sitemap\NewsSitemap();
     }
 
@@ -98,7 +99,6 @@ EOF;
         $this->assertEquals($expected,$files[0]);
     }
 
-
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
@@ -106,7 +106,6 @@ EOF;
         $property = $reflectionClass->getProperty('max_items_per_sitemap');
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');
-
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {
@@ -129,4 +128,4 @@ EOF;
         $this->assertArrayHasKey('1',$files);
     }
 
-} 
+}

@@ -52,4 +52,4 @@ abstract class AbstractValidator
 
         return $data;
     }
-} 
+}

@@ -8,7 +8,6 @@
 
 namespace Validators;
 
-
 use Sonrisa\Component\Sitemap\Validators\NewsValidator;
 
 /**
@@ -38,7 +37,6 @@ class NewsValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateLoc('not-a-url');
         $this->assertEquals('',$result);
     }
-
 
     public function testValidateLanguageISO639_1()
     {
@@ -93,4 +91,4 @@ class NewsValidatorTest  extends \PHPUnit_Framework_TestCase
         $result = $this->validator->validateGenres(array('PreXXXXssRelease','Satire','Blog','OpEd','Opinion','UserGenerated'));
         $this->assertEquals('Satire, Blog, OpEd, Opinion, UserGenerated',$result);
     }
-} 
+}

@@ -31,7 +31,6 @@ class MediaSitemap extends AbstractSitemap
      */
     protected $description;
 
-
     /**
      *
      */
@@ -48,6 +47,7 @@ class MediaSitemap extends AbstractSitemap
     public function setTitle($title)
     {
         $this->title = $title;
+
         return $this;
     }
 
@@ -59,6 +59,7 @@ class MediaSitemap extends AbstractSitemap
     public function setLink($link)
     {
         $this->link = $link;
+
         return $this;
     }
 
@@ -70,9 +71,9 @@ class MediaSitemap extends AbstractSitemap
     public function setDescription($description)
     {
         $this->description = $description;
+
         return $this;
     }
-
 
     /**
      * @param $data
@@ -80,14 +81,12 @@ class MediaSitemap extends AbstractSitemap
      */
     public function add($data)
     {
-        if(!empty($data['link']))
-        {
+        if (!empty($data['link'])) {
 
             $item = new MediaItem($this->validator);
 
             //Populate the item with the given data.
-            foreach($data as $key => $value)
-            {
+            foreach ($data as $key => $value) {
                 $item->setField($key,$value);
             }
 
@@ -95,15 +94,13 @@ class MediaSitemap extends AbstractSitemap
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) )
-            {
+            if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) ) {
                 //add bytes to total
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->buildItem();
-                if(!empty($built))
-                {
+                if (!empty($built)) {
                     $this->items[] = $built;
 
                     $this->files[$this->total_files] = implode("\n",$this->items);
@@ -111,9 +108,7 @@ class MediaSitemap extends AbstractSitemap
                     $this->total_items++;
                 }
 
-            }
-            else
-            {
+            } else {
                 //reset count
                 $this->current_file_byte_size = 0;
 
@@ -126,6 +121,7 @@ class MediaSitemap extends AbstractSitemap
                 $this->total_items=1;
             }
         }
+
         return $this;
     }
 
@@ -137,31 +133,26 @@ class MediaSitemap extends AbstractSitemap
         $item = new MediaItem($this->validator);
 
         $output = array();
-        if(!empty($this->files))
-        {
-            if(!empty($this->title))
-            {
+        if (!empty($this->files)) {
+            if (!empty($this->title)) {
                 $this->title = "\t<title>{$this->title}</title>\n";
             }
 
-            if(!empty($this->link))
-            {
+            if (!empty($this->link)) {
                 $this->link = "\t<link>{$this->link}</link>\n";
             }
 
-            if(!empty($this->description))
-            {
+            if (!empty($this->description)) {
                 $this->description = "\t<description>{$this->description}</description>\n";
             }
 
-            foreach($this->files as $file)
-            {
-                if( str_replace(array("\n","\t"),'',$file) != '' )
-                {
+            foreach ($this->files as $file) {
+                if ( str_replace(array("\n","\t"),'',$file) != '' ) {
                     $output[] = $item->getHeader()."\n".$this->title.$this->link.$this->description.$file."\n".$item->getFooter();
                 }
             }
         }
+
         return $output;
     }
 

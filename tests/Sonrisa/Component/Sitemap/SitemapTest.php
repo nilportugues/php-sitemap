@@ -46,7 +46,7 @@ XML;
         $this->assertEquals($expected,$files[0]);
     }
 
- 
+
 
     public function testAddUrlWithValidDuplicateUrlWithAllFields()
     {
@@ -414,7 +414,6 @@ XML;
         $this->assertArrayHasKey('1',$files);
 
         $this->sitemap->build();
-
 
     }
 

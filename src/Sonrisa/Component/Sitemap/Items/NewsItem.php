@@ -43,9 +43,9 @@ class NewsItem extends AbstractItem
         (
             !empty($this->data['loc'])
             && !empty($this->data['title'])
-           // && !empty($this->data['publication_date'])
-           // && !empty($this->data['name'])
-           // && !empty($this->data['language'])
+            && !empty($this->data['publication_date'])
+            && !empty($this->data['name'])
+            && !empty($this->data['language'])
         )
         {
 
@@ -55,8 +55,7 @@ class NewsItem extends AbstractItem
 
             $xml[] = "\t\t".'<news:news>';
 
-            if(!empty($this->data['name']) && !empty($this->data['language']) )
-            {
+            if (!empty($this->data['name']) && !empty($this->data['language']) ) {
                 $xml[] = "\t\t\t".'<news:publication>';
                 $xml[] = (!empty($this->data['name']))     ? "\t\t\t\t".'<news:name>'.$this->data['name'].'</news:name>' : '';
                 $xml[] = (!empty($this->data['language'])) ? "\t\t\t\t".'<news:language>'.$this->data['language'].'</news:language>' : '';
@@ -76,6 +75,7 @@ class NewsItem extends AbstractItem
 
             $data = implode("\n",$xml);
         }
+
         return $data;
     }
 }

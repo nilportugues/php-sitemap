@@ -8,7 +8,6 @@
 
 namespace Validators;
 
-
 use Sonrisa\Component\Sitemap\Validators\ImageValidator;
 
 /**
@@ -27,7 +26,6 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->validator = new ImageValidator();
     }
 
-
     public function testValidateTitleValidInput()
     {
         $title = 'This is the image title';
@@ -43,7 +41,6 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('',$result);
     }
-
 
     public function testValidateCaptionValidInput()
     {
@@ -92,4 +89,4 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('',$result);
     }
-} 
+}

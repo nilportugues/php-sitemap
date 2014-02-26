@@ -8,7 +8,6 @@
 
 namespace Validators;
 
-
 use Sonrisa\Component\Sitemap\Validators\UrlValidator;
 
 /**
@@ -126,5 +125,4 @@ class UrlValidatorTest  extends \PHPUnit_Framework_TestCase
         $this->assertEquals('',$result);
     }
 
-
-} 
+}

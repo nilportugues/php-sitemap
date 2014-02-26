@@ -21,4 +21,4 @@ class IndexValidator extends AbstractValidator
     {
         return self::validateDate($lastmod);
     }
-} 
+}

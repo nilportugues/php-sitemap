@@ -93,9 +93,10 @@ class VideoValidator extends AbstractValidator
     public static function validateAutoplay($string)
     {
         $data = '';
-        if(!empty($string)){
+        if (!empty($string)) {
             $data = $string;
         }
+
         return $data;
     }
 
@@ -114,8 +115,7 @@ class VideoValidator extends AbstractValidator
      */
     public static function validateTitle($title)
     {
-        if(mb_strlen($title, 'UTF-8') > 97)
-        {
+        if (mb_strlen($title, 'UTF-8') > 97) {
             $title = mb_substr($title, 0, 97, 'UTF-8') . '...';
         }
 
@@ -131,8 +131,7 @@ class VideoValidator extends AbstractValidator
      */
     public function validateDescription($description)
     {
-        if(mb_strlen($description, 'UTF-8') > 2048)
-        {
+        if (mb_strlen($description, 'UTF-8') > 2048) {
             $description = mb_substr($description, 0, 2045, 'UTF-8') . '...';
         }
 
@@ -157,7 +156,6 @@ class VideoValidator extends AbstractValidator
         return self::validateLoc($player_loc);
     }
 
-
     /**
      * The duration of the video in seconds. Value must be between 0 and 28800 (8 hours).
      *
@@ -166,10 +164,10 @@ class VideoValidator extends AbstractValidator
      */
     public static function validateDuration($seconds)
     {
-        if($seconds <= 28800 && $seconds >= 0)
-        {
+        if ($seconds <= 28800 && $seconds >= 0) {
             return $seconds;
         }
+
         return '';
     }
 
@@ -191,16 +189,15 @@ class VideoValidator extends AbstractValidator
     public static function validateRating($rating)
     {
         $data = '';
-        if ( is_numeric($rating) && $rating > -0.01 && $rating < 5.01 )
-        {
+        if ( is_numeric($rating) && $rating > -0.01 && $rating < 5.01 ) {
             preg_match('/([0-9].[0-9])/', $rating, $matches);
             $matches[0] = floatval($matches[0]);
 
-            if( !empty($matches[0]) && $matches[0]<=5.0 && $matches[0]>=0.0 )
-            {
+            if ( !empty($matches[0]) && $matches[0]<=5.0 && $matches[0]>=0.0 ) {
                 $data = $matches[0];
             }
         }
+
         return $data;
     }
 
@@ -211,10 +208,10 @@ class VideoValidator extends AbstractValidator
     public static function validateViewCount($view_count)
     {
         $data = '';
-        if(is_integer($view_count) && $view_count > 0 )
-        {
+        if (is_integer($view_count) && $view_count > 0 ) {
             $data = $view_count;
         }
+
         return $data;
     }
 
@@ -234,10 +231,10 @@ class VideoValidator extends AbstractValidator
     public static function validateFamilyFriendly($family_friendly)
     {
         $data = '';
-        if(ucfirst(strtolower($family_friendly)) == 'No')
-        {
+        if (ucfirst(strtolower($family_friendly)) == 'No') {
             $data = 'No';
         }
+
         return $data;
     }
 
@@ -250,19 +247,16 @@ class VideoValidator extends AbstractValidator
         $valid = array();
 
         //If data is not passed as an array, do so.
-        if(!is_array($countries))
-        {
+        if (!is_array($countries)) {
             $countries = explode(' ',$countries);
             $countries = array_filter($countries);
         }
 
         //Foreach value, check if it is a valid $this->iso_3166 value
-        foreach($countries as $country)
-        {
+        foreach ($countries as $country) {
             $country = preg_replace('/[^a-z]/i', '', $country);
             $country = strtoupper($country);
-            if(in_array($country,self::$iso_3166,true))
-            {
+            if (in_array($country,self::$iso_3166,true)) {
                 $valid[] = $country;
             }
         }
@@ -297,7 +291,6 @@ class VideoValidator extends AbstractValidator
         return $title;
     }
 
-
     /**
      * @param $requires_subscription
      * @return string
@@ -325,7 +318,6 @@ class VideoValidator extends AbstractValidator
         return self::validateLoc($uploader_loc);
     }
 
-
     /**
      * @param $platform
      * @return string
@@ -335,10 +327,8 @@ class VideoValidator extends AbstractValidator
         $platforms = explode(" ",$platform);
         array_filter($platforms);
 
-        foreach($platforms as $key => $platform)
-        {
-            if( strtolower($platform)!='tv' && strtolower($platform)!='mobile' && strtolower($platform)!='web')
-            {
+        foreach ($platforms as $key => $platform) {
+            if ( strtolower($platform)!='tv' && strtolower($platform)!='mobile' && strtolower($platform)!='web') {
                 unset($platforms[$key]);
             }
 
@@ -375,37 +365,29 @@ class VideoValidator extends AbstractValidator
     {
         $data = array();
 
-        if(is_array($tags))
-        {
-            if(count($tags) > self::$max_video_tag_tags )
-            {
+        if (is_array($tags)) {
+            if (count($tags) > self::$max_video_tag_tags ) {
                 $data = array_slice($tags, 0, 32);
-            }
-            else
-            {
+            } else {
                 $data = $tags;
             }
-        }
-        elseif(is_string($tags))
-        {
+        } elseif (is_string($tags)) {
             $data = array($tags);
         }
+
         return $data;
     }
 
-
     /**
-     * @param array $prices
+     * @param  array $prices
      * @return array
      */
     public static function validatePrice(array $prices)
     {
         $valid = array();
 
-        foreach($prices as &$value)
-        {
-            if(is_array($value))
-            {
+        foreach ($prices as &$value) {
+            if (is_array($value)) {
                 if
                 (
                     !empty($value['price']) && !empty($value['price_currency']) &&
@@ -415,13 +397,11 @@ class VideoValidator extends AbstractValidator
                 {
                     $value['price_currency'] = strtoupper($value['price_currency']);
 
-                    if(!empty($value['resolution']))
-                    {
+                    if (!empty($value['resolution'])) {
                         $value['resolution'] = self::validatePriceResolution($value['resolution']);
                     }
 
-                    if(!empty($value['type']))
-                    {
+                    if (!empty($value['type'])) {
                         $value['type'] = self::validatePriceType($value['type']);
                     }
 
@@ -431,6 +411,7 @@ class VideoValidator extends AbstractValidator
 
             }
         }
+
         return $valid;
     }
 
@@ -444,11 +425,11 @@ class VideoValidator extends AbstractValidator
     protected static function validateAllowDeny($access)
     {
         $data = '';
-        switch( strtolower($access) )
-        {
+        switch ( strtolower($access) ) {
             case 'allow':   $data = 'allow'; break;
             case 'deny':    $data = 'deny'; break;
         }
+
         return $data;
     }
 
@@ -459,11 +440,11 @@ class VideoValidator extends AbstractValidator
     protected static function validateYesNo($value)
     {
         $data = '';
-        switch( strtolower($value) )
-        {
+        switch ( strtolower($value) ) {
             case 'yes':   $data = 'yes'; break;
             case 'no':    $data = 'no'; break;
         }
+
         return $data;
     }
 
@@ -474,11 +455,11 @@ class VideoValidator extends AbstractValidator
     protected static function validatePriceResolution($resolution)
     {
         $data = '';
-        switch( strtoupper($resolution) )
-        {
+        switch ( strtoupper($resolution) ) {
             case 'HD':   $data = 'HD'; break;
             case 'SD':    $data = 'SD'; break;
         }
+
         return $data;
     }
 
@@ -489,11 +470,11 @@ class VideoValidator extends AbstractValidator
     protected static function validatePriceType($type)
     {
         $data = '';
-        switch( strtolower($type) )
-        {
+        switch ( strtolower($type) ) {
             case 'own':     $data = 'own'; break;
             case 'rent':    $data = 'rent'; break;
         }
+
         return $data;
     }
-} 
+}

@@ -80,9 +80,8 @@ abstract class AbstractSitemap
      */
     protected $max_filesize = 52428800; // 50 MB
 
-
     /**
-     * @param array $data
+     * @param  array        $data
      * @return AbstractItem
      */
     abstract public function add($data);
@@ -94,18 +93,15 @@ abstract class AbstractSitemap
     abstract public function build();
 
     /**
-     * @param AbstractItem $item
+     * @param  AbstractItem $item
      * @return array
      */
     protected function buildFiles(AbstractItem $item)
     {
         $output = array();
-        if(!empty($this->files))
-        {
-            foreach($this->files as $file)
-            {
-                if( str_replace(array("\n","\t"),'',$file) != '' )
-                {
+        if (!empty($this->files)) {
+            foreach ($this->files as $file) {
+                if ( str_replace(array("\n","\t"),'',$file) != '' ) {
                     $output[] = $item->getHeader()."\n".$file."\n".$item->getFooter();
                 }
             }
@@ -115,24 +111,21 @@ abstract class AbstractSitemap
         return $output;
     }
 
-
     /**
      * @param $filepath
      * @param $filename
-     * @param bool $gzip
+     * @param  bool                        $gzip
      * @return bool
      * @throws Exceptions\SitemapException
      */
     public function writeFile($filepath,$filename,$gzip=false)
     {
-        if(empty($this->output))
-        {
+        if (empty($this->output)) {
             throw new SitemapException('Will not write to directory. Use build() method first.');
         }
 
         $success = false;
-        if( is_dir($filepath) && is_writable($filepath))
-        {
+        if ( is_dir($filepath) && is_writable($filepath)) {
             $filepath = realpath($filepath);
 
             $path_parts = pathinfo($filename);
@@ -140,26 +133,21 @@ abstract class AbstractSitemap
             $extension = $path_parts['extension'];
 
             //Write all generated sitemaps to files: sitemap1.xml, sitemap2.xml, etc..
-            foreach($this->output as $fileNumber => $sitemap)
-            {
+            foreach ($this->output as $fileNumber => $sitemap) {
                 $i = ($fileNumber == 0) ? '' : $fileNumber;
                 $sitemapPath = $filepath.DIRECTORY_SEPARATOR."{$basename}{$i}.{$extension}";
 
                 //Writes files to disk
-                if($gzip == true)
-                {
+                if ($gzip == true) {
                     $success = $this->writeGzipFile($sitemapPath.".gz",$sitemap);
-                }
-                else
-                {
+                } else {
                     $success = $this->writePlainFile($sitemapPath,$sitemap);
                 }
             }
-        }
-        else
-        {
+        } else {
             throw new SitemapException('Cannot write to directory: '.$filepath);
         }
+
         return $success;
     }
 
@@ -183,11 +171,11 @@ abstract class AbstractSitemap
         $status = false;
         $fp = gzopen ($filepath, 'w9');
 
-        if($fp !== false)
-        {
+        if ($fp !== false) {
             gzwrite ($fp, $contents);
             $status = gzclose($fp);
         }
+
         return $status;
 
     }

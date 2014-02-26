@@ -8,7 +8,6 @@
 
 namespace Validators;
 
-
 use Sonrisa\Component\Sitemap\Validators\IndexValidator;
 
 /**
@@ -77,4 +76,4 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals('',$result);
     }
-} 
+}

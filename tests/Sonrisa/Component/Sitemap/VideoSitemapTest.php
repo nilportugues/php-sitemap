@@ -15,6 +15,7 @@ class VideoSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
+        date_default_timezone_set('Europe/Madrid');
         $this->sitemap = new \Sonrisa\Component\Sitemap\VideoSitemap();
     }
 
@@ -856,12 +857,10 @@ XML;
             'live'                      => 'no',
         );
 
-
         $this->sitemap->add($data,'http://www.example.com/');
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
-
 
     /**
      *
@@ -873,7 +872,6 @@ XML;
         $property = $reflectionClass->getProperty('max_items_per_sitemap');
         $property->setAccessible(true);
         $property->setValue($this->sitemap,'1000');
-
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {
@@ -924,7 +922,6 @@ XML;
                 'platform_relationship'     => 'allow',
                 'live'                      => 'no',
             );
-
 
             $this->sitemap->add($data,'http://www.example.com/'.$i.'.html');
 

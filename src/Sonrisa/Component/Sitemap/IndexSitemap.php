@@ -31,7 +31,7 @@ class IndexSitemap extends AbstractSitemap
      */
     public function add($data)
     {
-        if(!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true)){
+        if (!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true)) {
 
             //Mark URL as used.
             $this->used_urls[] = $data['loc'];
@@ -39,8 +39,7 @@ class IndexSitemap extends AbstractSitemap
             $item = new IndexItem($this->validator);
 
             //Populate the item with the given data.
-            foreach($data as $key => $value)
-            {
+            foreach ($data as $key => $value) {
                 $item->setField($key,$value);
             }
 
@@ -48,15 +47,13 @@ class IndexSitemap extends AbstractSitemap
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) )
-            {
+            if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) ) {
                 //add bytes to total
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->buildItem();
-                if(!empty($built))
-                {
+                if (!empty($built)) {
                     $this->items[] = $built;
 
                     $this->files[$this->total_files] = implode("\n",$this->items);
@@ -64,9 +61,7 @@ class IndexSitemap extends AbstractSitemap
                     $this->total_items++;
                 }
 
-            }
-            else
-            {
+            } else {
                 //reset count
                 $this->current_file_byte_size = 0;
 
@@ -79,6 +74,7 @@ class IndexSitemap extends AbstractSitemap
                 $this->total_items=1;
             }
         }
+
         return $this;
     }
 
@@ -88,6 +84,7 @@ class IndexSitemap extends AbstractSitemap
     public function build()
     {
         $item = new IndexItem($this->validator);
+
         return self::buildFiles($item);
     }
 }

@@ -40,7 +40,6 @@ class MediaValidator extends AbstractValidator
         return self::validateLoc($link);
     }
 
-
     /**
      * @param $player
      * @return string
@@ -57,10 +56,10 @@ class MediaValidator extends AbstractValidator
     public static function validateDuration($duration)
     {
         $data = '';
-        if( filter_var($duration,FILTER_SANITIZE_NUMBER_INT))
-        {
+        if ( filter_var($duration,FILTER_SANITIZE_NUMBER_INT)) {
             $data = $duration;
         }
+
         return $data;
     }
 
@@ -89,10 +88,10 @@ class MediaValidator extends AbstractValidator
     public static function validateHeight($height)
     {
         $data = '';
-        if( filter_var($height,FILTER_SANITIZE_NUMBER_INT))
-        {
+        if ( filter_var($height,FILTER_SANITIZE_NUMBER_INT)) {
             $data = $height;
         }
+
         return $data;
     }
 
@@ -103,10 +102,10 @@ class MediaValidator extends AbstractValidator
     public static function validateWidth($width)
     {
         $data = '';
-        if( filter_var($width,FILTER_SANITIZE_NUMBER_INT))
-        {
+        if ( filter_var($width,FILTER_SANITIZE_NUMBER_INT)) {
             $data = $width;
         }
+
         return $data;
     }
 }
