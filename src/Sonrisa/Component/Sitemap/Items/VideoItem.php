@@ -6,12 +6,13 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
 /**
  * Class VideoItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-class VideoItem extends AbstractItem
+class VideoItem extends AbstractItem implements ItemInterface
 {
     /**
      * @return string
@@ -31,11 +32,217 @@ class VideoItem extends AbstractItem
     }
 
     /**
+     * @return string
+     */
+    public function getTitle()
+    {
+        return (!empty($this->data['title'])) ? $this->data['title'] : '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getPlayerLoc()
+    {
+        return (!empty($this->data['player_loc'])) ? $this->data['player_loc'] : '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getContentLoc()
+    {
+        return (!empty($this->data['content_loc'])) ? $this->data['content_loc'] : '';
+    }
+
+    /**
+     * @param $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        return $this->setField('title',$title);
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setContentLoc($loc)
+    {
+        return $this->setField('content_loc',$loc);
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setThumbnailLoc($loc)
+    {
+        return $this->setField('thumbnail_loc',$loc);
+    }
+
+
+    /**
+     * @param $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        return $this->setField('description',$description);
+    }
+
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setPlayerLoc($loc)
+    {
+        return $this->setField('player_loc',$loc);
+    }
+
+    /**
+     * @param $embedded
+     * @return $this
+     */
+    public function setPlayerLocAllowEmbedded($embedded)
+    {
+        return $this->setField('allow_embed',$embedded);
+    }
+
+    /**
+     * @param $autoplay
+     * @return $this
+     */
+    public function setPlayerLocAutoplay($autoplay)
+    {
+        return $this->setField('autoplay',$autoplay);
+    }
+
+    /**
+     * @param $duration
+     * @return $this
+     */
+    public function setDuration($duration)
+    {
+        return $this->setField('duration',$duration);
+    }
+
+    /**
+     * @param $expiration_date
+     * @return $this
+     */
+    public function setExpirationDate($expiration_date)
+    {
+        return $this->setField('expiration_date',$expiration_date);
+    }
+
+
+    /**
+     * @param $rating
+     * @return $this
+     */
+    public function setRating($rating)
+    {
+        return $this->setField('rating',$rating);
+    }
+
+
+    /**
+     * @param $view_count
+     * @return $this
+     */
+    public function setViewCount($view_count)
+    {
+        return $this->setField('view_count',$view_count);
+    }
+
+
+    /**
+     * @param $publication_date
+     * @return $this
+     */
+    public function setPublicationDate($publication_date)
+    {
+        return $this->setField('publication_date',$publication_date);
+    }
+
+    /**
+     * @param $family_friendly
+     * @return $this
+     */
+    public function setFamilyFriendly($family_friendly)
+    {
+        return $this->setField('family_friendly',$family_friendly);
+    }
+
+    /**
+     * @param $restriction
+     * @return $this
+     */
+    public function setRestriction($restriction)
+    {
+        return $this->setField('restriction',$restriction);
+    }
+
+    /**
+     * @param $relationship
+     * @return $this
+     */
+    public function setRestrictionRelationship($relationship)
+    {
+        return $this->setField('restriction_relationship',$relationship);
+    }
+
+
+    /**
+     * @param $gallery_loc
+     * @return $this
+     */
+    public function setGalleryLoc($gallery_loc)
+    {
+        return $this->setField('gallery_loc',$gallery_loc);
+    }
+
+    /**
+     * @param $title
+     * @return $this
+     */
+    public function setGalleryTitle($title)
+    {
+        return $this->setField('gallery_loc_title',$title);
+    }
+
+    /**
+     * @param $price
+     * @param $currency
+     * @param string $type
+     * @param string $resolution
+     * @return $this
+     */
+    public function setPrice($price,$currency,$type='',$resolution='')
+    {
+        $data = array
+        (
+            'price'             => $price,
+            'price_currency'    => $currency,
+            'type'              => $type,
+            'resolution'        => $resolution,
+        );
+
+        $data = array_filter($data);
+
+        return $this->setField('price',$data);
+    }
+
+    /**
      * Collapses the item to its string XML representation.
      *
      * @return string
+     * @throws \Sonrisa\Component\Sitemap\Exceptions\SitemapException
      */
-    public function buildItem()
+    public function build()
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.
@@ -121,6 +328,10 @@ class VideoItem extends AbstractItem
             //Clean up and return
             $xml = array_filter($xml);
             $data = implode("\n",$xml);
+        }
+        else
+        {
+            throw new SitemapException('It is mandatory to set up the mandatory values using setTitle and either setPlayerLoc or setContentLoc.');
         }
 
         return $data;

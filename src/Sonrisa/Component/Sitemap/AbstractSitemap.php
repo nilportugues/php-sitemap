@@ -6,14 +6,16 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap;
+use Sonrisa\Component\Sitemap\Collections\ItemCollectionInterface;
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\AbstractItem;
+use Sonrisa\Component\Sitemap\Items\ItemInterface;
 
 /**
  * Class AbstractSitemap
  * @package Sonrisa\Component\Sitemap
  */
-abstract class AbstractSitemap
+abstract class AbstractSitemap implements SitemapInterface
 {
     /**
      * @var array
@@ -80,20 +82,9 @@ abstract class AbstractSitemap
      */
     protected $max_filesize = 52428800; // 50 MB
 
-    /**
-     * @param  array        $data
-     * @return AbstractItem
-     */
-    abstract public function add($data);
 
     /**
-     * Generates sitemap documents and stores them in $this->data, an array holding as many positions
-     * as total links divided by the $this->max_items_per_sitemap value.
-     */
-    abstract public function build();
-
-    /**
-     * @param  AbstractItem $item
+     * @param AbstractItem $item
      * @return array
      */
     protected function buildFiles(AbstractItem $item)
@@ -118,7 +109,7 @@ abstract class AbstractSitemap
      * @return bool
      * @throws Exceptions\SitemapException
      */
-    public function writeFile($filepath,$filename,$gzip=false)
+    public function write($filepath,$filename,$gzip=false)
     {
         if (empty($this->output)) {
             throw new SitemapException('Will not write to directory. Use build() method first.');

@@ -11,7 +11,7 @@ namespace Sonrisa\Component\Sitemap\Items;
  * Class ImageItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-class ImageItem extends AbstractItem
+class ImageItem extends AbstractItem implements ItemInterface
 {
     /**
      * @return string
@@ -35,7 +35,7 @@ class ImageItem extends AbstractItem
      *
      * @return string
      */
-    public function buildItem()
+    public function build()
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.

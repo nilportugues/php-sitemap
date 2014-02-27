@@ -7,6 +7,7 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
+use Sonrisa\Component\Sitemap\Collections\VideoCollection;
 use Sonrisa\Component\Sitemap\Items\VideoItem;
 use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
 use Sonrisa\Component\Sitemap\Validators\VideoValidator;
@@ -15,7 +16,7 @@ use Sonrisa\Component\Sitemap\Validators\VideoValidator;
  * Class VideoSitemap
  * @package Sonrisa\Component\Sitemap
  */
-class VideoSitemap extends AbstractSitemap
+class VideoSitemap extends AbstractSitemap implements SitemapInterface
 {
     /**
      * @var string
@@ -32,50 +33,41 @@ class VideoSitemap extends AbstractSitemap
      */
     protected $used_videos = array();
 
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->validator = new VideoValidator();
-    }
 
     /**
-     * @param $data
-     * @return $this
+     * @var VideoItem
      */
+    protected $lastItem;
+
     /**
-     * @param array  $data
+     * @param VideoItem $item
      * @param string $url
-     * @return $this
+     * @return $this|mixed
      */
-    public function add($data,$url='')
+    public function add(VideoItem $item,$url='')
     {
         $url = AbstractValidator::validateLoc($url);
         if ( empty($this->used_videos[$url]) ) {
             $this->used_videos[$url] = array();
         }
 
+        $title = $item->getTitle();
+        $player_loc = $item->getPlayerLoc();
+        $content_loc = $item->getContentLoc();
+        
         if
         (
-            !empty($url) && !empty($data['title']) &&
-            (!empty($data['player_loc']) || !empty($data['content_loc'])) &&
-            (!in_array($data['player_loc'],$this->used_videos[$url],true) || !in_array($data['content_loc'],$this->used_videos[$url],true))
+            !empty($url) && !empty($title) &&
+            (!empty($player_loc) || !empty($content_loc)) &&
+            (!in_array($player_loc,$this->used_videos[$url],true) || !in_array($content_loc,$this->used_videos[$url],true))
         )
         {
             //Mark URL as used.
             $this->used_urls[] = $url;
-            $this->used_videos[$url][] = $data['player_loc'];
-            $this->used_videos[$url][] = $data['content_loc'];
+            $this->used_videos[$url][] = $player_loc;
+            $this->used_videos[$url][] = $content_loc;
 
             $this->items[$url] = array();
-
-            $item = new VideoItem($this->validator);
-
-            //Populate the item with the given data.
-            foreach ($data as $key => $value) {
-                $item->setField($key,$value);
-            }
 
             //Check constrains
             $current =  $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
@@ -87,7 +79,7 @@ class VideoSitemap extends AbstractSitemap
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
-                $built = $item->buildItem();
+                $built = $item->build();
                 if (!empty($built)) {
                     $this->items[$url][] = $built;
 
@@ -107,23 +99,34 @@ class VideoSitemap extends AbstractSitemap
                 $this->items = array($item);
                 $this->total_items=1;
             }
+
+            $this->lastItem = $item;
         }
 
         return $this;
     }
 
     /**
+     * @param VideoCollection $collection
+     * @return $this
+     */
+    public function addCollection(VideoCollection $collection)
+    {
+        return $this;
+    }
+
+
+    /**
      * @return array
      */
     public function build()
     {
-        $item = new VideoItem($this->validator);
         $output = array();
 
-        if (!empty($this->files)) {
+        if (!empty($this->files) && !empty($this->lastItem)) {
             foreach ($this->files as $file) {
                 $fileData = array();
-                $fileData[] = $item->getHeader();
+                $fileData[] = $this->lastItem->getHeader();
 
                 foreach ($file as $url => $urlImages) {
                     if (!empty($urlImages) && !empty($url)) {
@@ -134,7 +137,7 @@ class VideoSitemap extends AbstractSitemap
                     }
                 }
 
-                $fileData[] = $item->getFooter();
+                $fileData[] = $this->lastItem->getFooter();
 
                 $output[] = implode("\n",$fileData);
             }

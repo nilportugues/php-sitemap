@@ -12,7 +12,7 @@ namespace Sonrisa\Component\Sitemap\Items;
  * Class MediaItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-class MediaItem extends AbstractItem
+class MediaItem extends AbstractItem implements ItemInterface
 {
     /**
      * @return string
@@ -37,7 +37,7 @@ class MediaItem extends AbstractItem
      *
      * @return string
      */
-    public function buildItem()
+    public function build()
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.

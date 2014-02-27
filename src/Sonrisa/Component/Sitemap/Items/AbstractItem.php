@@ -8,13 +8,14 @@
 
 namespace Sonrisa\Component\Sitemap\Items;
 
+use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
 
 /**
  * Class AbstractItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-abstract class AbstractItem
+abstract class AbstractItem implements ItemInterface
 {
     /**
      * Holds data as a key->value format.
@@ -47,7 +48,7 @@ abstract class AbstractItem
      */
     public function __toString()
     {
-        return $this->buildItem();
+        return $this->build();
     }
 
     /**
@@ -57,7 +58,7 @@ abstract class AbstractItem
      */
     public function getItemSize()
     {
-        return mb_strlen($this->buildItem(),'UTF-8');
+        return mb_strlen($this->build(),'UTF-8');
     }
 
     /**
@@ -92,9 +93,10 @@ abstract class AbstractItem
      * @param $key
      * @param $value
      *
+     * @throws \Sonrisa\Component\Sitemap\Exceptions\SitemapException
      * @return $this
      */
-    public function setField($key,$value)
+    protected function setField($key,$value)
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
@@ -104,17 +106,14 @@ abstract class AbstractItem
             if (!empty($value)) {
                 $this->data[$key] = $value;
             }
+            else
+            {
+                throw new SitemapException('Value "'.$value.'" not valid for '.$keyFunction);
+            }
         }
 
         return $this;
     }
-
-    /**
-     * Collapses the item to its string XML representation.
-     *
-     * @return string
-     */
-    abstract public function buildItem();
 
     /**
      * @param $string
@@ -122,6 +121,14 @@ abstract class AbstractItem
      */
     protected function underscoreToCamelCase( $string )
     {
-       return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
+        return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
     }
+
+    /**
+     * Collapses the item to its string XML representation.
+     *
+     * @return string
+     */
+    abstract public function build();
+
 }

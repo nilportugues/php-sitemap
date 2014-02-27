@@ -26,20 +26,20 @@ class IndexSitemap extends AbstractSitemap
     }
 
     /**
-     * @param $data
+     * @param $item
      * @return $this
      */
-    public function add($data)
+    public function add(IndexItem $item)
     {
-        if (!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true)) {
+        if (!empty($item['loc']) && !in_array($item['loc'],$this->used_urls,true)) {
 
             //Mark URL as used.
-            $this->used_urls[] = $data['loc'];
+            $this->used_urls[] = $item['loc'];
 
             $item = new IndexItem($this->validator);
 
             //Populate the item with the given data.
-            foreach ($data as $key => $value) {
+            foreach ($item as $key => $value) {
                 $item->setField($key,$value);
             }
 
@@ -52,7 +52,7 @@ class IndexSitemap extends AbstractSitemap
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
-                $built = $item->buildItem();
+                $built = $item->build();
                 if (!empty($built)) {
                     $this->items[] = $built;
 

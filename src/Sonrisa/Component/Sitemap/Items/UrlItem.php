@@ -11,7 +11,7 @@ namespace Sonrisa\Component\Sitemap\Items;
  * Class UrlItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-class UrlItem extends AbstractItem
+class UrlItem extends AbstractItem implements ItemInterface
 {
     /**
      * @return string
@@ -34,7 +34,7 @@ class UrlItem extends AbstractItem
      *
      * @return string
      */
-    public function buildItem()
+    public function build()
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.

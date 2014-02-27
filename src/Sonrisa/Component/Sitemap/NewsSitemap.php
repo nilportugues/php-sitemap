@@ -70,7 +70,7 @@ class NewsSitemap extends AbstractSitemap
                 $this->current_file_byte_size = $item->getItemSize();
 
                 //add item to the item array
-                $built = $item->buildItem();
+                $built = $item->build();
                 if (!empty($built)) {
 
                     $this->items[] = $built;
