@@ -34,7 +34,7 @@ class SubmitSitemap
         //Validate URL format and Response
         if ( filter_var( $url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
             if (self::sendHttpHeadRequest($url) === true ) {
-                return self::do_submit($url);
+                return self::submitSitemap($url);
             }
             throw new SitemapException("The URL provided ({$url}) holds no accessible sitemap file.");
         }
@@ -47,7 +47,7 @@ class SubmitSitemap
      * @param $url string 		Valid URL being submitted.
      * @return array Array with the search engine submission success status as a boolean.
      */
-    protected static function do_submit($url)
+    protected static function submitSitemap($url)
     {
         $response = array();
 
