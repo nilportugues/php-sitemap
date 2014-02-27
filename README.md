@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/sonrisa/sitemap-component.png)](https://travis-ci.org/sonrisa/sitemap-component) Sitemap Component
 =================
 
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/efe392af-cc7c-4a4f-9ec8-817de3b80f6e/mini.png)](https://insight.sensiolabs.com/projects/efe392af-cc7c-4a4f-9ec8-817de3b80f6e)
+
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
 * [1.Installation](#block1)
