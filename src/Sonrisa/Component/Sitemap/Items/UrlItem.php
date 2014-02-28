@@ -29,6 +29,55 @@ class UrlItem extends AbstractItem implements ItemInterface
     {
         return "</urlset>";
     }
+
+
+    /**
+     * @return string
+     */
+    public function getLoc()
+    {
+        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setLoc($loc)
+    {
+        return $this->setField('loc',$loc);
+    }    
+
+
+    /**
+     * @param $lastmod
+     * @return $this
+     */
+    public function setLastMod($lastmod)
+    {
+        return $this->setField('lastmod',$lastmod);
+    }       
+
+     /**
+     * @param $changefreq
+     * @return $this
+     */
+    public function setChangeFreq($changefreq)
+    {
+        return $this->setField('changefreq',$changefreq);
+    }       
+
+
+     /**
+     * @param $priority
+     * @return $this
+     */
+    public function setPriority($priority)
+    {
+        return $this->setField('priority',$priority);
+    }       
+      
+
     /**
      * Collapses the item to its string XML representation.
      *

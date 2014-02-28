@@ -32,6 +32,97 @@ class MediaItem extends AbstractItem implements ItemInterface
         return "</channel>\n</rss>";
     }
 
+
+    /**
+     * @return string
+     */
+    public function getLink()
+    {
+        return (!empty($this->data['link'])) ? $this->data['link'] : '';
+    }
+
+    /**
+     * @param $link
+     * @return $this
+     */
+    public function setLink($link)
+    {
+        return $this->setField('link',$link);
+    }    
+
+
+    /**
+     * @param $duration
+     * @return $this
+     */
+    public function setContentDuration($duration)
+    {
+        return $this->setField('duration',$duration);
+    }    
+
+    /**
+     * @param $mimetype
+     * @return $this
+     */
+    public function setContentMimeType($mimetype)
+    {
+        return $this->setField('mimetype',$mimetype);
+    }    
+
+    /**
+     * @param $player
+     * @return $this
+     */
+    public function setPlayer($player)
+    {
+        return $this->setField('player',$player);
+    }   
+
+    /**
+     * @param $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        return $this->setField('title',$title);
+    }   
+
+    /**
+     * @param $description
+     * @return $this
+     */
+    public function setDescription($description)
+    {
+        return $this->setField('description',$description);
+    }   
+
+    /**
+     * @param $url
+     * @return $this
+     */
+    public function setThumbnailUrl($url)
+    {
+        return $this->setField('url',$url);
+    }   
+
+    /**
+     * @param $height
+     * @return $this
+     */
+    public function setThumbnailHeight($height)
+    {
+        return $this->setField('height',$height);
+    }   
+
+    /**
+     * @param $width
+     * @return $this
+     */
+    public function setThumbnailWidth($width)
+    {
+        return $this->setField('width',$width);
+    }   
+
     /**
      * Collapses the item to its string XML representation.
      *

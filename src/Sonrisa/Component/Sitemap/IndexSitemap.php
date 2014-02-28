@@ -36,10 +36,12 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
      */
     public function add(IndexItem $item)
     {
-        if (!empty($item['loc']) && !in_array($item['loc'],$this->used_urls,true)) {
+        $loc = $item->getLoc();
+
+        if (!empty($loc) && !in_array($loc,$this->used_urls,true)) {
 
             //Mark URL as used.
-            $this->used_urls[] = $item['loc'];
+            $this->used_urls[] = $loc;
 
             $item = new IndexItem($this->validator);
 

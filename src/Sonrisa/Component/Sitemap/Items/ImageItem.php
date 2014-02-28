@@ -19,7 +19,7 @@ class ImageItem extends AbstractItem implements ItemInterface
     public function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
+               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
     }
 
     /**
@@ -29,6 +29,62 @@ class ImageItem extends AbstractItem implements ItemInterface
     {
         return "</urlset>";
     }
+
+
+    /**
+     * @return string
+     */
+    public function getLoc()
+    {
+        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setLoc($loc)
+    {
+        return $this->setField('loc',$loc);
+    }    
+
+    /**
+     * @param $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        return $this->setField('title',$title);
+    }
+
+
+    /**
+     * @param $caption
+     * @return $this
+     */
+    public function setCaption($caption)
+    {
+        return $this->setField('caption',$caption);
+    }
+   
+    /**
+     * @param $geolocation
+     * @return $this
+     */
+    public function setGeolocation($geolocation)
+    {
+        return $this->setField('geolocation',$geolocation);
+    }
+
+    /**
+     * @param $license
+     * @return $this
+     */
+    public function setLicense($license)
+    {
+        return $this->setField('license',$license);
+    }
+
 
     /**
      * Collapses the item to its string XML representation.

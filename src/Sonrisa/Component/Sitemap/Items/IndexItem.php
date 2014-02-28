@@ -30,6 +30,33 @@ class IndexItem extends AbstractItem implements ItemInterface
         return "</sitemapindex>";
     }
 
+
+    /**
+     * @return string
+     */
+    public function getLoc()
+    {
+        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setLoc($loc)
+    {
+        return $this->setField('loc',$loc);
+    }    
+
+    /**
+     * @param $lastmod
+     * @return $this
+     */
+    public function setLastMod($lastmod)
+    {
+        return $this->setField('lastmod',$lastmod);
+    }       
+
     /**
      * Collapses the item to its string XML representation.
      *
@@ -38,6 +65,7 @@ class IndexItem extends AbstractItem implements ItemInterface
     public function build()
     {
         $data = '';
+        
         //Create item ONLY if all mandatory data is present.
         if (!empty($this->data['loc'])) {
             $xml = array();
