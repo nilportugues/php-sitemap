@@ -14,8 +14,13 @@ use Sonrisa\Component\Sitemap\Validators\IndexValidator;
  * Class IndexSitemap
  * @package Sonrisa\Component\Sitemap
  */
-class IndexSitemap extends AbstractSitemap
+class IndexSitemap extends AbstractSitemap implements SitemapInterface
 {
+
+    /**
+     * @var ImageItem
+     */
+    protected $lastItem;
 
     /**
      *
@@ -38,11 +43,6 @@ class IndexSitemap extends AbstractSitemap
 
             $item = new IndexItem($this->validator);
 
-            //Populate the item with the given data.
-            foreach ($item as $key => $value) {
-                $item->setField($key,$value);
-            }
-
             //Check constrains
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
 
@@ -61,7 +61,9 @@ class IndexSitemap extends AbstractSitemap
                     $this->total_items++;
                 }
 
-            } else {
+            } 
+            else
+            {
                 //reset count
                 $this->current_file_byte_size = 0;
 
@@ -73,8 +75,19 @@ class IndexSitemap extends AbstractSitemap
                 $this->items = array($item);
                 $this->total_items=1;
             }
+            $this->lastItem = $item;
         }
+        
 
+        return $this;
+    }
+
+    /**
+     * @param IndexCollection $collection
+     * @return $this
+     */
+    public function addCollection(IndexCollection $collection)
+    {
         return $this;
     }
 
@@ -83,8 +96,6 @@ class IndexSitemap extends AbstractSitemap
      */
     public function build()
     {
-        $item = new IndexItem($this->validator);
-
-        return self::buildFiles($item);
+        return self::buildFiles($this->lastItem);
     }
 }

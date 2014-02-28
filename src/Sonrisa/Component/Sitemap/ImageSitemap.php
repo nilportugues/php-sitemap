@@ -15,7 +15,7 @@ use Sonrisa\Component\Sitemap\Validators\ImageValidator;
  * Class ImageSitemap
  * @package Sonrisa\Component\Sitemap
  */
-class ImageSitemap extends AbstractSitemap
+class ImageSitemap extends AbstractSitemap implements SitemapInterface
 {
     /**
      * @var string
@@ -33,6 +33,11 @@ class ImageSitemap extends AbstractSitemap
     protected $used_images = array();
 
     /**
+     * @var ImageItem
+     */
+    protected $lastItem;
+
+    /**
      *
      */
     public function __construct()
@@ -41,34 +46,31 @@ class ImageSitemap extends AbstractSitemap
     }
 
     /**
-     * @param $data
+     * @param $item
      * @return $this
      */
     /**
-     * @param array  $data
+     * @param array  $item
      * @param string $url
      * @return $this
      */
-    public function add($data,$url='')
+    public function add(ImageItem $item,$url='')
     {
         $url = AbstractValidator::validateLoc($url);
         if ( empty($this->used_images[$url]) ) {
             $this->used_images[$url] = array();
         }
 
-        if (!empty($url) && !empty($data['loc']) && !in_array($data['loc'],$this->used_images[$url],true)) {
+        $loc = $item->getLoc();
+
+        if (!empty($url) && !empty($loc) && !in_array($loc,$this->used_images[$url],true)) {
             //Mark URL as used.
             $this->used_urls[] = $url;
-            $this->used_images[$url][] = $data['loc'];
+            $this->used_images[$url][] = $loc;
 
             $this->items[$url] = array();
 
             $item = new ImageItem($this->validator);
-
-            //Populate the item with the given data.
-            foreach ($data as $key => $value) {
-                $item->setField($key,$value);
-            }
 
             //Check constrains
             $current =  $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
@@ -100,8 +102,19 @@ class ImageSitemap extends AbstractSitemap
                 $this->items = array($item);
                 $this->total_items=1;
             }
+            $this->lastItem = $item;
         }
+       
 
+        return $this;
+    }
+
+    /**
+     * @param ImageCollection $collection
+     * @return $this
+     */
+    public function addCollection(ImageCollection $collection)
+    {
         return $this;
     }
 
@@ -110,13 +123,12 @@ class ImageSitemap extends AbstractSitemap
      */
     public function build()
     {
-        $item = new ImageItem($this->validator);
         $output = array();
 
-        if (!empty($this->files)) {
+        if (!empty($this->files) && !empty($this->lastItem)) {
             foreach ($this->files as $file) {
                 $fileData = array();
-                $fileData[] = $item->getHeader();
+                $fileData[] = $this->lastItem->getHeader();
 
                 foreach ($file as $url => $urlImages) {
                     if (!empty($urlImages) && !empty($url)) {
@@ -127,7 +139,7 @@ class ImageSitemap extends AbstractSitemap
                     }
                 }
 
-                $fileData[] = $item->getFooter();
+                $fileData[] = $this->lastItem->getFooter();
 
                 $output[] = implode("\n",$fileData);
             }

@@ -14,7 +14,7 @@ use Sonrisa\Component\Sitemap\Validators\MediaValidator;
  * Class MediaSitemap
  * @package Sonrisa\Component\Sitemap
  */
-class MediaSitemap extends AbstractSitemap
+class MediaSitemap extends AbstractSitemap implements SitemapInterface
 {
     /**
      * @var string
@@ -30,6 +30,11 @@ class MediaSitemap extends AbstractSitemap
      * @var string
      */
     protected $description;
+
+    /**
+     * @var ImageItem
+     */
+    protected $lastItem;  
 
     /**
      *
@@ -76,19 +81,14 @@ class MediaSitemap extends AbstractSitemap
     }
 
     /**
-     * @param $data
+     * @param MediaItem $item
      * @return $this
      */
-    public function add($data)
+    public function add(MediaItem $item)
     {
-        if (!empty($data['link'])) {
+        $itemLink = $item->getLink();
 
-            $item = new MediaItem($this->validator);
-
-            //Populate the item with the given data.
-            foreach ($data as $key => $value) {
-                $item->setField($key,$value);
-            }
+        if (!empty($itemLink)) {
 
             //Check constrains
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
@@ -120,8 +120,18 @@ class MediaSitemap extends AbstractSitemap
                 $this->items = array($item);
                 $this->total_items=1;
             }
+            $this->lastItem = $item;
         }
 
+        return $this;
+    }
+
+    /**
+     * @param MediaCollection $collection
+     * @return $this
+     */
+    public function addCollection(MediaCollection $collection)
+    {
         return $this;
     }
 
@@ -130,8 +140,6 @@ class MediaSitemap extends AbstractSitemap
      */
     public function build()
     {
-        $item = new MediaItem($this->validator);
-
         $output = array();
         if (!empty($this->files)) {
             if (!empty($this->title)) {
@@ -148,7 +156,7 @@ class MediaSitemap extends AbstractSitemap
 
             foreach ($this->files as $file) {
                 if ( str_replace(array("\n","\t"),'',$file) != '' ) {
-                    $output[] = $item->getHeader()."\n".$this->title.$this->link.$this->description.$file."\n".$item->getFooter();
+                    $output[] = $this->lastItem->getHeader()."\n".$this->title.$this->link.$this->description.$file."\n".$this->lastItem->getFooter();
                 }
             }
         }

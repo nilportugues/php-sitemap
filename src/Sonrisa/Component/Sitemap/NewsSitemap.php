@@ -27,12 +27,17 @@ use Sonrisa\Component\Sitemap\Validators\NewsValidator;
  *  Once you've created your Sitemap, upload it to the highest-level directory that contains your news articles.
  *
  */
-class NewsSitemap extends AbstractSitemap
+class NewsSitemap extends AbstractSitemap implements SitemapInterface
 {
     /**
      * @var int
      */
     protected $max_items_per_sitemap = 1000;
+
+    /**
+     * @var ImageItem
+     */
+    protected $lastItem;
 
     /**
      *
@@ -43,22 +48,17 @@ class NewsSitemap extends AbstractSitemap
     }
 
     /**
-     * @param $data
+     * @param NewsItem $item
      * @return $this
      */
-    public function add($data)
+    public function add(NewsItem $item)
     {
-        if (!empty($data['loc']) && !in_array($data['loc'],$this->used_urls,true)) {
+        $loc = $item->getLoc();
+
+        if (!empty($loc) && !in_array($loc,$this->used_urls,true)) {
 
             //Mark URL as used.
-            $this->used_urls[] = $data['loc'];
-
-            $item = new NewsItem($this->validator);
-
-            //Populate the item with the given data.
-            foreach ($data as $key => $value) {
-                $item->setField($key,$value);
-            }
+            $this->used_urls[] = $loc;
 
             //Check constrains
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
@@ -92,19 +92,29 @@ class NewsSitemap extends AbstractSitemap
                 $this->items = array($item);
                 $this->total_items=1;
             }
+            $this->lastItem = $item;
         }
-
+        
         return $this;
     }
+
+
+    /**
+     * @param NewsCollection $collection
+     * @return $this
+     */
+    public function addCollection(NewsCollection $collection)
+    {
+        return $this;
+    }
+
 
     /**
      * @return array
      */
     public function build()
     {
-        $item = new NewsItem($this->validator);
-
-        return self::buildFiles($item);
+        return self::buildFiles($this->lastItem);
     }
 
 }

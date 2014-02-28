@@ -33,7 +33,6 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
      */
     protected $used_videos = array();
 
-
     /**
      * @var VideoItem
      */
@@ -114,7 +113,6 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
     {
         return $this;
     }
-
 
     /**
      * @return array
