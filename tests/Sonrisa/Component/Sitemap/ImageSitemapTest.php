@@ -143,7 +143,7 @@ XML;
 
     public function testAddUrlAndImagesWithValidUrlForImages()
     {
-        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exception\\SitemapException");
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
         $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
         $item->setLoc('no/a/proper/url');
@@ -156,7 +156,7 @@ XML;
 
     public function testAddUrlAndImagesWithNoUrlForImages()
     {
-        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exception\\SitemapException");
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
         $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
         $item->setTitle('Example.com logo');
@@ -165,21 +165,6 @@ XML;
         $files = $this->sitemap->build();
         $this->assertEmpty($files);
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
     public function testAddUrlAndImagesWithValidUrlForImagesAndOtherImageDataPassedIsEmpty()
@@ -195,10 +180,20 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'title' => '', 'geolocation' => '', 'license' => '', 'caption' =>'' ),'http://www.example.com/');
+
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item->setLoc('http://www.example.com/logo.png');
+        $item->setTitle('');
+        $item->setGeolocation('');
+        $item->setLicense('');
+        $item->setCaption('');
+        $this->sitemap->add($item,'http://www.example.com/');
+
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
+
 
     public function testAddUrlAndImagesWithValidUrlAndGeolocationForImages()
     {
@@ -214,10 +209,16 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'geolocation' => 'Limerick, Ireland' ),'http://www.example.com/');
+
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item->setLoc('http://www.example.com/logo.png');
+        $item->setGeolocation('Limerick, Ireland');
+        $this->sitemap->add($item,'http://www.example.com/');
+
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
+
 
     public function testAddUrlAndImagesWithValidUrlAndLicenseForImages()
     {
@@ -233,10 +234,17 @@ XML;
 \t</url>
 </urlset>
 XML;
-       $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'license' => 'MIT' ),'http://www.example.com/');
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item->setLoc('http://www.example.com/logo.png');
+        $item->setLicense('MIT');
+        $this->sitemap->add($item,'http://www.example.com/');
+
+        
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
+
+
     public function testAddUrlAndImagesWithValidUrlAndCaptionForImages()
     {
         $expected=<<<XML
@@ -251,7 +259,11 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/logo.png', 'caption' => 'This place is called Limerick, Ireland' ),'http://www.example.com/');
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item->setLoc('http://www.example.com/logo.png');
+        $item->setCaption('This place is called Limerick, Ireland');
+        $this->sitemap->add($item,'http://www.example.com/');
+
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }

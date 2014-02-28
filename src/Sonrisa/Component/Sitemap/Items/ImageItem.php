@@ -94,6 +94,7 @@ class ImageItem extends AbstractItem implements ItemInterface
     public function build()
     {
         $data = '';
+        
         //Create item ONLY if all mandatory data is present.
         if (!empty($this->data['loc'])) {
             $xml = array();
