@@ -113,25 +113,32 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\IndexSitemap;
+include 'vendor/autoload.php';
+use \Sonrisa\Component\Sitemap\IndexSitemap;
+use \Sonrisa\Component\Sitemap\Items\IndexItem;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
-$sitemapIndex = new IndexSitemap();
-$sitemapIndex->add(array(
-   //Mandatory values
-   'loc'     => 'http://www.example.com/sitemap.content.xml',
-   
-   //Optional
-   'lastmod' => '2005-05-10T17:33:30+08:00'
-));
-$sitemapIndex->add(array(
-   'loc'     => 'http://www.example.com/sitemap.media.xml',
-   'lastmod' => '2005-05-10T17:33:30+08:00'
-));
+try {
+	$sitemapIndex = new IndexSitemap();
+	
+	$item = new IndexItem();
+	$item->setLoc('http://www.example.com/sitemap.xml'); //Mandatory
+	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
+	$sitemapIndex->add($item);
+	
+	$item = new IndexItem();
+	$item->setLoc('http://www.example.com/sitemap.media.xml'); //Mandatory
+	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
+	$sitemapIndex->add($item);
+	
+	//var_dump($files) should be an array holding the sitemap files created.
+	$files = $sitemapIndex->build();
+	$sitemap->write('path/to/public/www','sitemap.index.xml');
+	
+} catch (SitemapException $e) {
 
-//var_dump($files) should be an array holding the sitemap files created.
-$files = $sitemapIndex->build();
-$sitemap->write('path/to/public/www','sitemap.index.xml');
-
+	echo $e->getMessage();
+}
 ```
 <a name="block4.2.2"></a>
 #### Output
