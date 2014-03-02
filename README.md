@@ -295,61 +295,56 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 #### Creation
 ```php
 <?php
-$sitemap = new \Sonrisa\Component\Sitemap\VideoSitemap();
+include 'vendor/autoload.php';
+use \Sonrisa\Component\Sitemap\VideoSitemap;
+use \Sonrisa\Component\Sitemap\Items\VideoItem;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
-$data = array
-(
-    //Mandatory values
-    'title'                     => 'Grilling steaks for summer',
-    'content_loc'               => 'http://www.example.com/video123.flv',
-    'player_loc'                => 'http://www.example.com/videoplayer.swf?video=123',
-
-    //Optional
-    'thumbnail_loc'             => 'http://www.example.com/thumbs/123.jpg', 
-    'description'               => 'Alkis shows you how to get perfectly done steaks everytime',
-    'allow_embed'               => 'yes',
-    'autoplay'                  => 'ap=1',
-    'duration'                  => '600',
-    'expiration_date'           => '2009-11-05T19:20:30+08:00',
-    'rating'                    => '4.2',
-    'view_count'                => '12345',
-    'publication_date'          => '2007-11-05T19:20:30+08:00',
-    'family_friendly'           => 'yes',
-    'restriction'               => 'IE GB US CA',
-    'restriction_relationship'  => 'allow',
-    'gallery_loc'               => 'http://cooking.example.com',
-    'gallery_loc_title'         => 'Cooking Videos',
-    'price' => array
-    (
-        array
-        (
-            'price'             => '0.99',
-            'price_currency'    => 'EUR',
-            'resolution'        => 'HD',
-            'type'              => 'rent',
-        ),
-        array
-        (
-            'price'             => '0.75',
-            'price_currency'    => 'EUR',
-            'resolution'        => 'SD',
-            'type'              => 'rent',
-        ),
-
-    ),
-    'category'                  => 'cooking',
-    'tag'                       => array('action','drama','entrepreneur'),
-    'requires_subscription'     => 'yes',
-    'uploader'                  => 'GrillyMcGrillerson',
-    'uploader_info'             => 'http://www.example.com/users/grillymcgrillerson',
-    'platform'                  => 'web mobile tv',
-    'platform_relationship'     => 'allow',
-    'live'                      => 'no',
-);
-
-$sitemap->add($data,'http://www.example.com/');
-$files = $sitemap->build();
-$sitemap->write('path/to/public/www','sitemap.videos.xml');
+try {
+	$sitemap = new VideoSitemap();
+	
+	$item = new VideoItem();
+	
+	//Mandatory values
+	$item->setTitle('Grilling steaks for summer');
+	$item->setContentLoc('http://www.example.com/video123.flv');
+	$item->setPlayerLoc('http://www.example.com/videoplayer.swf?video=123');
+	
+	//Optional Values
+	$item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
+	$item->setThumbnailLoc('http://www.example.com/thumbs/123.jpg');
+	$item->setPlayerLocAllowEmbedded('yes');
+	$item->setPlayerLocAutoplay('ap=1');
+	$item->setDuration(600);
+	$item->setExpirationDate('2009-11-05T19:20:30+08:00');
+	$item->setRating(4.2);
+	$item->setViewCount(12345);
+	$item->setPublicationDate('2007-11-05T19:20:30+08:00');
+	$item->setFamilyFriendly('yes');
+	$item->setRestriction('IE GB US CA');
+	$item->setRestrictionRelationship('allow');
+	$item->setGalleryLoc('http://cooking.example.com');
+	$item->setGalleryTitle('Cooking Videos');
+	$item->setPrice('0.99','EUR','rent','HD');
+	$item->setPrice('0.75','EUR','rent','SD');
+	$item->setCategory('cooking');
+	$item->setTag(array('action','drama','entrepreneur'));
+	$item->setRequiresSubscription('yes');
+	$item->setUploader('GrillyMcGrillerson');
+	$item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
+	$item->setPlatform('web mobile tv');
+	$item->setPlatformRelationship('allow');
+	$item->setLive('no');
+	
+	$sitemap->add($item,'http://www.example.com/');
+	
+	//var_dump($files) should be an array holding the sitemap files created.
+	$files = $sitemap->build();
+	$sitemap->write('path/to/public/www','sitemap.video.xml');
+   
+} catch (SitemapException $e) {
+	echo $e->getMessage();
+}
 ```
 <a name="block4.5.2"></a>
 #### Output
