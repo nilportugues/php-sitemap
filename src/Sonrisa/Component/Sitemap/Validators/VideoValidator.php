@@ -241,6 +241,7 @@ class VideoValidator extends SharedValidator
     {
         $data = '';
         if (is_integer($view_count) && $view_count > 0 ) {
+
             $data = $view_count;
         }
 
@@ -265,6 +266,9 @@ class VideoValidator extends SharedValidator
         $data = '';
         if (ucfirst(strtolower($family_friendly)) == 'No') {
             $data = 'No';
+        }
+        elseif (ucfirst(strtolower($family_friendly)) == 'Yes') {
+            $data = 'Yes';
         }
 
         return $data;
@@ -418,31 +422,27 @@ class VideoValidator extends SharedValidator
     {
         $valid = array();
 
-        foreach ($prices as &$value) {
-            if (is_array($value)) {
-                if
-                (
-                    !empty($value['price']) && !empty($value['price_currency']) &&
-                    ( filter_var($value['price'], FILTER_VALIDATE_FLOAT) || filter_var($value['price'], FILTER_VALIDATE_INT) ) &&
-                    array_search(strtoupper($value['price_currency']),array_unique(self::$iso_4217),true)
-                )
-                {
-                    $value['price_currency'] = strtoupper($value['price_currency']);
+        if
+        (
+            !empty($prices['price'])
+            && !empty($prices['price_currency'])
+            && ( filter_var($prices['price'], FILTER_VALIDATE_FLOAT) || filter_var($prices['price'], FILTER_VALIDATE_INT) )
+            && array_search(strtoupper($prices['price_currency']),array_unique(self::$iso_4217),true)
+        )
+        {
+            $prices['price_currency'] = strtoupper($prices['price_currency']);
 
-                    if (!empty($value['resolution'])) {
-                        $value['resolution'] = self::validatePriceResolution($value['resolution']);
-                    }
-
-                    if (!empty($value['type'])) {
-                        $value['type'] = self::validatePriceType($value['type']);
-                    }
-
-                    $value = array_filter($value);
-                    $valid[] = $value;
-                }
-
+            if (!empty($prices['resolution'])) {
+                $prices['resolution'] = self::validatePriceResolution($prices['resolution']);
             }
+
+            if (!empty($prices['type'])) {
+                $prices['type'] = self::validatePriceType($prices['type']);
+            }
+
+            $valid =  array_filter($prices);
         }
+
 
         return $valid;
     }

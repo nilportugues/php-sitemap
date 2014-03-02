@@ -23,10 +23,10 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
     protected $lastItem;
 
     /**
-     * @param  UrlItem $data
+     * @param  UrlItem $item
      * @return $this
      */
-    public function add(UrlItem $data)
+    public function add(UrlItem $item)
     {
         $loc = $item->getLoc();
 

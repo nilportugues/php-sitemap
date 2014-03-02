@@ -238,11 +238,89 @@ class VideoItem extends AbstractItem implements ItemInterface
             'type'              => $type,
             'resolution'        => $resolution,
         );
-
         $data = array_filter($data);
+        $data = $this->validator->validatePrice($data);
 
-        return $this->setField('price',$data);
+        if(!empty($data))
+        {
+            $this->data['price'][] = $data;
+        }
+
+        return $this;
     }
+
+    /**
+     * @param $category
+     * @return $this
+     */
+    public function setCategory($category)
+    {
+        return $this->setField('category',$category);
+    }
+
+    /**
+     * @param array $tag
+     * @return $this
+     */
+    public function setTag(array $tag)
+    {
+        return $this->setField('tag',$tag);
+    }
+
+    /**
+     * @param $requires
+     * @return $this
+     */
+    public function setRequiresSubscription($requires)
+    {
+        return $this->setField('requires_subscription',$requires);
+    }
+
+    /**
+     * @param $uploader
+     * @return $this
+     */
+    public function setUploader($uploader)
+    {
+        return $this->setField('uploader',$uploader);
+    }
+
+    /**
+     * @param $info
+     * @return $this
+     */
+    public function setUploaderInfo($info)
+    {
+        return $this->setField('uploader_info',$info);
+    }
+
+    /**
+     * @param $platform
+     * @return $this
+     */
+    public function setPlatform($platform)
+    {
+        return $this->setField('platform',$platform);
+    }
+
+    /**
+     * @param $relationship
+     * @return $this
+     */
+    public function setPlatformRelationship($relationship)
+    {
+        return $this->setField('platform_relationship',$relationship);
+    }
+
+    /**
+     * @param $live
+     * @return $this
+     */
+    public function setLive($live)
+    {
+        return $this->setField('live',$live);
+    }
+
 
     /**
      * Collapses the item to its string XML representation.
@@ -275,8 +353,16 @@ class VideoItem extends AbstractItem implements ItemInterface
             $xml[] = (!empty($this->data['expiration_date']))   ? "\t\t\t".'<video:expiration_date><![CDATA['.$this->data['expiration_date'].']]></video:expiration_date>' : '';
             $xml[] = (!empty($this->data['rating']))            ? "\t\t\t".'<video:rating><![CDATA['.$this->data['rating'].']]></video:rating>' : '';
             $xml[] = (!empty($this->data['view_count']))        ? "\t\t\t".'<video:view_count><![CDATA['.$this->data['view_count'].']]></video:view_count>' : '';
+
+
+
             $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<video:publication_date><![CDATA['.$this->data['publication_date'].']]></video:publication_date>' : '';
-            $xml[] = (!empty($this->data['family_friendly']))   ? "\t\t\t".'<video:family_friendly><![CDATA['.$this->data['family_friendly'].']]></video:family_friendly>' : '';
+
+            if (!empty($this->data['family_friendly']) && $this->data['family_friendly'] == 'No')
+            {
+                    $xml[] ="\t\t\t".'<video:family_friendly><![CDATA['.$this->data['family_friendly'].']]></video:family_friendly>';
+            }
+
 
             if (!empty($this->data['restriction']) && !empty($this->data['restriction_relationship']) ) {
                 $xml[] = "\t\t\t".'<video:restriction relationship="'.$this->data['restriction_relationship'].'">'.$this->data['restriction'].'</video:restriction>';

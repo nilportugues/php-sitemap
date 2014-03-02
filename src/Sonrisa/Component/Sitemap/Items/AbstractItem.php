@@ -91,17 +91,16 @@ abstract class AbstractItem implements ItemInterface
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
-
         if (method_exists($this->validator,'validate'.$keyFunction)) {
             $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
 
-
-            if (!empty($value)) {
-
-
+            if (!empty($value))
+            {
                 $this->data[$key] = $value;
-            } else {
-                throw new SitemapException('Value "'.$value.'" not valid for '.$keyFunction);
+            }
+            else
+            {
+                throw new SitemapException('Value not valid for '.$keyFunction);
             }
         }
 

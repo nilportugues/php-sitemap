@@ -16,10 +16,6 @@ class ImageSitemapTest extends \PHPUnit_Framework_TestCase
      */
     protected $sitemap;
 
-    /**
-     * @var \Sonrisa\Component\Sitemap\Validators\ImageValidator
-     */
-    protected $validator;
 
     /**
      *

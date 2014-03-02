@@ -87,7 +87,14 @@ class UrlValidator extends SharedValidator
     public static function validatePriority($priority)
     {
         $data = '';
-        if ( is_numeric($priority) && $priority > -0.01 && $priority <= 1 ) {
+        if
+        (
+            is_numeric($priority)
+            && $priority > -0.01
+            && $priority <= 1
+            && (($priority*100 % 10) == 0 )
+        )
+        {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
             $matches[0] = floatval($matches[0]);
 

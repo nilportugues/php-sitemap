@@ -23,7 +23,7 @@ class MediaValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new MediaValidator();
+        $this->validator = MediaValidator::getInstance();
     }
 
     public function testValidateTitle()

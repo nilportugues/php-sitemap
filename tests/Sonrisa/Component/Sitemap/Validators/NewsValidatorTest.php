@@ -23,7 +23,7 @@ class NewsValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new NewsValidator();
+        $this->validator = NewsValidator::getInstance();
     }
 
     public function testValidateLocValid()

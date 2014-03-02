@@ -23,7 +23,7 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new IndexValidator();
+        $this->validator = IndexValidator::getInstance();
     }
 
     public function testValidateLocValid()
