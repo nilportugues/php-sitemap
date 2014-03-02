@@ -8,7 +8,6 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\NewsItem;
-use Sonrisa\Component\Sitemap\Collections\NewsCollection;
 
 /**
  * @package Sonrisa\Component\Sitemap
@@ -91,14 +90,6 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
         return $this;
     }
 
-    /**
-     * @param  NewsCollection $collection
-     * @return $this
-     */
-    public function addCollection(NewsCollection $collection)
-    {
-        return $this;
-    }
 
     /**
      * @return array

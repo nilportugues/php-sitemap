@@ -8,7 +8,6 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\VideoItem;
-use Sonrisa\Component\Sitemap\Collections\VideoCollection;
 use Sonrisa\Component\Sitemap\Validators\SharedValidator;
 
 /**
@@ -103,15 +102,6 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
             $this->lastItem = $item;
         }
 
-        return $this;
-    }
-
-    /**
-     * @param  VideoCollection $collection
-     * @return $this
-     */
-    public function addCollection(VideoCollection $collection)
-    {
         return $this;
     }
 

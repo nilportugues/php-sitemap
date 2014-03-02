@@ -10,7 +10,6 @@ namespace Sonrisa\Component\Sitemap;
 use Sonrisa\Component\Sitemap\Items\ImageItem;
 use Sonrisa\Component\Sitemap\Validators\SharedValidator;
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
-use Sonrisa\Component\Sitemap\Collections\ImageCollection;
 
 /**
  * Class ImageSitemap
@@ -100,15 +99,6 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
             throw new SitemapException("A valid URL value for <loc> must be given.");
         }
 
-        return $this;
-    }
-
-    /**
-     * @param  ImageCollection $collection
-     * @return $this
-     */
-    public function addCollection(ImageCollection $collection)
-    {
         return $this;
     }
 

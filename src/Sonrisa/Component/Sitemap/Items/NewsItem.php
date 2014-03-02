@@ -83,24 +83,6 @@ class NewsItem extends AbstractItem implements ItemInterface
      * @param $name
      * @return $this
      */
-    public function setName($name)
-    {
-        return $this->setField('name',$name);
-    }
-
-    /**
-     * @param $language
-     * @return $this
-     */
-    public function setLanguage($language)
-    {
-        return $this->setField('language',$language);
-    }
-
-    /**
-     * @param $name
-     * @return $this
-     */
     public function setPublicationName($name)
     {
         return $this->setField('name',$name);

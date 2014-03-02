@@ -8,7 +8,6 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\IndexItem;
-use Sonrisa\Component\Sitemap\Collections\IndexCollection;
 
 /**
  * Class IndexSitemap
@@ -69,15 +68,6 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
             $this->lastItem = $item;
         }
 
-        return $this;
-    }
-
-    /**
-     * @param  IndexCollection $collection
-     * @return $this
-     */
-    public function addCollection(IndexCollection $collection)
-    {
         return $this;
     }
 

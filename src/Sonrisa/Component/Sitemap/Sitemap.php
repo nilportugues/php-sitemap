@@ -8,7 +8,6 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\UrlItem;
-use Sonrisa\Component\Sitemap\Collections\UrlCollection;
 
 /**
  * Class Sitemap
@@ -67,15 +66,6 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
             $this->lastItem = $item;
         }
 
-        return $this;
-    }
-
-    /**
-     * @param  UrlCollection $collection
-     * @return $this
-     */
-    public function addCollection(UrlCollection $collection)
-    {
         return $this;
     }
 

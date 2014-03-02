@@ -546,15 +546,6 @@ class NewsValidator extends SharedValidator
      */
     protected function __construct() {}
 
-    /**
-     *
-     */
-    protected function __clone() {}
-
-    /**
-     *
-     */
-    protected function __wakeup() {}
 
     /**
      * @param $name
