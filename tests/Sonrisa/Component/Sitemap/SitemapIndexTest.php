@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use \Sonrisa\Component\Sitemap\Items\IndexItem;
+
 /**
  * Class IndexSitemapTest
  */
@@ -34,8 +36,17 @@ class IndexSitemapTest extends \PHPUnit_Framework_TestCase
 \t</sitemap>
 </sitemapindex>
 XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.xml', 'lastmod' => '2005-05-10T17:33:30+08:00'));
-        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.media.xml','lastmod' => '2005-05-10T17:33:30+08:00'));
+
+        $item = new IndexItem();
+        $item->setLoc('http://www.example.com/sitemap.xml');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
+        $item = new IndexItem();
+        $item->setLoc('http://www.example.com/sitemap.media.xml');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -54,8 +65,15 @@ XML;
 \t</sitemap>
 </sitemapindex>
 XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.xml'));
-        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.media.xml'));
+
+        $item = new IndexItem();
+        $item->setLoc('http://www.example.com/sitemap.xml');
+        $this->sitemap->add($item);
+
+        $item = new IndexItem();
+        $item->setLoc('http://www.example.com/sitemap.media.xml');
+        $this->sitemap->add($item);
+
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -63,31 +81,23 @@ XML;
 
     public function testAddUrlWithValidUrlWithInvalidLoc()
     {
-        $this->sitemap->add(array('loc' => 'no/a/real/path/www.example.com/sitemap.xml'));
-        $this->sitemap->add(array('loc' => 'no/a/real/path/sitemap.media.xml'));
-        $files = $this->sitemap->build();
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->assertEmpty($files);
+        $item = new IndexItem();
+        $item->setLoc('no/a/real/path/www.example.com/sitemap.xml');
+        $this->sitemap->add($item);
     }
 
     public function testAddUrlWithValidUrlWithInvalidDate()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<sitemap>
-\t\t<loc>http://www.example.com/sitemap.xml</loc>
-\t</sitemap>
-\t<sitemap>
-\t\t<loc>http://www.example.com/sitemap.media.xml</loc>
-\t</sitemap>
-</sitemapindex>
-XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.xml','lastmod' => 'AAAAAAA'));
-        $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap.media.xml','lastmod' => 'AAAAAAA'));
-        $files = $this->sitemap->build();
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->assertEquals($expected,$files[0]);
+        $item = new IndexItem();
+        $item->setLoc('http://www.example.com/sitemap.xml');
+        $item->setLastMod('AAAAAAA');
+        $this->sitemap->add($item);
+
+        $this->sitemap->build();
     }
 
     public function testAddUrlAbovetheSitemapMaxSitemapElementLimit()
@@ -100,7 +110,9 @@ XML;
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {
-            $this->sitemap->add(array('loc' => 'http://www.example.com/sitemap-'.$i.'.xml'));
+            $item = new IndexItem();
+            $item->setLoc('http://www.example.com/sitemap.'.$i.'.xml');
+            $this->sitemap->add($item);
         }
         $files = $this->sitemap->build();
 

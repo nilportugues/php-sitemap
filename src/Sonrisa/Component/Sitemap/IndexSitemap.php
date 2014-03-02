@@ -36,8 +36,6 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
             //Mark URL as used.
             $this->used_urls[] = $loc;
 
-            $item = new IndexItem($this->validator);
-
             //Check constrains
             $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
 
