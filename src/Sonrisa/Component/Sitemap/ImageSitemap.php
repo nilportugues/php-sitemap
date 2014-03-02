@@ -8,14 +8,14 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\ImageItem;
-use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
-use Sonrisa\Component\Sitemap\Validators\ImageValidator;
+use Sonrisa\Component\Sitemap\Validators\SharedValidator;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
 /**
  * Class ImageSitemap
  * @package Sonrisa\Component\Sitemap
  */
-class ImageSitemap extends AbstractSitemap
+class ImageSitemap extends AbstractSitemap implements SitemapInterface
 {
     /**
      * @var string
@@ -33,75 +33,81 @@ class ImageSitemap extends AbstractSitemap
     protected $used_images = array();
 
     /**
-     *
+     * @var ImageItem
      */
-    public function __construct()
-    {
-        $this->validator = new ImageValidator();
-    }
+    protected $lastItem;
 
     /**
-     * @param $data
+     * @param  ImageItem                   $item
+     * @param  string                      $url
      * @return $this
+     * @throws Exceptions\SitemapException
      */
-    /**
-     * @param array  $data
-     * @param string $url
-     * @return $this
-     */
-    public function add($data,$url='')
+    public function add(ImageItem $item,$url='')
     {
-        $url = AbstractValidator::validateLoc($url);
+        $url = SharedValidator::validateLoc($url);
         if ( empty($this->used_images[$url]) ) {
             $this->used_images[$url] = array();
         }
 
-        if (!empty($url) && !empty($data['loc']) && !in_array($data['loc'],$this->used_images[$url],true)) {
-            //Mark URL as used.
-            $this->used_urls[] = $url;
-            $this->used_images[$url][] = $data['loc'];
+        $loc = $item->getLoc();
 
-            $this->items[$url] = array();
+        if (!empty($url) && !empty($loc)) {
 
-            $item = new ImageItem($this->validator);
+            if (!in_array($loc,$this->used_images[$url],true)) {
 
-            //Populate the item with the given data.
-            foreach ($data as $key => $value) {
-                $item->setField($key,$value);
-            }
+                //Mark URL as used.
+                $this->used_urls[] = $url;
+                $this->used_images[$url][] = $loc;
 
-            //Check constrains
-            $current =  $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
-                        (count($this->items[$url])*( mb_strlen($this->urlHeader,'UTF-8')+mb_strlen($this->urlFooter,'UTF-8')));
+                $this->items[$url] = array();
 
-            //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap)) {
-                //add bytes to total
-                $this->current_file_byte_size = $item->getItemSize();
+                //Check constrains
+                $current =  $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
+                            (count($this->items[$url])*( mb_strlen($this->urlHeader,'UTF-8')+mb_strlen($this->urlFooter,'UTF-8')));
 
-                //add item to the item array
-                $built = $item->buildItem();
-                if (!empty($built)) {
-                    $this->items[$url][] = $built;
+                //Check if new file is needed or not. ONLY create a new file if the constrains are met.
+                if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap)) {
+                    //add bytes to total
+                    $this->current_file_byte_size = $item->getItemSize();
 
+                    //add item to the item array
+                    $built = $item->build();
+                    if (!empty($built)) {
+                        $this->items[$url][] = $built;
+
+                        $this->files[$this->total_files][$url][] = implode("\n",$this->items[$url]);
+
+                        $this->total_items++;
+                    }
+                } else {
+                    //reset count
+                    $this->current_file_byte_size = 0;
+
+                    //copy items to the files array.
+                    $this->total_files=$this->total_files+1;
                     $this->files[$this->total_files][$url][] = implode("\n",$this->items[$url]);
 
-                    $this->total_items++;
+                    //reset the item count by inserting the first new item
+                    $this->items = array($item);
+                    $this->total_items=1;
                 }
-            } else {
-                //reset count
-                $this->current_file_byte_size = 0;
-
-                //copy items to the files array.
-                $this->total_files=$this->total_files+1;
-                $this->files[$this->total_files][$url][] = implode("\n",$this->items[$url]);
-
-                //reset the item count by inserting the first new item
-                $this->items = array($item);
-                $this->total_items=1;
+                $this->lastItem = $item;
             }
+
+        } else {
+            throw new SitemapException("A valid URL value for <loc> must be given.");
         }
 
+        return $this;
+    }
+
+    /**
+     * @param  ImageCollection $collection
+     * @return $this
+     */
+    public function addCollection(ImageCollection $collection)
+    {
         return $this;
     }
 
@@ -110,13 +116,12 @@ class ImageSitemap extends AbstractSitemap
      */
     public function build()
     {
-        $item = new ImageItem($this->validator);
         $output = array();
 
-        if (!empty($this->files)) {
+        if (!empty($this->files) && !empty($this->lastItem)) {
             foreach ($this->files as $file) {
                 $fileData = array();
-                $fileData[] = $item->getHeader();
+                $fileData[] = $this->lastItem->getHeader();
 
                 foreach ($file as $url => $urlImages) {
                     if (!empty($urlImages) && !empty($url)) {
@@ -127,7 +132,7 @@ class ImageSitemap extends AbstractSitemap
                     }
                 }
 
-                $fileData[] = $item->getFooter();
+                $fileData[] = $this->lastItem->getFooter();
 
                 $output[] = implode("\n",$fileData);
             }

@@ -23,7 +23,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new ImageValidator();
+        $this->validator = ImageValidator::getInstance();
     }
 
     public function testValidateTitleValidInput()

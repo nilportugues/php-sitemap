@@ -6,6 +6,8 @@
  * file that was distributed with this source code.
  */
 
+use \Sonrisa\Component\Sitemap\Items\UrlItem;
+
 /**
  * Class SitemapTest
  */
@@ -40,7 +42,13 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -62,8 +70,19 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
 
@@ -72,12 +91,17 @@ XML;
     }
 
 
-    public function testAddUrlWithInvalidUrlWontGetAdded()
+    public function testAddUrlWithInvalidUrlThrowsException()
     {
-        $this->sitemap->add(array( 'loc' => 'not/valid/url', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
-        $files = $this->sitemap->build();
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->assertEmpty($files);
+        $item = new UrlItem();
+        $item->setLoc('not/valid/url');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+
+        $this->sitemap->add($item);
 
     }
 
@@ -92,7 +116,11 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -109,8 +137,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('always');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/', 'changefreq' => 'always'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -129,8 +160,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('hourly');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/', 'changefreq' => 'hourly'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -149,8 +183,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('daily');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'daily'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -170,7 +207,11 @@ XML;
 </urlset>
 XML;
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'weekly'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('weekly');
+        $this->sitemap->add($item);
+
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -189,8 +230,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('monthly');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'monthly'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -209,8 +253,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('yearly');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'yearly'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -229,8 +276,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('never');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','changefreq' => 'never'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -250,8 +300,11 @@ XML;
 \t</url>
 </urlset>
 XML;
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $this->sitemap->add($item);
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/', 'priority' => '0.8'));
         $files = $this->sitemap->build();
 
         $this->assertEquals($expected,$files[0]);
@@ -259,142 +312,118 @@ XML;
 
     public function testAddUrlWithValidUrlWithInvalidLastModValue()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t\t<changefreq>monthly</changefreq>
-\t\t<priority>0.8</priority>
-\t</url>
-</urlset>
-XML;
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority'=>'0.8', 'changefreq' => 'monthly','lastmod' => 'AAAAA'));
-        $files = $this->sitemap->build();
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('AAAA');
+        $this->sitemap->add($item);
 
-        $this->assertEquals($expected,$files[0]);
+        $this->sitemap->build();
     }
 
     public function testAddUrlWithValidUrlWithInvalidChangeFreq()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t\t<lastmod>2005-05-10T17:33:30+08:00</lastmod>
-\t\t<priority>0.8</priority>
-\t</url>
-</urlset>
-XML;
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority'=>'0.8','changefreq' => 'AAAAA','lastmod' => '2005-05-10T17:33:30+08:00'));
-        $files = $this->sitemap->build();
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('AAAAA');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
 
-        $this->assertEquals($expected,$files[0]);
+        $this->sitemap->build();
     }
 
     public function testAddUrlWithValidUrlWithInvalidPriority1()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t</url>
-</urlset>
-XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => '6'));
-        $files = $this->sitemap->build();
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->assertEquals($expected,$files[0]);
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('6');
+        $this->sitemap->add($item);
+
+        $this->sitemap->build();
     }
 
     public function testAddUrlWithValidUrlWithInvalidPriority2()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t</url>
-</urlset>
-XML;
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => 'AAAAA'));
-        $files = $this->sitemap->build();
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('AAAAAAAA');
+        $this->sitemap->add($item);
 
-        $this->assertEquals($expected,$files[0]);
+        $this->sitemap->build();
     }
 
     public function testAddUrlWithValidUrlWithInvalidPriority3()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t\t<priority>0.8</priority>
-\t</url>
-</urlset>
-XML;
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => '0.88'));
-        $files = $this->sitemap->build();
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.88');
+        $this->sitemap->add($item);
 
-        $this->assertEquals($expected,$files[0]);
+        $this->sitemap->build();
     }
 
     public function testAddUrlWithValidUrlWithInvalidPriority4()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t</url>
-</urlset>
-XML;
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => '1.88'));
-        $files = $this->sitemap->build();
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('1.88');
+        $this->sitemap->add($item);
 
-        $this->assertEquals($expected,$files[0]);
+        $this->sitemap->build();
     }
 
     public function testAddUrlWithValidUrlWithInvalidPriority5()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t</url>
-</urlset>
-XML;
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => -3.14));
-        $files = $this->sitemap->build();
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority(-3.14);
+        $this->sitemap->add($item);
 
-        $this->assertEquals($expected,$files[0]);
+        $this->sitemap->build();
     }
 
-    public function testAddUrlWithValidUrlWithAllFieldsInvalid()
+
+    public function testAddUrlWithValidUrlAndInvalidChangeFreq()
     {
-$expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t</url>
-</urlset>
-XML;
-        $this->sitemap->add(array('loc' => 'http://www.example.com/','priority' => 'AAAAAA', 'changefreq' => 'AAAAA', 'lastmod' => 'AAAAAA'));
-        $files = $this->sitemap->build();
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $this->assertEquals($expected,$files[0]);
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setChangeFreq('AAAAA');
+        $this->sitemap->add($item);
+
+        $this->sitemap->build();
     }
+
+
+    public function testAddUrlWithValidUrlAndInvalidLastmMod()
+    {
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
+
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setLastMod('AAAAA');
+        $this->sitemap->add($item);
+
+        $this->sitemap->build();
+    }
+
 
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
@@ -405,9 +434,13 @@ XML;
         $property->setValue($this->sitemap,'1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++) {
-            $this->sitemap->add(array('loc' => 'http://www.example.com/page-'.$i.'.html'));
+        for ($i=1;$i<=2000; $i++)
+        {
+            $item = new UrlItem();
+            $item->setLoc('http://www.example.com/page-'.$i.'.html');
+            $this->sitemap->add($item);
         }
+
         $files = $this->sitemap->build();
 
         $this->assertArrayHasKey('0',$files);
@@ -417,49 +450,78 @@ XML;
 
     }
 
-    public function testWriteFileWithoutBuild()
+    public function testwriteWithoutBuild()
     {
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->writeFile('./','sitemap.xml',false);
+        $this->sitemap->write('./','sitemap.xml',false);
     }
 
     public function testWritePlainFile()
     {
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
 
         $this->sitemap->build();
-        $this->sitemap->writeFile('./','sitemap.xml',false);
+        $this->sitemap->write('./','sitemap.xml',false);
         $this->assertFileExists('sitemap.xml');
     }
 
     public function testWritePlainFileThrowException()
     {
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
 
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->writeFile('./fake/path','sitemap.xml',false);
+        $this->sitemap->write('./fake/path','sitemap.xml',false);
     }
 
     public function testWriteGZipFile()
     {
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
+
 
         $this->sitemap->build();
-        $this->sitemap->writeFile('./','sitemap.xml',true);
+        $this->sitemap->write('./','sitemap.xml',true);
         $this->assertFileExists('sitemap.xml.gz');
     }
 
     public function testWriteGZipFileThrowException()
     {
-        $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
+        $item = new UrlItem();
+        $item->setLoc('http://www.example.com/');
+        $item->setPriority('0.8');
+        $item->setChangeFreq('monthly');
+        $item->setLastMod('2005-05-10T17:33:30+08:00');
+        $this->sitemap->add($item);
 
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->writeFile('./fake/path','sitemap.xml',true);
+        $this->sitemap->write('./fake/path','sitemap.xml',true);
     }
 }

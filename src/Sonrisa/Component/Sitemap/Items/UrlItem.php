@@ -6,13 +6,27 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Validators\UrlValidator;
 
 /**
  * Class UrlItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-class UrlItem extends AbstractItem
+class UrlItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\UrlValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = UrlValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -29,12 +43,57 @@ class UrlItem extends AbstractItem
     {
         return "</urlset>";
     }
+
+    /**
+     * @return string
+     */
+    public function getLoc()
+    {
+        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setLoc($loc)
+    {
+        return $this->setField('loc',$loc);
+    }
+
+    /**
+     * @param $lastmod
+     * @return $this
+     */
+    public function setLastMod($lastmod)
+    {
+        return $this->setField('lastmod',$lastmod);
+    }
+
+     /**
+     * @param $changefreq
+     * @return $this
+     */
+    public function setChangeFreq($changefreq)
+    {
+        return $this->setField('changefreq',$changefreq);
+    }
+
+     /**
+     * @param $priority
+     * @return $this
+     */
+    public function setPriority($priority)
+    {
+        return $this->setField('priority',$priority);
+    }
+
     /**
      * Collapses the item to its string XML representation.
      *
      * @return string
      */
-    public function buildItem()
+    public function build()
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.

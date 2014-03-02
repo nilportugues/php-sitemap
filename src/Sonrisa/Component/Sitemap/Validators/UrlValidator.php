@@ -11,12 +11,44 @@ namespace Sonrisa\Component\Sitemap\Validators;
  * Class UrlValidator
  * @package Sonrisa\Component\Sitemap\Validators
  */
-class UrlValidator extends AbstractValidator
+class UrlValidator extends SharedValidator
 {
     /**
      * @var array
      */
     protected static $changeFreqValid = array("always","hourly","daily","weekly","monthly","yearly","never");
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\VideoValidator
+     */
+    protected static $_instance;
+
+    /**
+     * @return SharedValidator
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     *
+     */
+    protected function __construct() {}
+
+    /**
+     *
+     */
+    protected function __clone() {}
+
+    /**
+     *
+     */
+    protected function __wakeup() {}
 
     /**
      * @param $lastmod
@@ -55,7 +87,14 @@ class UrlValidator extends AbstractValidator
     public static function validatePriority($priority)
     {
         $data = '';
-        if ( is_numeric($priority) && $priority > -0.01 && $priority <= 1 ) {
+        if
+        (
+            is_numeric($priority)
+            && $priority > -0.01
+            && $priority <= 1
+            && (($priority*100 % 10) == 0 )
+        )
+        {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
             $matches[0] = floatval($matches[0]);
 

@@ -11,7 +11,7 @@ namespace Sonrisa\Component\Sitemap\Validators;
  * Class VideoValidator
  * @package Sonrisa\Component\Sitemap\Validators
  */
-class VideoValidator extends AbstractValidator
+class VideoValidator extends SharedValidator
 {
     /**
      * @var int
@@ -76,6 +76,38 @@ class VideoValidator extends AbstractValidator
         'USD','UYI','UYU','UZS','VUV','EUR','VEF','VND','USD','USD','XPF','MAD','YER','ZMW','ZWL','XBA','XBB','XBC',
         'XBD','XTS','XXX','XAU','XPD','XPT','XAG'
     );
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\VideoValidator
+     */
+    protected static $_instance;
+
+    /**
+     * @return SharedValidator
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     *
+     */
+    protected function __construct() {}
+
+    /**
+     *
+     */
+    protected function __clone() {}
+
+    /**
+     *
+     */
+    protected function __wakeup() {}
 
     /**
      * @param $value
@@ -209,6 +241,7 @@ class VideoValidator extends AbstractValidator
     {
         $data = '';
         if (is_integer($view_count) && $view_count > 0 ) {
+
             $data = $view_count;
         }
 
@@ -233,6 +266,9 @@ class VideoValidator extends AbstractValidator
         $data = '';
         if (ucfirst(strtolower($family_friendly)) == 'No') {
             $data = 'No';
+        }
+        elseif (ucfirst(strtolower($family_friendly)) == 'Yes') {
+            $data = 'Yes';
         }
 
         return $data;
@@ -386,31 +422,27 @@ class VideoValidator extends AbstractValidator
     {
         $valid = array();
 
-        foreach ($prices as &$value) {
-            if (is_array($value)) {
-                if
-                (
-                    !empty($value['price']) && !empty($value['price_currency']) &&
-                    ( filter_var($value['price'], FILTER_VALIDATE_FLOAT) || filter_var($value['price'], FILTER_VALIDATE_INT) ) &&
-                    array_search(strtoupper($value['price_currency']),array_unique(self::$iso_4217),true)
-                )
-                {
-                    $value['price_currency'] = strtoupper($value['price_currency']);
+        if
+        (
+            !empty($prices['price'])
+            && !empty($prices['price_currency'])
+            && ( filter_var($prices['price'], FILTER_VALIDATE_FLOAT) || filter_var($prices['price'], FILTER_VALIDATE_INT) )
+            && array_search(strtoupper($prices['price_currency']),array_unique(self::$iso_4217),true)
+        )
+        {
+            $prices['price_currency'] = strtoupper($prices['price_currency']);
 
-                    if (!empty($value['resolution'])) {
-                        $value['resolution'] = self::validatePriceResolution($value['resolution']);
-                    }
-
-                    if (!empty($value['type'])) {
-                        $value['type'] = self::validatePriceType($value['type']);
-                    }
-
-                    $value = array_filter($value);
-                    $valid[] = $value;
-                }
-
+            if (!empty($prices['resolution'])) {
+                $prices['resolution'] = self::validatePriceResolution($prices['resolution']);
             }
+
+            if (!empty($prices['type'])) {
+                $prices['type'] = self::validatePriceType($prices['type']);
+            }
+
+            $valid =  array_filter($prices);
         }
+
 
         return $valid;
     }

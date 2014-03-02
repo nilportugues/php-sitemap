@@ -30,15 +30,6 @@ class SubmitSitemap extends \PHPUnit_Framework_TestCase
         $this->url = 'http://elmundo.feedsportal.com/elmundo/rss/portada.xml';
     }
 
-    /**
-     * Creates a mock object that does not hit Goog.gl by replacing the "request" method ONLY.
-     *
-     * @return \PHPUnit_Framework_MockObject_MockObject
-     */
-    protected function getBaseMockResponse()
-    {
-        return $this->getMock('\Sonrisa\Component\Sitemap\SubmitSitemap',array('do_head_check'));
-    }
 
     /**
      *

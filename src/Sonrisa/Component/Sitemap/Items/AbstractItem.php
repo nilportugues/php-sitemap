@@ -8,13 +8,13 @@
 
 namespace Sonrisa\Component\Sitemap\Items;
 
-use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
+use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
 /**
  * Class AbstractItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-abstract class AbstractItem
+abstract class AbstractItem implements ItemInterface
 {
     /**
      * Holds data as a key->value format.
@@ -35,19 +35,11 @@ abstract class AbstractItem
     protected $validator = NULL;
 
     /**
-     * @param AbstractValidator $validator
-     */
-    public function __construct(AbstractValidator $validator)
-    {
-        $this->validator = $validator;
-    }
-
-    /**
      * @return string
      */
     public function __toString()
     {
-        return $this->buildItem();
+        return $this->build();
     }
 
     /**
@@ -57,7 +49,7 @@ abstract class AbstractItem
      */
     public function getItemSize()
     {
-        return mb_strlen($this->buildItem(),'UTF-8');
+        return mb_strlen($this->build(),'UTF-8');
     }
 
     /**
@@ -92,17 +84,23 @@ abstract class AbstractItem
      * @param $key
      * @param $value
      *
+     * @throws \Sonrisa\Component\Sitemap\Exceptions\SitemapException
      * @return $this
      */
-    public function setField($key,$value)
+    protected function setField($key,$value)
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
         if (method_exists($this->validator,'validate'.$keyFunction)) {
             $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
 
-            if (!empty($value)) {
+            if (!empty($value))
+            {
                 $this->data[$key] = $value;
+            }
+            else
+            {
+                throw new SitemapException('Value not valid for '.$keyFunction);
             }
         }
 
@@ -110,18 +108,19 @@ abstract class AbstractItem
     }
 
     /**
+     * @param $string
+     * @return mixed
+     */
+    protected function underscoreToCamelCase($string)
+    {
+        return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
+    }
+
+    /**
      * Collapses the item to its string XML representation.
      *
      * @return string
      */
-    abstract public function buildItem();
+    abstract public function build();
 
-    /**
-     * @param $string
-     * @return mixed
-     */
-    protected function underscoreToCamelCase( $string )
-    {
-       return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
-    }
 }

@@ -23,7 +23,7 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new VideoValidator();
+        $this->validator = VideoValidator::getInstance();
     }
 
     public function testValidateAllowEmbedValid1()
@@ -336,7 +336,7 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
     public function testValidateFamilyFriendlyInvalid1()
     {
         $result = $this->validator->validateFamilyFriendly('Yes');
-        $this->assertEquals('',$result);
+        $this->assertEquals('Yes',$result);
     }
 
     public function testValidateFamilyFriendlyInvalid2()
@@ -488,50 +488,52 @@ class VideoValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function testValidatePrice()
     {
-        $prices = array(
-            array
-            (
-                'price'             => '0.99',
-                'price_currency'    => 'EUR',
-                'resolution'        => 'HD',
-                'type'              => 'rent',
-            ),
-            array
-            (
-                'price'             => '3.99',
-                'price_currency'    => 'EUR',
-                'resolution'        => 'HD',
-                'type'              => 'own',
-            ),
-            array
-            (
-                'price'             => 'A',
-                'price_currency'    => 'I AM INVALID',
-                'resolution'        => 'SO I AM',
-                'type'              => 'ME TOO',
-            ),
+        $prices =  array
+        (
+            'price'             => '0.99',
+            'price_currency'    => 'EUR',
+            'resolution'        => 'HD',
+            'type'              => 'rent',
         );
 
-        $expected = array(
-            array
-            (
-                'price'             => '0.99',
-                'price_currency'    => 'EUR',
-                'resolution'        => 'HD',
-                'type'              => 'rent',
-            ),
-            array
-            (
-                'price'             => '3.99',
-                'price_currency'    => 'EUR',
-                'resolution'        => 'HD',
-                'type'              => 'own',
-            )
+        $expected =  array
+        (
+            'price'             => '0.99',
+            'price_currency'    => 'EUR',
+            'resolution'        => 'HD',
+            'type'              => 'rent',
         );
+
         $result = $this->validator->validatePrice($prices);
-
         $this->assertEquals($expected,$result);
 
+        $prices =  array
+        (
+            'price'             => '3.99',
+            'price_currency'    => 'EUR',
+            'resolution'        => 'HD',
+            'type'              => 'own',
+        );
+
+        $expected = array
+        (
+            'price'             => '3.99',
+            'price_currency'    => 'EUR',
+            'resolution'        => 'HD',
+            'type'              => 'own',
+        );
+        $result = $this->validator->validatePrice($prices);
+        $this->assertEquals($expected,$result);
+
+        $prices = array
+        (
+            'price'             => 'A',
+            'price_currency'    => 'I AM INVALID',
+            'resolution'        => 'SO I AM',
+            'type'              => 'ME TOO',
+        );
+        $result = $this->validator->validatePrice($prices);
+        $this->assertEquals(array(),$result);
     }
 
     public function testValidateRestrictionRelationshipValid1()

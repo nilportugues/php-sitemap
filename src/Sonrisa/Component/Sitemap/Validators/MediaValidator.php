@@ -11,8 +11,41 @@ namespace Sonrisa\Component\Sitemap\Validators;
  * Class MediaValidator
  * @package Sonrisa\Component\Sitemap\Validators
  */
-class MediaValidator extends AbstractValidator
+class MediaValidator extends SharedValidator
 {
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\MediaValidator
+     */
+    protected static $_instance;
+
+    /**
+     * @return SharedValidator
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     *
+     */
+    protected function __construct() {}
+
+    /**
+     *
+     */
+    protected function __clone() {}
+
+    /**
+     *
+     */
+    protected function __wakeup() {}
+
     /**
      * @param $title
      * @return string

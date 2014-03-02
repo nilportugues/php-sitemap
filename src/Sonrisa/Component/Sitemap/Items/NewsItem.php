@@ -6,13 +6,27 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Validators\NewsValidator;
 
 /**
  * Class NewsItem
  * @package Sonrisa\Component\Sitemap\Items
  */
-class NewsItem extends AbstractItem
+class NewsItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\NewsValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = NewsValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -31,11 +45,118 @@ class NewsItem extends AbstractItem
     }
 
     /**
+     * @return string
+     */
+    public function getLoc()
+    {
+        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
+    }
+
+    /**
+     * @param $loc
+     * @return $this
+     */
+    public function setLoc($loc)
+    {
+        return $this->setField('loc',$loc);
+    }
+
+    /**
+     * @param $title
+     * @return $this
+     */
+    public function setTitle($title)
+    {
+        return $this->setField('title',$title);
+    }
+
+    /**
+     * @param $date
+     * @return $this
+     */
+    public function setPublicationDate($date)
+    {
+        return $this->setField('publication_date',$date);
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setName($name)
+    {
+        return $this->setField('name',$name);
+    }
+
+    /**
+     * @param $language
+     * @return $this
+     */
+    public function setLanguage($language)
+    {
+        return $this->setField('language',$language);
+    }
+
+    /**
+     * @param $name
+     * @return $this
+     */
+    public function setPublicationName($name)
+    {
+        return $this->setField('name',$name);
+    }
+
+    /**
+     * @param $language
+     * @return $this
+     */
+    public function setPublicationLanguage($language)
+    {
+        return $this->setField('language',$language);
+    }
+
+    /**
+     * @param $access
+     * @return $this
+     */
+    public function setAccess($access)
+    {
+        return $this->setField('access',$access);
+    }
+
+    /**
+     * @param $genres
+     * @return $this
+     */
+    public function setGenres($genres)
+    {
+        return $this->setField('genres',$genres);
+    }
+
+    /**
+     * @param $keywords
+     * @return $this
+     */
+    public function setKeywords($keywords)
+    {
+        return $this->setField('keywords',$keywords);
+    }
+
+    /**
+     * @param $stock_tickers
+     * @return $this
+     */
+    public function setStockTickers($stock_tickers)
+    {
+        return $this->setField('stock_tickers',$stock_tickers);
+    }
+
+    /**
      * Collapses the item to its string XML representation.
      *
      * @return string
      */
-    public function buildItem()
+    public function build()
     {
         $data = '';
         //Create item ONLY if all mandatory data is present.
@@ -66,7 +187,7 @@ class NewsItem extends AbstractItem
             $xml[] = (!empty($this->data['genres']))            ? "\t\t\t".'<news:genres>'.$this->data['genres'].'</news:genres>' : '';
             $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<news:publication_date>'.$this->data['publication_date'].'</news:publication_date>' : '';
             $xml[] = (!empty($this->data['title']))             ? "\t\t\t".'<news:title>'.$this->data['title'].'</news:title>' : '';
-            $xml[] = (!empty($this->data['keywords']))           ? "\t\t\t".'<news:keywords>'.$this->data['keywords'].'</news:keywords>' : '';
+            $xml[] = (!empty($this->data['keywords']))          ? "\t\t\t".'<news:keywords>'.$this->data['keywords'].'</news:keywords>' : '';
             $xml[] = (!empty($this->data['stock_tickers']))     ? "\t\t\t".'<news:stock_tickers>'.$this->data['stock_tickers'].'</news:stock_tickers>' : '';
 
             $xml[] = "\t\t".'</news:news>';

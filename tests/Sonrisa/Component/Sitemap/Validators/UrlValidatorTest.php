@@ -23,7 +23,7 @@ class UrlValidatorTest  extends \PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $this->validator = new UrlValidator();
+        $this->validator = UrlValidator::getInstance();
     }
 
     public function testValidateChangefreqAlways()

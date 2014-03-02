@@ -13,7 +13,7 @@ use Sonrisa\Component\Sitemap\Items\AbstractItem;
  * Class AbstractSitemap
  * @package Sonrisa\Component\Sitemap
  */
-abstract class AbstractSitemap
+abstract class AbstractSitemap implements SitemapInterface
 {
     /**
      * @var array
@@ -21,7 +21,7 @@ abstract class AbstractSitemap
     protected $data = array();
 
     /**
-     * @var Validators\AbstractValidator
+     * @var Validators\SharedValidator
      */
     protected $validator;
 
@@ -81,18 +81,6 @@ abstract class AbstractSitemap
     protected $max_filesize = 52428800; // 50 MB
 
     /**
-     * @param  array        $data
-     * @return AbstractItem
-     */
-    abstract public function add($data);
-
-    /**
-     * Generates sitemap documents and stores them in $this->data, an array holding as many positions
-     * as total links divided by the $this->max_items_per_sitemap value.
-     */
-    abstract public function build();
-
-    /**
      * @param  AbstractItem $item
      * @return array
      */
@@ -118,7 +106,7 @@ abstract class AbstractSitemap
      * @return bool
      * @throws Exceptions\SitemapException
      */
-    public function writeFile($filepath,$filename,$gzip=false)
+    public function write($filepath,$filename,$gzip=false)
     {
         if (empty($this->output)) {
             throw new SitemapException('Will not write to directory. Use build() method first.');
