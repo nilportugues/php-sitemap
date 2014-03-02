@@ -36,7 +36,6 @@ class MediaValidator extends SharedValidator
      */
     protected function __construct() {}
 
-
     /**
      * @param $title
      * @return string

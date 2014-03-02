@@ -21,7 +21,6 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
      */
     protected $lastItem;
 
-
     /**
      * @param $item
      * @return $this

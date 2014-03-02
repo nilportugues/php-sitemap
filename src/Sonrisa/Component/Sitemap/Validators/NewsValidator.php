@@ -546,7 +546,6 @@ class NewsValidator extends SharedValidator
      */
     protected function __construct() {}
 
-
     /**
      * @param $name
      * @return string

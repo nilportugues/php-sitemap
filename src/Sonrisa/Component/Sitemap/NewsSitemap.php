@@ -38,7 +38,6 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
      */
     protected $lastItem;
 
-
     /**
      * @param  NewsItem $item
      * @return $this
@@ -89,7 +88,6 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
 
         return $this;
     }
-
 
     /**
      * @return array

@@ -37,7 +37,6 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
      */
     protected $lastItem;
 
-
     /**
      * @param $title
      *
@@ -60,8 +59,7 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
 
         $this->link = SharedValidator::validateLoc($link);
 
-        if(empty($this->link))
-        {
+        if (empty($this->link)) {
             throw new SitemapException('Value for setLink is not a valid URL');
         }
 

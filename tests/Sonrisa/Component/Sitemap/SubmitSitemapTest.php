@@ -30,7 +30,6 @@ class SubmitSitemap extends \PHPUnit_Framework_TestCase
         $this->url = 'http://elmundo.feedsportal.com/elmundo/rss/portada.xml';
     }
 
-
     /**
      *
      */

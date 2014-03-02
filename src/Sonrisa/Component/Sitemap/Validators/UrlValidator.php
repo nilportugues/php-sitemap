@@ -40,7 +40,6 @@ class UrlValidator extends SharedValidator
      */
     protected function __construct() {}
 
-
     /**
      * @param $lastmod
      * @return string

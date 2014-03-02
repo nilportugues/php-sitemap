@@ -789,7 +789,6 @@ XML;
         $this->assertEquals($expected,$files[0]);
     }
 
-
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
@@ -837,7 +836,5 @@ XML;
         $this->assertArrayHasKey('0',$files);
         $this->assertArrayHasKey('1',$files);
     }
-
-
 
 }

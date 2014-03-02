@@ -99,7 +99,6 @@ class VideoValidator extends SharedValidator
      */
     protected function __construct() {}
 
-
     /**
      * @param $value
      * @return string
@@ -257,8 +256,7 @@ class VideoValidator extends SharedValidator
         $data = '';
         if (ucfirst(strtolower($family_friendly)) == 'No') {
             $data = 'No';
-        }
-        elseif (ucfirst(strtolower($family_friendly)) == 'Yes') {
+        } elseif (ucfirst(strtolower($family_friendly)) == 'Yes') {
             $data = 'Yes';
         }
 
@@ -433,7 +431,6 @@ class VideoValidator extends SharedValidator
 
             $valid =  array_filter($prices);
         }
-
 
         return $valid;
     }

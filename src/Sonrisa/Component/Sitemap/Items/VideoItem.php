@@ -241,8 +241,7 @@ class VideoItem extends AbstractItem implements ItemInterface
         $data = array_filter($data);
         $data = $this->validator->validatePrice($data);
 
-        if(!empty($data))
-        {
+        if (!empty($data)) {
             $this->data['price'][] = $data;
         }
 
@@ -259,7 +258,7 @@ class VideoItem extends AbstractItem implements ItemInterface
     }
 
     /**
-     * @param array $tag
+     * @param  array $tag
      * @return $this
      */
     public function setTag(array $tag)
@@ -321,7 +320,6 @@ class VideoItem extends AbstractItem implements ItemInterface
         return $this->setField('live',$live);
     }
 
-
     /**
      * Collapses the item to its string XML representation.
      *
@@ -354,15 +352,11 @@ class VideoItem extends AbstractItem implements ItemInterface
             $xml[] = (!empty($this->data['rating']))            ? "\t\t\t".'<video:rating><![CDATA['.$this->data['rating'].']]></video:rating>' : '';
             $xml[] = (!empty($this->data['view_count']))        ? "\t\t\t".'<video:view_count><![CDATA['.$this->data['view_count'].']]></video:view_count>' : '';
 
-
-
             $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<video:publication_date><![CDATA['.$this->data['publication_date'].']]></video:publication_date>' : '';
 
-            if (!empty($this->data['family_friendly']) && $this->data['family_friendly'] == 'No')
-            {
+            if (!empty($this->data['family_friendly']) && $this->data['family_friendly'] == 'No') {
                     $xml[] ="\t\t\t".'<video:family_friendly><![CDATA['.$this->data['family_friendly'].']]></video:family_friendly>';
             }
-
 
             if (!empty($this->data['restriction']) && !empty($this->data['restriction_relationship']) ) {
                 $xml[] = "\t\t\t".'<video:restriction relationship="'.$this->data['restriction_relationship'].'">'.$this->data['restriction'].'</video:restriction>';
@@ -422,8 +416,6 @@ class VideoItem extends AbstractItem implements ItemInterface
             //Clean up and return
             $xml = array_filter($xml);
             $data = implode("\n",$xml);
-        } else {
-            throw new SitemapException('It is mandatory to set up the mandatory values using setTitle and either setPlayerLoc or setContentLoc.');
         }
 
         return $data;

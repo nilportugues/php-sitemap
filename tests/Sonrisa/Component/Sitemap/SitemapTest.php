@@ -398,7 +398,6 @@ XML;
         $this->sitemap->build();
     }
 
-
     public function testAddUrlWithValidUrlAndInvalidChangeFreq()
     {
         $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
@@ -410,7 +409,6 @@ XML;
 
         $this->sitemap->build();
     }
-
 
     public function testAddUrlWithValidUrlAndInvalidLastmMod()
     {
@@ -424,7 +422,6 @@ XML;
         $this->sitemap->build();
     }
 
-
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
@@ -434,8 +431,7 @@ XML;
         $property->setValue($this->sitemap,'1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++)
-        {
+        for ($i=1;$i<=2000; $i++) {
             $item = new UrlItem();
             $item->setLoc('http://www.example.com/page-'.$i.'.html');
             $this->sitemap->add($item);
@@ -459,7 +455,6 @@ XML;
         $item->setLastMod('2005-05-10T17:33:30+08:00');
         $this->sitemap->add($item);
 
-
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
         $this->sitemap->write('./','sitemap.xml',false);
     }
@@ -472,7 +467,6 @@ XML;
         $item->setChangeFreq('monthly');
         $item->setLastMod('2005-05-10T17:33:30+08:00');
         $this->sitemap->add($item);
-
 
         $this->sitemap->build();
         $this->sitemap->write('./','sitemap.xml',false);
@@ -488,7 +482,6 @@ XML;
         $item->setLastMod('2005-05-10T17:33:30+08:00');
         $this->sitemap->add($item);
 
-
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
@@ -503,7 +496,6 @@ XML;
         $item->setChangeFreq('monthly');
         $item->setLastMod('2005-05-10T17:33:30+08:00');
         $this->sitemap->add($item);
-
 
         $this->sitemap->build();
         $this->sitemap->write('./','sitemap.xml',true);
