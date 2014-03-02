@@ -7,8 +7,8 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
-use Sonrisa\Component\Sitemap\Collections\VideoCollection;
 use Sonrisa\Component\Sitemap\Items\VideoItem;
+use Sonrisa\Component\Sitemap\Collections\VideoCollection;
 use Sonrisa\Component\Sitemap\Validators\SharedValidator;
 
 /**

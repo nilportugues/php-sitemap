@@ -9,8 +9,8 @@ namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\MediaItem;
-use Sonrisa\Component\Sitemap\Validators\MediaValidator;
 use Sonrisa\Component\Sitemap\Validators\SharedValidator;
+use Sonrisa\Component\Sitemap\Collections\MediaCollection;
 
 /**
  * Class MediaSitemap
