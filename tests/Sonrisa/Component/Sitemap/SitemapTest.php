@@ -417,12 +417,12 @@ XML;
 
     }
 
-    public function testWriteFileWithoutBuild()
+    public function testwriteWithoutBuild()
     {
         $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->writeFile('./','sitemap.xml',false);
+        $this->sitemap->write('./','sitemap.xml',false);
     }
 
     public function testWritePlainFile()
@@ -430,7 +430,7 @@ XML;
         $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
 
         $this->sitemap->build();
-        $this->sitemap->writeFile('./','sitemap.xml',false);
+        $this->sitemap->write('./','sitemap.xml',false);
         $this->assertFileExists('sitemap.xml');
     }
 
@@ -441,7 +441,7 @@ XML;
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->writeFile('./fake/path','sitemap.xml',false);
+        $this->sitemap->write('./fake/path','sitemap.xml',false);
     }
 
     public function testWriteGZipFile()
@@ -449,7 +449,7 @@ XML;
         $this->sitemap->add(array( 'loc' => 'http://www.example.com/', 'priority' => '0.8', 'changefreq' => 'monthly','lastmod' =>'2005-05-10T17:33:30+08:00'));
 
         $this->sitemap->build();
-        $this->sitemap->writeFile('./','sitemap.xml',true);
+        $this->sitemap->write('./','sitemap.xml',true);
         $this->assertFileExists('sitemap.xml.gz');
     }
 
@@ -460,6 +460,6 @@ XML;
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->writeFile('./fake/path','sitemap.xml',true);
+        $this->sitemap->write('./fake/path','sitemap.xml',true);
     }
 }

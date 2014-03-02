@@ -23,9 +23,4 @@ class MediaCollection extends AbstractItemCollection
     {
 
     }
-
-    public function get()
-    {
-
-    }
 }

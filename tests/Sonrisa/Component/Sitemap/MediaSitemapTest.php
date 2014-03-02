@@ -11,6 +11,11 @@
  */
 class MediaSitemapTest extends \PHPUnit_Framework_TestCase
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\MediaSitemap
+     */
+    protected $sitemap;
+
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
@@ -41,18 +46,19 @@ XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->add(array
-        (
-            'link'          => 'http://www.example.com/examples/mrss/example.html',
-            'mimetype'      =>  'video/x-flv',
-            'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-            'duration'      =>  120,
-            'title'         =>  'Barbacoas en verano',
-            'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-            'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
-            'height'        =>  120,
-            'width'         =>  160,
-        ));
+
+        $item = new \Sonrisa\Component\Sitemap\Items\MediaItem();
+        $item->setLink('http://www.example.com/examples/mrss/example.html');
+        $item->setContentMimeType('video/x-flv');
+        $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+        $item->setContentDuration(120);
+        $item->setTitle('Barbacoas en verano');
+        $item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+        $item->setThumbnailUrl('http://www.example.com/examples/mrss/example.png');
+        $item->setThumbnailHeight(120);
+        $item->setThumbnailWidth(160);
+
+        $this->sitemap->add($item);
 
 
         $files = $this->sitemap->build();
@@ -65,7 +71,7 @@ XML;
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
-\t<title>Media RSS de ejemplo</title>
+\t<link>http://www.example.com/ejemplos/mrss/</link>
 \t<description>Ejemplo de MRSS</description>
 \t<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 \t\t<link>http://www.example.com/examples/mrss/example.html</link>
@@ -79,20 +85,23 @@ XML;
 </channel>
 </rss>
 XML;
-        $this->sitemap->setTitle('Media RSS de ejemplo');
+
+
+        $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->add(array
-        (
-            'link'          => 'http://www.example.com/examples/mrss/example.html',
-            'mimetype'      =>  'video/x-flv',
-            'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-            'duration'      =>  120,
-            'title'         =>  'Barbacoas en verano',
-            'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-            'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
-            'height'        =>  120,
-            'width'         =>  160,
-        ));
+
+        $item = new \Sonrisa\Component\Sitemap\Items\MediaItem();
+        $item->setLink('http://www.example.com/examples/mrss/example.html');
+        $item->setContentMimeType('video/x-flv');
+        $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+        $item->setContentDuration(120);
+        $item->setTitle('Barbacoas en verano');
+        $item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+        $item->setThumbnailUrl('http://www.example.com/examples/mrss/example.png');
+        $item->setThumbnailHeight(120);
+        $item->setThumbnailWidth(160);
+
+        $this->sitemap->add($item);
 
 
         $files = $this->sitemap->build();
@@ -122,45 +131,25 @@ XML;
 XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->add(array
-        (
-            'link'          => 'http://www.example.com/examples/mrss/example.html',
-            'mimetype'      =>  'video/x-flv',
-            'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-            'duration'      =>  120,
-            'title'         =>  'Barbacoas en verano',
-            'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-            'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
-            'height'        =>  120,
-            'width'         =>  160,
-        ));
+
+        $item = new \Sonrisa\Component\Sitemap\Items\MediaItem();
+        $item->setLink('http://www.example.com/examples/mrss/example.html');
+        $item->setContentMimeType('video/x-flv');
+        $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+        $item->setContentDuration(120);
+        $item->setTitle('Barbacoas en verano');
+        $item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+        $item->setThumbnailUrl('http://www.example.com/examples/mrss/example.png');
+        $item->setThumbnailHeight(120);
+        $item->setThumbnailWidth(160);
+
+        $this->sitemap->add($item);
 
 
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
-
     }
 
-    public function testValidMediaSitemapWillAllFieldsAndChannelLinkInvalid()
-    {
-        $this->sitemap->setTitle('Media RSS de ejemplo');
-        $this->sitemap->setDescription('Ejemplo de MRSS');
-        $this->sitemap->add(array
-        (
-            'link'          =>  'not/a/valid/URL',
-            'mimetype'      =>  'video/x-flv',
-            'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-            'duration'      =>  120,
-            'title'         =>  'Barbacoas en verano',
-            'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-            'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
-            'height'        =>  120,
-            'width'         =>  160,
-        ));
-
-        $files = $this->sitemap->build();
-        $this->assertEmpty($files);
-    }
 
     public function testValidMediaSitemapWillAllFieldsExceptChannelDescription()
     {
@@ -184,23 +173,62 @@ XML;
 XML;
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
-        $this->sitemap->add(array
-        (
-            'link'          => 'http://www.example.com/examples/mrss/example.html',
-            'mimetype'      =>  'video/x-flv',
-            'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-            'duration'      =>  120,
-            'title'         =>  'Barbacoas en verano',
-            'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-            'thumbnail'     =>  'http://www.example.com/examples/mrss/example.png',
-            'height'        =>  120,
-            'width'         =>  160,
-        ));
+
+        $item = new \Sonrisa\Component\Sitemap\Items\MediaItem();
+        $item->setLink('http://www.example.com/examples/mrss/example.html');
+        $item->setContentMimeType('video/x-flv');
+        $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+        $item->setContentDuration(120);
+        $item->setTitle('Barbacoas en verano');
+        $item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+        $item->setThumbnailUrl('http://www.example.com/examples/mrss/example.png');
+        $item->setThumbnailHeight(120);
+        $item->setThumbnailWidth(160);
+
+        $this->sitemap->add($item);
 
 
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
+
+
+    public function testValidMediaSitemapWillAllFieldsAndChannelLinkInvalid()
+    {
+        $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
+
+        $this->sitemap->setTitle('Media RSS de ejemplo');
+        $this->sitemap->setLink('not/a/valid/URL');
+        $this->sitemap->setDescription('Ejemplo de MRSS');
+
+        $item = new \Sonrisa\Component\Sitemap\Items\MediaItem();
+        $item->setLink('http://www.example.com/examples/mrss/example.html');
+        $item->setContentMimeType('video/x-flv');
+        $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+        $item->setContentDuration(120);
+        $item->setTitle('Barbacoas en verano');
+        $item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+        $item->setThumbnailUrl('http://www.example.com/examples/mrss/example.png');
+        $item->setThumbnailHeight(120);
+        $item->setThumbnailWidth(160);
+
+        $this->sitemap->add($item);
+
+        $this->sitemap->build();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

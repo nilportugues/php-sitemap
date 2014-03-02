@@ -18,17 +18,10 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
 {
 
     /**
-     * @var ImageItem
+     * @var IndexItem
      */
     protected $lastItem;
 
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->validator = new IndexValidator();
-    }
 
     /**
      * @param $item

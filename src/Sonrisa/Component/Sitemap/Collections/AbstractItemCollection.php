@@ -7,7 +7,6 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Collections;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 
 /**
  * Class AbstractItemCollection
@@ -27,12 +26,6 @@ abstract class AbstractItemCollection
     {
         $this->collection = array();
     }
-
-    /**
-     * @param  ItemInterface $item
-     * @return mixed
-     */
-    abstract public function add(ItemInterface $item);
 
     /**
      * @return array

@@ -6,6 +6,9 @@
  * file that was distributed with this source code.
  */
 
+use \Sonrisa\Component\Sitemap\Items\NewsItem;
+use \Sonrisa\Component\Sitemap\NewsSitemap;
+
 /**
  * Class NewsSitemapTest
  */
@@ -16,7 +19,7 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
     public function setUp()
     {
         date_default_timezone_set('Europe/Madrid');
-        $this->sitemap = new \Sonrisa\Component\Sitemap\NewsSitemap();
+        $this->sitemap = new NewsSitemap();
     }
 
     public function testAllMandatoryValidFieldsOnly()
@@ -37,17 +40,14 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
 \t</url>
 </urlset>
 EOF;
-        $this->sitemap->add(
-            array
-            (
-                //mandatory
-                'loc'               => 'http://www.example.org/business/article55.html',
-                'title'             => 'Companies A, B in Merger Talks',
-                'publication_date'  => '2008-12-23',
-                'name'              => 'The Example Times',
-                'language'          => 'en',
-            )
-        );
+
+        $item = new NewsItem();
+        $item->setLoc('http://www.example.org/business/article55.html');
+        $item->setTitle('Companies A, B in Merger Talks');
+        $item->setPublicationDate('2008-12-23');
+        $item->setPublicationName('The Example Times');
+        $item->setPublicationLanguage('en');
+        $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
 
@@ -76,23 +76,18 @@ $expected=<<<EOF
 \t</url>
 </urlset>
 EOF;
-        $this->sitemap->add(
-            array
-            (
-                //mandatory
-                'loc'               => 'http://www.example.org/business/article55.html',
-                'title'             => 'Companies A, B in Merger Talks',
-                'publication_date'  => '2008-12-23',
-                'name'              => 'The Example Times',
-                'language'          => 'en',
 
-                //optional
-                'access'            => 'Subscription',
-                'keywords'          => 'business, merger, acquisition, A, B',
-                'stock_tickers'     => 'NASDAQ:A, NASDAQ:B',
-                'genres'            => 'PressRelease, Blog'
-            )
-        );
+        $item = new NewsItem();
+        $item->setLoc('http://www.example.org/business/article55.html');
+        $item->setTitle('Companies A, B in Merger Talks');
+        $item->setPublicationDate('2008-12-23');
+        $item->setPublicationName('The Example Times');
+        $item->setPublicationLanguage('en');
+        $item->setAccess('Subscription');
+        $item->setKeywords('business, merger, acquisition, A, B');
+        $item->setStockTickers('NASDAQ:A, NASDAQ:B');
+        $item->setGenres('PressRelease, Blog');
+        $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
 
@@ -109,19 +104,18 @@ EOF;
 
         //Test limit
         for ($i=1;$i<=2000; $i++) {
-            $this->sitemap->add(
-                array
-                (
-                    //mandatory
-                    'loc'               => 'http://www.example.org/business/article-'.$i.'.html',
-                    'title'             => 'Title '.$i,
-                    'publication_date'  => '2008-12-23',
-                    'name'              => 'The Example Times',
-                    'language'          => 'en',
-                )
-            );
+
+            $item = new NewsItem();
+            $item->setLoc('http://www.example.org/business/article-'.$i.'.html');
+            $item->setTitle('Title '.$i);
+            $item->setPublicationDate('2008-12-23');
+            $item->setPublicationName('The Example Times');
+            $item->setPublicationLanguage('en');
+
+            $this->sitemap->add($item);
 
         }
+
         $files = $this->sitemap->build();
 
         $this->assertArrayHasKey('0',$files);

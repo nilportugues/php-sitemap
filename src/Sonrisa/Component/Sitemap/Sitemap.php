@@ -18,17 +18,9 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
 {
 
     /**
-     * @var ImageItem
+     * @var UrlItem
      */
     protected $lastItem;
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->validator = new UrlValidator();
-    }
 
     /**
      * @param  UrlItem $data

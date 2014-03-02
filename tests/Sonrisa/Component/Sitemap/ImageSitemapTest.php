@@ -168,18 +168,6 @@ XML;
 
     public function testAddUrlAndImagesWithValidUrlForImagesAndOtherImageDataPassedIsEmpty()
     {
-        $expected=<<<XML
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
-\t<url>
-\t\t<loc>http://www.example.com/</loc>
-\t\t<image:image>
-\t\t\t<image:loc><![CDATA[http://www.example.com/logo.png]]></image:loc>
-\t\t</image:image>
-\t</url>
-</urlset>
-XML;
-
         $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
         $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
@@ -190,7 +178,6 @@ XML;
         $this->sitemap->add($item,'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
     }
 
 

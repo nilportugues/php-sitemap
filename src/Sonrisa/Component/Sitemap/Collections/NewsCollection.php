@@ -24,8 +24,4 @@ class NewsCollection extends AbstractItemCollection
 
     }
 
-    public function get()
-    {
-
-    }
 }

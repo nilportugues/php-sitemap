@@ -23,9 +23,4 @@ class VideoCollection extends AbstractItemCollection
     {
 
     }
-
-    public function get()
-    {
-
-    }
 }

@@ -23,9 +23,4 @@ class UrlCollection extends AbstractItemCollection
     {
 
     }
-
-    public function get()
-    {
-
-    }
 }

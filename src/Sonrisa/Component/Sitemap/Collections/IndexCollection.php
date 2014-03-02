@@ -23,9 +23,4 @@ class IndexCollection extends AbstractItemCollection
     {
 
     }
-
-    public function get()
-    {
-
-    }
 }

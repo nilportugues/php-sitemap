@@ -16,15 +16,10 @@ use Sonrisa\Component\Sitemap\Items\ImageItem;
 class ImageCollection extends AbstractItemCollection
 {
     /**
-     * @param  ImageItem  $item
+     * @param ImageItem $item
      * @return mixed|void
      */
     public function add(ImageItem $item)
-    {
-
-    }
-
-    public function get()
     {
 
     }

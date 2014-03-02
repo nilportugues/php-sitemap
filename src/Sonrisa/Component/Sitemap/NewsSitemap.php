@@ -35,17 +35,10 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
     protected $max_items_per_sitemap = 1000;
 
     /**
-     * @var ImageItem
+     * @var NewsItem
      */
     protected $lastItem;
 
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->validator = new NewsValidator();
-    }
 
     /**
      * @param  NewsItem $item

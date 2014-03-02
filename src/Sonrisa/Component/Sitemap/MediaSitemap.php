@@ -32,17 +32,10 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
     protected $description;
 
     /**
-     * @var ImageItem
+     * @var MediaItem
      */
     protected $lastItem;
 
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->validator = new MediaValidator();
-    }
 
     /**
      * @param $title
