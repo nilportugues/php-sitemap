@@ -122,7 +122,7 @@ try {
 	$sitemap = new IndexSitemap();
 	
 	$item = new IndexItem();
-	$item->setLoc('http://www.example.com/sitemap.xml'); //Mandatory
+	$item->setLoc('http://www.example.com/sitemap.content.xml'); //Mandatory
 	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
 	$sitemap->add($item);
 	
@@ -164,36 +164,46 @@ try {
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\Sitemap;
+include 'vendor/autoload.php';
+use \Sonrisa\Component\Sitemap\Sitemap;
+use \Sonrisa\Component\Sitemap\Items\UrlItem;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
-$sitemap = new Sitemap();
-$sitemap->add(array(
-   //Mandatory values
-   'loc'       => 'http://www.example.com/',
+try {
+	$sitemap = new Sitemap();
+	
+	$item = new UrlItem();
+	$item->setLoc('http://www.example.com/');  //Mandatory
+	$item->setPriority('1.0'); //Optional
+	$item->setChangeFreq('daily'); //Optional
+	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
+	
+	$sitemap->add($item);
+	
+	$item = new UrlItem();
+	$item->setLoc('http://www.example.com/blog');  //Mandatory
+	$item->setPriority('0.9'); //Optional
+	$item->setChangeFreq('monthly'); //Optional
+	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
+	
+	$sitemap->add($item);
+	
+	$item = new UrlItem();
+	$item->setLoc('http://www.example.com/contact');  //Mandatory
+	$item->setPriority('0.8'); //Optional
+	$item->setChangeFreq('never'); //Optional
+	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
+	
+	$sitemap->add($item);
+	
+	//var_dump($files) should be an array holding the sitemap files created.
+	$files = $sitemap->build();
+	$sitemap->write('path/to/public/www','sitemap.index.xml');
    
-   //Optional   
-   'priority'  => '1.0',
-   'changefreq'=> 'daily',
-   'lastmod'   => '2014-05-10T17:33:30+08:00'
-));
+} catch (SitemapException $e) {
 
-$sitemap->add(array(
-   'loc'       => 'http://www.example.com/blog',
-   'priority'  => '0.9',
-   'changefreq'=> 'monthly',
-   'lastmod'   => '2014-05-10T17:33:30+08:00'
-   
-));
-$sitemap->add(array(
-   'loc'       => 'http://www.example.com/contact',
-   'priority'  => '0.8',
-   'changefreq'=> 'never',
-   'lastmod'   => '2014-05-10T17:33:30+08:00'
-));
-
-//var_dump($files) should be an array holding the sitemap files created.
-files = $sitemap->build();
-$sitemap->write('path/to/public/www','sitemap.xml');
+	echo $e->getMessage();
+}
 ```
 <a name="block4.3.2"></a>
 #### Output
@@ -228,28 +238,36 @@ $sitemap->write('path/to/public/www','sitemap.xml');
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\ImageSitemap;
+include 'vendor/autoload.php';
+use \Sonrisa\Component\Sitemap\ImageSitemap;
+use \Sonrisa\Component\Sitemap\Items\ImageItem;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
-$sitemap = new ImageSitemap();
+try {
+	$sitemap = new ImageSitemap();
+	
+	$item = new ImageItem();
+	$item->setLoc('http://www.example.com/logo.png'); //Mandatory
+	$item->setTitle('Example.com logo'); //Optional
+	
+	$sitemap->add($item,'http://www.example.com/');
+	
+	$item = new ImageItem();
+	$item->setLoc('http://www.example.com/main.png'); //Mandatory
+	$item->setTitle('Main image'); //Optional
+	
+	$sitemap->add($item,'http://www.example.com/');
+	
+	//var_dump($files) should be an array holding the sitemap files created.
+	$files = $sitemap->build();
+	$sitemap->write('path/to/public/www','sitemap.image.xml');
+   
+} catch (SitemapException $e) {
 
-//Add images to the sitemap by relating them to a Url.
-$this->sitemap->add(array(
- //Mandatory values 
- 'loc' => 'http://www.example.com/logo.png', 
- //Optional
- 'title' => 'Example.com logo' 
-),'http://www.example.com/');
+	echo $e->getMessage();
+}
 
-$this->sitemap->add(array(
-  //Mandatory values 
- 'loc' => 'http://www.example.com/main.png', 
- //Optional
- 'title' => 'Main image' 
-),'http://www.example.com/');
 
-//var_dump($files) should be an array holding the sitemap files created.
-$files = $sitemap->build()
-$sitemap->write('path/to/public/www','sitemap.images.xml');
 ```
 <a name="block4.4.2"></a>
 #### Output
