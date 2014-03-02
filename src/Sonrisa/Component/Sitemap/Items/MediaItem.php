@@ -114,7 +114,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setThumbnailUrl($url)
     {
-        return $this->setField('url',$url);
+        return $this->setField('thumbnail',$url);
     }
 
     /**

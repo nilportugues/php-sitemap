@@ -7,8 +7,10 @@
  */
 namespace Sonrisa\Component\Sitemap;
 
+use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\MediaItem;
 use Sonrisa\Component\Sitemap\Validators\MediaValidator;
+use Sonrisa\Component\Sitemap\Validators\SharedValidator;
 
 /**
  * Class MediaSitemap
@@ -56,7 +58,13 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
      */
     public function setLink($link)
     {
-        $this->link = $link;
+
+        $this->link = SharedValidator::validateLoc($link);
+
+        if(empty($this->link))
+        {
+            throw new SitemapException('Value for setLink is not a valid URL');
+        }
 
         return $this;
     }
