@@ -119,20 +119,20 @@ use \Sonrisa\Component\Sitemap\Items\IndexItem;
 use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
 try {
-	$sitemapIndex = new IndexSitemap();
+	$sitemap = new IndexSitemap();
 	
 	$item = new IndexItem();
 	$item->setLoc('http://www.example.com/sitemap.xml'); //Mandatory
 	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
-	$sitemapIndex->add($item);
+	$sitemap->add($item);
 	
 	$item = new IndexItem();
 	$item->setLoc('http://www.example.com/sitemap.media.xml'); //Mandatory
 	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
-	$sitemapIndex->add($item);
+	$sitemap->add($item);
 	
 	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemapIndex->build();
+	$files = $sitemap->build();
 	$sitemap->write('path/to/public/www','sitemap.index.xml');
 	
 } catch (SitemapException $e) {
