@@ -464,29 +464,39 @@ $sitemap->write('path/to/public/www','sitemap.media.xml');
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\NewsSitemap;
-$sitemap = new NewsSitemap();
+include 'vendor/autoload.php';
+use \Sonrisa\Component\Sitemap\NewsSitemap;
+use \Sonrisa\Component\Sitemap\Items\NewsItem;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
-$sitemap->add(
-    array
-    (
-        //Mandatory values
-        'loc'               => 'http://www.example.org/business/article55.html',
-        'title'             => 'Companies A, B in Merger Talks',
-        'publication_date'  => '2008-12-23',
-        'name'              => 'The Example Times',
-        'language'          => 'en',
-
-        //Optional
-        'access'            => 'Subscription',
-        'keywords'          => 'business, merger, acquisition, A, B',
-        'stock_tickers'     => 'NASDAQ:A, NASDAQ:B',
-        'genres'            => 'PressRelease, Blog'
-    )
-);
-
-$files = $sitemap->build();
-$sitemap->write('path/to/public/www','sitemap.news.xml');
+try {
+	$sitemap = new NewsSitemap();
+	
+	$item = new NewsItem();
+	
+	//Mandatory values
+	$item->setLoc('http://www.example.org/business/article55.html');
+	$item->setTitle('Companies A, B in Merger Talks');
+	$item->setPublicationDate('2008-12-23');
+	$item->setPublicationName('The Example Times');
+	$item->setPublicationLanguage('en');
+	
+	//Optional Values
+	$item->setAccess('Subscription');
+	$item->setKeywords('business, merger, acquisition, A, B');
+	$item->setStockTickers('NASDAQ:A, NASDAQ:B');
+	$item->setGenres('PressRelease, Blog');
+	$this->sitemap->add($item);
+	
+	$sitemap->add($item);
+	
+	//var_dump($files) should be an array holding the sitemap files created.
+	$files = $sitemap->build();
+	$sitemap->write('path/to/public/www','sitemap.news.xml');
+   
+} catch (SitemapException $e) {
+	echo $e->getMessage();
+}
 ```
 <a name="block4.7.2"></a>
 #### Output
