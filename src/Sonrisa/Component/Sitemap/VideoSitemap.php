@@ -9,8 +9,7 @@ namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Collections\VideoCollection;
 use Sonrisa\Component\Sitemap\Items\VideoItem;
-use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
-use Sonrisa\Component\Sitemap\Validators\VideoValidator;
+use Sonrisa\Component\Sitemap\Validators\SharedValidator;
 
 /**
  * Class VideoSitemap
@@ -39,21 +38,22 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
     protected $lastItem;
 
     /**
-     * @param VideoItem $item
-     * @param string $url
+     * @param  VideoItem   $item
+     * @param  string      $url
      * @return $this|mixed
      */
     public function add(VideoItem $item,$url='')
     {
-        $url = AbstractValidator::validateLoc($url);
+        $url = SharedValidator::validateLoc($url);
         if ( empty($this->used_videos[$url]) ) {
             $this->used_videos[$url] = array();
+
         }
 
         $title = $item->getTitle();
         $player_loc = $item->getPlayerLoc();
         $content_loc = $item->getContentLoc();
-        
+
         if
         (
             !empty($url) && !empty($title) &&
@@ -61,6 +61,7 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
             (!in_array($player_loc,$this->used_videos[$url],true) || !in_array($content_loc,$this->used_videos[$url],true))
         )
         {
+
             //Mark URL as used.
             $this->used_urls[] = $url;
             $this->used_videos[$url][] = $player_loc;
@@ -106,7 +107,7 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param VideoCollection $collection
+     * @param  VideoCollection $collection
      * @return $this
      */
     public function addCollection(VideoCollection $collection)

@@ -21,7 +21,7 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
      * @var ImageItem
      */
     protected $lastItem;
-    
+
     /**
      *
      */
@@ -31,7 +31,7 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param UrlItem $data
+     * @param  UrlItem $data
      * @return $this
      */
     public function add(UrlItem $data)
@@ -74,20 +74,18 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
             }
             $this->lastItem = $item;
         }
-        
+
         return $this;
     }
 
-
     /**
-     * @param UrlCollection $collection
+     * @param  UrlCollection $collection
      * @return $this
      */
     public function addCollection(UrlCollection $collection)
     {
         return $this;
     }
-
 
     /**
      * @return array

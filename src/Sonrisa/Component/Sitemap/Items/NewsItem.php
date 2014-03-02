@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Validators\NewsValidator;
 
 /**
  * Class NewsItem
@@ -13,6 +14,19 @@ namespace Sonrisa\Component\Sitemap\Items;
  */
 class NewsItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\NewsValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = NewsValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -30,7 +44,6 @@ class NewsItem extends AbstractItem implements ItemInterface
         return "</urlset>";
     }
 
-
     /**
      * @return string
      */
@@ -46,7 +59,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setLoc($loc)
     {
         return $this->setField('loc',$loc);
-    }    
+    }
 
     /**
      * @param $title
@@ -55,7 +68,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setTitle($title)
     {
         return $this->setField('title',$title);
-    }    
+    }
 
     /**
      * @param $date
@@ -64,7 +77,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setPublicationDate($date)
     {
         return $this->setField('publication_date',$date);
-    }    
+    }
 
     /**
      * @param $name
@@ -73,7 +86,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setName($name)
     {
         return $this->setField('name',$name);
-    }   
+    }
 
     /**
      * @param $language
@@ -82,7 +95,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setLanguage($language)
     {
         return $this->setField('language',$language);
-    }   
+    }
 
     /**
      * @param $name
@@ -91,7 +104,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setPublicationName($name)
     {
         return $this->setField('name',$name);
-    }   
+    }
 
     /**
      * @param $language
@@ -100,7 +113,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setPublicationLanguage($language)
     {
         return $this->setField('language',$language);
-    }   
+    }
 
     /**
      * @param $access
@@ -109,7 +122,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setAccess($access)
     {
         return $this->setField('access',$access);
-    }   
+    }
 
     /**
      * @param $genres
@@ -118,25 +131,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setGenres($genres)
     {
         return $this->setField('genres',$genres);
-    }   
-
-    /**
-     * @param $date
-     * @return $this
-     */
-    public function setPublicationDate($date)
-    {
-        return $this->setField('publication_date',$date);
-    }   
-
-    /**
-     * @param $title
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        return $this->setField('title',$title);
-    }   
+    }
 
     /**
      * @param $keywords
@@ -145,7 +140,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setKeywords($keywords)
     {
         return $this->setField('keywords',$keywords);
-    }   
+    }
 
     /**
      * @param $stock_tickers
@@ -154,7 +149,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     public function setStockTickers($stock_tickers)
     {
         return $this->setField('stock_tickers',$stock_tickers);
-    }   
+    }
 
     /**
      * Collapses the item to its string XML representation.

@@ -48,7 +48,7 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param NewsItem $item
+     * @param  NewsItem $item
      * @return $this
      */
     public function add(NewsItem $item)
@@ -94,20 +94,18 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
             }
             $this->lastItem = $item;
         }
-        
+
         return $this;
     }
 
-
     /**
-     * @param NewsCollection $collection
+     * @param  NewsCollection $collection
      * @return $this
      */
     public function addCollection(NewsCollection $collection)
     {
         return $this;
     }
-
 
     /**
      * @return array

@@ -16,7 +16,7 @@ namespace Sonrisa\Component\Sitemap\Validators;
  *
  * @package Sonrisa\Component\Sitemap\Validators
  */
-class NewsValidator extends AbstractValidator
+class NewsValidator extends SharedValidator
 {
 
     /**
@@ -523,6 +523,38 @@ class NewsValidator extends AbstractValidator
      * @var array
      */
     protected static $genres = array('PressRelease','Satire','Blog','OpEd','Opinion','UserGenerated');
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\NewsValidator
+     */
+    protected static $_instance;
+
+    /**
+     * @return SharedValidator
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     *
+     */
+    protected function __construct() {}
+
+    /**
+     *
+     */
+    protected function __clone() {}
+
+    /**
+     *
+     */
+    protected function __wakeup() {}
 
     /**
      * @param $name

@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Validators\IndexValidator;
 
 /**
  * Class IndexItem
@@ -13,6 +14,19 @@ namespace Sonrisa\Component\Sitemap\Items;
  */
 class IndexItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\IndexValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = IndexValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -30,7 +44,6 @@ class IndexItem extends AbstractItem implements ItemInterface
         return "</sitemapindex>";
     }
 
-
     /**
      * @return string
      */
@@ -46,7 +59,7 @@ class IndexItem extends AbstractItem implements ItemInterface
     public function setLoc($loc)
     {
         return $this->setField('loc',$loc);
-    }    
+    }
 
     /**
      * @param $lastmod
@@ -55,7 +68,7 @@ class IndexItem extends AbstractItem implements ItemInterface
     public function setLastMod($lastmod)
     {
         return $this->setField('lastmod',$lastmod);
-    }       
+    }
 
     /**
      * Collapses the item to its string XML representation.
@@ -65,7 +78,7 @@ class IndexItem extends AbstractItem implements ItemInterface
     public function build()
     {
         $data = '';
-        
+
         //Create item ONLY if all mandatory data is present.
         if (!empty($this->data['loc'])) {
             $xml = array();

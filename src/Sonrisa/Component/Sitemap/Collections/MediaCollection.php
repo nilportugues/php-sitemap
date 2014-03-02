@@ -7,7 +7,6 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Collections;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 use Sonrisa\Component\Sitemap\Items\MediaItem;
 
 /**
@@ -17,7 +16,7 @@ use Sonrisa\Component\Sitemap\Items\MediaItem;
 class MediaCollection extends AbstractItemCollection
 {
     /**
-     * @param MediaItem $item
+     * @param  MediaItem  $item
      * @return mixed|void
      */
     public function add(MediaItem $item)

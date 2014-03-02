@@ -7,18 +7,12 @@
  */
 namespace Sonrisa\Component\Sitemap\Items;
 
-use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
-
 /**
  * Interface ItemInterface
  * @package Sonrisa\Component\Sitemap\Items
  */
 interface ItemInterface
 {
-    /**
-     * @param AbstractValidator $validator
-     */
-    public function __construct(AbstractValidator $validator);
 
     /**
      * @return string

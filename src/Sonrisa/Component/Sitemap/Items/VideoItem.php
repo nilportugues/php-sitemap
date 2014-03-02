@@ -7,6 +7,7 @@
  */
 namespace Sonrisa\Component\Sitemap\Items;
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use Sonrisa\Component\Sitemap\Validators\VideoValidator;
 
 /**
  * Class VideoItem
@@ -14,6 +15,19 @@ use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
  */
 class VideoItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\VideoValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = VideoValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -82,7 +96,6 @@ class VideoItem extends AbstractItem implements ItemInterface
         return $this->setField('thumbnail_loc',$loc);
     }
 
-
     /**
      * @param $description
      * @return $this
@@ -91,7 +104,6 @@ class VideoItem extends AbstractItem implements ItemInterface
     {
         return $this->setField('description',$description);
     }
-
 
     /**
      * @param $loc
@@ -138,7 +150,6 @@ class VideoItem extends AbstractItem implements ItemInterface
         return $this->setField('expiration_date',$expiration_date);
     }
 
-
     /**
      * @param $rating
      * @return $this
@@ -148,7 +159,6 @@ class VideoItem extends AbstractItem implements ItemInterface
         return $this->setField('rating',$rating);
     }
 
-
     /**
      * @param $view_count
      * @return $this
@@ -157,7 +167,6 @@ class VideoItem extends AbstractItem implements ItemInterface
     {
         return $this->setField('view_count',$view_count);
     }
-
 
     /**
      * @param $publication_date
@@ -195,7 +204,6 @@ class VideoItem extends AbstractItem implements ItemInterface
         return $this->setField('restriction_relationship',$relationship);
     }
 
-
     /**
      * @param $gallery_loc
      * @return $this
@@ -217,8 +225,8 @@ class VideoItem extends AbstractItem implements ItemInterface
     /**
      * @param $price
      * @param $currency
-     * @param string $type
-     * @param string $resolution
+     * @param  string $type
+     * @param  string $resolution
      * @return $this
      */
     public function setPrice($price,$currency,$type='',$resolution='')
@@ -328,9 +336,7 @@ class VideoItem extends AbstractItem implements ItemInterface
             //Clean up and return
             $xml = array_filter($xml);
             $data = implode("\n",$xml);
-        }
-        else
-        {
+        } else {
             throw new SitemapException('It is mandatory to set up the mandatory values using setTitle and either setPlayerLoc or setContentLoc.');
         }
 

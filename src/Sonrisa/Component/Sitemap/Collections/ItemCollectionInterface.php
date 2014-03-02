@@ -16,7 +16,7 @@ use Sonrisa\Component\Sitemap\Items\ItemInterface;
 interface ItemCollectionInterface
 {
     /**
-     * @param ItemInterface $item
+     * @param  ItemInterface $item
      * @return mixed
      */
     public function add(ItemInterface $item);

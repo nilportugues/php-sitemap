@@ -7,7 +7,6 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Collections;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 use Sonrisa\Component\Sitemap\Items\ImageItem;
 
 /**
@@ -17,7 +16,7 @@ use Sonrisa\Component\Sitemap\Items\ImageItem;
 class ImageCollection extends AbstractItemCollection
 {
     /**
-     * @param ImageItem $item
+     * @param  ImageItem  $item
      * @return mixed|void
      */
     public function add(ImageItem $item)

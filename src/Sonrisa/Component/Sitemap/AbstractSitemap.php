@@ -6,10 +6,8 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap;
-use Sonrisa\Component\Sitemap\Collections\ItemCollectionInterface;
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\AbstractItem;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 
 /**
  * Class AbstractSitemap
@@ -23,7 +21,7 @@ abstract class AbstractSitemap implements SitemapInterface
     protected $data = array();
 
     /**
-     * @var Validators\AbstractValidator
+     * @var Validators\SharedValidator
      */
     protected $validator;
 
@@ -82,9 +80,8 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected $max_filesize = 52428800; // 50 MB
 
-
     /**
-     * @param AbstractItem $item
+     * @param  AbstractItem $item
      * @return array
      */
     protected function buildFiles(AbstractItem $item)

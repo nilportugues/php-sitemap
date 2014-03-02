@@ -29,10 +29,10 @@ abstract class AbstractItemCollection
     }
 
     /**
-     * @param ItemInterface $item
+     * @param  ItemInterface $item
      * @return mixed
      */
-    abstract function add(ItemInterface $item);
+    abstract public function add(ItemInterface $item);
 
     /**
      * @return array

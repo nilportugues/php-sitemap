@@ -9,10 +9,10 @@
 namespace Sonrisa\Component\Sitemap\Validators;
 
 /**
- * Class AbstractValidator
+ * Class SharedValidator
  * @package Sonrisa\Component\Sitemap\Validators
  */
-abstract class AbstractValidator
+class SharedValidator
 {
     /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)

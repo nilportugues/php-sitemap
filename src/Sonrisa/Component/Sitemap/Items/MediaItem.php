@@ -7,6 +7,7 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Validators\MediaValidator;
 
 /**
  * Class MediaItem
@@ -14,6 +15,19 @@ namespace Sonrisa\Component\Sitemap\Items;
  */
 class MediaItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\MediaValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = MediaValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -32,7 +46,6 @@ class MediaItem extends AbstractItem implements ItemInterface
         return "</channel>\n</rss>";
     }
 
-
     /**
      * @return string
      */
@@ -48,8 +61,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setLink($link)
     {
         return $this->setField('link',$link);
-    }    
-
+    }
 
     /**
      * @param $duration
@@ -58,7 +70,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setContentDuration($duration)
     {
         return $this->setField('duration',$duration);
-    }    
+    }
 
     /**
      * @param $mimetype
@@ -67,7 +79,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setContentMimeType($mimetype)
     {
         return $this->setField('mimetype',$mimetype);
-    }    
+    }
 
     /**
      * @param $player
@@ -76,7 +88,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setPlayer($player)
     {
         return $this->setField('player',$player);
-    }   
+    }
 
     /**
      * @param $title
@@ -85,7 +97,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setTitle($title)
     {
         return $this->setField('title',$title);
-    }   
+    }
 
     /**
      * @param $description
@@ -94,7 +106,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setDescription($description)
     {
         return $this->setField('description',$description);
-    }   
+    }
 
     /**
      * @param $url
@@ -103,7 +115,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setThumbnailUrl($url)
     {
         return $this->setField('url',$url);
-    }   
+    }
 
     /**
      * @param $height
@@ -112,7 +124,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setThumbnailHeight($height)
     {
         return $this->setField('height',$height);
-    }   
+    }
 
     /**
      * @param $width
@@ -121,7 +133,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     public function setThumbnailWidth($width)
     {
         return $this->setField('width',$width);
-    }   
+    }
 
     /**
      * Collapses the item to its string XML representation.

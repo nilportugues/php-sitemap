@@ -28,7 +28,6 @@ class ImageSitemapTest extends \PHPUnit_Framework_TestCase
     {
         date_default_timezone_set('Europe/Madrid');
         $this->sitemap = new \Sonrisa\Component\Sitemap\ImageSitemap();
-        $this->validator = new \Sonrisa\Component\Sitemap\Validators\ImageValidator();
     }
 
     /**
@@ -48,27 +47,27 @@ class ImageSitemapTest extends \PHPUnit_Framework_TestCase
 \t</url>
 </urlset>
 XML;
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('Example.com 1 logo');
         $this->sitemap->add($item,'http://www.example.com/');
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('Example.com 2 logo');
         $this->sitemap->add($item,'http://www.example.com/');
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('Example.com 3 logo');
         $this->sitemap->add($item,'http://www.example.com/');
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('Example.com 4 logo');
         $this->sitemap->add($item,'http://www.example.com/');
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('Example.com 5 logo');
         $this->sitemap->add($item,'http://www.example.com/');
@@ -98,12 +97,12 @@ XML;
 </urlset>
 XML;
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('Example.com logo');
         $this->sitemap->add($item,'http://www.example.com/');
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/main.png');
         $item->setTitle('Main image');
         $this->sitemap->add($item,'http://www.example.com/');
@@ -127,7 +126,7 @@ XML;
 
             for ($j=1;$j<=10; $j++) {
 
-                $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+                $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
                 $item->setLoc('http://www.example.com/image_'.$j.'.png');
                 $item->setTitle('Main image'.$j );
                 $this->sitemap->add($item,'http://www.example.com/page-'.$i.'.html');
@@ -145,7 +144,7 @@ XML;
     {
         $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('no/a/proper/url');
         $item->setTitle('Example.com logo');
         $this->sitemap->add($item,'http://www.example.com/');
@@ -158,7 +157,7 @@ XML;
     {
         $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setTitle('Example.com logo');
         $this->sitemap->add($item,'http://www.example.com/');
 
@@ -166,7 +165,7 @@ XML;
         $this->assertEmpty($files);
     }
 
-    
+
     public function testAddUrlAndImagesWithValidUrlForImagesAndOtherImageDataPassedIsEmpty()
     {
         $expected=<<<XML
@@ -182,7 +181,7 @@ XML;
 XML;
 
         $this->setExpectedException("Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setTitle('');
         $item->setGeolocation('');
@@ -210,7 +209,7 @@ XML;
 </urlset>
 XML;
 
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setGeolocation('Limerick, Ireland');
         $this->sitemap->add($item,'http://www.example.com/');
@@ -234,12 +233,12 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setLicense('MIT');
         $this->sitemap->add($item,'http://www.example.com/');
 
-        
+
         $files = $this->sitemap->build();
         $this->assertEquals($expected,$files[0]);
     }
@@ -259,7 +258,7 @@ XML;
 \t</url>
 </urlset>
 XML;
-        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem($this->validator);
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
         $item->setLoc('http://www.example.com/logo.png');
         $item->setCaption('This place is called Limerick, Ireland');
         $this->sitemap->add($item,'http://www.example.com/');

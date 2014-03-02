@@ -7,7 +7,6 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Collections;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 use Sonrisa\Component\Sitemap\Items\UrlItem;
 
 /**
@@ -17,7 +16,7 @@ use Sonrisa\Component\Sitemap\Items\UrlItem;
 class UrlCollection extends AbstractItemCollection
 {
     /**
-     * @param UrlItem $item
+     * @param  UrlItem    $item
      * @return mixed|void
      */
     public function add(UrlItem $item)

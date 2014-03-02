@@ -6,8 +6,6 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap;
-use Sonrisa\Component\Sitemap\Collections\ItemCollectionInterface;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 
 /**
  * Interface SitemapInterface
@@ -24,7 +22,7 @@ interface SitemapInterface
     /**
      * @param $filepath
      * @param $filename
-     * @param bool $gzip
+     * @param  bool  $gzip
      * @return mixed
      */
     public function write($filepath,$filename,$gzip=false);

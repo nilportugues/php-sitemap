@@ -11,7 +11,7 @@ namespace Sonrisa\Component\Sitemap\Validators;
  * Class VideoValidator
  * @package Sonrisa\Component\Sitemap\Validators
  */
-class VideoValidator extends AbstractValidator
+class VideoValidator extends SharedValidator
 {
     /**
      * @var int
@@ -76,6 +76,38 @@ class VideoValidator extends AbstractValidator
         'USD','UYI','UYU','UZS','VUV','EUR','VEF','VND','USD','USD','XPF','MAD','YER','ZMW','ZWL','XBA','XBB','XBC',
         'XBD','XTS','XXX','XAU','XPD','XPT','XAG'
     );
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\VideoValidator
+     */
+    protected static $_instance;
+
+    /**
+     * @return SharedValidator
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     *
+     */
+    protected function __construct() {}
+
+    /**
+     *
+     */
+    protected function __clone() {}
+
+    /**
+     *
+     */
+    protected function __wakeup() {}
 
     /**
      * @param $value

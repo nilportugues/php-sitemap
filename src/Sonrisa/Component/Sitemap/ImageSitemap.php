@@ -8,8 +8,7 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\ImageItem;
-use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
-use Sonrisa\Component\Sitemap\Validators\ImageValidator;
+use Sonrisa\Component\Sitemap\Validators\SharedValidator;
 use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
 /**
@@ -39,25 +38,14 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
     protected $lastItem;
 
     /**
-     *
-     */
-    public function __construct()
-    {
-        $this->validator = new ImageValidator();
-    }
-
-    /**
-     * @param $item
+     * @param  ImageItem                   $item
+     * @param  string                      $url
      * @return $this
-     */
-    /**
-     * @param array  $item
-     * @param string $url
-     * @return $this
+     * @throws Exceptions\SitemapException
      */
     public function add(ImageItem $item,$url='')
     {
-        $url = AbstractValidator::validateLoc($url);
+        $url = SharedValidator::validateLoc($url);
         if ( empty($this->used_images[$url]) ) {
             $this->used_images[$url] = array();
         }
@@ -66,9 +54,8 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
 
         if (!empty($url) && !empty($loc)) {
 
-            if(!in_array($loc,$this->used_images[$url],true))
-            {
-                    
+            if (!in_array($loc,$this->used_images[$url],true)) {
+
                 //Mark URL as used.
                 $this->used_urls[] = $url;
                 $this->used_images[$url][] = $loc;
@@ -83,7 +70,6 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
                 if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap)) {
                     //add bytes to total
                     $this->current_file_byte_size = $item->getItemSize();
-
 
                     //add item to the item array
                     $built = $item->build();
@@ -109,18 +95,15 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
                 $this->lastItem = $item;
             }
 
-        }
-        else
-        {
+        } else {
             throw new SitemapException("A valid URL value for <loc> must be given.");
         }
-       
 
         return $this;
     }
 
     /**
-     * @param ImageCollection $collection
+     * @param  ImageCollection $collection
      * @return $this
      */
     public function addCollection(ImageCollection $collection)

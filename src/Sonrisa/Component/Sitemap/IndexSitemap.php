@@ -63,9 +63,7 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
                     $this->total_items++;
                 }
 
-            } 
-            else
-            {
+            } else {
                 //reset count
                 $this->current_file_byte_size = 0;
 
@@ -79,13 +77,12 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
             }
             $this->lastItem = $item;
         }
-        
 
         return $this;
     }
 
     /**
-     * @param IndexCollection $collection
+     * @param  IndexCollection $collection
      * @return $this
      */
     public function addCollection(IndexCollection $collection)

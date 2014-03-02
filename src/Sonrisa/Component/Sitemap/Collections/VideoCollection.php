@@ -7,7 +7,6 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Collections;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 use Sonrisa\Component\Sitemap\Items\VideoItem;
 
 /**
@@ -17,7 +16,7 @@ use Sonrisa\Component\Sitemap\Items\VideoItem;
 class VideoCollection extends AbstractItemCollection
 {
     /**
-     * @param VideoItem $item
+     * @param  VideoItem  $item
      * @return mixed|void
      */
     public function add(VideoItem $item)

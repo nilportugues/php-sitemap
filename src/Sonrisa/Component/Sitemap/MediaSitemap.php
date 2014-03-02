@@ -34,7 +34,7 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
     /**
      * @var ImageItem
      */
-    protected $lastItem;  
+    protected $lastItem;
 
     /**
      *
@@ -81,7 +81,7 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param MediaItem $item
+     * @param  MediaItem $item
      * @return $this
      */
     public function add(MediaItem $item)
@@ -127,7 +127,7 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param MediaCollection $collection
+     * @param  MediaCollection $collection
      * @return $this
      */
     public function addCollection(MediaCollection $collection)

@@ -9,7 +9,6 @@
 namespace Sonrisa\Component\Sitemap\Items;
 
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
-use Sonrisa\Component\Sitemap\Validators\AbstractValidator;
 
 /**
  * Class AbstractItem
@@ -34,14 +33,6 @@ abstract class AbstractItem implements ItemInterface
      * @var null
      */
     protected $validator = NULL;
-
-    /**
-     * @param AbstractValidator $validator
-     */
-    public function __construct(AbstractValidator $validator)
-    {
-        $this->validator = $validator;
-    }
 
     /**
      * @return string
@@ -100,14 +91,16 @@ abstract class AbstractItem implements ItemInterface
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
+
         if (method_exists($this->validator,'validate'.$keyFunction)) {
             $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
 
+
             if (!empty($value)) {
+
+
                 $this->data[$key] = $value;
-            }
-            else
-            {
+            } else {
                 throw new SitemapException('Value "'.$value.'" not valid for '.$keyFunction);
             }
         }
@@ -119,7 +112,7 @@ abstract class AbstractItem implements ItemInterface
      * @param $string
      * @return mixed
      */
-    protected function underscoreToCamelCase( $string )
+    protected function underscoreToCamelCase($string)
     {
         return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
     }

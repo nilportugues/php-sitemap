@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+use Sonrisa\Component\Sitemap\Validators\ImageValidator;
 
 /**
  * Class ImageItem
@@ -13,6 +14,19 @@ namespace Sonrisa\Component\Sitemap\Items;
  */
 class ImageItem extends AbstractItem implements ItemInterface
 {
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\ImageValidator
+     */
+    protected $validator;
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        $this->validator = ImageValidator::getInstance();
+    }
+
     /**
      * @return string
      */
@@ -30,7 +44,6 @@ class ImageItem extends AbstractItem implements ItemInterface
         return "</urlset>";
     }
 
-
     /**
      * @return string
      */
@@ -46,7 +59,7 @@ class ImageItem extends AbstractItem implements ItemInterface
     public function setLoc($loc)
     {
         return $this->setField('loc',$loc);
-    }    
+    }
 
     /**
      * @param $title
@@ -57,7 +70,6 @@ class ImageItem extends AbstractItem implements ItemInterface
         return $this->setField('title',$title);
     }
 
-
     /**
      * @param $caption
      * @return $this
@@ -66,7 +78,7 @@ class ImageItem extends AbstractItem implements ItemInterface
     {
         return $this->setField('caption',$caption);
     }
-   
+
     /**
      * @param $geolocation
      * @return $this
@@ -85,7 +97,6 @@ class ImageItem extends AbstractItem implements ItemInterface
         return $this->setField('license',$license);
     }
 
-
     /**
      * Collapses the item to its string XML representation.
      *
@@ -94,7 +105,7 @@ class ImageItem extends AbstractItem implements ItemInterface
     public function build()
     {
         $data = '';
-        
+
         //Create item ONLY if all mandatory data is present.
         if (!empty($this->data['loc'])) {
             $xml = array();

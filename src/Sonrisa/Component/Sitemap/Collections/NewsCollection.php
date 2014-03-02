@@ -7,7 +7,6 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Collections;
-use Sonrisa\Component\Sitemap\Items\ItemInterface;
 use Sonrisa\Component\Sitemap\Items\NewsItem;
 
 /**
@@ -17,7 +16,7 @@ use Sonrisa\Component\Sitemap\Items\NewsItem;
 class NewsCollection extends AbstractItemCollection
 {
     /**
-     * @param NewsItem $item
+     * @param  NewsItem   $item
      * @return mixed|void
      */
     public function add(NewsItem $item)

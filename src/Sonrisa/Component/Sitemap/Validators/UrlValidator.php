@@ -11,12 +11,44 @@ namespace Sonrisa\Component\Sitemap\Validators;
  * Class UrlValidator
  * @package Sonrisa\Component\Sitemap\Validators
  */
-class UrlValidator extends AbstractValidator
+class UrlValidator extends SharedValidator
 {
     /**
      * @var array
      */
     protected static $changeFreqValid = array("always","hourly","daily","weekly","monthly","yearly","never");
+
+    /**
+     * @var \Sonrisa\Component\Sitemap\Validators\VideoValidator
+     */
+    protected static $_instance;
+
+    /**
+     * @return SharedValidator
+     */
+    public static function getInstance()
+    {
+        if (null === self::$_instance) {
+            self::$_instance = new self();
+        }
+
+        return self::$_instance;
+    }
+
+    /**
+     *
+     */
+    protected function __construct() {}
+
+    /**
+     *
+     */
+    protected function __clone() {}
+
+    /**
+     *
+     */
+    protected function __wakeup() {}
 
     /**
      * @param $lastmod
