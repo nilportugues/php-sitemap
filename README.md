@@ -384,48 +384,54 @@ try {
 #### Creation
 ```php
 <?php
-use Sonrisa\Component\Sitemap\MediaSitemap;
+include 'vendor/autoload.php';
+use \Sonrisa\Component\Sitemap\MediaSitemap;
+use \Sonrisa\Component\Sitemap\Items\MediaItem;
+use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 
-$sitemap = new MediaSitemap();
-$sitemap->setTitle('Media RSS de ejemplo');
-$sitemap->setLink('http://www.example.com/ejemplos/mrss/');
-$sitemap->setDescription('Ejemplo de MRSS');
+try {
+	$sitemap = new MediaSitemap();
+	$sitemap->setTitle('Media RSS de ejemplo');
+	$sitemap->setLink('http://www.example.com/ejemplos/mrss/');
+	$sitemap->setDescription('Ejemplo de MRSS');
+	
+	$item = new MediaItem();
+	//Mandatory
+	$item->setLink('http://www.example.com/examples/mrss/example1.html');
+	
+	//Optional
+	$item->setContentMimeType('video/x-flv');
+	$item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+	$item->setContentDuration(120);
+	$item->setTitle('Barbacoas en verano');
+	$item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+	$item->setThumbnailUrl('http://www.example.com/examples/mrss/example1.png');
+	$item->setThumbnailHeight(120);
+	$item->setThumbnailWidth(160);
+	
+	$sitemap->add($item);
+	
+	$item = new MediaItem();   
+	$item->setLink('http://www.example.com/examples/mrss/example2.html');
+	$item->setContentMimeType('video/x-flv');
+	$item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+	$item->setContentDuration(240);
+	$item->setTitle('Barbacoas en invierno');
+	$item->setDescription('Consigue unos filetes frios');
+	$item->setThumbnailUrl('http://www.example.com/examples/mrss/example2.png');
+	$item->setThumbnailHeight(120);
+	$item->setThumbnailWidth(160);
+	
+	$sitemap->add($item);
+	
+	//var_dump($files) should be an array holding the sitemap files created.
+	$files = $sitemap->build();
+	$sitemap->write('path/to/public/www','sitemap.media.xml');
+   
+} catch (SitemapException $e) {
 
-$sitemap->add(array
-(
-    //Mandatory values
-    'link'          =>  'http://www.example.com/examples/mrss/example1.html',
-
-    //Optional
-    'mimetype'      =>  'video/x-flv',
-    'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-    'duration'      =>  120,
-    'title'         =>  'Barbacoas en verano',
-    'description'   =>  'Consigue que los filetes queden perfectamente hechos siempre',
-    'thumbnail'     =>  'http://www.example.com/examples/mrss/example1.png',
-    'height'        =>  120,
-    'width'         =>  160,
-));
-
-$sitemap->add(array
-(
-    //Mandatory values
-    'link'          =>  'http://www.example.com/examples/mrss/example2.html',
-
-    //Optional
-    'mimetype'      =>  'video/x-flv',
-    'player'        =>  'http://www.example.com/shows/example/video.swf?flash_params',
-    'duration'      =>  240,
-    'title'         =>  'Barbacoas en invierno',
-    'description'   =>  'Consigue unos filetes frios',
-    'thumbnail'     =>  'http://www.example.com/examples/mrss/example2.png',
-    'height'        =>  120,
-    'width'         =>  160,
-));
-
-//var_dump($files) should be an array holding the sitemap files created.
-$files = $sitemap->build();
-$sitemap->write('path/to/public/www','sitemap.media.xml');
+   echo $e->getMessage();
+}
 ```
 <a name="block4.6.2"></a>
 #### Output
