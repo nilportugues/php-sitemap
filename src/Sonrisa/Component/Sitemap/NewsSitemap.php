@@ -8,7 +8,7 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\NewsItem;
-use Sonrisa\Component\Sitemap\Validators\NewsValidator;
+use Sonrisa\Component\Sitemap\Collections\NewsCollection;
 
 /**
  * @package Sonrisa\Component\Sitemap

@@ -8,7 +8,7 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\IndexItem;
-use Sonrisa\Component\Sitemap\Validators\IndexValidator;
+use Sonrisa\Component\Sitemap\Collections\IndexCollection;
 
 /**
  * Class IndexSitemap

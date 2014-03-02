@@ -8,7 +8,7 @@
 namespace Sonrisa\Component\Sitemap;
 
 use Sonrisa\Component\Sitemap\Items\UrlItem;
-use Sonrisa\Component\Sitemap\Validators\UrlValidator;
+use Sonrisa\Component\Sitemap\Collections\UrlCollection;
 
 /**
  * Class Sitemap
