@@ -21,6 +21,8 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
      */
     protected $lastItem;
 
+
+
     /**
      * @param  UrlItem $item
      * @return $this

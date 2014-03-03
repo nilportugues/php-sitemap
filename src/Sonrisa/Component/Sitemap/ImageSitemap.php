@@ -37,6 +37,8 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
      */
     protected $lastItem;
 
+
+
     /**
      * @param  ImageItem                   $item
      * @param  string                      $url
@@ -63,8 +65,7 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
                 $this->items[$url] = array();
 
                 //Check constrains
-                $current =  $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
-                            (count($this->items[$url])*( mb_strlen($this->urlHeader,'UTF-8')+mb_strlen($this->urlFooter,'UTF-8')));
+                $current = $this->calculateSize($item,$url);
 
                 //Check if new file is needed or not. ONLY create a new file if the constrains are met.
                 if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap)) {

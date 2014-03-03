@@ -8,6 +8,7 @@
 namespace Sonrisa\Component\Sitemap;
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\AbstractItem;
+use Sonrisa\Component\Sitemap\Items\ItemInterface;
 
 /**
  * Class AbstractSitemap
@@ -79,6 +80,27 @@ abstract class AbstractSitemap implements SitemapInterface
      * @var int
      */
     protected $max_filesize = 52428800; // 50 MB
+
+    /**
+     * @var string
+     */
+    protected $urlHeader;
+
+    /**
+     * @var string
+     */
+    protected $urlFooter;
+
+    /**
+     * @param $item
+     * @param $url
+     * @return int
+     */
+    protected function calculateSize(ItemInterface $item,$url='')
+    {
+        return $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
+                (count($this->items[$url])*( mb_strlen($this->urlHeader,'UTF-8')+mb_strlen($this->urlFooter,'UTF-8')));
+    }
 
     /**
      * @param  AbstractItem $item
