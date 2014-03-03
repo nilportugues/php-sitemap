@@ -81,7 +81,7 @@ abstract class AbstractItem implements ItemInterface
     /**
      * Sets value if data provided is valid and can be validated.
      *
-     * @param $key
+     * @param string $key
      * @param $value
      *
      * @throws \Sonrisa\Component\Sitemap\Exceptions\SitemapException
@@ -105,8 +105,8 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * @param $string
-     * @return mixed
+     * @param string $string
+     * @return string
      */
     protected function underscoreToCamelCase($string)
     {

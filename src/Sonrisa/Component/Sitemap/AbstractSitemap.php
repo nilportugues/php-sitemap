@@ -162,9 +162,9 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param $filepath
+     * @param string $filepath
      * @param $contents
-     * @return bool
+     * @return integer
      */
     protected function writePlainFile($filepath,$contents)
     {
@@ -172,7 +172,7 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param $filepath
+     * @param string $filepath
      * @param $contents
      * @return bool
      */

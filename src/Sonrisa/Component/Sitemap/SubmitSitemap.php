@@ -50,7 +50,7 @@ class SubmitSitemap
     protected static function submitSitemap($url)
     {
         $response = array();
-
+        $http_response_header = NULL;
         foreach (self::$sites as $site => $submit_url) {
             file_get_contents((str_replace('{{sitemap}}',$url,$submit_url)));
             $response[$site] = (($http_response_header[0] == "HTTP/1.1 200 OK") || ($http_response_header[0] == "HTTP/1.0 200 OK"));
@@ -67,7 +67,7 @@ class SubmitSitemap
      */
     protected static function sendHttpHeadRequest($url)
     {
-
+        $http_response_header = NULL;
         $opts = array
         (
             'http'=>array

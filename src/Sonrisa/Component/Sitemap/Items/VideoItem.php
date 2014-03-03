@@ -6,7 +6,6 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
-use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Validators\VideoValidator;
 
 /**
