@@ -92,6 +92,11 @@ abstract class AbstractSitemap implements SitemapInterface
     protected $urlFooter;
 
     /**
+     * @var array
+     */
+    protected $output = array();
+
+    /**
      * @param $item
      * @param $url
      * @return int
