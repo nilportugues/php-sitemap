@@ -162,7 +162,7 @@ class VideoValidator extends SharedValidator
 
     /**
      * @param $content_loc
-     * @return mixed
+     * @return string
      */
     public static function validateContentLoc($content_loc)
     {
@@ -469,7 +469,7 @@ class VideoValidator extends SharedValidator
     }
 
     /**
-     * @param $resolution
+     * @param string $resolution
      * @return string
      */
     protected static function validatePriceResolution($resolution)
@@ -484,7 +484,7 @@ class VideoValidator extends SharedValidator
     }
 
     /**
-     * @param $type
+     * @param string $type
      * @return string
      */
     protected static function validatePriceType($type)

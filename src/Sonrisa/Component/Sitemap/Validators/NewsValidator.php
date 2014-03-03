@@ -586,7 +586,7 @@ class NewsValidator extends SharedValidator
 
     /**
      * @param $genres
-     * @return mixed
+     * @return string
      */
     public static function validateGenres($genres)
     {
