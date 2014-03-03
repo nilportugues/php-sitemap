@@ -105,7 +105,7 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * @param $string
+     * @param string $string
      * @return string
      */
     protected function underscoreToCamelCase($string)
