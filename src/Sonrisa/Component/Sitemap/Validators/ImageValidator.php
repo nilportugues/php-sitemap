@@ -38,7 +38,7 @@ class ImageValidator extends SharedValidator
 
     /**
      * @param $title
-     * @return mixed
+     * @return string
      */
     public static function validateTitle($title)
     {
@@ -52,7 +52,7 @@ class ImageValidator extends SharedValidator
 
     /**
      * @param $caption
-     * @return mixed
+     * @return string
      */
     public static function validateCaption($caption)
     {
@@ -66,7 +66,7 @@ class ImageValidator extends SharedValidator
 
     /**
      * @param $geolocation
-     * @return mixed
+     * @return string
      */
     public static function validateGeolocation($geolocation)
     {
@@ -80,7 +80,7 @@ class ImageValidator extends SharedValidator
 
     /**
      * @param $license
-     * @return mixed
+     * @return string
      */
     public static function validateLicense($license)
     {

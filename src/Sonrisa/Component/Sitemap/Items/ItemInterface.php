@@ -20,32 +20,32 @@ interface ItemInterface
     public function __toString();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function build();
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getItemSize();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getHeader();
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getHeaderSize();
 
     /**
-     * @return mixed
+     * @return string
      */
     public function getFooter();
 
     /**
-     * @return mixed
+     * @return integer
      */
     public function getFooterSize();
 }

@@ -39,7 +39,7 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
     /**
      * @param  VideoItem   $item
      * @param  string      $url
-     * @return $this|mixed
+     * @return VideoSitemap
      */
     public function add(VideoItem $item,$url='')
     {
