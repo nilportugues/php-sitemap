@@ -6,8 +6,8 @@
  * file that was distributed with this source code.
  */
 
-use \Sonrisa\Component\Sitemap\Items\NewsItem;
-use \Sonrisa\Component\Sitemap\NewsSitemap;
+use Sonrisa\Component\Sitemap\Items\NewsItem;
+use Sonrisa\Component\Sitemap\NewsSitemap;
 
 /**
  * Class NewsSitemapTest
@@ -24,7 +24,7 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function testAllMandatoryValidFieldsOnly()
     {
-        $expected=<<<EOF
+        $expected = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 \t<url>
@@ -51,12 +51,12 @@ EOF;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAllValidFields()
     {
-$expected=<<<EOF
+        $expected = <<<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 \t<url>
@@ -91,23 +91,23 @@ EOF;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
         $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\NewsSitemap');
-        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property = $reflectionClass->getProperty('maxItemsPerSitemap');
         $property->setAccessible(true);
-        $property->setValue($this->sitemap,'1000');
+        $property->setValue($this->sitemap, '1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++) {
+        for ($i = 1; $i <= 2000; $i++) {
 
             $item = new NewsItem();
-            $item->setLoc('http://www.example.org/business/article-'.$i.'.html');
-            $item->setTitle('Title '.$i);
+            $item->setLoc('http://www.example.org/business/article-' . $i . '.html');
+            $item->setTitle('Title ' . $i);
             $item->setPublicationDate('2008-12-23');
             $item->setPublicationName('The Example Times');
             $item->setPublicationLanguage('en');
@@ -118,8 +118,8 @@ EOF;
 
         $files = $this->sitemap->build();
 
-        $this->assertArrayHasKey('0',$files);
-        $this->assertArrayHasKey('1',$files);
+        $this->assertArrayHasKey('0', $files);
+        $this->assertArrayHasKey('1', $files);
     }
 
 }

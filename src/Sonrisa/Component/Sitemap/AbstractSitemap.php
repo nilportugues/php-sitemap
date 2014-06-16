@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap;
+
 use Sonrisa\Component\Sitemap\Exceptions\SitemapException;
 use Sonrisa\Component\Sitemap\Items\AbstractItem;
 use Sonrisa\Component\Sitemap\Items\ItemInterface;
@@ -36,7 +37,7 @@ abstract class AbstractSitemap implements SitemapInterface
      *
      * @var int
      */
-    protected $total_items = 0;
+    protected $totalItems = 0;
 
     /**
      * @var array
@@ -55,31 +56,31 @@ abstract class AbstractSitemap implements SitemapInterface
      *
      * @var int
      */
-    protected $total_files = 1;
+    protected $totalFiles = 1;
 
     /**
      * @var int
      */
-    protected $current_file_byte_size = 0;
+    protected $currentFileByteSize = 0;
 
     /**
      * Keep a track of the used URLs.
      *
      * @var array
      */
-    protected $used_urls = array();
+    protected $usedUrls = array();
 
     /**
      * Maximum amount of URLs elements per sitemap file.
      *
      * @var int
      */
-    protected $max_items_per_sitemap = 50000;
+    protected $maxItemsPerSitemap = 50000;
 
     /**
      * @var int
      */
-    protected $max_filesize = 52428800; // 50 MB
+    protected $maxFilesize = 52428800; // 50 MB
 
     /**
      * @var string
@@ -101,10 +102,10 @@ abstract class AbstractSitemap implements SitemapInterface
      * @param $url
      * @return int
      */
-    protected function calculateSize(ItemInterface $item,$url='')
+    protected function calculateSize(ItemInterface $item, $url = '')
     {
-        return $this->current_file_byte_size + $item->getHeaderSize() +  $item->getFooterSize() +
-                (count($this->items[$url])*( mb_strlen($this->urlHeader,'UTF-8')+mb_strlen($this->urlFooter,'UTF-8')));
+        return $this->currentFileByteSize + $item->getHeaderSize() + $item->getFooterSize() +
+        (count($this->items[$url]) * (mb_strlen($this->urlHeader, 'UTF-8') + mb_strlen($this->urlFooter, 'UTF-8')));
     }
 
     /**
@@ -116,8 +117,8 @@ abstract class AbstractSitemap implements SitemapInterface
         $output = array();
         if (!empty($this->files)) {
             foreach ($this->files as $file) {
-                if ( str_replace(array("\n","\t"),'',$file) != '' ) {
-                    $output[] = $item->getHeader()."\n".$file."\n".$item->getFooter();
+                if (str_replace(array("\n", "\t"), '', $file) != '') {
+                    $output[] = $item->getHeader() . "\n" . $file . "\n" . $item->getFooter();
                 }
             }
         }
@@ -133,14 +134,14 @@ abstract class AbstractSitemap implements SitemapInterface
      * @return bool
      * @throws Exceptions\SitemapException
      */
-    public function write($filepath,$filename,$gzip=false)
+    public function write($filepath, $filename, $gzip = false)
     {
         if (empty($this->output)) {
             throw new SitemapException('Will not write to directory. Use build() method first.');
         }
 
         $success = false;
-        if ( is_dir($filepath) && is_writable($filepath)) {
+        if (is_dir($filepath) && is_writable($filepath)) {
             $filepath = realpath($filepath);
 
             $path_parts = pathinfo($filename);
@@ -150,44 +151,44 @@ abstract class AbstractSitemap implements SitemapInterface
             //Write all generated sitemaps to files: sitemap1.xml, sitemap2.xml, etc..
             foreach ($this->output as $fileNumber => $sitemap) {
                 $i = ($fileNumber == 0) ? '' : $fileNumber;
-                $sitemapPath = $filepath.DIRECTORY_SEPARATOR."{$basename}{$i}.{$extension}";
+                $sitemapPath = $filepath . DIRECTORY_SEPARATOR . "{$basename}{$i}.{$extension}";
 
                 //Writes files to disk
                 if ($gzip == true) {
-                    $success = $this->writeGzipFile($sitemapPath.".gz",$sitemap);
+                    $success = $this->writeGzipFile($sitemapPath . ".gz", $sitemap);
                 } else {
-                    $success = $this->writePlainFile($sitemapPath,$sitemap);
+                    $success = $this->writePlainFile($sitemapPath, $sitemap);
                 }
             }
         } else {
-            throw new SitemapException('Cannot write to directory: '.$filepath);
+            throw new SitemapException('Cannot write to directory: ' . $filepath);
         }
 
         return $success;
     }
 
     /**
-     * @param string $filepath
+     * @param  string  $filepath
      * @param $contents
      * @return integer
      */
-    protected function writePlainFile($filepath,$contents)
+    protected function writePlainFile($filepath, $contents)
     {
-        return file_put_contents($filepath,$contents);
+        return file_put_contents($filepath, $contents);
     }
 
     /**
-     * @param string $filepath
+     * @param  string $filepath
      * @param $contents
      * @return bool
      */
-    protected function writeGzipFile($filepath,$contents)
+    protected function writeGzipFile($filepath, $contents)
     {
         $status = false;
-        $fp = gzopen ($filepath, 'w9');
+        $fp = gzopen($filepath, 'w9');
 
         if ($fp !== false) {
-            gzwrite ($fp, $contents);
+            gzwrite($fp, $contents);
             $status = gzclose($fp);
         }
 

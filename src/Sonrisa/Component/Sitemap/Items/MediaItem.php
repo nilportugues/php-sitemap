@@ -7,6 +7,7 @@
  */
 
 namespace Sonrisa\Component\Sitemap\Items;
+
 use Sonrisa\Component\Sitemap\Validators\MediaValidator;
 
 /**
@@ -33,9 +34,9 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
-                '<channel>';
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">' . "\n" .
+        '<channel>';
     }
 
     /**
@@ -60,7 +61,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setLink($link)
     {
-        return $this->setField('link',$link);
+        return $this->setField('link', $link);
     }
 
     /**
@@ -69,7 +70,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setContentDuration($duration)
     {
-        return $this->setField('duration',$duration);
+        return $this->setField('duration', $duration);
     }
 
     /**
@@ -78,7 +79,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setContentMimeType($mimetype)
     {
-        return $this->setField('mimetype',$mimetype);
+        return $this->setField('mimetype', $mimetype);
     }
 
     /**
@@ -87,7 +88,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setPlayer($player)
     {
-        return $this->setField('player',$player);
+        return $this->setField('player', $player);
     }
 
     /**
@@ -96,7 +97,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setTitle($title)
     {
-        return $this->setField('title',$title);
+        return $this->setField('title', $title);
     }
 
     /**
@@ -105,7 +106,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setDescription($description)
     {
-        return $this->setField('description',$description);
+        return $this->setField('description', $description);
     }
 
     /**
@@ -114,7 +115,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setThumbnailUrl($url)
     {
-        return $this->setField('thumbnail',$url);
+        return $this->setField('thumbnail', $url);
     }
 
     /**
@@ -123,7 +124,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setThumbnailHeight($height)
     {
-        return $this->setField('height',$height);
+        return $this->setField('height', $height);
     }
 
     /**
@@ -132,7 +133,7 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function setThumbnailWidth($width)
     {
-        return $this->setField('width',$width);
+        return $this->setField('width', $width);
     }
 
     /**
@@ -147,38 +148,38 @@ class MediaItem extends AbstractItem implements ItemInterface
         if (!empty($this->data['link'])) {
             $xml = array();
 
-            $xml[] = "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
-            $xml[] = (!empty($this->data['link']))?         "\t\t<link>{$this->data['link']}</link>"                      : '';
+            $xml[] = "\t" . '<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
+            $xml[] = (!empty($this->data['link'])) ? "\t\t<link>{$this->data['link']}</link>" : '';
 
             if (!empty($this->data['duration']) && !empty($this->data['mimetype'])) {
                 $xml[] = "\t\t<media:content type=\"{$this->data['mimetype']}\" duration=\"{$this->data['duration']}\">";
-            } elseif ( empty($this->data['duration']) && !empty($this->data['mimetype'])) {
+            } elseif (empty($this->data['duration']) && !empty($this->data['mimetype'])) {
                 $xml[] = "\t\t<media:content type=\"{$this->data['mimetype']}\">";
-            } elseif ( !empty($this->data['duration']) && empty($this->data['mimetype'])) {
+            } elseif (!empty($this->data['duration']) && empty($this->data['mimetype'])) {
                 $xml[] = "\t\t<media:content duration=\"{$this->data['duration']}\">";
             }
 
-            $xml[] = (!empty($this->data['player']))?       "\t\t\t<media:player url=\"{$this->data['player']}\" />"                     : '';
-            $xml[] = (!empty($this->data['title']))?        "\t\t\t<media:title>{$this->data['title']}</media:title>"                    : '';
-            $xml[] = (!empty($this->data['description']))?  "\t\t\t<media:description>{$this->data['description']}</media:description>"  : '';
+            $xml[] = (!empty($this->data['player'])) ? "\t\t\t<media:player url=\"{$this->data['player']}\" />" : '';
+            $xml[] = (!empty($this->data['title'])) ? "\t\t\t<media:title>{$this->data['title']}</media:title>" : '';
+            $xml[] = (!empty($this->data['description'])) ? "\t\t\t<media:description>{$this->data['description']}</media:description>" : '';
 
-            if ( !empty($this->data['thumbnail']) && !empty($this->data['height']) && !empty($this->data['width']) ) {
+            if (!empty($this->data['thumbnail']) && !empty($this->data['height']) && !empty($this->data['width'])) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" height=\"{$this->data['height']}\" width=\"{$this->data['width']}\"/>";
-            } elseif ( !empty($this->data['thumbnail']) && !empty($this->data['height']) ) {
+            } elseif (!empty($this->data['thumbnail']) && !empty($this->data['height'])) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" height=\"{$this->data['height']}\"/>";
-            } elseif ( !empty($this->data['thumbnail']) && !empty($this->data['width']) ) {
+            } elseif (!empty($this->data['thumbnail']) && !empty($this->data['width'])) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" width=\"{$this->data['width']}\"/>";
-            } elseif ( !empty($this->data['thumbnail']) ) {
+            } elseif (!empty($this->data['thumbnail'])) {
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\"/>";
             }
 
-            $xml[] = "\t\t".'</media:content>';
-            $xml[] = "\t".'</item>';
+            $xml[] = "\t\t" . '</media:content>';
+            $xml[] = "\t" . '</item>';
 
             //Remove empty fields
             $xml = array_filter($xml);
 
-            $data = implode("\n",$xml);
+            $data = implode("\n", $xml);
         }
 
         return $data;

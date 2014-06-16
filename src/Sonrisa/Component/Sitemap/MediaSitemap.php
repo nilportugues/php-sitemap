@@ -52,6 +52,7 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
     /**
      * @param $link
      *
+     * @throws Exceptions\SitemapException
      * @return $this
      */
     public function setLink($link)
@@ -89,34 +90,34 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
         if (!empty($itemLink)) {
 
             //Check constrains
-            $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
+            $current = $this->currentFileByteSize + $item->getHeaderSize() + $item->getFooterSize();
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) ) {
+            if (($current <= $this->maxFilesize) && ($this->totalItems <= $this->maxItemsPerSitemap)) {
                 //add bytes to total
-                $this->current_file_byte_size = $item->getItemSize();
+                $this->currentFileByteSize = $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->build();
                 if (!empty($built)) {
                     $this->items[] = $built;
 
-                    $this->files[$this->total_files] = implode("\n",$this->items);
+                    $this->files[$this->totalFiles] = implode("\n", $this->items);
 
-                    $this->total_items++;
+                    $this->totalItems++;
                 }
 
             } else {
                 //reset count
-                $this->current_file_byte_size = 0;
+                $this->currentFileByteSize = 0;
 
                 //copy items to the files array.
-                $this->total_files=$this->total_files+1;
-                $this->files[$this->total_files] = implode("\n",$this->items);
+                $this->totalFiles = $this->totalFiles + 1;
+                $this->files[$this->totalFiles] = implode("\n", $this->items);
 
                 //reset the item count by inserting the first new item
                 $this->items = array($item);
-                $this->total_items=1;
+                $this->totalItems = 1;
             }
             $this->lastItem = $item;
         }
@@ -144,13 +145,14 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
             }
 
             foreach ($this->files as $file) {
-                if ( str_replace(array("\n","\t"),'',$file) != '' ) {
-                    $output[] = $this->lastItem->getHeader()."\n".$this->title.$this->link.$this->description.$file."\n".$this->lastItem->getFooter();
+                if (str_replace(array("\n", "\t"), '', $file) != '') {
+                    $output[] = $this->lastItem->getHeader() . "\n"
+                        . $this->title . $this->link . $this->description . $file . "\n"
+                        . $this->lastItem->getFooter();
                 }
             }
         }
 
         return $output;
     }
-
 }

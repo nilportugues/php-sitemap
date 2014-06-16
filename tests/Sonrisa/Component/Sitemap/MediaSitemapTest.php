@@ -24,7 +24,7 @@ class MediaSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function testValidMediaSitemapWillAllFields()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -62,7 +62,7 @@ XML;
 
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsValidExceptItemLink()
@@ -93,7 +93,7 @@ XML;
 
     public function testValidMediaSitemapWillAllFieldsExceptChannelTitle()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -131,13 +131,13 @@ XML;
 
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptChannelLink()
     {
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -173,13 +173,13 @@ XML;
 
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testValidMediaSitemapWillAllFieldsExceptChannelDescription()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -215,7 +215,7 @@ XML;
 
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
@@ -246,7 +246,7 @@ XML;
 
     public function testValidMediaSitemapWillAllFieldsExceptItemMimetype()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -282,13 +282,13 @@ XML;
 
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testValidMediaSitemapWillAllFieldsExceptItemPlayer()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -322,12 +322,12 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptItemDuration()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -362,12 +362,12 @@ XML;
 
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptItemTitle()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -400,13 +400,13 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testValidMediaSitemapWillAllFieldsExceptItemDescription()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -439,13 +439,13 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testValidMediaSitemapWillAllFieldsExceptItemHeightAndWidth()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -477,12 +477,12 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptItemThumbnail()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -515,12 +515,12 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptItemThumbnailHeight()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -553,12 +553,12 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testValidMediaSitemapWillAllFieldsExceptItemThumbnailWidth()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">
 <channel>
@@ -592,32 +592,32 @@ XML;
         $this->sitemap->add($item);
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
         $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\MediaSitemap');
-        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property = $reflectionClass->getProperty('maxItemsPerSitemap');
         $property->setAccessible(true);
-        $property->setValue($this->sitemap,'1000');
+        $property->setValue($this->sitemap, '1000');
 
         $this->sitemap->setTitle('Media RSS de ejemplo');
         $this->sitemap->setLink('http://www.example.com/ejemplos/mrss/');
         $this->sitemap->setDescription('Ejemplo de MRSS');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++) {
+        for ($i = 1; $i <= 2000; $i++) {
 
             $item = new \Sonrisa\Component\Sitemap\Items\MediaItem();
-            $item->setLink('http://www.example.com/examples/mrss/example-'.$i.'.html');
+            $item->setLink('http://www.example.com/examples/mrss/example-' . $i . '.html');
             $item->setContentMimeType('video/x-flv');
             $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
             $item->setContentDuration(120);
             $item->setTitle('Barbacoas en verano');
-            $item->setDescription('Description '.$i);
-            $item->setThumbnailUrl('http://www.example.com/examples/mrss/example-'.$i.'.png');
+            $item->setDescription('Description ' . $i);
+            $item->setThumbnailUrl('http://www.example.com/examples/mrss/example-' . $i . '.png');
             $item->setThumbnailHeight(120);
             $item->setThumbnailWidth(160);
 
@@ -625,7 +625,7 @@ XML;
         }
         $files = $this->sitemap->build();
 
-        $this->assertArrayHasKey('0',$files);
-        $this->assertArrayHasKey('1',$files);
+        $this->assertArrayHasKey('0', $files);
+        $this->assertArrayHasKey('1', $files);
     }
 }

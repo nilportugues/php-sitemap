@@ -32,7 +32,7 @@ abstract class AbstractItem implements ItemInterface
      * Class that will be validating.
      * @var null
      */
-    protected $validator = NULL;
+    protected $validator = null;
 
     /**
      * @return string
@@ -49,7 +49,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function getItemSize()
     {
-        return mb_strlen($this->build(),'UTF-8');
+        return mb_strlen($this->build(), 'UTF-8');
     }
 
     /**
@@ -62,7 +62,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function getHeaderSize()
     {
-        return mb_strlen($this->getHeader(),'UTF-8');
+        return mb_strlen($this->getHeader(), 'UTF-8');
     }
 
     /**
@@ -75,7 +75,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function getFooterSize()
     {
-        return mb_strlen($this->getFooter(),'UTF-8');
+        return mb_strlen($this->getFooter(), 'UTF-8');
     }
 
     /**
@@ -87,17 +87,17 @@ abstract class AbstractItem implements ItemInterface
      * @throws \Sonrisa\Component\Sitemap\Exceptions\SitemapException
      * @return $this
      */
-    protected function setField($key,$value)
+    protected function setField($key, $value)
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
-        if (method_exists($this->validator,'validate'.$keyFunction)) {
-            $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
+        if (method_exists($this->validator, 'validate' . $keyFunction)) {
+            $value = call_user_func_array(array($this->validator, 'validate' . $keyFunction), array($value));
 
             if (!empty($value)) {
                 $this->data[$key] = $value;
             } else {
-                throw new SitemapException('Value not valid for '.$keyFunction);
+                throw new SitemapException('Value not valid for ' . $keyFunction);
             }
         }
 
@@ -105,12 +105,12 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected function underscoreToCamelCase($string)
     {
-        return str_replace(" ","",ucwords(strtolower(str_replace(array("_","-")," ",$string))));
+        return str_replace(" ", "", ucwords(strtolower(str_replace(array("_", "-"), " ", $string))));
     }
 
     /**

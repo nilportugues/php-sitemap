@@ -16,29 +16,31 @@ class UrlValidator extends SharedValidator
     /**
      * @var array
      */
-    protected static $changeFreqValid = array("always","hourly","daily","weekly","monthly","yearly","never");
+    protected static $changeFreqValid = array("always", "hourly", "daily", "weekly", "monthly", "yearly", "never");
 
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\VideoValidator
      */
-    protected static $_instance;
+    protected static $instance;
 
     /**
      * @return SharedValidator
      */
     public static function getInstance()
     {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
+        if (null === self::$instance) {
+            self::$instance = new self();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
      *
      */
-    protected function __construct() {}
+    protected function __construct()
+    {
+    }
 
     /**
      * @param $lastmod
@@ -57,7 +59,7 @@ class UrlValidator extends SharedValidator
     public static function validateChangefreq($changefreq)
     {
         $data = '';
-        if ( in_array(trim(strtolower($changefreq)),self::$changeFreqValid,true) ) {
+        if (in_array(trim(strtolower($changefreq)), self::$changeFreqValid, true)) {
             $data = htmlentities($changefreq);
         }
 
@@ -82,13 +84,12 @@ class UrlValidator extends SharedValidator
             is_numeric($priority)
             && $priority > -0.01
             && $priority <= 1
-            && (($priority*100 % 10) == 0 )
-        )
-        {
+            && (($priority * 100 % 10) == 0)
+        ) {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
             $matches[0] = floatval($matches[0]);
 
-            if ( !empty($matches[0]) && $matches[0]<=1 && $matches[0]>=0.0 ) {
+            if (!empty($matches[0]) && $matches[0] <= 1 && $matches[0] >= 0.0) {
                 $data = $matches[0];
             }
         }

@@ -24,7 +24,7 @@ class SharedValidator
     public static function validateLoc($value)
     {
         $data = '';
-        if ( filter_var( $value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
+        if (filter_var($value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)))) {
             $data = htmlentities($value);
         }
 
@@ -42,12 +42,12 @@ class SharedValidator
     protected static function validateDate($value)
     {
         $data = '';
-        if ( ($date = \DateTime::createFromFormat( 'Y-m-d\TH:i:sP', $value )) !== false ) {
-            $data = htmlentities($date->format( 'c' ));
+        if (($date = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value)) !== false) {
+            $data = htmlentities($date->format('c'));
         }
 
-        if ( ($date = \DateTime::createFromFormat( 'Y-m-d', $value )) !== false ) {
-            $data = htmlentities($date->format( 'Y-m-d' ));
+        if (($date = \DateTime::createFromFormat('Y-m-d', $value)) !== false) {
+            $data = htmlentities($date->format('Y-m-d'));
         }
 
         return $data;

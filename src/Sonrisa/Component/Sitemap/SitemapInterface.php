@@ -15,7 +15,7 @@ interface SitemapInterface
 {
     /**
      * Generates sitemap documents and stores them in $this->data, an array holding as many positions
-     * as total links divided by the $this->max_items_per_sitemap value.
+     * as total links divided by the $this->maxItemsPerSitemap value.
      */
     public function build();
 
@@ -25,5 +25,5 @@ interface SitemapInterface
      * @param  bool  $gzip
      * @return mixed
      */
-    public function write($filepath,$filename,$gzip=false);
+    public function write($filepath, $filename, $gzip = false);
 }

@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+
 use Sonrisa\Component\Sitemap\Validators\IndexValidator;
 
 /**
@@ -32,8 +33,8 @@ class IndexItem extends AbstractItem implements ItemInterface
      */
     public function getHeader()
     {
-        return  '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-                '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     }
 
     /**
@@ -58,7 +59,7 @@ class IndexItem extends AbstractItem implements ItemInterface
      */
     public function setLoc($loc)
     {
-        return $this->setField('loc',$loc);
+        return $this->setField('loc', $loc);
     }
 
     /**
@@ -67,7 +68,7 @@ class IndexItem extends AbstractItem implements ItemInterface
      */
     public function setLastMod($lastmod)
     {
-        return $this->setField('lastmod',$lastmod);
+        return $this->setField('lastmod', $lastmod);
     }
 
     /**
@@ -83,15 +84,15 @@ class IndexItem extends AbstractItem implements ItemInterface
         if (!empty($this->data['loc'])) {
             $xml = array();
 
-            $xml[] = "\t".'<sitemap>';
-            $xml[] = (!empty($this->data['loc']))?         "\t\t<loc>{$this->data['loc']}</loc>"                      : '';
-            $xml[] = (!empty($this->data['lastmod']))?     "\t\t<lastmod>{$this->data['lastmod']}</lastmod>"          : '';
-            $xml[] = "\t".'</sitemap>';
+            $xml[] = "\t" . '<sitemap>';
+            $xml[] = (!empty($this->data['loc'])) ? "\t\t<loc>{$this->data['loc']}</loc>" : '';
+            $xml[] = (!empty($this->data['lastmod'])) ? "\t\t<lastmod>{$this->data['lastmod']}</lastmod>" : '';
+            $xml[] = "\t" . '</sitemap>';
 
             $xml = array_filter($xml);
 
             if (!empty($xml)) {
-                $data = implode("\n",$xml);
+                $data = implode("\n", $xml);
             }
 
         }

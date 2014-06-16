@@ -14,7 +14,7 @@ use Sonrisa\Component\Sitemap\Validators\ImageValidator;
  * Class ImageValidatorTest
  * @package Validators
  */
-class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
+class ImageValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\ImageValidator
@@ -31,7 +31,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $title = 'This is the image title';
         $result = $this->validator->validateTitle($title);
 
-        $this->assertEquals($title,$result);
+        $this->assertEquals($title, $result);
     }
 
     public function testValidateTitleInvalidInput()
@@ -39,7 +39,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $title = new \StdClass();
         $result = $this->validator->validateTitle($title);
 
-        $this->assertEquals('',$result);
+        $this->assertEquals('', $result);
     }
 
     public function testValidateCaptionValidInput()
@@ -47,7 +47,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $caption = 'This is the caption of the image';
         $result = $this->validator->validateCaption($caption);
 
-        $this->assertEquals($caption,$result);
+        $this->assertEquals($caption, $result);
     }
 
     public function testValidateCaptionInvalidInput()
@@ -55,7 +55,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $caption = new \StdClass();
         $result = $this->validator->validateCaption($caption);
 
-        $this->assertEquals('',$result);
+        $this->assertEquals('', $result);
     }
 
     public function validateGeolocationValidInput()
@@ -63,7 +63,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $geolocation = 'Limerick, Ireland';
         $result = $this->validator->validateGeolocation($geolocation);
 
-        $this->assertEquals($geolocation,$result);
+        $this->assertEquals($geolocation, $result);
     }
 
     public function validateGeolocationInvalidInput()
@@ -71,7 +71,7 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $geolocation = new \StdClass();
         $result = $this->validator->validateGeolocation($geolocation);
 
-        $this->assertEquals('',$result);
+        $this->assertEquals('', $result);
     }
 
     public function validateLicenseValidInput()
@@ -79,14 +79,14 @@ class ImageValidatorTest  extends \PHPUnit_Framework_TestCase
         $license = 'MIT';
         $result = $this->validator->validateLicense($license);
 
-        $this->assertEquals($license,$result);
+        $this->assertEquals($license, $result);
     }
 
     public function validateLicense()
     {
-        $license =  new \StdClass();
+        $license = new \StdClass();
         $result = $this->validator->validateLicense($license);
 
-        $this->assertEquals('',$result);
+        $this->assertEquals('', $result);
     }
 }

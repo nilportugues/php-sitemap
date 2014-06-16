@@ -31,7 +31,7 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
     /**
      * @var int
      */
-    protected $max_items_per_sitemap = 1000;
+    protected $maxItemsPerSitemap = 1000;
 
     /**
      * @var NewsItem
@@ -46,19 +46,19 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
     {
         $loc = $item->getLoc();
 
-        if (!empty($loc) && !in_array($loc,$this->used_urls,true)) {
+        if (!empty($loc) && !in_array($loc, $this->usedUrls, true)) {
 
             //Mark URL as used.
-            $this->used_urls[] = $loc;
+            $this->usedUrls[] = $loc;
 
             //Check constrains
-            $current = $this->current_file_byte_size + $item->getHeaderSize() + $item->getFooterSize();
+            $current = $this->currentFileByteSize + $item->getHeaderSize() + $item->getFooterSize();
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if ( ($current <= $this->max_filesize) && ( $this->total_items <= $this->max_items_per_sitemap) ) {
+            if (($current <= $this->maxFilesize) && ($this->totalItems <= $this->maxItemsPerSitemap)) {
 
                 //add bytes to total
-                $this->current_file_byte_size = $item->getItemSize();
+                $this->currentFileByteSize = $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->build();
@@ -66,22 +66,22 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
 
                     $this->items[] = $built;
 
-                    $this->files[$this->total_files] = implode("\n",$this->items);
+                    $this->files[$this->totalFiles] = implode("\n", $this->items);
 
-                    $this->total_items++;
+                    $this->totalItems++;
                 }
 
             } else {
                 //reset count
-                $this->current_file_byte_size = 0;
+                $this->currentFileByteSize = 0;
 
                 //copy items to the files array.
-                $this->total_files=$this->total_files+1;
-                $this->files[$this->total_files] = implode("\n",$this->items);
+                $this->totalFiles = $this->totalFiles + 1;
+                $this->files[$this->totalFiles] = implode("\n", $this->items);
 
                 //reset the item count by inserting the first new item
                 $this->items = array($item);
-                $this->total_items=1;
+                $this->totalItems = 1;
             }
             $this->lastItem = $item;
         }
@@ -96,5 +96,4 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
     {
         return self::buildFiles($this->lastItem);
     }
-
 }

@@ -17,8 +17,8 @@ class SubmitSitemap
 {
     protected static $sites = array
     (
-        'google' 	=> 'http://www.google.com/webmasters/tools/ping?sitemap={{sitemap}}',
-        'bing'		=> 'http://www.bing.com/webmaster/ping.aspx?siteMap={{sitemap}}',
+        'google' => 'http://www.google.com/webmasters/tools/ping?sitemap={{sitemap}}',
+        'bing' => 'http://www.bing.com/webmaster/ping.aspx?siteMap={{sitemap}}',
     );
 
     /**
@@ -32,8 +32,8 @@ class SubmitSitemap
     public static function send($url)
     {
         //Validate URL format and Response
-        if ( filter_var( $url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)) ) ) {
-            if (self::sendHttpHeadRequest($url) === true ) {
+        if (filter_var($url, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)))) {
+            if (self::sendHttpHeadRequest($url) === true) {
                 return self::submitSitemap($url);
             }
             throw new SitemapException("The URL provided ({$url}) holds no accessible sitemap file.");
@@ -44,16 +44,19 @@ class SubmitSitemap
     /**
      * Submits a sitemap to the search engines using file_get_contents
      *
-     * @param $url string 		Valid URL being submitted.
+     * @param $url string        Valid URL being submitted.
      * @return array Array with the search engine submission success status as a boolean.
      */
     protected static function submitSitemap($url)
     {
         $response = array();
-        $http_response_header = NULL;
+        $http_response_header = null;
         foreach (self::$sites as $site => $submit_url) {
-            file_get_contents((str_replace('{{sitemap}}',$url,$submit_url)));
-            $response[$site] = (($http_response_header[0] == "HTTP/1.1 200 OK") || ($http_response_header[0] == "HTTP/1.0 200 OK"));
+            file_get_contents((str_replace('{{sitemap}}', $url, $submit_url)));
+            $response[$site] = (
+                ($http_response_header[0] == "HTTP/1.1 200 OK")
+                || ($http_response_header[0] == "HTTP/1.0 200 OK")
+            );
         }
 
         return $response;
@@ -62,18 +65,18 @@ class SubmitSitemap
     /**
      * Validates if the URL to submit as a sitemap actually exists and is accessible.
      *
-     * @param $url string 		URL being submitted.
+     * @param $url string        URL being submitted.
      * @return boolean
      */
     protected static function sendHttpHeadRequest($url)
     {
-        $http_response_header = NULL;
+        $http_response_header = null;
         $opts = array
         (
-            'http'=>array
+            'http' => array
             (
-                'method'=>"HEAD",
-                'header'=>"Accept-language: en\r\n"
+                'method' => "HEAD",
+                'header' => "Accept-language: en\r\n"
             )
         );
 
@@ -86,19 +89,18 @@ class SubmitSitemap
         $response = false;
         if (!empty($http_response_header)) {
             $response =
-            (
-                ($http_response_header[0] == "HTTP/1.1 200 OK") ||
-                ($http_response_header[0] == "HTTP/1.0 200 OK") ||
-                ($http_response_header[0] == "HTTP/1.0 301 Moved Permanently") ||
-                ($http_response_header[0] == "HTTP/1.1 301 Moved Permanently") ||
-                ($http_response_header[0] == "HTTP/1.0 301 Moved") ||
-                ($http_response_header[0] == "HTTP/1.1 301 Moved") ||
-                ($http_response_header[0] == "HTTP/1.1 302 Found") ||
-                ($http_response_header[0] == "HTTP/1.0 302 Found")
-            );
+                (
+                    ($http_response_header[0] == "HTTP/1.1 200 OK") ||
+                    ($http_response_header[0] == "HTTP/1.0 200 OK") ||
+                    ($http_response_header[0] == "HTTP/1.0 301 Moved Permanently") ||
+                    ($http_response_header[0] == "HTTP/1.1 301 Moved Permanently") ||
+                    ($http_response_header[0] == "HTTP/1.0 301 Moved") ||
+                    ($http_response_header[0] == "HTTP/1.1 301 Moved") ||
+                    ($http_response_header[0] == "HTTP/1.1 302 Found") ||
+                    ($http_response_header[0] == "HTTP/1.0 302 Found")
+                );
         }
 
         return $response;
     }
-
 }

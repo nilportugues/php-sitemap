@@ -13,7 +13,6 @@ namespace Sonrisa\Component\Sitemap\Items;
  */
 interface ItemInterface
 {
-
     /**
      * @return string
      */

@@ -14,7 +14,7 @@ use Sonrisa\Component\Sitemap\Validators\IndexValidator;
  * Class IndexValidatorTest
  * @package Validators
  */
-class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
+class IndexValidatorTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\IndexValidator
@@ -29,13 +29,13 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
     public function testValidateLocValid()
     {
         $result = $this->validator->validateLoc('http://google.com/page');
-        $this->assertEquals('http://google.com/page',$result);
+        $this->assertEquals('http://google.com/page', $result);
     }
 
     public function testValidateLocInvalid()
     {
         $result = $this->validator->validateLoc('not-a-url');
-        $this->assertEquals('',$result);
+        $this->assertEquals('', $result);
     }
 
     public function testValidateLastmodValidFormat1()
@@ -44,7 +44,7 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
         $date = $date->format('c');
         $result = $this->validator->validateLastmod($date);
 
-        $this->assertEquals($date,$result);
+        $this->assertEquals($date, $result);
 
     }
 
@@ -54,7 +54,7 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
         $date = $date->format('Y-m-d\TH:i:sP');
         $result = $this->validator->validateLastmod($date);
 
-        $this->assertEquals($date,$result);
+        $this->assertEquals($date, $result);
 
     }
 
@@ -65,7 +65,7 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
 
         $result = $this->validator->validateLastmod($date);
 
-        $this->assertEquals($date,$result);
+        $this->assertEquals($date, $result);
     }
 
     public function testValidateLastmodInvalidFormat()
@@ -74,6 +74,6 @@ class IndexValidatorTest  extends \PHPUnit_Framework_TestCase
 
         $result = $this->validator->validateLastmod($date);
 
-        $this->assertEquals('',$result);
+        $this->assertEquals('', $result);
     }
 }

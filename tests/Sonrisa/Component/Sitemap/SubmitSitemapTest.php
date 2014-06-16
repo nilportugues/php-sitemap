@@ -37,10 +37,10 @@ class SubmitSitemap extends \PHPUnit_Framework_TestCase
     {
         $result = \Sonrisa\Component\Sitemap\SubmitSitemap::send($this->url);
 
-        $expected = array( 'google' => true, 'bing' => true);
+        $expected = array('google' => true, 'bing' => true);
 
         $this->assertNotEmpty($result);
-        $this->assertEquals($expected,$result);
+        $this->assertEquals($expected, $result);
     }
 
     /**
@@ -49,7 +49,7 @@ class SubmitSitemap extends \PHPUnit_Framework_TestCase
     public function testSubmitValidSitemapNonExisitingUrl()
     {
         $this->setExpectedException("\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException");
-        \Sonrisa\Component\Sitemap\SubmitSitemap::send('http://example.com/sitemap/'.rand(1,10000).'.xml');
+        \Sonrisa\Component\Sitemap\SubmitSitemap::send('http://example.com/sitemap/' . rand(1, 10000) . '.xml');
     }
 
     /**

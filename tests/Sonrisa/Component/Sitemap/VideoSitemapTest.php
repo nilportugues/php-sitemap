@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use \Sonrisa\Component\Sitemap\Items\VideoItem;
+use Sonrisa\Component\Sitemap\Items\VideoItem;
 
 /**
  * Class VideoSitemapTest
@@ -22,7 +22,7 @@ class VideoSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function testAddVideoWithAllFields()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -72,10 +72,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -84,15 +84,15 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddVideoWithAllFields2()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -143,10 +143,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -155,15 +155,15 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddVideoWithAllFieldsExceptAllowEmbeddedAttribute()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -211,10 +211,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -223,16 +223,16 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testAddVideoWithAllFieldsExceptAutoplayAttribute()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -280,10 +280,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -292,16 +292,16 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testAddVideoWithoutRestrictionRelationship()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -332,7 +332,7 @@ XML;
 \t</url>
 </urlset>
 XML;
-         $item = new VideoItem();
+        $item = new VideoItem();
         $item->setThumbnailLoc('http://www.example.com/thumbs/123.jpg');
         $item->setTitle('Grilling steaks for summer');
         $item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
@@ -349,10 +349,10 @@ XML;
         $item->setRestriction('IE GB US CA');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -360,18 +360,16 @@ XML;
         $item->setPlatformRelationship('allow');
         $item->setLive('no');
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
-
-
 
 
     public function testAddVideoWithoutGalleryLocTitle()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -402,7 +400,7 @@ XML;
 \t</url>
 </urlset>
 XML;
-         $item = new VideoItem();
+        $item = new VideoItem();
         $item->setThumbnailLoc('http://www.example.com/thumbs/123.jpg');
         $item->setTitle('Grilling steaks for summer');
         $item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
@@ -419,10 +417,10 @@ XML;
         $item->setRestriction('IE GB US CA');
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -431,16 +429,16 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testAddVideoWithoutPlatformRelationship()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -489,10 +487,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -500,16 +498,15 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
-
 
 
     public function testAddVideoWithoutUploaderInfo()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -559,10 +556,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent','HD');
-        $item->setPrice('0.75','EUR','rent','SD');
+        $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+        $item->setPrice('0.75', 'EUR', 'rent', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setPlatform('web mobile tv');
@@ -570,17 +567,16 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
-
 
 
     public function testAddVideoWithoutType()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -630,10 +626,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','','HD');
-        $item->setPrice('0.75','EUR','','SD');
+        $item->setPrice('0.99', 'EUR', '', 'HD');
+        $item->setPrice('0.75', 'EUR', '', 'SD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -642,17 +638,16 @@ XML;
         $item->setLive('no');
 
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
-
 
 
     public function testAddVideoWithoutResolution()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -702,10 +697,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR','rent');
-        $item->setPrice('0.75','USD','rent');
+        $item->setPrice('0.99', 'EUR', 'rent');
+        $item->setPrice('0.75', 'USD', 'rent');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -713,16 +708,16 @@ XML;
         $item->setPlatformRelationship('allow');
         $item->setLive('no');
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testAddVideoWithoutResolutionAndType()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
 \t<url>
@@ -771,10 +766,10 @@ XML;
         $item->setRestrictionRelationship('allow');
         $item->setGalleryLoc('http://cooking.example.com');
         $item->setGalleryTitle('Cooking Videos');
-        $item->setPrice('0.99','EUR');
-        $item->setPrice('0.75','USD');
+        $item->setPrice('0.99', 'EUR');
+        $item->setPrice('0.75', 'USD');
         $item->setCategory('cooking');
-        $item->setTag(array('action','drama','entrepreneur'));
+        $item->setTag(array('action', 'drama', 'entrepreneur'));
         $item->setRequiresSubscription('yes');
         $item->setUploader('GrillyMcGrillerson');
         $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -782,30 +777,30 @@ XML;
         $item->setPlatformRelationship('allow');
         $item->setLive('no');
 
-        $this->sitemap->add($item,'http://www.example.com/');
+        $this->sitemap->add($item, 'http://www.example.com/');
 
         $files = $this->sitemap->build();
         $files = $this->sitemap->build();
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlAbovetheSitemapMaxUrlElementLimit()
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
         $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\VideoSitemap');
-        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property = $reflectionClass->getProperty('maxItemsPerSitemap');
         $property->setAccessible(true);
-        $property->setValue($this->sitemap,'1000');
+        $property->setValue($this->sitemap, '1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++) {
+        for ($i = 1; $i <= 2000; $i++) {
 
             $item = new VideoItem();
-            $item->setThumbnailLoc('http://www.example.com/thumbs/'.$i.'.jpg');
-            $item->setTitle('Title '.$i);
+            $item->setThumbnailLoc('http://www.example.com/thumbs/' . $i . '.jpg');
+            $item->setTitle('Title ' . $i);
             $item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
-            $item->setContentLoc('http://www.example.com/video'.$i.'.flv');
-            $item->setPlayerLoc('http://www.example.com/videoplayer.swf?video='.$i);
+            $item->setContentLoc('http://www.example.com/video' . $i . '.flv');
+            $item->setPlayerLoc('http://www.example.com/videoplayer.swf?video=' . $i);
             $item->setPlayerLocAutoplay('ap=1');
             $item->setDuration(600);
             $item->setExpirationDate('2009-11-05T19:20:30+08:00');
@@ -817,10 +812,10 @@ XML;
             $item->setRestrictionRelationship('allow');
             $item->setGalleryLoc('http://cooking.example.com');
             $item->setGalleryTitle('Cooking Videos');
-            $item->setPrice('0.99','EUR','rent','HD');
-            $item->setPrice('0.75','EUR','rent','SD');
+            $item->setPrice('0.99', 'EUR', 'rent', 'HD');
+            $item->setPrice('0.75', 'EUR', 'rent', 'SD');
             $item->setCategory('cooking');
-            $item->setTag(array('action','drama','entrepreneur'));
+            $item->setTag(array('action', 'drama', 'entrepreneur'));
             $item->setRequiresSubscription('yes');
             $item->setUploader('GrillyMcGrillerson');
             $item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
@@ -828,13 +823,13 @@ XML;
             $item->setPlatformRelationship('allow');
             $item->setLive('no');
 
-            $this->sitemap->add($item,'http://www.example.com/'.$i.'.html');
+            $this->sitemap->add($item, 'http://www.example.com/' . $i . '.html');
 
         }
         $files = $this->sitemap->build();
 
-        $this->assertArrayHasKey('0',$files);
-        $this->assertArrayHasKey('1',$files);
+        $this->assertArrayHasKey('0', $files);
+        $this->assertArrayHasKey('1', $files);
     }
 
 }

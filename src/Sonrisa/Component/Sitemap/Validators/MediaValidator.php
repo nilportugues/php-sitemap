@@ -17,24 +17,26 @@ class MediaValidator extends SharedValidator
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\MediaValidator
      */
-    protected static $_instance;
+    protected static $instance;
 
     /**
      * @return SharedValidator
      */
     public static function getInstance()
     {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
+        if (null === self::$instance) {
+            self::$instance = new self();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
      *
      */
-    protected function __construct() {}
+    protected function __construct()
+    {
+    }
 
     /**
      * @param $title
@@ -79,7 +81,7 @@ class MediaValidator extends SharedValidator
     public static function validateDuration($duration)
     {
         $data = '';
-        if ( filter_var($duration,FILTER_SANITIZE_NUMBER_INT)) {
+        if (filter_var($duration, FILTER_SANITIZE_NUMBER_INT)) {
             $data = $duration;
         }
 
@@ -111,7 +113,7 @@ class MediaValidator extends SharedValidator
     public static function validateHeight($height)
     {
         $data = '';
-        if ( filter_var($height,FILTER_SANITIZE_NUMBER_INT)) {
+        if (filter_var($height, FILTER_SANITIZE_NUMBER_INT)) {
             $data = $height;
         }
 
@@ -125,7 +127,7 @@ class MediaValidator extends SharedValidator
     public static function validateWidth($width)
     {
         $data = '';
-        if ( filter_var($width,FILTER_SANITIZE_NUMBER_INT)) {
+        if (filter_var($width, FILTER_SANITIZE_NUMBER_INT)) {
             $data = $width;
         }
 

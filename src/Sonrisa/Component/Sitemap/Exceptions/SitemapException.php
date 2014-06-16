@@ -7,6 +7,10 @@
  */
 namespace Sonrisa\Component\Sitemap\Exceptions;
 
+/**
+ * Class SitemapException
+ * @package Sonrisa\Component\Sitemap\Exceptions
+ */
 class SitemapException extends \Exception
 {
 

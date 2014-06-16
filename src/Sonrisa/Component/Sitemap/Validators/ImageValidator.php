@@ -17,24 +17,26 @@ class ImageValidator extends SharedValidator
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\ImageValidator
      */
-    protected static $_instance;
+    protected static $instance;
 
     /**
      * @return SharedValidator
      */
     public static function getInstance()
     {
-        if (null === self::$_instance) {
-            self::$_instance = new self();
+        if (null === self::$instance) {
+            self::$instance = new self();
         }
 
-        return self::$_instance;
+        return self::$instance;
     }
 
     /**
      *
      */
-    protected function __construct() {}
+    protected function __construct()
+    {
+    }
 
     /**
      * @param $title

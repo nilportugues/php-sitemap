@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use \Sonrisa\Component\Sitemap\Items\UrlItem;
+use Sonrisa\Component\Sitemap\Items\UrlItem;
 
 /**
  * Class SitemapTest
@@ -31,7 +31,7 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
 
     public function testAddUrlWithValidUrlWithAllFields()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -51,14 +51,13 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
-
 
 
     public function testAddUrlWithValidDuplicateUrlWithAllFields()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -86,7 +85,7 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
 
     }
 
@@ -107,7 +106,7 @@ XML;
 
     public function testAddUrlWithValidUrlWithLastModAndWithDefaultPriority()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -123,12 +122,12 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlWithValidUrlWithChangeFreqAlwaysAndWithDefaultPriority()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -144,14 +143,14 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
 
     public function testAddUrlWithValidUrlWithChangeFreqHourlyAndWithDefaultPriority()
     {
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -167,14 +166,14 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlWithValidUrlWithChangeFreqDailyAndWithDefaultPriority()
     {
 
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -190,14 +189,14 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
 
     }
 
     public function testAddUrlWithValidUrlWithChangeFreqWeeklyAndWithDefaultPriority()
     {
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -214,14 +213,14 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
 
     }
 
     public function testAddUrlWithValidUrlWithChangeFreqMonthlyAndWithDefaultPriority()
     {
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -237,14 +236,14 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
 
     }
 
     public function testAddUrlWithValidUrlWithChangeFreqYearlyAndWithDefaultPriority()
     {
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -260,14 +259,14 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
 
     }
 
     public function testAddUrlWithValidUrlWithChangeFreqNeverAndWithDefaultPriority()
     {
 
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -283,15 +282,13 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
-
-
 
 
     public function testAddUrlWithValidUrlWithPriority()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<url>
@@ -307,7 +304,7 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlWithValidUrlWithInvalidLastModValue()
@@ -426,21 +423,21 @@ XML;
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
         $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\Sitemap');
-        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property = $reflectionClass->getProperty('maxItemsPerSitemap');
         $property->setAccessible(true);
-        $property->setValue($this->sitemap,'1000');
+        $property->setValue($this->sitemap, '1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++) {
+        for ($i = 1; $i <= 2000; $i++) {
             $item = new UrlItem();
-            $item->setLoc('http://www.example.com/page-'.$i.'.html');
+            $item->setLoc('http://www.example.com/page-' . $i . '.html');
             $this->sitemap->add($item);
         }
 
         $files = $this->sitemap->build();
 
-        $this->assertArrayHasKey('0',$files);
-        $this->assertArrayHasKey('1',$files);
+        $this->assertArrayHasKey('0', $files);
+        $this->assertArrayHasKey('1', $files);
 
         $this->sitemap->build();
 
@@ -456,7 +453,7 @@ XML;
         $this->sitemap->add($item);
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->write('./','sitemap.xml',false);
+        $this->sitemap->write('./', 'sitemap.xml', false);
     }
 
     public function testWritePlainFile()
@@ -469,7 +466,7 @@ XML;
         $this->sitemap->add($item);
 
         $this->sitemap->build();
-        $this->sitemap->write('./','sitemap.xml',false);
+        $this->sitemap->write('./', 'sitemap.xml', false);
         $this->assertFileExists('sitemap.xml');
     }
 
@@ -485,7 +482,7 @@ XML;
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->write('./fake/path','sitemap.xml',false);
+        $this->sitemap->write('./fake/path', 'sitemap.xml', false);
     }
 
     public function testWriteGZipFile()
@@ -498,7 +495,7 @@ XML;
         $this->sitemap->add($item);
 
         $this->sitemap->build();
-        $this->sitemap->write('./','sitemap.xml',true);
+        $this->sitemap->write('./', 'sitemap.xml', true);
         $this->assertFileExists('sitemap.xml.gz');
     }
 
@@ -514,6 +511,6 @@ XML;
         $this->sitemap->build();
 
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
-        $this->sitemap->write('./fake/path','sitemap.xml',true);
+        $this->sitemap->write('./fake/path', 'sitemap.xml', true);
     }
 }

@@ -6,6 +6,7 @@
  * file that was distributed with this source code.
  */
 namespace Sonrisa\Component\Sitemap\Items;
+
 use Sonrisa\Component\Sitemap\Validators\NewsValidator;
 
 /**
@@ -32,8 +33,8 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-               '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">';
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">';
     }
 
     /**
@@ -58,7 +59,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setLoc($loc)
     {
-        return $this->setField('loc',$loc);
+        return $this->setField('loc', $loc);
     }
 
     /**
@@ -67,7 +68,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setTitle($title)
     {
-        return $this->setField('title',$title);
+        return $this->setField('title', $title);
     }
 
     /**
@@ -76,7 +77,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setPublicationDate($date)
     {
-        return $this->setField('publication_date',$date);
+        return $this->setField('publication_date', $date);
     }
 
     /**
@@ -85,7 +86,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setPublicationName($name)
     {
-        return $this->setField('name',$name);
+        return $this->setField('name', $name);
     }
 
     /**
@@ -94,7 +95,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setPublicationLanguage($language)
     {
-        return $this->setField('language',$language);
+        return $this->setField('language', $language);
     }
 
     /**
@@ -103,7 +104,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setAccess($access)
     {
-        return $this->setField('access',$access);
+        return $this->setField('access', $access);
     }
 
     /**
@@ -112,7 +113,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setGenres($genres)
     {
-        return $this->setField('genres',$genres);
+        return $this->setField('genres', $genres);
     }
 
     /**
@@ -121,7 +122,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setKeywords($keywords)
     {
-        return $this->setField('keywords',$keywords);
+        return $this->setField('keywords', $keywords);
     }
 
     /**
@@ -130,7 +131,7 @@ class NewsItem extends AbstractItem implements ItemInterface
      */
     public function setStockTickers($stock_tickers)
     {
-        return $this->setField('stock_tickers',$stock_tickers);
+        return $this->setField('stock_tickers', $stock_tickers);
     }
 
     /**
@@ -149,34 +150,33 @@ class NewsItem extends AbstractItem implements ItemInterface
             && !empty($this->data['publication_date'])
             && !empty($this->data['name'])
             && !empty($this->data['language'])
-        )
-        {
+        ) {
 
             $xml = array();
-            $xml[] = "\t".'<url>';
-            $xml[] = "\t\t".'<loc>'.$this->data['loc'].'</loc>';
+            $xml[] = "\t" . '<url>';
+            $xml[] = "\t\t" . '<loc>' . $this->data['loc'] . '</loc>';
 
-            $xml[] = "\t\t".'<news:news>';
+            $xml[] = "\t\t" . '<news:news>';
 
-            if (!empty($this->data['name']) && !empty($this->data['language']) ) {
-                $xml[] = "\t\t\t".'<news:publication>';
-                $xml[] = (!empty($this->data['name']))     ? "\t\t\t\t".'<news:name>'.$this->data['name'].'</news:name>' : '';
-                $xml[] = (!empty($this->data['language'])) ? "\t\t\t\t".'<news:language>'.$this->data['language'].'</news:language>' : '';
-                $xml[] = "\t\t\t".'</news:publication>';
+            if (!empty($this->data['name']) && !empty($this->data['language'])) {
+                $xml[] = "\t\t\t" . '<news:publication>';
+                $xml[] = (!empty($this->data['name'])) ? "\t\t\t\t" . '<news:name>' . $this->data['name'] . '</news:name>' : '';
+                $xml[] = (!empty($this->data['language'])) ? "\t\t\t\t" . '<news:language>' . $this->data['language'] . '</news:language>' : '';
+                $xml[] = "\t\t\t" . '</news:publication>';
             }
 
-            $xml[] = (!empty($this->data['access']))            ? "\t\t\t".'<news:access>'.$this->data['access'].'</news:access>' : '';
-            $xml[] = (!empty($this->data['genres']))            ? "\t\t\t".'<news:genres>'.$this->data['genres'].'</news:genres>' : '';
-            $xml[] = (!empty($this->data['publication_date']))  ? "\t\t\t".'<news:publication_date>'.$this->data['publication_date'].'</news:publication_date>' : '';
-            $xml[] = (!empty($this->data['title']))             ? "\t\t\t".'<news:title>'.$this->data['title'].'</news:title>' : '';
-            $xml[] = (!empty($this->data['keywords']))          ? "\t\t\t".'<news:keywords>'.$this->data['keywords'].'</news:keywords>' : '';
-            $xml[] = (!empty($this->data['stock_tickers']))     ? "\t\t\t".'<news:stock_tickers>'.$this->data['stock_tickers'].'</news:stock_tickers>' : '';
+            $xml[] = (!empty($this->data['access'])) ? "\t\t\t" . '<news:access>' . $this->data['access'] . '</news:access>' : '';
+            $xml[] = (!empty($this->data['genres'])) ? "\t\t\t" . '<news:genres>' . $this->data['genres'] . '</news:genres>' : '';
+            $xml[] = (!empty($this->data['publication_date'])) ? "\t\t\t" . '<news:publication_date>' . $this->data['publication_date'] . '</news:publication_date>' : '';
+            $xml[] = (!empty($this->data['title'])) ? "\t\t\t" . '<news:title>' . $this->data['title'] . '</news:title>' : '';
+            $xml[] = (!empty($this->data['keywords'])) ? "\t\t\t" . '<news:keywords>' . $this->data['keywords'] . '</news:keywords>' : '';
+            $xml[] = (!empty($this->data['stock_tickers'])) ? "\t\t\t" . '<news:stock_tickers>' . $this->data['stock_tickers'] . '</news:stock_tickers>' : '';
 
-            $xml[] = "\t\t".'</news:news>';
-            $xml[] = "\t".'</url>';
+            $xml[] = "\t\t" . '</news:news>';
+            $xml[] = "\t" . '</url>';
             $xml = array_filter($xml);
 
-            $data = implode("\n",$xml);
+            $data = implode("\n", $xml);
         }
 
         return $data;

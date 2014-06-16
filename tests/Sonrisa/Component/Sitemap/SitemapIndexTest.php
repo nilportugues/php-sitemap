@@ -6,7 +6,7 @@
  * file that was distributed with this source code.
  */
 
-use \Sonrisa\Component\Sitemap\Items\IndexItem;
+use Sonrisa\Component\Sitemap\Items\IndexItem;
 
 /**
  * Class IndexSitemapTest
@@ -23,7 +23,7 @@ class IndexSitemapTest extends \PHPUnit_Framework_TestCase
 
     public function testAddUrlWithValidUrlWithAllFields()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<sitemap>
@@ -49,12 +49,12 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlWithValidUrlWithLoc()
     {
-        $expected=<<<XML
+        $expected = <<<XML
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 \t<sitemap>
@@ -76,7 +76,7 @@ XML;
 
         $files = $this->sitemap->build();
 
-        $this->assertEquals($expected,$files[0]);
+        $this->assertEquals($expected, $files[0]);
     }
 
     public function testAddUrlWithValidUrlWithInvalidLoc()
@@ -104,19 +104,19 @@ XML;
     {
         //For testing purposes reduce the real limit to 1000 instead of 50000
         $reflectionClass = new \ReflectionClass('Sonrisa\\Component\\Sitemap\\IndexSitemap');
-        $property = $reflectionClass->getProperty('max_items_per_sitemap');
+        $property = $reflectionClass->getProperty('maxItemsPerSitemap');
         $property->setAccessible(true);
-        $property->setValue($this->sitemap,'1000');
+        $property->setValue($this->sitemap, '1000');
 
         //Test limit
-        for ($i=1;$i<=2000; $i++) {
+        for ($i = 1; $i <= 2000; $i++) {
             $item = new IndexItem();
-            $item->setLoc('http://www.example.com/sitemap.'.$i.'.xml');
+            $item->setLoc('http://www.example.com/sitemap.' . $i . '.xml');
             $this->sitemap->add($item);
         }
         $files = $this->sitemap->build();
 
-        $this->assertArrayHasKey('0',$files);
-        $this->assertArrayHasKey('1',$files);
+        $this->assertArrayHasKey('0', $files);
+        $this->assertArrayHasKey('1', $files);
     }
 }
