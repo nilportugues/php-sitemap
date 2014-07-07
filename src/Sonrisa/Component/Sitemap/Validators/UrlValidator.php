@@ -87,7 +87,9 @@ class UrlValidator extends SharedValidator
             && (($priority * 100 % 10) == 0)
         ) {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
-            $matches[0] = floatval($matches[0]);
+            
+            
+            $matches[0] = str_replace(",", ".", floatval($matches[0]));
 
             if (!empty($matches[0]) && $matches[0] <= 1 && $matches[0] >= 0.0) {
                 $data = $matches[0];
