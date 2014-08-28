@@ -1,5 +1,5 @@
 {
-    "name":"nilportugues/sitemap-component",
+    "name":"sonrisa/sitemap-component",
     "description":"Standalone sitemap builder 100% standards compliant. Build for PHP5.3 and above.",
     "keywords": [ "sitemap", "xml", "image", "news", "video", "media", "index" ],
     "type":"library",
