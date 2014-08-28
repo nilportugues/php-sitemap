@@ -1,7 +1,7 @@
-[![Build Status](https://travis-ci.org/sonrisa/sitemap-component.png)](https://travis-ci.org/sonrisa/sitemap-component) Sitemap Component
+[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) Sitemap Component
 =================
 
-[![Latest Stable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/sonrisa/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Latest Unstable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/unstable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/sonrisa/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/efe392af-cc7c-4a4f-9ec8-817de3b80f6e/mini.png)](https://insight.sensiolabs.com/projects/efe392af-cc7c-4a4f-9ec8-817de3b80f6e)
+[![Latest Stable Version](https://poser.pugx.org/nilportugues/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/nilportugues/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Latest Unstable Version](https://poser.pugx.org/nilportugues/sitemap-component/v/unstable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/nilportugues/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/efe392af-cc7c-4a4f-9ec8-817de3b80f6e/mini.png)](https://insight.sensiolabs.com/projects/efe392af-cc7c-4a4f-9ec8-817de3b80f6e)
 
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
