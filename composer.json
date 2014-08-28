@@ -1,16 +1,16 @@
 {
     "name":"sonrisa/sitemap-component",
-    "description":"Standalone sitemap builder 100% standards compilant. Build for PHP5.3 and above for Sonrisa Framework project.",
+    "description":"Standalone sitemap builder 100% standards compliant. Build for PHP5.3 and above.",
     "keywords": [ "sitemap", "xml", "image", "news", "video", "media", "index" ],
     "type":"library",
-    "homepage":"http://sonrisacms.com",
+    "homepage":"http://nilportugues.com",
     "license":"MIT",
     "authors":
     [
         {
             "name":"Nil Portugués Calderó",
             "email":"contact@nilportugues.com",
-            "homepage":"http://sonrisacms.com",
+            "homepage":"http://nilportugues.com",
             "role":"Lead Developer"
         }
     ],
