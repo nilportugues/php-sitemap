@@ -125,4 +125,10 @@ class UrlValidatorTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('', $result);
     }
 
+    public function testValidatePriorityInvalid3()
+    {
+        $result = $this->validator->validatePriority(1.0);
+        $this->assertEquals('', $result);
+    }
+
 }
