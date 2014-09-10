@@ -531,7 +531,7 @@ try {
 
 <a name="block5"></a>
 ## 5. Fully tested.
-Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.6 and [Facebook's PHP Virtual Machine: HipHop](http://hiphop-php.com).
+Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.6 and [Facebook's HHVM](http://hhvm.com/).
 
 ---
 
