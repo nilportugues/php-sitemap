@@ -10,6 +10,16 @@
          syntaxCheck="true"
          bootstrap="vendor/autoload.php"
         >
+        
+    <php>
+        <ini name="intl.default_locale" value="en_US.UTF-8" />
+        <ini name="intl.error_level" value="0" />
+        <ini name="memory_limit" value="-1" />
+        <ini name="max_execution_time" value="-1"/>
+        <ini name="date.timezone" value="Europe/Madrid" />
+        <ini name="error_reporting" value="E_ALL" />
+    </php>
+    
     <testsuites>
         <testsuite name="Test Suite">
             <directory>./tests/Sonrisa/Component/Sitemap/</directory>
@@ -26,4 +36,9 @@
         </whitelist>
     </filter>
 
+    <logging>
+        <log type="junit" target="build/logs/junit.xml"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="coverage-html" target="build/coverage"/>
+    </logging>
 </phpunit>
