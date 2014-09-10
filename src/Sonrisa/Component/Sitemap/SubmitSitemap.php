@@ -76,8 +76,8 @@ class SubmitSitemap
             'http' => array
             (
                 'method' => "HEAD",
-                'header' => "Accept-language: en\r\n"
-            )
+                'header' => "Accept-language: en\r\n",
+            ),
         );
 
         $context = stream_context_create($opts);

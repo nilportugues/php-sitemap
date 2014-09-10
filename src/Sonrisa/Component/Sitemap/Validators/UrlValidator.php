@@ -79,8 +79,7 @@ class UrlValidator extends SharedValidator
     public static function validatePriority($priority)
     {
         $data = '';
-        if
-        (
+        if (
             is_numeric($priority)
             && $priority > -0.01
             && $priority <= 1
@@ -88,10 +87,10 @@ class UrlValidator extends SharedValidator
         ) {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
 
-            if (! isset($matches[0])){
+            if (! isset($matches[0])) {
                 return $data;
             }
-            
+
             $matches[0] = str_replace(",", ".", floatval($matches[0]));
 
             if (!empty($matches[0]) && $matches[0] <= 1 && $matches[0] >= 0.0) {

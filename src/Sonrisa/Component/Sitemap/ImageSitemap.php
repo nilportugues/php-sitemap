@@ -53,9 +53,7 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
         $loc = $item->getLoc();
 
         if (!empty($url) && !empty($loc)) {
-
             if (!in_array($loc, $this->usedImages[$url], true)) {
-
                 //Mark URL as used.
                 $this->usedUrls[] = $url;
                 $this->usedImages[$url][] = $loc;
@@ -93,7 +91,6 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
                 }
                 $this->lastItem = $item;
             }
-
         } else {
             throw new SitemapException("A valid URL value for <loc> must be given.");
         }
@@ -116,7 +113,7 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
                 foreach ($file as $url => $urlImages) {
                     if (!empty($urlImages) && !empty($url)) {
                         $fileData[] = $this->urlHeader;
-                        $fileData[] = "\t\t<loc>" . $url . "</loc>";
+                        $fileData[] = "\t\t<loc>".$url."</loc>";
                         $fileData[] = implode("\n", $urlImages);
                         $fileData[] = $this->urlFooter;
                     }

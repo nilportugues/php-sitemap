@@ -37,8 +37,8 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
     protected $lastItem;
 
     /**
-     * @param  VideoItem $item
-     * @param  string $url
+     * @param  VideoItem    $item
+     * @param  string       $url
      * @return VideoSitemap
      */
     public function add(VideoItem $item, $url = '')
@@ -46,15 +46,13 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
         $url = SharedValidator::validateLoc($url);
         if (empty($this->used_videos[$url])) {
             $this->used_videos[$url] = array();
-
         }
 
         $title = $item->getTitle();
         $player_loc = $item->getPlayerLoc();
         $content_loc = $item->getContentLoc();
 
-        if
-        (
+        if (
             !empty($url) && !empty($title) &&
             (!empty($player_loc) || !empty($content_loc)) &&
             (
@@ -62,7 +60,6 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
                 || !in_array($content_loc, $this->used_videos[$url], true)
             )
         ) {
-
             //Mark URL as used.
             $this->usedUrls[] = $url;
             $this->used_videos[$url][] = $player_loc;
@@ -121,7 +118,7 @@ class VideoSitemap extends AbstractSitemap implements SitemapInterface
                 foreach ($file as $url => $urlImages) {
                     if (!empty($urlImages) && !empty($url)) {
                         $fileData[] = $this->urlHeader;
-                        $fileData[] = "\t\t<loc>" . $url . "</loc>";
+                        $fileData[] = "\t\t<loc>".$url."</loc>";
                         $fileData[] = implode("\n", $urlImages);
                         $fileData[] = $this->urlFooter;
                     }

@@ -118,7 +118,7 @@ abstract class AbstractSitemap implements SitemapInterface
         if (!empty($this->files)) {
             foreach ($this->files as $file) {
                 if (str_replace(array("\n", "\t"), '', $file) != '') {
-                    $output[] = $item->getHeader() . "\n" . $file . "\n" . $item->getFooter();
+                    $output[] = $item->getHeader()."\n".$file."\n".$item->getFooter();
                 }
             }
         }
@@ -151,17 +151,17 @@ abstract class AbstractSitemap implements SitemapInterface
             //Write all generated sitemaps to files: sitemap1.xml, sitemap2.xml, etc..
             foreach ($this->output as $fileNumber => $sitemap) {
                 $i = ($fileNumber == 0) ? '' : $fileNumber;
-                $sitemapPath = $filepath . DIRECTORY_SEPARATOR . "{$basename}{$i}.{$extension}";
+                $sitemapPath = $filepath.DIRECTORY_SEPARATOR."{$basename}{$i}.{$extension}";
 
                 //Writes files to disk
                 if ($gzip == true) {
-                    $success = $this->writeGzipFile($sitemapPath . ".gz", $sitemap);
+                    $success = $this->writeGzipFile($sitemapPath.".gz", $sitemap);
                 } else {
                     $success = $this->writePlainFile($sitemapPath, $sitemap);
                 }
             }
         } else {
-            throw new SitemapException('Cannot write to directory: ' . $filepath);
+            throw new SitemapException('Cannot write to directory: '.$filepath);
         }
 
         return $success;
@@ -193,6 +193,5 @@ abstract class AbstractSitemap implements SitemapInterface
         }
 
         return $status;
-
     }
 }

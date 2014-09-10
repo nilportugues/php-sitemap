@@ -47,7 +47,6 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
         $loc = $item->getLoc();
 
         if (!empty($loc) && !in_array($loc, $this->usedUrls, true)) {
-
             //Mark URL as used.
             $this->usedUrls[] = $loc;
 
@@ -56,21 +55,18 @@ class NewsSitemap extends AbstractSitemap implements SitemapInterface
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
             if (($current <= $this->maxFilesize) && ($this->totalItems <= $this->maxItemsPerSitemap)) {
-
                 //add bytes to total
                 $this->currentFileByteSize = $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->build();
                 if (!empty($built)) {
-
                     $this->items[] = $built;
 
                     $this->files[$this->totalFiles] = implode("\n", $this->items);
 
                     $this->totalItems++;
                 }
-
             } else {
                 //reset count
                 $this->currentFileByteSize = 0;

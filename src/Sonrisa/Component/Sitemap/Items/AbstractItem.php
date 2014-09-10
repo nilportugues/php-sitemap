@@ -91,13 +91,13 @@ abstract class AbstractItem implements ItemInterface
     {
         $keyFunction = $this->underscoreToCamelCase($key);
 
-        if (method_exists($this->validator, 'validate' . $keyFunction)) {
-            $value = call_user_func_array(array($this->validator, 'validate' . $keyFunction), array($value));
+        if (method_exists($this->validator, 'validate'.$keyFunction)) {
+            $value = call_user_func_array(array($this->validator, 'validate'.$keyFunction), array($value));
 
             if (!empty($value)) {
                 $this->data[$key] = $value;
             } else {
-                throw new SitemapException('Value not valid for ' . $keyFunction);
+                throw new SitemapException('Value not valid for '.$keyFunction);
             }
         }
 
@@ -119,5 +119,4 @@ abstract class AbstractItem implements ItemInterface
      * @return string
      */
     abstract public function build();
-
 }

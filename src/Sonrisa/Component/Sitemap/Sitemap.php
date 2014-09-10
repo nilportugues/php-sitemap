@@ -29,7 +29,6 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
         $loc = $item->getLoc();
 
         if (!empty($loc) && !in_array($loc, $this->usedUrls, true)) {
-
             //Mark URL as used.
             $this->usedUrls[] = $loc;
 

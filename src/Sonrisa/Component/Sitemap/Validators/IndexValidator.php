@@ -13,7 +13,6 @@ namespace Sonrisa\Component\Sitemap\Validators;
  */
 class IndexValidator extends SharedValidator
 {
-
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\IndexValidator
      */

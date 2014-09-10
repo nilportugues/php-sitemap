@@ -57,7 +57,6 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
      */
     public function setLink($link)
     {
-
         $this->link = SharedValidator::validateLoc($link);
 
         if (empty($this->link)) {
@@ -88,7 +87,6 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
         $itemLink = $item->getLink();
 
         if (!empty($itemLink)) {
-
             //Check constrains
             $current = $this->currentFileByteSize + $item->getHeaderSize() + $item->getFooterSize();
 
@@ -106,7 +104,6 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
 
                     $this->totalItems++;
                 }
-
             } else {
                 //reset count
                 $this->currentFileByteSize = 0;
@@ -146,9 +143,9 @@ class MediaSitemap extends AbstractSitemap implements SitemapInterface
 
             foreach ($this->files as $file) {
                 if (str_replace(array("\n", "\t"), '', $file) != '') {
-                    $output[] = $this->lastItem->getHeader() . "\n"
-                        . $this->title . $this->link . $this->description . $file . "\n"
-                        . $this->lastItem->getFooter();
+                    $output[] = $this->lastItem->getHeader()."\n"
+                        .$this->title.$this->link.$this->description.$file."\n"
+                        .$this->lastItem->getFooter();
                 }
             }
         }

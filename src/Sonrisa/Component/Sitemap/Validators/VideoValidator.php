@@ -51,7 +51,7 @@ class VideoValidator extends SharedValidator
         'PRI', 'PRK', 'PRT', 'PRY', 'PSE', 'PYF', 'QAT', 'REU', 'ROU', 'RUS', 'RWA', 'SAU', 'SDN', 'SEN', 'SGP', 'SGS', 'SHN', 'SJM',
         'SLB', 'SLE', 'SLV', 'SMR', 'SOM', 'SPM', 'SRB', 'SSD', 'STP', 'SUR', 'SVK', 'SVN', 'SWE', 'SWZ', 'SXM', 'SYC', 'SYR', 'TCA',
         'TCD', 'TGO', 'THA', 'TJK', 'TKL', 'TKM', 'TLS', 'TON', 'TTO', 'TUN', 'TUR', 'TUV', 'TWN', 'TZA', 'UGA', 'UKR', 'UMI', 'URY',
-        'USA', 'UZB', 'VAT', 'VCT', 'VEN', 'VGB', 'VIR', 'VNM', 'VUT', 'WLF', 'WSM', 'YEM', 'ZAF', 'ZMB', 'ZWE'
+        'USA', 'UZB', 'VAT', 'VCT', 'VEN', 'VGB', 'VIR', 'VNM', 'VUT', 'WLF', 'WSM', 'YEM', 'ZAF', 'ZMB', 'ZWE',
     );
 
     /**
@@ -74,7 +74,7 @@ class VideoValidator extends SharedValidator
         'SBD', 'SOS', 'ZAR', 'SSP', 'EUR', 'LKR', 'SDG', 'SRD', 'NOK', 'SZL', 'SEK', 'CHE', 'CHF', 'CHW', 'SYP', 'TWD', 'TJS', 'TZS',
         'THB', 'USD', 'XOF', 'NZD', 'TOP', 'TTD', 'TND', 'TRY', 'TMT', 'USD', 'AUD', 'UGX', 'UAH', 'AED', 'GBP', 'USD', 'USN', 'USS',
         'USD', 'UYI', 'UYU', 'UZS', 'VUV', 'EUR', 'VEF', 'VND', 'USD', 'USD', 'XPF', 'MAD', 'YER', 'ZMW', 'ZWL', 'XBA', 'XBB', 'XBC',
-        'XBD', 'XTS', 'XXX', 'XAU', 'XPD', 'XPT', 'XAG'
+        'XBD', 'XTS', 'XXX', 'XAU', 'XPD', 'XPT', 'XAG',
     );
 
     /**
@@ -140,7 +140,7 @@ class VideoValidator extends SharedValidator
     public static function validateTitle($title)
     {
         if (mb_strlen($title, 'UTF-8') > 97) {
-            $title = mb_substr($title, 0, 97, 'UTF-8') . '...';
+            $title = mb_substr($title, 0, 97, 'UTF-8').'...';
         }
 
         return $title;
@@ -156,7 +156,7 @@ class VideoValidator extends SharedValidator
     public function validateDescription($description)
     {
         if (mb_strlen($description, 'UTF-8') > 2048) {
-            $description = mb_substr($description, 0, 2045, 'UTF-8') . '...';
+            $description = mb_substr($description, 0, 2045, 'UTF-8').'...';
         }
 
         return $description;
@@ -233,7 +233,6 @@ class VideoValidator extends SharedValidator
     {
         $data = '';
         if (is_integer($view_count) && $view_count > 0) {
-
             $data = $view_count;
         }
 
@@ -358,7 +357,6 @@ class VideoValidator extends SharedValidator
             if (strtolower($platform) != 'tv' && strtolower($platform) != 'mobile' && strtolower($platform) != 'web') {
                 unset($platforms[$key]);
             }
-
         }
 
         return implode(' ', $platforms);
@@ -413,8 +411,7 @@ class VideoValidator extends SharedValidator
     {
         $valid = array();
 
-        if
-        (
+        if (
             !empty($prices['price'])
             && !empty($prices['price_currency'])
             && (filter_var($prices['price'], FILTER_VALIDATE_FLOAT) || filter_var($prices['price'], FILTER_VALIDATE_INT))

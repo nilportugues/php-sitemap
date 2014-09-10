@@ -18,7 +18,6 @@ namespace Sonrisa\Component\Sitemap\Validators;
  */
 class NewsValidator extends SharedValidator
 {
-
     /**
      * @var array
      */
@@ -514,7 +513,7 @@ class NewsValidator extends SharedValidator
         'ine', 'ira', 'iro', 'itc', 'jpx', 'kar', 'kdo', 'khi', 'kro', 'map', 'mkh', 'mno', 'mun', 'myn', 'nah', 'nai', 'ngf', 'nic',
         'nub', 'omq', 'omv', 'oto', 'paa', 'phi', 'plf', 'poz', 'pqe', 'pqw', 'pra', 'qwe', 'roa', 'sai', 'sal', 'sdv', 'sem', 'sgn',
         'sio', 'sit', 'sla', 'smi', 'son', 'sqj', 'ssa', 'syd', 'tai', 'tbq', 'trk', 'tup', 'tut', 'tuw', 'urj', 'wak', 'wen', 'xgn',
-        'xnd', 'ypk', 'zhx', 'zle', 'zls', 'zlw', 'znd'
+        'xnd', 'ypk', 'zhx', 'zle', 'zls', 'zlw', 'znd',
     );
 
     /**

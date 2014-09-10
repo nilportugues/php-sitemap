@@ -33,7 +33,7 @@ class IndexItem extends AbstractItem implements ItemInterface
      */
     public function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
         '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
     }
 
@@ -84,17 +84,16 @@ class IndexItem extends AbstractItem implements ItemInterface
         if (!empty($this->data['loc'])) {
             $xml = array();
 
-            $xml[] = "\t" . '<sitemap>';
+            $xml[] = "\t".'<sitemap>';
             $xml[] = (!empty($this->data['loc'])) ? "\t\t<loc>{$this->data['loc']}</loc>" : '';
             $xml[] = (!empty($this->data['lastmod'])) ? "\t\t<lastmod>{$this->data['lastmod']}</lastmod>" : '';
-            $xml[] = "\t" . '</sitemap>';
+            $xml[] = "\t".'</sitemap>';
 
             $xml = array_filter($xml);
 
             if (!empty($xml)) {
                 $data = implode("\n", $xml);
             }
-
         }
 
         return $data;

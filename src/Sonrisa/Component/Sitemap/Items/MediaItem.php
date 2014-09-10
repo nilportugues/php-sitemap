@@ -34,8 +34,8 @@ class MediaItem extends AbstractItem implements ItemInterface
      */
     public function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">' . "\n" .
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
         '<channel>';
     }
 
@@ -148,7 +148,7 @@ class MediaItem extends AbstractItem implements ItemInterface
         if (!empty($this->data['link'])) {
             $xml = array();
 
-            $xml[] = "\t" . '<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
+            $xml[] = "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
             $xml[] = (!empty($this->data['link'])) ? "\t\t<link>{$this->data['link']}</link>" : '';
 
             if (!empty($this->data['duration']) && !empty($this->data['mimetype'])) {
@@ -173,8 +173,8 @@ class MediaItem extends AbstractItem implements ItemInterface
                 $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\"/>";
             }
 
-            $xml[] = "\t\t" . '</media:content>';
-            $xml[] = "\t" . '</item>';
+            $xml[] = "\t\t".'</media:content>';
+            $xml[] = "\t".'</item>';
 
             //Remove empty fields
             $xml = array_filter($xml);

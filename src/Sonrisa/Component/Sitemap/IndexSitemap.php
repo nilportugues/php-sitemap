@@ -15,7 +15,6 @@ use Sonrisa\Component\Sitemap\Items\IndexItem;
  */
 class IndexSitemap extends AbstractSitemap implements SitemapInterface
 {
-
     /**
      * @var IndexItem
      */
@@ -30,7 +29,6 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
         $loc = $item->getLoc();
 
         if (!empty($loc) && !in_array($loc, $this->usedUrls, true)) {
-
             //Mark URL as used.
             $this->usedUrls[] = $loc;
 
@@ -51,7 +49,6 @@ class IndexSitemap extends AbstractSitemap implements SitemapInterface
 
                     $this->totalItems++;
                 }
-
             } else {
                 //reset count
                 $this->currentFileByteSize = 0;

@@ -13,7 +13,6 @@ namespace Sonrisa\Component\Sitemap\Validators;
  */
 class MediaValidator extends SharedValidator
 {
-
     /**
      * @var \Sonrisa\Component\Sitemap\Validators\MediaValidator
      */
