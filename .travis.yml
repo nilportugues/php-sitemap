@@ -7,8 +7,11 @@ php:
   - hhvm
   
 before_script:
-  ## Install Composer
+  - composer require --dev satooshi/php-coveralls:dev-master
   - composer install
+  
+after_script:
+  - php bin/coveralls -v
 
 script: 
   - phpunit --coverage-text
