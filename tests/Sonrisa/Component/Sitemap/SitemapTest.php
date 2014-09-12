@@ -513,4 +513,21 @@ XML;
         $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
         $this->sitemap->write('./fake/path', 'sitemap.xml', true);
     }
+
+    public function testItemsPerSitemap()
+    {
+        for($i = 1; $i <= 50001; $i++){
+            $item = new UrlItem();
+            $item->setLoc('http://www.example.com/'.$i);
+            $item->setPriority('0.8');
+            $item->setChangeFreq('monthly');
+            $item->setLastMod('2005-05-10T17:33:30+08:00');
+            $this->sitemap->add($item);
+        }
+
+        $this->sitemap->build();
+        $this->sitemap->write('./', 'sitemap-itemPerSite.xml', false);
+        $this->assertFileExists('sitemap-itemPerSite.xml');
+        $this->assertFileExists('sitemap-itemPerSite1.xml');
+    }
 }
