@@ -36,9 +36,9 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
             $current = $this->currentFileByteSize + $item->getHeaderSize() + $item->getFooterSize();
 
             //Check if new file is needed or not. ONLY create a new file if the constrains are met.
-            if (($current <= $this->maxFilesize) && ($this->totalItems <= $this->maxItemsPerSitemap)) {
+            if (($current <= $this->maxFilesize) && ($this->totalItems < $this->maxItemsPerSitemap)) {
                 //add bytes to total
-                $this->currentFileByteSize = $item->getItemSize();
+                $this->currentFileByteSize += $item->getItemSize();
 
                 //add item to the item array
                 $built = $item->build();
@@ -53,13 +53,13 @@ class Sitemap extends AbstractSitemap implements SitemapInterface
                 //reset count
                 $this->currentFileByteSize = 0;
 
-                //copy items to the files array.
-                $this->totalFiles = $this->totalFiles + 1;
-                $this->files[$this->totalFiles] = implode("\n", $this->items);
-
                 //reset the item count by inserting the first new item
                 $this->items = array($item);
                 $this->totalItems = 1;
+
+                //copy items to the files array.
+                $this->totalFiles = $this->totalFiles + 1;
+                $this->files[$this->totalFiles] = implode("\n", $this->items);
             }
             $this->lastItem = $item;
         }
