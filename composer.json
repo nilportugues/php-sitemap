@@ -1,5 +1,5 @@
 {
-    "name":"sonrisa/sitemap-component",
+    "name":"nilportugues/sitemap-component",
     "description":"Standalone sitemap builder 100% standards compliant. Build for PHP5.3 and above.",
     "keywords": [ "sitemap", "xml", "image", "news", "video", "media", "index" ],
     "type":"library",
@@ -15,7 +15,7 @@
         }
     ],
     "require":{
-        "php":">=5.3.0"
+        "php":">=5.4"
     },
     "require-dev":
     {
@@ -28,15 +28,19 @@
         "fabpot/php-cs-fixer": "dev-master",
         "pdepend/pdepend": "2.*",
         "phpmd/phpmd": "dev-master",
-        "goatherd/phpcs_installer": "2.*@dev",
         "squizlabs/php_codesniffer": "2.*@dev"
     },
     "config":{
         "bin-dir":"bin/"
     },
     "autoload":{
-        "psr-0":{
-            "Sonrisa\\Component\\Sitemap":"src/"
+        "psr-4":{
+            "NilPortugues\\Sitemap\\":"src/"
+        }
+    },
+    "autoload-dev":{
+        "psr-4":{
+            "Tests\\NilPortugues\\Sitemap\\":"tests/"
         }
     },
     "minimum-stability": "stable"

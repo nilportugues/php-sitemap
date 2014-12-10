@@ -22,7 +22,7 @@
     
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>./tests/Sonrisa/Component/Sitemap/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 

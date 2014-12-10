@@ -98,7 +98,7 @@ This component also provides a method to submit the generated sitemaps to the fo
 ### 4.1 - Submit to search engines
 ```php
 <?php
-use Sonrisa\Component\Sitemap\SubmitSitemap;
+use NilPortugues\Sitemap\SubmitSitemap;
 
 // $status = array('google' => true, 'bing' => true); if everything went OK.
 $status = SubmitSitemap::send('http://example.com/sitemap-index.xml');
@@ -114,9 +114,9 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\IndexSitemap;
-use \Sonrisa\Component\Sitemap\Items\IndexItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use \NilPortugues\Sitemap\IndexSitemap;
+use \NilPortugues\Sitemap\Items\IndexItem;
+use \NilPortugues\Sitemap\Exceptions\SitemapException;
 
 try {
 	$sitemap = new IndexSitemap();
@@ -165,9 +165,9 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\Sitemap;
-use \Sonrisa\Component\Sitemap\Items\UrlItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use \NilPortugues\Sitemap\Sitemap;
+use \NilPortugues\Sitemap\Items\UrlItem;
+use \NilPortugues\Sitemap\Exceptions\SitemapException;
 
 try {
 	$sitemap = new Sitemap();
@@ -239,9 +239,9 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\ImageSitemap;
-use \Sonrisa\Component\Sitemap\Items\ImageItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use \NilPortugues\Sitemap\ImageSitemap;
+use \NilPortugues\Sitemap\Items\ImageItem;
+use \NilPortugues\Sitemap\Exceptions\SitemapException;
 
 try {
 	$sitemap = new ImageSitemap();
@@ -296,9 +296,9 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\VideoSitemap;
-use \Sonrisa\Component\Sitemap\Items\VideoItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use \NilPortugues\Sitemap\VideoSitemap;
+use \NilPortugues\Sitemap\Items\VideoItem;
+use \NilPortugues\Sitemap\Exceptions\SitemapException;
 
 try {
 	$sitemap = new VideoSitemap();
@@ -385,9 +385,9 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\MediaSitemap;
-use \Sonrisa\Component\Sitemap\Items\MediaItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use \NilPortugues\Sitemap\MediaSitemap;
+use \NilPortugues\Sitemap\Items\MediaItem;
+use \NilPortugues\Sitemap\Exceptions\SitemapException;
 
 try {
 	$sitemap = new MediaSitemap();
@@ -471,9 +471,9 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\NewsSitemap;
-use \Sonrisa\Component\Sitemap\Items\NewsItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use \NilPortugues\Sitemap\NewsSitemap;
+use \NilPortugues\Sitemap\Items\NewsItem;
+use \NilPortugues\Sitemap\Exceptions\SitemapException;
 
 try {
 	$sitemap = new NewsSitemap();
