@@ -14,7 +14,7 @@ trait ValidatorTrait
      * @param $value
      * @return bool|string
      */
-    public static function validateLoc($value)
+    public function validateLoc($value)
     {
         if (filter_var($value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)))) {
             return htmlentities($value);

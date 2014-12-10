@@ -5,7 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace NilPortugues\Sitemap\Item;
+namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Validators\VideoValidator;
 
