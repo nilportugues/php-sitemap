@@ -8,7 +8,6 @@
 
 namespace NilPortugues\Sitemap\Item;
 
-
 /**
  * Class AbstractItem
  * @package NilPortugues\Sitemap\Items
@@ -34,6 +33,19 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
+     * Collapses the item to its string XML representation.
+     *
+     * @return string
+     */
+    public function build()
+    {
+        $xml = array_filter($this->xml);
+        $data = implode("\n", $xml);
+
+        return $data;
+    }
+
+    /**
      * Converts data to string and measures its size in bytes.
      *
      * @return int
@@ -42,11 +54,6 @@ abstract class AbstractItem implements ItemInterface
     {
         return mb_strlen($this->build(), 'UTF-8');
     }
-
-    /**
-     * @return string
-     */
-    abstract public function getHeader();
 
     /**
      * @return int
@@ -59,7 +66,7 @@ abstract class AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    abstract public function getFooter();
+    abstract public function getHeader();
 
     /**
      * @return int
@@ -70,17 +77,9 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * Collapses the item to its string XML representation.
-     *
      * @return string
      */
-    public function build()
-    {
-        $xml  = array_filter($this->xml);
-        $data = implode("\n", $xml);
-
-        return $data;
-    }
+    abstract public function getFooter();
 
     /**
      * Resets the data structure used to represent the item as XML.

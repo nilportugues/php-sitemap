@@ -8,13 +8,26 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item;
+namespace NilPortugues\Sitemap\Item\Index;
 
+use NilPortugues\Sitemap\Item\SingletonTrait;
+use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
  * Class IndexItemValidator
  * @package NilPortugues\Sitemap\Items
  */
-class IndexItemValidator {
+class IndexItemValidator
+{
+    use SingletonTrait;
+    use ValidatorTrait;
 
-} 
+    /**
+     * @param $lastmod
+     * @return string
+     */
+    public function validateLastmod($lastmod)
+    {
+        return $this->validateDate($lastmod);
+    }
+}

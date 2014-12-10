@@ -8,13 +8,73 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item;
+namespace NilPortugues\Sitemap\Item\Image;
 
+use NilPortugues\Sitemap\Item\SingletonTrait;
+use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
  * Class ImageItemValidator
  * @package NilPortugues\Sitemap\Items
  */
-class ImageItemValidator {
+class ImageItemValidator
+{
+    use SingletonTrait;
+    use ValidatorTrait;
 
-} 
+    /**
+     * @param $title
+     * @return string
+     */
+    public function validateTitle($title)
+    {
+        $data = '';
+        if (is_string($title)) {
+            $data = $title;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $caption
+     * @return string
+     */
+    public function validateCaption($caption)
+    {
+        $data = '';
+        if (is_string($caption)) {
+            $data = $caption;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $geolocation
+     * @return string
+     */
+    public function validateGeolocation($geolocation)
+    {
+        $data = '';
+        if (is_string($geolocation)) {
+            $data = $geolocation;
+        }
+
+        return $data;
+    }
+
+    /**
+     * @param $license
+     * @return string
+     */
+    public function validateLicense($license)
+    {
+        $data = '';
+        if (is_string($license)) {
+            $data = $license;
+        }
+
+        return $data;
+    }
+}
