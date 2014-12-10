@@ -8,6 +8,8 @@
 
 namespace NilPortugues\Sitemap\Item\Media;
 
+use NilPortugues\Sitemap\Item\AbstractItem;
+
 /**
  * Class MediaItem
  * @package NilPortugues\Sitemap\Items
@@ -15,16 +17,57 @@ namespace NilPortugues\Sitemap\Item\Media;
 class MediaItem extends AbstractItem
 {
     /**
-     * @var \NilPortugues\Sitemap\Validators\MediaValidator
+     * @var MediaItemValidator
      */
     protected $validator;
 
     /**
      *
      */
-    public function __construct()
+    public function __construct($link)
     {
-        $this->validator = MediaValidator::getInstance();
+        $this->validator = MediaItemValidator::getInstance();
+        $this->xml       = $this->reset();
+        $this->setLink($link);
+    }
+
+    /**
+     * Resets the data structure used to represent the item as XML.
+     *
+     * @return array
+     */
+    protected function reset()
+    {
+        return [
+            "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
+            'link'        => '',
+            'duration'    => '',
+            'player'      => '',
+            'title'       => '',
+            'description' => '',
+            'thumbnail'   => '',
+            "\t\t".'</media:content>',
+            "\t".'</item>',
+        ];
+    }
+
+    /**
+     * @param $link
+     *
+     * @throws MediaItemException
+     * @return $this
+     */
+    protected function setLink($link)
+    {
+        $link = $this->validator->validateLink($link);
+        if (false === $link) {
+            throw new MediaItemException(
+                sprintf('The provided link \'%s\' is not a valid value.', $link)
+            );
+        }
+        $this->xml['link'] = "\t\t<link>{$link}</link>";
+
+        return $this;
     }
 
     /**
@@ -33,8 +76,8 @@ class MediaItem extends AbstractItem
     public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
-        '<channel>';
+        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'
+        ."\n".'<channel>'."\n";
     }
 
     /**
@@ -46,149 +89,203 @@ class MediaItem extends AbstractItem
     }
 
     /**
-     * @return string
+     * @param      $mimeType
+     * @param null $duration
+     *
+     * @return mixed
      */
-    public function getLink()
+    public function setContent($mimeType, $duration = null)
     {
-        return (!empty($this->data['link'])) ? $this->data['link'] : '';
+        $this->xml['content'] = "\t\t<media:content ";
+        $this->setContentMimeType($mimeType);
+
+        if (null !== $duration) {
+            $this->setContentDuration($duration);
+        }
+
+        $this->xml['content'] .= ">";
+
+        return $this;
     }
 
     /**
-     * @param $link
+     * @param $mimeType
      *
-     * @return $this
+     * @throws MediaItemException
      */
-    public function setLink($link)
+    protected function setContentMimeType($mimeType)
     {
-        return $this->setField('link', $link);
+        $mimeType = $this->validator->validateMimeType($mimeType);
+        if (false === $mimeType) {
+            throw new MediaItemException(
+                sprintf('The provided mime-type \'%s\' is not a valid value.', $mimeType)
+            );
+        }
+        $this->xml['content'] .= "type=\"{$mimeType}\"";
     }
 
     /**
      * @param $duration
      *
-     * @return $this
+     * @throws MediaItemException
      */
-    public function setContentDuration($duration)
+    protected function setContentDuration($duration)
     {
-        return $this->setField('duration', $duration);
-    }
+        if (null !== $duration) {
+            $duration = $this->validator->validateDuration($duration);
 
-    /**
-     * @param $mimetype
-     *
-     * @return $this
-     */
-    public function setContentMimeType($mimetype)
-    {
-        return $this->setField('mimetype', $mimetype);
+            if (false === $duration) {
+                throw new MediaItemException(
+                    sprintf('The provided duration \'%s\' is not a valid value.', $duration)
+                );
+            }
+
+            $this->xml['content'] .= " duration=\"{$duration}\"";
+        }
     }
 
     /**
      * @param $player
      *
+     * @throws MediaItemException
      * @return $this
      */
     public function setPlayer($player)
     {
-        return $this->setField('player', $player);
+        $player = $this->validator->validatePlayer($player);
+        if (false === $player) {
+            throw new MediaItemException(
+                sprintf('The provided player \'%s\' is not a valid value.', $player)
+            );
+        }
+
+        $this->xml['player'] = "\t\t\t<media:player url=\"{$player}\" />";
+
+        return $this;
     }
 
     /**
      * @param $title
      *
+     * @throws MediaItemException
      * @return $this
      */
     public function setTitle($title)
     {
-        return $this->setField('title', $title);
+        $title = $this->validator->validateTitle($title);
+        if (false === $title) {
+            throw new MediaItemException(
+                sprintf('The provided title \'%s\' is not a valid value.', $title)
+            );
+        }
+
+        $this->xml['title'] = "\t\t\t<media:title>{$title}</media:title>";
+
+        return $this;
     }
 
     /**
      * @param $description
      *
+     * @throws MediaItemException
      * @return $this
      */
     public function setDescription($description)
     {
-        return $this->setField('description', $description);
+        $description = $this->validator->validateDescription($description);
+        if (false === $description) {
+            throw new MediaItemException(
+                sprintf('The provided description \'%s\' is not a valid value.', $description)
+            );
+        }
+
+        $this->xml['description'] = "\t\t\t<media:description>{$description}</media:description>";
+
+        return $this;
+    }
+
+    /**
+     * @param      $thumbnail
+     * @param null $height
+     * @param null $weight
+     *
+     * @return $this
+     */
+    public function setThumbnail($thumbnail, $height = null, $weight = null)
+    {
+        $this->xml['thumbnail'] = "\t\t\t<media:thumbnail";
+        $this->setThumbnailUrl($thumbnail);
+
+        if (null !== $height) {
+            $this->setThumbnailHeight($height);
+        }
+
+        if (null !== $weight) {
+            $this->setThumbnailWidth($weight);
+        }
+
+        $this->xml['thumbnail'] .= "/>";
+
+        return $this;
     }
 
     /**
      * @param $url
      *
+     * @throws MediaItemException
      * @return $this
      */
-    public function setThumbnailUrl($url)
+    protected function setThumbnailUrl($url)
     {
-        return $this->setField('thumbnail', $url);
+        $url = $this->validator->validateThumbnail($url);
+        if (false === $url) {
+            throw new MediaItemException(
+                sprintf('The provided url \'%s\' is not a valid value.', $url)
+            );
+        }
+
+        $this->xml['thumbnail'] .= " url=\"{$url}\"";
+
+        return $this;
     }
 
     /**
      * @param $height
      *
+     * @throws MediaItemException
      * @return $this
      */
-    public function setThumbnailHeight($height)
+    protected function setThumbnailHeight($height)
     {
-        return $this->setField('height', $height);
+        $height = $this->validator->validateHeight($height);
+        if (false === $height) {
+            throw new MediaItemException(
+                sprintf('The provided height \'%s\' is not a valid value.', $height)
+            );
+        }
+
+        $this->xml['thumbnail'] .= " height=\"{$height}\"";
+
+        return $this;
     }
 
     /**
      * @param $width
      *
+     * @throws MediaItemException
      * @return $this
      */
-    public function setThumbnailWidth($width)
+    protected function setThumbnailWidth($width)
     {
-        return $this->setField('width', $width);
-    }
-
-    /**
-     * Collapses the item to its string XML representation.
-     *
-     * @return string
-     */
-    public function build()
-    {
-        $data = '';
-        //Create item ONLY if all mandatory data is present.
-        if (!empty($this->data['link'])) {
-            $xml = array();
-
-            $xml[] = "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">';
-            $xml[] = (!empty($this->data['link'])) ? "\t\t<link>{$this->data['link']}</link>" : '';
-
-            if (!empty($this->data['duration']) && !empty($this->data['mimetype'])) {
-                $xml[] = "\t\t<media:content type=\"{$this->data['mimetype']}\" duration=\"{$this->data['duration']}\">";
-            } elseif (empty($this->data['duration']) && !empty($this->data['mimetype'])) {
-                $xml[] = "\t\t<media:content type=\"{$this->data['mimetype']}\">";
-            } elseif (!empty($this->data['duration']) && empty($this->data['mimetype'])) {
-                $xml[] = "\t\t<media:content duration=\"{$this->data['duration']}\">";
-            }
-
-            $xml[] = (!empty($this->data['player'])) ? "\t\t\t<media:player url=\"{$this->data['player']}\" />" : '';
-            $xml[] = (!empty($this->data['title'])) ? "\t\t\t<media:title>{$this->data['title']}</media:title>" : '';
-            $xml[] = (!empty($this->data['description'])) ? "\t\t\t<media:description>{$this->data['description']}</media:description>" : '';
-
-            if (!empty($this->data['thumbnail']) && !empty($this->data['height']) && !empty($this->data['width'])) {
-                $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" height=\"{$this->data['height']}\" width=\"{$this->data['width']}\"/>";
-            } elseif (!empty($this->data['thumbnail']) && !empty($this->data['height'])) {
-                $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" height=\"{$this->data['height']}\"/>";
-            } elseif (!empty($this->data['thumbnail']) && !empty($this->data['width'])) {
-                $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\" width=\"{$this->data['width']}\"/>";
-            } elseif (!empty($this->data['thumbnail'])) {
-                $xml[] = "\t\t\t<media:thumbnail url=\"{$this->data['thumbnail']}\"/>";
-            }
-
-            $xml[] = "\t\t".'</media:content>';
-            $xml[] = "\t".'</item>';
-
-            //Remove empty fields
-            $xml = array_filter($xml);
-
-            $data = implode("\n", $xml);
+        $width = $this->validator->validateWidth($width);
+        if (false === $width) {
+            throw new MediaItemException(
+                sprintf('The provided width \'%s\' is not a valid value.', $width)
+            );
         }
 
-        return $data;
+        $this->xml['thumbnail'] .= " width=\"{$width}\"";
+
+        return $this;
     }
 }

@@ -5,25 +5,58 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace NilPortugues\Sitemap\Item;
+namespace NilPortugues\Sitemap\Item\Index;
+
+use NilPortugues\Sitemap\Item\Url\UrlItem;
+use NilPortugues\Sitemap\Item\Url\UrlItemException;
+use NilPortugues\Sitemap\Item\Url\UrlItemValidator;
 
 /**
  * Class IndexItem
  * @package NilPortugues\Sitemap\Items
  */
-class IndexItem extends AbstractItem
+class IndexItem extends UrlItem
 {
     /**
-     * @var \NilPortugues\Sitemap\Validators\IndexValidator
+     * @var UrlItemValidator
      */
     protected $validator;
 
     /**
-     *
+     * @var string
      */
-    public function __construct()
+    protected $exceptionMessage = 'Operation not supported for Index Sitemaps';
+
+    /**
+     * Resets the data structure used to represent the item as XML.
+     *
+     * @return array
+     */
+    protected function reset()
     {
-        $this->validator = IndexValidator::getInstance();
+        return [
+            "\t".'<sitemap>',
+            'loc'     => '',
+            'lastmod' => '',
+            "\t".'</sitemap>',
+        ];
+    }
+
+    /**
+     * @param $loc
+     *
+     * @throws IndexItemException
+     * @return $this
+     */
+    protected function setLoc($loc)
+    {
+        try {
+            parent::setLoc($loc);
+        } catch (UrlItemException $e) {
+            throw new IndexItemException($e->getMessage());
+        }
+
+        return $this;
     }
 
     /**
@@ -32,7 +65,7 @@ class IndexItem extends AbstractItem
     public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
     }
 
     /**
@@ -44,58 +77,39 @@ class IndexItem extends AbstractItem
     }
 
     /**
-     * @return string
-     */
-    public function getLoc()
-    {
-        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
-    }
-
-    /**
-     * @param $loc
-     *
-     * @return $this
-     */
-    public function setLoc($loc)
-    {
-        return $this->setField('loc', $loc);
-    }
-
-    /**
      * @param $lastmod
      *
+     * @throws IndexItemException
      * @return $this
      */
     public function setLastMod($lastmod)
     {
-        return $this->setField('lastmod', $lastmod);
+        try {
+            parent::setLastMod($lastmod);
+        } catch (UrlItemException $e) {
+            throw new IndexItemException($e->getMessage());
+        }
+
+        return $this;
     }
 
     /**
-     * Collapses the item to its string XML representation.
+     * @param $priority
      *
-     * @return string
+     * @throws IndexItemException
      */
-    public function build()
+    public function setPriority($priority)
     {
-        $data = '';
+        throw new IndexItemException($this->exceptionMessage);
+    }
 
-        //Create item ONLY if all mandatory data is present.
-        if (!empty($this->data['loc'])) {
-            $xml = array();
-
-            $xml[] = "\t".'<sitemap>';
-            $xml[] = (!empty($this->data['loc'])) ? "\t\t<loc>{$this->data['loc']}</loc>" : '';
-            $xml[] = (!empty($this->data['lastmod'])) ? "\t\t<lastmod>{$this->data['lastmod']}</lastmod>" : '';
-            $xml[] = "\t".'</sitemap>';
-
-            $xml = array_filter($xml);
-
-            if (!empty($xml)) {
-                $data = implode("\n", $xml);
-            }
-        }
-
-        return $data;
+    /**
+     * @param $priority
+     *
+     * @throws IndexItemException
+     */
+    public function setChangeFreq($changeFreq)
+    {
+        throw new IndexItemException($this->exceptionMessage);
     }
 }

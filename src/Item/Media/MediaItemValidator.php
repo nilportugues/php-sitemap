@@ -24,25 +24,36 @@ class MediaItemValidator
 
     /**
      * @param $title
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateTitle($title)
     {
+        if (is_string($title) && strlen($title)>0) {
+            return $title;
+        }
+
         return $title;
     }
 
     /**
-     * @param $mimetype
-     * @return string
+     * @param $mimeType
+     *
+     * @return bool|string
      */
-    public function validateMimetype($mimetype)
+    public function validateMimeType($mimeType)
     {
-        return $mimetype;
+        if (is_string($mimeType) && strlen($mimeType)>0) {
+            return $mimeType;
+        }
+
+        return false;
     }
 
     /**
      * @param $link
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateLink($link)
     {
@@ -51,7 +62,8 @@ class MediaItemValidator
 
     /**
      * @param $player
-     * @return string
+     *
+     * @return bool|string
      */
     public function validatePlayer($player)
     {
@@ -60,30 +72,36 @@ class MediaItemValidator
 
     /**
      * @param $duration
-     * @return integer
+     *
+     * @return bool|integer
      */
     public function validateDuration($duration)
     {
-        $data = '';
-        if (filter_var($duration, FILTER_SANITIZE_NUMBER_INT)) {
-            $data = $duration;
+        if (filter_var($duration, FILTER_SANITIZE_NUMBER_INT) && $duration>0) {
+            return $duration;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $description
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateDescription($description)
     {
-        return $description;
+        if (is_string($description) && strlen($description)>0) {
+            return $description;
+        }
+
+        return false;
     }
 
     /**
      * @param $thumbnail
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateThumbnail($thumbnail)
     {
@@ -92,29 +110,29 @@ class MediaItemValidator
 
     /**
      * @param $height
-     * @return integer
+     *
+     * @return bool|integer
      */
     public function validateHeight($height)
     {
-        $data = '';
-        if (filter_var($height, FILTER_SANITIZE_NUMBER_INT)) {
-            $data = $height;
+        if (filter_var($height, FILTER_SANITIZE_NUMBER_INT) && $height>0) {
+            return $height;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $width
-     * @return integer
+     *
+     * @return bool|integer
      */
     public function validateWidth($width)
     {
-        $data = '';
-        if (filter_var($width, FILTER_SANITIZE_NUMBER_INT)) {
-            $data = $width;
+        if (filter_var($width, FILTER_SANITIZE_NUMBER_INT) && $width>0) {
+            return $width;
         }
 
-        return $data;
+        return false;
     }
 }
