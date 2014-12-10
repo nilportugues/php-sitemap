@@ -33,7 +33,7 @@ class MediaItemValidator
             return $title;
         }
 
-        return $title;
+        return false;
     }
 
     /**
