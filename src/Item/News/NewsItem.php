@@ -7,7 +7,7 @@
  */
 namespace NilPortugues\Sitemap\Item\News;
 
-use NilPortugues\Sitemap\Validators\NewsValidator;
+use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
  * Class NewsItem
@@ -16,16 +16,161 @@ use NilPortugues\Sitemap\Validators\NewsValidator;
 class NewsItem extends AbstractItem
 {
     /**
-     * @var \NilPortugues\Sitemap\Validators\NewsValidator
+     * @var NewsItemValidator
      */
     protected $validator;
 
     /**
-     *
+     * @param $loc
+     * @param $title
+     * @param $publicationDate
+     * @param $name
+     * @param $language
      */
-    public function __construct()
+    public function __construct($loc, $title, $publicationDate, $name, $language)
     {
-        $this->validator = NewsValidator::getInstance();
+        $this->validator = NewsItemValidator::getInstance();
+        $this->xml       = $this->reset();
+        $this->setLoc($loc);
+        $this->setTitle($title);
+        $this->setPublicationDate($publicationDate);
+        $this->setPublication($name, $language);
+    }
+
+    /**
+     * Resets the data structure used to represent the item as XML.
+     *
+     * @return array
+     */
+    protected function reset()
+    {
+        return [
+            "\t".'<url>',
+            'loc'              => '',
+            "\t\t".'<news:news>',
+            'name'             => '',
+            'access'           => '',
+            'genres'           => '',
+            'publication_date' => '',
+            'title'            => '',
+            'keywords'         => '',
+            'stock_tickers'    => '',
+            "\t\t".'</news:news>',
+            "\t".'</url>',
+        ];
+    }
+
+    /**
+     * @param $loc
+     *
+     * @throws NewsItemException
+     * @return $this
+     */
+    protected function setLoc($loc)
+    {
+        $loc = $this->validator->validateLoc($loc);
+        if (false === $loc) {
+            throw new NewsItemException(
+                sprintf('Provided URL \'%s\' is not a valid value.', $loc)
+            );
+        }
+
+        $this->xml['loc'] = "\t\t<loc>".$loc."</loc>";
+
+        return $this;
+    }
+
+    /**
+     * @param $title
+     *
+     * @throws NewsItemException
+     * @return $this
+     */
+    protected function setTitle($title)
+    {
+        $title = $this->validator->validateTitle($title);
+        if (false === $title) {
+            throw new NewsItemException(
+                sprintf('Provided title \'%s\' is not a valid value.', $title)
+            );
+        }
+        $this->xml['title'] = "\t\t\t".'<news:title>'.$title.'</news:title>';
+
+        return $this;
+    }
+
+    /**
+     * @param $date
+     *
+     * @throws NewsItemException
+     * @return $this
+     */
+    protected function setPublicationDate($date)
+    {
+        $date = $this->validator->validatePublicationDate($date);
+        if (false === $date) {
+            throw new NewsItemException(
+                sprintf('Provided publication date \'%s\' is not a valid value.', $date)
+            );
+        }
+        $this->xml['publication_date'] = "\t\t\t".'<news:publication_date>'.$date.'</news:publication_date>';
+
+        return $this;
+    }
+
+    /**
+     * @param $name
+     * @param $language
+     *
+     * @return $this
+     */
+    protected function setPublication($name, $language)
+    {
+        $this->xml['name'] = "\t\t\t".'<news:publication>'."\n";
+        $this->setPublicationName($name);
+        $this->setPublicationLanguage($language);
+        $this->xml['name'] .= "\t\t\t".'</news:publication>'."\n";
+
+        return $this;
+    }
+
+    /**
+     * @param $name
+     *
+     * @throws NewsItemException
+     * @return $this
+     */
+    protected function setPublicationName($name)
+    {
+        $name = $this->validator->validateName($name);
+        if (false === $name) {
+            throw new NewsItemException(
+                sprintf('Provided publication name \'%s\' is not a valid value.', $name)
+            );
+        }
+
+        $this->xml['name'] .= "\t\t\t\t".'<news:name>'.$name.'</news:name>'."\n";
+
+        return $this;
+    }
+
+    /**
+     * @param $language
+     *
+     * @throws NewsItemException
+     * @return $this
+     */
+    protected function setPublicationLanguage($language)
+    {
+        $language = $this->validator->validateLanguage($language);
+        if (false === $language) {
+            throw new NewsItemException(
+                sprintf('Provided publication language \'%s\' is not a valid value.', $language)
+            );
+        }
+        $this->xml['name'] .= "\t\t\t\t".'<news:language>'.$language.'</news:language>'."\n";
+
+        return $this;
     }
 
     /**
@@ -34,7 +179,8 @@ class NewsItem extends AbstractItem
     public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">';
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
+        'xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">'."\n";
     }
 
     /**
@@ -46,146 +192,78 @@ class NewsItem extends AbstractItem
     }
 
     /**
-     * @return string
-     */
-    public function getLoc()
-    {
-        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
-    }
-
-    /**
-     * @param $loc
-     *
-     * @return $this
-     */
-    public function setLoc($loc)
-    {
-        return $this->setField('loc', $loc);
-    }
-
-    /**
-     * @param $title
-     *
-     * @return $this
-     */
-    public function setTitle($title)
-    {
-        return $this->setField('title', $title);
-    }
-
-    /**
-     * @param $date
-     *
-     * @return $this
-     */
-    public function setPublicationDate($date)
-    {
-        return $this->setField('publication_date', $date);
-    }
-
-    /**
-     * @param $name
-     *
-     * @return $this
-     */
-    public function setPublicationName($name)
-    {
-        return $this->setField('name', $name);
-    }
-
-    /**
-     * @param $language
-     *
-     * @return $this
-     */
-    public function setPublicationLanguage($language)
-    {
-        return $this->setField('language', $language);
-    }
-
-    /**
      * @param $access
      *
+     * @throws NewsItemException
      * @return $this
      */
     public function setAccess($access)
     {
-        return $this->setField('access', $access);
+        $access = $this->validator->validateAccess($access);
+        if (false === $access) {
+            throw new NewsItemException(
+                sprintf('Provided access \'%s\' is not a valid value.', $access)
+            );
+        }
+        $this->xml['access'] = "\t\t\t".'<news:access>'.$access.'</news:access>';
+
+        return $this;
     }
 
     /**
      * @param $genres
      *
      * @return $this
+     * @throws NewsItemException
      */
     public function setGenres($genres)
     {
-        return $this->setField('genres', $genres);
+        $genres = $this->validator->validateGenres($genres);
+        if (false === $genres) {
+            throw new NewsItemException(
+                sprintf('Provided genres list \'%s\' is not a valid value.', $genres)
+            );
+        }
+        $this->xml['genres'] = "\t\t\t".'<news:genres>'.$genres.'</news:genres>';
+
+        return $this;
     }
 
     /**
      * @param $keywords
      *
      * @return $this
+     * @throws NewsItemException
      */
     public function setKeywords($keywords)
     {
-        return $this->setField('keywords', $keywords);
+        $keywords = $this->validator->validateKeywords($keywords);
+        if (false === $keywords) {
+            throw new NewsItemException(
+                sprintf('Provided keyword list \'%s\' is not a valid value.', $keywords)
+            );
+        }
+        $this->xml['keywords'] = "\t\t\t".'<news:keywords>'.$keywords.'</news:keywords>';
+
+        return $this;
     }
 
     /**
-     * @param $stock_tickers
+     * @param $stockTickers
      *
+     * @throws NewsItemException
      * @return $this
      */
-    public function setStockTickers($stock_tickers)
+    public function setStockTickers($stockTickers)
     {
-        return $this->setField('stock_tickers', $stock_tickers);
-    }
-
-    /**
-     * Collapses the item to its string XML representation.
-     *
-     * @return string
-     */
-    public function build()
-    {
-        $data = '';
-        //Create item ONLY if all mandatory data is present.
-        if (
-            !empty($this->data['loc'])
-            && !empty($this->data['title'])
-            && !empty($this->data['publication_date'])
-            && !empty($this->data['name'])
-            && !empty($this->data['language'])
-        ) {
-            $xml = array();
-            $xml[] = "\t".'<url>';
-            $xml[] = "\t\t".'<loc>'.$this->data['loc'].'</loc>';
-
-            $xml[] = "\t\t".'<news:news>';
-
-            if (!empty($this->data['name']) && !empty($this->data['language'])) {
-                $xml[] = "\t\t\t".'<news:publication>';
-                $xml[] = (!empty($this->data['name'])) ? "\t\t\t\t".'<news:name>'.$this->data['name'].'</news:name>' : '';
-                $xml[] = (!empty($this->data['language'])) ? "\t\t\t\t".'<news:language>'.$this->data['language'].'</news:language>' : '';
-                $xml[] = "\t\t\t".'</news:publication>';
-            }
-
-            $xml[] = (!empty($this->data['access'])) ? "\t\t\t".'<news:access>'.$this->data['access'].'</news:access>' : '';
-            $xml[] = (!empty($this->data['genres'])) ? "\t\t\t".'<news:genres>'.$this->data['genres'].'</news:genres>' : '';
-            $xml[] = (!empty($this->data['publication_date'])) ? "\t\t\t".'<news:publication_date>'.$this->data['publication_date'].'</news:publication_date>' : '';
-            $xml[] = (!empty($this->data['title'])) ? "\t\t\t".'<news:title>'.$this->data['title'].'</news:title>' : '';
-            $xml[] = (!empty($this->data['keywords'])) ? "\t\t\t".'<news:keywords>'.$this->data['keywords'].'</news:keywords>' : '';
-            $xml[] = (!empty($this->data['stock_tickers'])) ? "\t\t\t".'<news:stock_tickers>'.$this->data['stock_tickers'].'</news:stock_tickers>' : '';
-
-            $xml[] = "\t\t".'</news:news>';
-            $xml[] = "\t".'</url>';
-            $xml = array_filter($xml);
-
-            $data = implode("\n", $xml);
+        $stockTickers = $this->validator->validateKeywords($stockTickers);
+        if (false === $stockTickers) {
+            throw new NewsItemException(
+                sprintf('Provided stock tickers \'%s\' are not a valid value.', $stockTickers)
+            );
         }
+        $this->xml['stock_tickers'] = "\t\t\t".'<news:stock_tickers>'.$stockTickers.'</news:stock_tickers>';
 
-        return $data;
+        return $this;
     }
 }
