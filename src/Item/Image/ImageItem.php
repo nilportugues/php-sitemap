@@ -7,126 +7,163 @@
  */
 namespace NilPortugues\Sitemap\Item\Image;
 
+use NilPortugues\Sitemap\Item\AbstractItem;
+
 /**
  * Class ImageItem
- * @package NilPortugues\Sitemap\Items
+ * @package NilPortugues\Sitemap\Item\Image
  */
-class ImageItem extends AbstractItem implements ItemInterface
+class ImageItem extends AbstractItem
 {
     /**
-     * @var \NilPortugues\Sitemap\Validators\ImageValidator
+     * @var ImageItemValidator
      */
     protected $validator;
 
     /**
+     * @param $loc
+     */
+    public function __construct($loc)
+    {
+        $this->validator = ImageItemValidator::getInstance();
+        $this->xml       = $this->reset();
+        $this->setLoc($loc);
+    }
+
+    /**
+     * Resets the data structure used to represent the item as XML.
      *
+     * @return array
      */
-    public function __construct()
+    protected function reset()
     {
-        $this->validator = ImageValidator::getInstance();
-    }
-
-    /**
-     * @return string
-     */
-    public function getHeader()
-    {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
-        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">';
-    }
-
-    /**
-     * @return string
-     */
-    public function getFooter()
-    {
-        return "</urlset>";
-    }
-
-    /**
-     * @return string
-     */
-    public function getLoc()
-    {
-        return (!empty($this->data['loc'])) ? $this->data['loc'] : '';
+        return [
+            "\t<image:image>",
+            'loc'         => '',
+            'title'       => '',
+            'caption'     => '',
+            'geolocation' => '',
+            'license'     => '',
+            "\t</image:image>"
+        ];
     }
 
     /**
      * @param $loc
      *
+     * @throws ImageItemException
      * @return $this
      */
-    public function setLoc($loc)
+    protected function setLoc($loc)
     {
-        return $this->setField('loc', $loc);
+        $loc = $this->validator->validateLoc($loc);
+        if (false === $loc) {
+            throw new ImageItemException(
+                sprintf('Provided URL \'%s\' is not a valid value.', $loc)
+            );
+        }
+
+        $this->xml['loc'] = "\t\t<loc>".$loc."</loc>";
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public static function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
+        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n";
+    }
+
+    /**
+     * @return string
+     */
+    public static function getFooter()
+    {
+        return "</urlset>";
     }
 
     /**
      * @param $title
      *
      * @return $this
+     * @throws ImageItemException
      */
     public function setTitle($title)
     {
-        return $this->setField('title', $title);
+        $title = $this->validator->validateTitle($title);
+        if (false === $title) {
+            throw new ImageItemException(
+                sprintf('Provided title \'%s\' is not a valid value.', $title)
+            );
+        }
+
+        $this->xml['title'] = "\t\t\t".'<image:title><![CDATA['.$title.']]></image:title>';
+
+        return $this;
     }
 
     /**
      * @param $caption
      *
+     * @throws ImageItemException
      * @return $this
      */
     public function setCaption($caption)
     {
-        return $this->setField('caption', $caption);
+        $caption = $this->validator->validateCaption($caption);
+
+        if (false === $caption) {
+            throw new ImageItemException(
+                sprintf('Provided caption \'%s\' is not a valid value.', $caption)
+            );
+        }
+        $this->xml['caption'] = "\t\t\t".'<image:caption><![CDATA['.$caption.']]></image:caption>';
+
+        return $this;
     }
 
     /**
      * @param $geolocation
      *
+     * @throws ImageItemException
      * @return $this
      */
     public function setGeolocation($geolocation)
     {
-        return $this->setField('geolocation', $geolocation);
+        $geolocation = $this->validator->validateGeolocation($geolocation);
+
+        if (false === $geolocation) {
+            throw new ImageItemException(
+                sprintf('Provided geolocation \'%s\' is not a valid value.', $geolocation)
+            );
+        }
+        $this->xml['geolocation'] = "\t\t\t".'<image:geolocation><![CDATA['.$geolocation.']]></image:geolocation>';
+
+        return $this;
     }
 
     /**
      * @param $license
      *
+     * @throws ImageItemException
      * @return $this
      */
     public function setLicense($license)
     {
-        return $this->setField('license', $license);
-    }
+        $license = $this->validator->validateLicense($license);
 
-    /**
-     * Collapses the item to its string XML representation.
-     *
-     * @return string
-     */
-    public function build()
-    {
-        $data = '';
-
-        //Create item ONLY if all mandatory data is present.
-        if (!empty($this->data['loc'])) {
-            $xml = array();
-
-            $xml[] = "\t\t".'<image:image>';
-            $xml[] = (!empty($this->data['loc'])) ? "\t\t\t".'<image:loc><![CDATA['.$this->data['loc'].']]></image:loc>' : '';
-            $xml[] = (!empty($this->data['title'])) ? "\t\t\t".'<image:title><![CDATA['.$this->data['title'].']]></image:title>' : '';
-            $xml[] = (!empty($this->data['caption'])) ? "\t\t\t".'<image:caption><![CDATA['.$this->data['caption'].']]></image:caption>' : '';
-            $xml[] = (!empty($this->data['geolocation'])) ? "\t\t\t".'<image:geolocation><![CDATA['.$this->data['geolocation'].']]></image:geolocation>' : '';
-            $xml[] = (!empty($this->data['license'])) ? "\t\t\t".'<image:license><![CDATA['.$this->data['license'].']]></image:license>' : '';
-            $xml[] = "\t\t".'</image:image>';
-            $xml = array_filter($xml);
-
-            $data = implode("\n", $xml);
+        if (false === $license) {
+            throw new ImageItemException(
+                sprintf('Provided license \'%s\' is not a valid value.', $license)
+            );
         }
 
-        return $data;
+        $this->xml['license'] = "\t\t\t".'<image:license><![CDATA['.$license.']]></image:license>';
+
+        return $this;
     }
 }

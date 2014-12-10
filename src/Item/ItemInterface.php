@@ -31,7 +31,7 @@ interface ItemInterface
     /**
      * @return string
      */
-    public function getHeader();
+    public static function getHeader();
 
     /**
      * @return integer
@@ -41,7 +41,7 @@ interface ItemInterface
     /**
      * @return string
      */
-    public function getFooter();
+    public static function getFooter();
 
     /**
      * @return integer

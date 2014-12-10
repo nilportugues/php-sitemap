@@ -42,7 +42,7 @@ abstract class AbstractItem implements ItemInterface
         $xml = array_filter($this->xml);
         $data = implode("\n", $xml);
 
-        return $data;
+        return $data."\n";
     }
 
     /**
@@ -64,22 +64,12 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * @return string
-     */
-    abstract public function getHeader();
-
-    /**
      * @return int
      */
     public function getFooterSize()
     {
         return mb_strlen($this->getFooter(), 'UTF-8');
     }
-
-    /**
-     * @return string
-     */
-    abstract public function getFooter();
 
     /**
      * Resets the data structure used to represent the item as XML.

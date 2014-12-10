@@ -3,8 +3,9 @@ use NilPortugues\Sitemap\Item\Url\UrlItem;
 
 include 'vendor/autoload.php';
 
+    $file = fopen('sitemap.xml', 'w');
 
-
+    fputs($file, UrlItem::getHeader());
 	for ($i = 0; $i < 50000; $i++) {
 
 		$item = new UrlItem('http://www.example.com/' . $i);
@@ -12,5 +13,8 @@ include 'vendor/autoload.php';
 		$item->setChangeFreq('daily');
 		$item->setLastMod('2014-05-10T17:33:30+08:00');
 
-        echo $item->build().PHP_EOL;
+
+        fwrite($file, $item->build());
     }
+    fputs($file, UrlItem::getFooter());
+    fclose($file);

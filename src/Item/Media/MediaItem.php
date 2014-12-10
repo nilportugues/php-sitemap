@@ -8,13 +8,11 @@
 
 namespace NilPortugues\Sitemap\Item\Media;
 
-use NilPortugues\Sitemap\Validators\MediaValidator;
-
 /**
  * Class MediaItem
  * @package NilPortugues\Sitemap\Items
  */
-class MediaItem extends AbstractItem implements ItemInterface
+class MediaItem extends AbstractItem
 {
     /**
      * @var \NilPortugues\Sitemap\Validators\MediaValidator
@@ -32,7 +30,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getHeader()
+    public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
         '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'."\n".
@@ -42,7 +40,7 @@ class MediaItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getFooter()
+    public static function getFooter()
     {
         return "</channel>\n</rss>";
     }

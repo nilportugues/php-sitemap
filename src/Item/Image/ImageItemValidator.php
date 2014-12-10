@@ -24,57 +24,57 @@ class ImageItemValidator
 
     /**
      * @param $title
-     * @return string
+     *
+     * @return string|bool
      */
     public function validateTitle($title)
     {
-        $data = '';
         if (is_string($title)) {
-            $data = $title;
+            return $title;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $caption
-     * @return string
+     *
+     * @return string|bool
      */
     public function validateCaption($caption)
     {
-        $data = '';
         if (is_string($caption)) {
-            $data = $caption;
+            return $caption;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $geolocation
-     * @return string
+     *
+     * @return string|bool
      */
     public function validateGeolocation($geolocation)
     {
-        $data = '';
         if (is_string($geolocation)) {
-            $data = $geolocation;
+            return $geolocation;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $license
-     * @return string
+     *
+     * @return string|bool
      */
     public function validateLicense($license)
     {
-        $data = '';
         if (is_string($license)) {
-            $data = $license;
+            return $license;
         }
 
-        return $data;
+        return false;
     }
 }

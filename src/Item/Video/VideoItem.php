@@ -7,16 +7,14 @@
  */
 namespace NilPortugues\Sitemap\Item\Video;
 
-use NilPortugues\Sitemap\Validators\VideoValidator;
-
 /**
  * Class VideoItem
  * @package NilPortugues\Sitemap\Items
  */
-class VideoItem extends AbstractItem implements ItemInterface
+class VideoItem extends AbstractItem
 {
     /**
-     * @var \NilPortugues\Sitemap\Validators\VideoValidator
+     * @var
      */
     protected $validator;
 
@@ -67,7 +65,7 @@ class VideoItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getHeader()
+    public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">';
@@ -76,7 +74,7 @@ class VideoItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getFooter()
+    public static function getFooter()
     {
         return "</urlset>";
     }

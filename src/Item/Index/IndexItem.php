@@ -7,13 +7,11 @@
  */
 namespace NilPortugues\Sitemap\Item;
 
-use NilPortugues\Sitemap\Validators\IndexValidator;
-
 /**
  * Class IndexItem
  * @package NilPortugues\Sitemap\Items
  */
-class IndexItem extends AbstractItem implements ItemInterface
+class IndexItem extends AbstractItem
 {
     /**
      * @var \NilPortugues\Sitemap\Validators\IndexValidator
@@ -31,7 +29,7 @@ class IndexItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getHeader()
+    public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
         '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
@@ -40,7 +38,7 @@ class IndexItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getFooter()
+    public static function getFooter()
     {
         return "</sitemapindex>";
     }

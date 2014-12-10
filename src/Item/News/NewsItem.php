@@ -13,7 +13,7 @@ use NilPortugues\Sitemap\Validators\NewsValidator;
  * Class NewsItem
  * @package NilPortugues\Sitemap\Items
  */
-class NewsItem extends AbstractItem implements ItemInterface
+class NewsItem extends AbstractItem
 {
     /**
      * @var \NilPortugues\Sitemap\Validators\NewsValidator
@@ -31,7 +31,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getHeader()
+    public static function getHeader()
     {
         return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">';
@@ -40,7 +40,7 @@ class NewsItem extends AbstractItem implements ItemInterface
     /**
      * @return string
      */
-    public function getFooter()
+    public static function getFooter()
     {
         return "</urlset>";
     }
