@@ -61,10 +61,11 @@ class UrlItemValidator
      */
     public function validatePriority($priority)
     {
+        $validData = null;
+
         if (
             is_numeric($priority)
-            && $priority > -0.01
-            && $priority <= 1
+            && $priority > -0.01            && $priority <= 1
             && (($priority * 100 % 10) == 0)
         ) {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
@@ -74,10 +75,10 @@ class UrlItemValidator
 
             $matches[0] = str_replace(",", ".", floatval($matches[0]));
             if (!empty($matches[0]) && $matches[0] <= 1 && $matches[0] >= 0.0) {
-                return $matches[0];
+                $validData = $matches[0];
             }
         }
 
-        return false;
+        return (null !== $validData) ?  $validData : false;
     }
 }

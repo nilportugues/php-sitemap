@@ -8,7 +8,7 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  * Class ValidatorTraititShould
  * @package itShoulds\NilPortugues\Sitemap\Item
  */
-class ValidatorTraitShould extends \PHPUnit_Framework_TestCase
+class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
 {
     use ValidatorTrait;
 
@@ -77,4 +77,3 @@ class ValidatorTraitShould extends \PHPUnit_Framework_TestCase
         $this->assertEquals(false, $result);
     }
 }
- 

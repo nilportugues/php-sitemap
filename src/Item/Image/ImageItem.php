@@ -7,7 +7,6 @@
  */
 namespace NilPortugues\Sitemap\Item\Image;
 
-
 /**
  * Class ImageItem
  * @package NilPortugues\Sitemap\Items
