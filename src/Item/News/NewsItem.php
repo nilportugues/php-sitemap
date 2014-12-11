@@ -256,7 +256,7 @@ class NewsItem extends AbstractItem
      */
     public function setStockTickers($stockTickers)
     {
-        $stockTickers = $this->validator->validateKeywords($stockTickers);
+        $stockTickers = $this->validator->validateStockTickers($stockTickers);
         if (false === $stockTickers) {
             throw new NewsItemException(
                 sprintf('Provided stock tickers \'%s\' are not a valid value.', $stockTickers)

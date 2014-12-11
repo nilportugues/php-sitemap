@@ -8725,7 +8725,7 @@ class NewsItemValidator
 
     /**
      * @param $name
-     * @return string
+     * @return bool|string
      */
     public function validateName($name)
     {
@@ -8738,45 +8738,42 @@ class NewsItemValidator
 
     /**
      * @param $language
-     * @return string
+     * @return bool|string
      */
     public function validateLanguage($language)
     {
-        $data = '';
         if (in_array(strtolower($language), $this->validLanguageCode, true)) {
-            $data = strtolower($language);
+            return strtolower($language);
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $access
-     * @return string
+     * @return bool|string
      */
     public function validateAccess($access)
     {
-        $data = '';
         switch (strtolower($access)) {
             case 'subscription':
-                $data = 'Subscription';
+                return 'Subscription';
                 break;
             case 'registration':
-                $data = 'Registration';
+                return 'Registration';
                 break;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $genres
-     * @return string
+     * @return bool|string
      */
     public function validateGenres($genres)
     {
         $data = array();
-
         if (is_string($genres)) {
             $genres = str_replace(",", " ", $genres);
             $genres = explode(" ", $genres);
@@ -8791,12 +8788,14 @@ class NewsItemValidator
             }
         }
 
-        return implode(", ", $data);
+        $data = implode(", ", $data);
+
+        return (strlen($data)>0) ? $data : false;
     }
 
     /**
      * @param $publicationDate
-     * @return string
+     * @return bool|string
      */
     public function validatePublicationDate($publicationDate)
     {
@@ -8805,7 +8804,7 @@ class NewsItemValidator
 
     /**
      * @param $title
-     * @return string
+     * @return bool|string
      */
     public function validateTitle($title)
     {
@@ -8818,7 +8817,7 @@ class NewsItemValidator
 
     /**
      * @param $keywords
-     * @return mixed
+     * @return bool|mixed
      */
     public function validateKeywords($keywords)
     {
@@ -8831,7 +8830,7 @@ class NewsItemValidator
 
     /**
      * @param $stock
-     * @return mixed
+     * @return bool|mixed
      */
     public function validateStockTickers($stock)
     {
