@@ -11,6 +11,16 @@ trait ValidatorTrait
     use SingletonTrait;
 
     /**
+     * @param $value
+     *
+     * @return mixed
+     */
+    public function noValidation($value)
+    {
+        return $value;
+    }
+
+    /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
      *
      * @param $value

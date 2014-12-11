@@ -22,6 +22,11 @@ class MediaItem extends AbstractItem
     protected $validator;
 
     /**
+     * @var string
+     */
+    protected $exception = 'NilPortugues\Sitemap\Item\Media\MediaItemException';
+
+    /**
      *
      */
     public function __construct($link)
@@ -59,13 +64,16 @@ class MediaItem extends AbstractItem
      */
     protected function setLink($link)
     {
-        $link = $this->validator->validateLink($link);
-        if (false === $link) {
-            throw new MediaItemException(
-                sprintf('The provided link \'%s\' is not a valid value.', $link)
-            );
-        }
-        $this->xml['link'] = "\t\t<link>{$link}</link>";
+        $this->writeFullTag(
+            $link,
+            'link',
+            false,
+            'link',
+            $this->validator,
+            'validateLink',
+            $this->exception,
+            'Provided link is not a valid value.'
+        );
 
         return $this;
     }
@@ -155,7 +163,7 @@ class MediaItem extends AbstractItem
         $player = $this->validator->validatePlayer($player);
         if (false === $player) {
             throw new MediaItemException(
-                sprintf('The provided player \'%s\' is not a valid value.', $player)
+                sprintf('Provided player is not a valid value.', $player)
             );
         }
 
@@ -172,14 +180,16 @@ class MediaItem extends AbstractItem
      */
     public function setTitle($title)
     {
-        $title = $this->validator->validateTitle($title);
-        if (false === $title) {
-            throw new MediaItemException(
-                sprintf('The provided title \'%s\' is not a valid value.', $title)
-            );
-        }
-
-        $this->xml['title'] = "\t\t\t<media:title>{$title}</media:title>";
+        $this->writeFullTag(
+            $title,
+            'title',
+            false,
+            'media:title',
+            $this->validator,
+            'validateTitle',
+            $this->exception,
+            'Provided title is not a valid value.'
+        );
 
         return $this;
     }
@@ -192,14 +202,16 @@ class MediaItem extends AbstractItem
      */
     public function setDescription($description)
     {
-        $description = $this->validator->validateDescription($description);
-        if (false === $description) {
-            throw new MediaItemException(
-                sprintf('The provided description \'%s\' is not a valid value.', $description)
-            );
-        }
-
-        $this->xml['description'] = "\t\t\t<media:description>{$description}</media:description>";
+        $this->writeFullTag(
+            $description,
+            'description',
+            false,
+            'media:description',
+            $this->validator,
+            'validateDescription',
+            $this->exception,
+            'Provided description is not a valid value.'
+        );
 
         return $this;
     }

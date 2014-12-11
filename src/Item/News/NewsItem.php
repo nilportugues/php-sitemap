@@ -21,6 +21,11 @@ class NewsItem extends AbstractItem
     protected $validator;
 
     /**
+     * @var string
+     */
+    protected $exception = 'NilPortugues\Sitemap\Item\News\NewsItemException';
+
+    /**
      * @param $loc
      * @param $title
      * @param $publicationDate
@@ -68,14 +73,16 @@ class NewsItem extends AbstractItem
      */
     protected function setLoc($loc)
     {
-        $loc = $this->validator->validateLoc($loc);
-        if (false === $loc) {
-            throw new NewsItemException(
-                sprintf('Provided URL \'%s\' is not a valid value.', $loc)
-            );
-        }
-
-        $this->xml['loc'] = "\t\t<loc>".$loc."</loc>";
+        $this->writeFullTag(
+            $loc,
+            'loc',
+            false,
+            'loc',
+            $this->validator,
+            'validateLoc',
+            $this->exception,
+            'Provided URL is not a valid value.'
+        );
 
         return $this;
     }
@@ -88,13 +95,16 @@ class NewsItem extends AbstractItem
      */
     protected function setTitle($title)
     {
-        $title = $this->validator->validateTitle($title);
-        if (false === $title) {
-            throw new NewsItemException(
-                sprintf('Provided title \'%s\' is not a valid value.', $title)
-            );
-        }
-        $this->xml['title'] = "\t\t\t".'<news:title>'.$title.'</news:title>';
+        $this->writeFullTag(
+            $title,
+            'title',
+            false,
+            'news:title',
+            $this->validator,
+            'validateTitle',
+            $this->exception,
+            'Provided title is not a valid value.'
+        );
 
         return $this;
     }
@@ -107,13 +117,16 @@ class NewsItem extends AbstractItem
      */
     protected function setPublicationDate($date)
     {
-        $date = $this->validator->validatePublicationDate($date);
-        if (false === $date) {
-            throw new NewsItemException(
-                sprintf('Provided publication date \'%s\' is not a valid value.', $date)
-            );
-        }
-        $this->xml['publication_date'] = "\t\t\t".'<news:publication_date>'.$date.'</news:publication_date>';
+        $this->writeFullTag(
+            $date,
+            'publication_date',
+            false,
+            'news:publication_date',
+            $this->validator,
+            'validatePublicationDate',
+            $this->exception,
+            'Provided publication date is not a valid value.'
+        );
 
         return $this;
     }
@@ -199,13 +212,16 @@ class NewsItem extends AbstractItem
      */
     public function setAccess($access)
     {
-        $access = $this->validator->validateAccess($access);
-        if (false === $access) {
-            throw new NewsItemException(
-                sprintf('Provided access \'%s\' is not a valid value.', $access)
-            );
-        }
-        $this->xml['access'] = "\t\t\t".'<news:access>'.$access.'</news:access>';
+        $this->writeFullTag(
+            $access,
+            'access',
+            false,
+            'news:access',
+            $this->validator,
+            'validateAccess',
+            $this->exception,
+            'Provided access date is not a valid value.'
+        );
 
         return $this;
     }
@@ -218,13 +234,16 @@ class NewsItem extends AbstractItem
      */
     public function setGenres($genres)
     {
-        $genres = $this->validator->validateGenres($genres);
-        if (false === $genres) {
-            throw new NewsItemException(
-                sprintf('Provided genres list \'%s\' is not a valid value.', $genres)
-            );
-        }
-        $this->xml['genres'] = "\t\t\t".'<news:genres>'.$genres.'</news:genres>';
+        $this->writeFullTag(
+            $genres,
+            'genres',
+            false,
+            'news:genres',
+            $this->validator,
+            'validateGenres',
+            $this->exception,
+            'Provided genres list is not a valid value.'
+        );
 
         return $this;
     }
@@ -237,13 +256,16 @@ class NewsItem extends AbstractItem
      */
     public function setKeywords($keywords)
     {
-        $keywords = $this->validator->validateKeywords($keywords);
-        if (false === $keywords) {
-            throw new NewsItemException(
-                sprintf('Provided keyword list \'%s\' is not a valid value.', $keywords)
-            );
-        }
-        $this->xml['keywords'] = "\t\t\t".'<news:keywords>'.$keywords.'</news:keywords>';
+        $this->writeFullTag(
+            $keywords,
+            'keywords',
+            false,
+            'news:keywords',
+            $this->validator,
+            'validateKeywords',
+            $this->exception,
+            'Provided keyword list is not a valid value.'
+        );
 
         return $this;
     }
@@ -256,13 +278,16 @@ class NewsItem extends AbstractItem
      */
     public function setStockTickers($stockTickers)
     {
-        $stockTickers = $this->validator->validateStockTickers($stockTickers);
-        if (false === $stockTickers) {
-            throw new NewsItemException(
-                sprintf('Provided stock tickers \'%s\' are not a valid value.', $stockTickers)
-            );
-        }
-        $this->xml['stock_tickers'] = "\t\t\t".'<news:stock_tickers>'.$stockTickers.'</news:stock_tickers>';
+        $this->writeFullTag(
+            $stockTickers,
+            'stock_tickers',
+            false,
+            'news:stock_tickers',
+            $this->validator,
+            'validateStockTickers',
+            $this->exception,
+            'Provided stock tickers is not a valid value.'
+        );
 
         return $this;
     }

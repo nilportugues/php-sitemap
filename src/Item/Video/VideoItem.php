@@ -21,6 +21,11 @@ class VideoItem extends AbstractItem
     protected $validator;
 
     /**
+     * @var string
+     */
+    protected $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
+
+    /**
      * @param $title
      * @param $contentLoc
      * @param $playerLoc
@@ -77,13 +82,16 @@ class VideoItem extends AbstractItem
      */
     protected function setTitle($title)
     {
-        $title = $this->validator->validateTitle($title);
-        if (false === $title) {
-            throw new VideoItemException(
-                sprintf('The provided title \'%s\' is not a valid value.', $title)
-            );
-        }
-        $this->xml['title'] = "\t\t\t".'<video:title><![CDATA['.$title.']]></video:title>';
+        $this->writeFullTag(
+            $title,
+            'title',
+            true,
+            'video:title',
+            $this->validator,
+            'validateTitle',
+            $this->exception,
+            'Provided title value is not a valid.'
+        );
 
         return $this;
     }
@@ -96,14 +104,16 @@ class VideoItem extends AbstractItem
      */
     protected function setContentLoc($loc)
     {
-        $loc = $this->validator->validateLoc($loc);
-        if (false === $loc) {
-            throw new VideoItemException(
-                sprintf('', $loc)
-            );
-        }
-
-        $this->xml['content_loc'] = "\t\t\t".'<video:content_loc><![CDATA['.$loc.']]></video:content_loc>';
+        $this->writeFullTag(
+            $loc,
+            'content_loc',
+            true,
+            'video:content_loc',
+            $this->validator,
+            'validateLoc',
+            $this->exception,
+            'Provided content URL is not a valid.'
+        );
 
         return $this;
     }
@@ -207,15 +217,16 @@ class VideoItem extends AbstractItem
      */
     public function setThumbnailLoc($loc)
     {
-        $loc = $this->validator->validateThumbnailLoc($loc);
-        if (false === $loc) {
-            throw new VideoItemException(
-                sprintf('', $loc)
-            );
-        }
-
-        $this->xml['thumbnail_loc'] = "\t\t\t".
-            '<video:thumbnail_loc><![CDATA['.$loc.']]></video:thumbnail_loc>';
+        $this->writeFullTag(
+            $loc,
+            'thumbnail_loc',
+            true,
+            'video:thumbnail_loc',
+            $this->validator,
+            'validateThumbnailLoc',
+            $this->exception,
+            'Provided thumbnail URL is not a valid.'
+        );
 
         return $this;
     }
@@ -228,15 +239,16 @@ class VideoItem extends AbstractItem
      */
     public function setDescription($description)
     {
-        $description = $this->validator->validateDescription($description);
-        if (false === $description) {
-            throw new VideoItemException(
-                sprintf('', $description)
-            );
-        }
-
-        $this->xml['description'] = "\t\t\t".
-            '<video:description><![CDATA['.$description.']]></video:description>';
+        $this->writeFullTag(
+            $description,
+            'description',
+            true,
+            'video:description',
+            $this->validator,
+            'validateDescription',
+            $this->exception,
+            'Provided description value is not a valid.'
+        );
 
         return $this;
     }
@@ -249,15 +261,16 @@ class VideoItem extends AbstractItem
      */
     public function setDuration($duration)
     {
-        $duration = $this->validator->validateDuration($duration);
-        if (false === $duration) {
-            throw new VideoItemException(
-                sprintf('', $duration)
-            );
-        }
-
-        $this->xml['duration'] = "\t\t\t".
-            '<video:duration><![CDATA['.$duration.']]></video:duration>';
+        $this->writeFullTag(
+            $duration,
+            'duration',
+            true,
+            'video:duration',
+            $this->validator,
+            'validateDuration',
+            $this->exception,
+            'Provided duration value is not a valid.'
+        );
 
         return $this;
     }
@@ -270,15 +283,16 @@ class VideoItem extends AbstractItem
      */
     public function setExpirationDate($expirationDate)
     {
-        $expirationDate = $this->validator->validateExpirationDate($expirationDate);
-        if (false === $expirationDate) {
-            throw new VideoItemException(
-                sprintf('', $expirationDate)
-            );
-        }
-
-        $this->xml['expiration_date'] = "\t\t\t".
-            '<video:expiration_date><![CDATA['.$expirationDate.']]></video:expiration_date>';
+        $this->writeFullTag(
+            $expirationDate,
+            'expiration_date',
+            true,
+            'video:expiration_date',
+            $this->validator,
+            'validateExpirationDate',
+            $this->exception,
+            'Provided expiration date value is not a valid.'
+        );
 
         return $this;
     }
@@ -291,15 +305,16 @@ class VideoItem extends AbstractItem
      */
     public function setRating($rating)
     {
-        $rating = $this->validator->validateRating($rating);
-        if (false === $rating) {
-            throw new VideoItemException(
-                sprintf('', $rating)
-            );
-        }
-
-        $this->xml['rating'] = "\t\t\t".
-            '<video:rating><![CDATA['.$rating.']]></video:rating>';
+        $this->writeFullTag(
+            $rating,
+            'rating',
+            true,
+            'video:rating',
+            $this->validator,
+            'validateRating',
+            $this->exception,
+            'Provided rating value is not a valid.'
+        );
 
         return $this;
     }
@@ -312,15 +327,16 @@ class VideoItem extends AbstractItem
      */
     public function setViewCount($viewCount)
     {
-        $viewCount = $this->validator->validateViewCount($viewCount);
-        if (false === $viewCount) {
-            throw new VideoItemException(
-                sprintf('', $viewCount)
-            );
-        }
-
-        $this->xml['view_count'] = "\t\t\t".
-            '<video:view_count><![CDATA['.$viewCount.']]></video:view_count>';
+        $this->writeFullTag(
+            $viewCount,
+            'view_count',
+            true,
+            'video:view_count',
+            $this->validator,
+            'validateViewCount',
+            $this->exception,
+            'Provided view count value is not a valid.'
+        );
 
         return $this;
     }
@@ -333,15 +349,16 @@ class VideoItem extends AbstractItem
      */
     public function setPublicationDate($publicationDate)
     {
-        $publicationDate = $this->validator->validatePublicationDate($publicationDate);
-        if (false === $publicationDate) {
-            throw new VideoItemException(
-                sprintf('', $publicationDate)
-            );
-        }
-
-        $this->xml['publication_date'] = "\t\t\t".
-            '<video:publication_date><![CDATA['.$publicationDate.']]></video:publication_date>';
+        $this->writeFullTag(
+            $publicationDate,
+            'publication_date',
+            true,
+            'video:publication_date',
+            $this->validator,
+            'validatePublicationDate',
+            $this->exception,
+            'Provided publication date value is not a valid.'
+        );
 
         return $this;
     }
@@ -354,15 +371,16 @@ class VideoItem extends AbstractItem
      */
     public function setFamilyFriendly($familyFriendly)
     {
-        $familyFriendly = $this->validator->validateFamilyFriendly($familyFriendly);
-        if (false === $familyFriendly) {
-            throw new VideoItemException(
-                sprintf('', $familyFriendly)
-            );
-        }
-
-        $this->xml['family_friendly'] = "\t\t\t".
-            '<video:family_friendly><![CDATA['.$familyFriendly.']]></video:family_friendly>';
+        $this->writeFullTag(
+            $familyFriendly,
+            'family_friendly',
+            true,
+            'video:family_friendly',
+            $this->validator,
+            'validateFamilyFriendly',
+            $this->exception,
+            'Provided family friendly value is not a valid.'
+        );
 
         return $this;
     }
@@ -555,15 +573,16 @@ class VideoItem extends AbstractItem
      */
     public function setCategory($category)
     {
-        $category = $this->validator->validateCategory($category);
-
-        if (false === $category) {
-            throw new VideoItemException(
-                sprintf('', implode(',', $category))
-            );
-        }
-
-        $this->xml['category'] = "\t\t\t".'<video:category><![CDATA['.$category.']]></video:category>';
+        $this->writeFullTag(
+            $category,
+            'category',
+            true,
+            'video:category',
+            $this->validator,
+            'validateCategory',
+            $this->exception,
+            'Provided category value is not a valid.'
+        );
 
         return $this;
     }
@@ -598,15 +617,16 @@ class VideoItem extends AbstractItem
      */
     public function setRequiresSubscription($requires)
     {
-        $requires = $this->validator->validateRequiresSubscription($requires);
-        if (false === $requires) {
-            throw new VideoItemException(
-                sprintf('', $requires)
-            );
-        }
-
-        $this->xml['requires_subscription'] = "\t\t\t".
-            '<video:requires_subscription><![CDATA['.$requires.']]></video:requires_subscription>';
+        $this->writeFullTag(
+            $requires,
+            'requires_subscription',
+            true,
+            'video:requires_subscription',
+            $this->validator,
+            'validateRequiresSubscription',
+            $this->exception,
+            'Provided requires subscription value is not a valid.'
+        );
 
         return $this;
     }
@@ -711,13 +731,16 @@ class VideoItem extends AbstractItem
      */
     public function setLive($live)
     {
-        $live = $this->validator->validateLive($live);
-        if (false === $live) {
-            throw new VideoItemException(
-                sprintf('', $live)
-            );
-        }
-        $this->xml['live'] = "\t\t\t".'<video:live><![CDATA['.$live.']]></video:live>';
+        $this->writeFullTag(
+            $live,
+            'live',
+            true,
+            'video:live',
+            $this->validator,
+            'validateLive',
+            $this->exception,
+            'Provided live value is not a valid.'
+        );
 
         return $this;
     }
