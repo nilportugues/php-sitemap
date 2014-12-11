@@ -21,6 +21,11 @@ class ImageItem extends AbstractItem
     protected $validator;
 
     /**
+     * @var string
+     */
+    protected $exception = 'NilPortugues\Sitemap\Item\Image\ImageItemException';
+
+    /**
      * @param $loc
      */
     public function __construct($loc)
@@ -56,14 +61,16 @@ class ImageItem extends AbstractItem
      */
     protected function setLoc($loc)
     {
-        $loc = $this->validator->validateLoc($loc);
-        if (false === $loc) {
-            throw new ImageItemException(
-                sprintf('Provided URL \'%s\' is not a valid value.', $loc)
-            );
-        }
-
-        $this->xml['loc'] = "\t\t<loc>".$loc."</loc>";
+        $this->writeFullTag(
+            $loc,
+            'loc',
+            false,
+            'loc',
+            $this->validator,
+            'validateLoc',
+            $this->exception,
+            'Provided URL is not a valid value.'
+        );
 
         return $this;
     }
@@ -94,14 +101,16 @@ class ImageItem extends AbstractItem
      */
     public function setTitle($title)
     {
-        $title = $this->validator->validateTitle($title);
-        if (false === $title) {
-            throw new ImageItemException(
-                sprintf('Provided title \'%s\' is not a valid value.', $title)
-            );
-        }
-
-        $this->xml['title'] = "\t\t\t".'<image:title><![CDATA['.$title.']]></image:title>';
+        $this->writeFullTag(
+            $title,
+            'title',
+            true,
+            'image:title',
+            $this->validator,
+            'validateTitle',
+            $this->exception,
+            'Provided title is not a valid value.'
+        );
 
         return $this;
     }
@@ -114,14 +123,16 @@ class ImageItem extends AbstractItem
      */
     public function setCaption($caption)
     {
-        $caption = $this->validator->validateCaption($caption);
-
-        if (false === $caption) {
-            throw new ImageItemException(
-                sprintf('Provided caption \'%s\' is not a valid value.', $caption)
-            );
-        }
-        $this->xml['caption'] = "\t\t\t".'<image:caption><![CDATA['.$caption.']]></image:caption>';
+        $this->writeFullTag(
+            $caption,
+            'caption',
+            true,
+            'image:caption',
+            $this->validator,
+            'validateCaption',
+            $this->exception,
+            'Provided caption is not a valid value.'
+        );
 
         return $this;
     }
@@ -134,14 +145,16 @@ class ImageItem extends AbstractItem
      */
     public function setGeolocation($geolocation)
     {
-        $geolocation = $this->validator->validateGeolocation($geolocation);
-
-        if (false === $geolocation) {
-            throw new ImageItemException(
-                sprintf('Provided geolocation \'%s\' is not a valid value.', $geolocation)
-            );
-        }
-        $this->xml['geolocation'] = "\t\t\t".'<image:geolocation><![CDATA['.$geolocation.']]></image:geolocation>';
+        $this->writeFullTag(
+            $geolocation,
+            'geolocation',
+            true,
+            'image:geolocation',
+            $this->validator,
+            'validateGeolocation',
+            $this->exception,
+            'Provided geolocation is not a valid value.'
+        );
 
         return $this;
     }
@@ -154,15 +167,16 @@ class ImageItem extends AbstractItem
      */
     public function setLicense($license)
     {
-        $license = $this->validator->validateLicense($license);
-
-        if (false === $license) {
-            throw new ImageItemException(
-                sprintf('Provided license \'%s\' is not a valid value.', $license)
-            );
-        }
-
-        $this->xml['license'] = "\t\t\t".'<image:license><![CDATA['.$license.']]></image:license>';
+        $this->writeFullTag(
+            $license,
+            'license',
+            true,
+            'image:license',
+            $this->validator,
+            'validateLicense',
+            $this->exception,
+            'Provided license is not a valid value.'
+        );
 
         return $this;
     }

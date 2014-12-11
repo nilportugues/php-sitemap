@@ -68,6 +68,7 @@ class UrlItem extends AbstractItem
         $this->writeFullTag(
             $loc,
             'loc',
+            false,
             'loc',
             $this->validator,
             'validateLoc',
@@ -106,6 +107,7 @@ class UrlItem extends AbstractItem
         $this->writeFullTag(
             $lastmod,
             'lastmod',
+            false,
             'lastmod',
             $this->validator,
             'validateLastmod',
@@ -127,6 +129,7 @@ class UrlItem extends AbstractItem
         $this->writeFullTag(
             $changeFreq,
             'changefreq',
+            false,
             'changefreq',
             $this->validator,
             'validateChangeFreq',
@@ -145,16 +148,16 @@ class UrlItem extends AbstractItem
      */
     public function setPriority($priority)
     {
-        $priority = $this->validator->validatePriority($priority);
-        if (false === $priority) {
-            throw new UrlItemException(
-                sprintf('Provided priority \'%s\' is not a valid value.', $priority)
-            );
-        }
-
-        if ($priority) {
-            $this->xml['priority'] = "\t\t<priority>".$priority."</priority>";
-        }
+        $this->writeFullTag(
+            $priority,
+            'priority',
+            false,
+            'priority',
+            $this->validator,
+            'validatePriority',
+            $this->exception,
+            'Provided priority is not a valid value.'
+        );
 
         return $this;
     }

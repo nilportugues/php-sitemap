@@ -76,8 +76,9 @@ abstract class AbstractItem implements ItemInterface
     /**
      * @param mixed  $value
      * @param string $name
+     * @param bool   $cdata
      * @param string $tag
-     * @param mixed $validationClass
+     * @param mixed  $validationClass
      * @param string $validationMethod
      * @param string $exceptionClass
      * @param string $exceptionMsg
@@ -85,6 +86,7 @@ abstract class AbstractItem implements ItemInterface
     protected function writeFullTag(
         $value,
         $name,
+        $cdata,
         $tag,
         $validationClass,
         $validationMethod,
@@ -97,6 +99,9 @@ abstract class AbstractItem implements ItemInterface
         }
 
         $this->xml[$name] = "<{$tag}>$value</{$tag}>";
+        if ($cdata) {
+            $this->xml[$name] = "<{$tag}><![CDATA[$value]]></{$tag}>";
+        }
     }
 
     /**
