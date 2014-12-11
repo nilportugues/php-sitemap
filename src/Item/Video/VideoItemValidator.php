@@ -818,7 +818,8 @@ class VideoItemValidator
 
     /**
      * @param $value
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateAllowEmbed($value)
     {
@@ -827,40 +828,41 @@ class VideoItemValidator
 
     /**
      * @param $value
-     * @return string
+     *
+     * @return bool|string
      */
     protected function validateYesNo($value)
     {
-        $data = '';
         switch (strtolower($value)) {
             case 'yes':
-                $data = 'yes';
+                return 'yes';
                 break;
             case 'no':
-                $data = 'no';
+                return 'no';
                 break;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $string
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateAutoplay($string)
     {
-        $data = '';
         if (!empty($string)) {
-            $data = $string;
+            return $string;
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $loc
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateThumbnailLoc($loc)
     {
@@ -869,15 +871,16 @@ class VideoItemValidator
 
     /**
      * @param $title
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateTitle($title)
     {
         if (mb_strlen($title, 'UTF-8') > 97) {
-            $title = mb_substr($title, 0, 97, 'UTF-8').'...';
+            return mb_substr($title, 0, 97, 'UTF-8').'...';
         }
 
-        return $title;
+        return false;
     }
 
     /**
@@ -885,40 +888,44 @@ class VideoItemValidator
      * The description must be in plain text only, and any HTML entities should be escaped or wrapped in a CDATA block.
      *
      * @param $description
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateDescription($description)
     {
         if (mb_strlen($description, 'UTF-8') > 2048) {
-            $description = mb_substr($description, 0, 2045, 'UTF-8').'...';
+            return mb_substr($description, 0, 2045, 'UTF-8').'...';
         }
 
-        return $description;
+        return false;
     }
 
     /**
-     * @param $content_loc
-     * @return string
+     * @param $contentLoc
+     *
+     * @return bool|string
      */
-    public function validateContentLoc($content_loc)
+    public function validateContentLoc($contentLoc)
     {
-        return $this->validateLoc($content_loc);
+        return $this->validateLoc($contentLoc);
     }
 
     /**
-     * @param $player_loc
-     * @return string
+     * @param $playerLoc
+     *
+     * @return bool|string
      */
-    public function validatePlayerLoc($player_loc)
+    public function validatePlayerLoc($playerLoc)
     {
-        return $this->validateLoc($player_loc);
+        return $this->validateLoc($playerLoc);
     }
 
     /**
      * The duration of the video in seconds. Value must be between 0 and 28800 (8 hours).
      *
      * @param $seconds
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateDuration($seconds)
     {
@@ -926,81 +933,84 @@ class VideoItemValidator
             return $seconds;
         }
 
-        return '';
+        return false;
     }
 
     /**
-     * @param $expiration_date
-     * @return string
+     * @param $expirationDate
+     *
+     * @return bool|string
      */
-    public function validateExpirationDate($expiration_date)
+    public function validateExpirationDate($expirationDate)
     {
-        return $this->validateDate($expiration_date);
+        return $this->validateDate($expirationDate);
     }
 
     /**
      * The rating of the video. Allowed values are float numbers in the range 0.0 to 5.0.
      *
      * @param $rating
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateRating($rating)
     {
-        $data = '';
         if (is_numeric($rating) && $rating > -0.01 && $rating < 5.01) {
             preg_match('/([0-9].[0-9])/', $rating, $matches);
             $matches[0] = floatval($matches[0]);
 
             if (!empty($matches[0]) && $matches[0] <= 5.0 && $matches[0] >= 0.0) {
-                $data = $matches[0];
+                return $matches[0];
             }
         }
 
-        return $data;
+        return false;
     }
 
     /**
-     * @param $view_count
-     * @return string
+     * @param $viewCount
+     *
+     * @return bool|string
      */
-    public function validateViewCount($view_count)
+    public function validateViewCount($viewCount)
     {
-        $data = '';
-        if (is_integer($view_count) && $view_count > 0) {
-            $data = $view_count;
+        if (is_integer($viewCount) && $viewCount > 0) {
+            return $viewCount;
         }
 
-        return $data;
+        return false;
     }
 
     /**
-     * @param $publication_date
-     * @return string
+     * @param $publicationDate
+     *
+     * @return bool|string
      */
-    public function validatePublicationDate($publication_date)
+    public function validatePublicationDate($publicationDate)
     {
-        return $this->validateDate($publication_date);
+        return $this->validateDate($publicationDate);
     }
 
     /**
-     * @param $family_friendly
-     * @return string
+     * @param $familyFriendly
+     *
+     * @return bool|string
      */
-    public function validateFamilyFriendly($family_friendly)
+    public function validateFamilyFriendly($familyFriendly)
     {
-        $data = '';
-        if (ucfirst(strtolower($family_friendly)) == 'No') {
-            $data = 'No';
-        } elseif (ucfirst(strtolower($family_friendly)) == 'Yes') {
-            $data = 'Yes';
+        if (strtolower($familyFriendly) == 'no') {
+            return 'No';
+        } elseif (strtolower($familyFriendly) == 'yes') {
+            return 'Yes';
         }
 
-        return $data;
+        return false;
     }
 
     /**
      * @param $countries
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateRestriction($countries)
     {
@@ -1021,16 +1031,19 @@ class VideoItemValidator
             }
         }
 
-        return implode(" ", $valid);
+        $data = implode(' ', $valid);
+
+        return (strlen($data) > 0) ? $data : false;
     }
 
     /**
-     * @param $restriction_relationship
-     * @return string
+     * @param $restrictionRelationship
+     *
+     * @return bool|string
      */
-    public function validateRestrictionRelationship($restriction_relationship)
+    public function validateRestrictionRelationship($restrictionRelationship)
     {
-        return $this->validateAllowDeny($restriction_relationship);
+        return $this->validateAllowDeny($restrictionRelationship);
     }
 
     /**
@@ -1038,71 +1051,85 @@ class VideoItemValidator
      * Allowed values are allow or deny.
      *
      * @param $access
-     * @return string
+     *
+     * @return bool|string
      */
     protected function validateAllowDeny($access)
     {
-        $data = '';
         switch (strtolower($access)) {
             case 'allow':
-                $data = 'allow';
+                return 'allow';
                 break;
             case 'deny':
-                $data = 'deny';
+                return 'deny';
                 break;
         }
 
-        return $data;
+        return false;
     }
 
     /**
-     * @param $gallery_loc
-     * @return string
+     * @param $galleryLoc
+     *
+     * @return bool|string
      */
-    public function validateGalleryLoc($gallery_loc)
+    public function validateGalleryLoc($galleryLoc)
     {
-        return $this->validateLoc($gallery_loc);
+        return $this->validateLoc($galleryLoc);
     }
 
     /**
      * @param $title
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateGalleryLocTitle($title)
     {
-        return $title;
+        if (is_string($title) && strlen($title) > 0) {
+            return $title;
+        }
+
+        return false;
     }
 
     /**
-     * @param $requires_subscription
-     * @return string
+     * @param $requiresSubscription
+     *
+     * @return bool|string
      */
-    public function validateRequiresSubscription($requires_subscription)
+    public function validateRequiresSubscription($requiresSubscription)
     {
-        return $this->validateYesNo($requires_subscription);
+        return $this->validateYesNo($requiresSubscription);
     }
 
     /**
      * @param $uploader
-     * @return mixed
+     *
+     * @return bool|mixed
      */
     public function validateUploader($uploader)
     {
-        return $uploader;
+        if (is_string($uploader) && strlen($uploader) > 0) {
+            return $uploader;
+        }
+
+        return false;
     }
 
     /**
-     * @param $uploader_loc
-     * @return string
+     * @param $uploaderLoc
+     *
+     * @return bool|string
      */
-    public function validateUploaderInfo($uploader_loc)
+    public function validateUploaderInfo($uploaderLoc)
     {
-        return $this->validateLoc($uploader_loc);
+        return $this->validateLoc($uploaderLoc);
     }
 
     /**
      * @param $platform
-     * @return string
+     *
+     * @return bool|string
      */
     public function validatePlatform($platform)
     {
@@ -1115,12 +1142,15 @@ class VideoItemValidator
             }
         }
 
-        return implode(' ', $platforms);
+        $data = implode(' ', $platforms);
+
+        return (strlen($data) > 0) ? $data : false;
     }
 
     /**
      * @param $platform_access
-     * @return string
+     *
+     * @return bool|string
      */
     public function validatePlatformRelationship($platform_access)
     {
@@ -1129,7 +1159,8 @@ class VideoItemValidator
 
     /**
      * @param $live
-     * @return string
+     *
+     * @return bool|string
      */
     public function validateLive($live)
     {
@@ -1140,28 +1171,30 @@ class VideoItemValidator
      * Create a new <video:tag> element for each tag associated with a video. A maximum of 32 tags is permitted.
      *
      * @param $tags
-     * @return array
+     *
+     * @return bool|array
      */
     public function validateTag($tags)
     {
-        $data = array();
-
         if (is_array($tags)) {
             if (count($tags) > $this->maxVideoTagTags) {
-                $data = array_slice($tags, 0, 32);
-            } else {
-                $data = $tags;
+                return array_slice($tags, 0, 32);
             }
-        } elseif (is_string($tags)) {
-            $data = array($tags);
+
+            return $tags;
         }
 
-        return $data;
+        if (is_string($tags)) {
+            return array($tags);
+        }
+
+        return false;
     }
 
     /**
-     * @param  array $prices
-     * @return array
+     * @param array $prices
+     *
+     * @return bool|array
      */
     public function validatePrice(array $prices)
     {
@@ -1189,44 +1222,44 @@ class VideoItemValidator
             $valid = array_filter($prices);
         }
 
-        return $valid;
+        return (count($valid) > 0) ? $valid : false;
     }
 
     /**
-     * @param  string $resolution
-     * @return string
+     * @param string $resolution
+     *
+     * @return bool|string
      */
     protected function validatePriceResolution($resolution)
     {
-        $data = '';
         switch (strtoupper($resolution)) {
             case 'HD':
-                $data = 'HD';
+                return 'HD';
                 break;
             case 'SD':
-                $data = 'SD';
+                return 'SD';
                 break;
         }
 
-        return $data;
+        return false;
     }
 
     /**
-     * @param  string $type
-     * @return string
+     * @param string $type
+     *
+     * @return bool|string
      */
     protected function validatePriceType($type)
     {
-        $data = '';
         switch (strtolower($type)) {
             case 'own':
-                $data = 'own';
+                return 'own';
                 break;
             case 'rent':
-                $data = 'rent';
+                return 'rent';
                 break;
         }
 
-        return $data;
+        return false;
     }
 }

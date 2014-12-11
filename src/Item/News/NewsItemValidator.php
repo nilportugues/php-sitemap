@@ -8729,7 +8729,11 @@ class NewsItemValidator
      */
     public function validateName($name)
     {
-        return $name;
+        if (is_string($name) && strlen($name)>0) {
+            return $name;
+        }
+
+        return false;
     }
 
     /**
@@ -8805,7 +8809,11 @@ class NewsItemValidator
      */
     public function validateTitle($title)
     {
-        return $title;
+        if (is_string($title) && strlen($title)>0) {
+            return $title;
+        }
+
+        return false;
     }
 
     /**
@@ -8814,7 +8822,11 @@ class NewsItemValidator
      */
     public function validateKeywords($keywords)
     {
-        return $keywords;
+        if (is_string($keywords) && strlen($keywords)>0) {
+            return $keywords;
+        }
+
+        return false;
     }
 
     /**
@@ -8823,6 +8835,10 @@ class NewsItemValidator
      */
     public function validateStockTickers($stock)
     {
-        return $stock;
+        if (is_string($stock) && strlen($stock)>0) {
+            return $stock;
+        }
+
+        return false;
     }
 }
