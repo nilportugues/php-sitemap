@@ -850,7 +850,7 @@ class VideoItemValidator
      */
     public function validateAutoPlay($string)
     {
-        if (!empty($string)) {
+        if (is_string($string) && strlen($string)>0) {
             return $string;
         }
 
@@ -874,8 +874,8 @@ class VideoItemValidator
      */
     public function validateTitle($title)
     {
-        if (mb_strlen($title, 'UTF-8') > 97) {
-            return mb_substr($title, 0, 97, 'UTF-8').'...';
+        if (is_string($title) && strlen($title)>0 && strlen($title) < 97) {
+            return $title;
         }
 
         return false;

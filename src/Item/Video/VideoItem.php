@@ -80,7 +80,7 @@ class VideoItem extends AbstractItem
         $title = $this->validator->validateTitle($title);
         if (false === $title) {
             throw new VideoItemException(
-                sprintf('', $title)
+                sprintf('The provided title \'%s\' is not a valid value.', $title)
             );
         }
         $this->xml['title'] = "\t\t\t".'<video:title><![CDATA['.$title.']]></video:title>';
@@ -112,12 +112,29 @@ class VideoItem extends AbstractItem
      * @param $loc
      *
      * @param $playerEmbedded
-     * @param $playerAutoplay
+     * @param $playerAutoPlay
      *
      * @throws VideoItemException
      * @return $this
      */
-    protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoplay)
+    protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
+    {
+        $this->setPlayerLocValue($loc);
+        $this->setPlayerEmbedded($playerEmbedded);
+        $this->setPlayerAutoPlay($playerAutoPlay);
+
+        $this->xml['player_loc'] .= '>'.$loc.'</video:player_loc>';
+
+        return $this;
+    }
+
+    /**
+     * @param $loc
+     *
+     * @return false|string
+     * @throws VideoItemException
+     */
+    protected function setPlayerLocValue($loc)
     {
         $loc = $this->validator->validatePlayerLoc($loc);
         if (false === $loc) {
@@ -125,17 +142,43 @@ class VideoItem extends AbstractItem
                 sprintf('', $loc)
             );
         }
-        $this->xml['player_loc'] = '';
+        $this->xml['player_loc'] .= '<video:player_loc';
+    }
 
-        if (!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) && !empty($this->data['autoplay'])) {
-            $this->xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'" autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
-        } elseif (!empty($this->data['player_loc']) && !empty($this->data['allow_embed'])) {
-            $this->xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'">'.$this->data['player_loc'].'</video:player_loc>';
-        } elseif (!empty($this->data['player_loc']) && !empty($this->data['autoplay'])) {
-            $this->xml[] = "\t\t\t".'<video:player_loc autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
+    /**
+     * @param $playerEmbedded
+     *
+     * @throws VideoItemException
+     */
+    protected function setPlayerEmbedded($playerEmbedded)
+    {
+        if (null !== $playerEmbedded) {
+            $playerEmbedded = $this->validator->validateAllowEmbed($playerEmbedded);
+            if (false === $playerEmbedded) {
+                throw new VideoItemException(
+                    sprintf('', $playerEmbedded)
+                );
+            }
+            $this->xml['player_loc'] .= ' allow_embed="'.$playerEmbedded.'"';
         }
+    }
 
-        return $this;
+    /**
+     * @param $playerAutoplay
+     *
+     * @throws VideoItemException
+     */
+    protected function setPlayerAutoPlay($playerAutoplay)
+    {
+        if (null !== $playerAutoplay) {
+            $playerAutoplay = $this->validator->validateAutoPlay($playerAutoplay);
+            if (false === $playerAutoplay) {
+                throw new VideoItemException(
+                    sprintf('', $playerAutoplay)
+                );
+            }
+            $this->xml['player_loc'] .= ' autoplay="'.$playerAutoplay.'"';
+        }
     }
 
     /**
@@ -428,12 +471,10 @@ class VideoItem extends AbstractItem
     public function setPrice($price, $currency, $type = null, $resolution = null)
     {
         $this->xml['price'] .= "\t\t\t".'<video:price';
-
         $this->setPriceValue($price);
         $this->setPriceCurrency($currency);
         $this->setPriceType($type);
         $this->setPriceResolution($resolution);
-
         $this->xml['price'] .= '>'.$price.'</video:price>'."\n";
 
         return $this;
@@ -542,11 +583,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        //Loop tag array
-        if (!empty($this->data['tag'])) {
-            foreach ($this->data['tag'] as &$tag) {
-                $this->xml['tag'] .= "\t\t\t".'<video:tag>'.$tag.'</video:tag>'."\n";
-            }
+        foreach ($tag as $tagName) {
+            $this->xml['tag'] .= "\t\t\t".'<video:tag>'.$tagName.'</video:tag>'."\n";
         }
 
         return $this;
