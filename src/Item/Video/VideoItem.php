@@ -21,17 +21,19 @@ class VideoItem extends AbstractItem
     protected $validator;
 
     /**
-     * @param string $title
-     * @param string $playerLoc
-     * @param string $contentLoc
+     * @param $title
+     * @param $contentLoc
+     * @param $playerLoc
+     * @param $playerEmbedded
+     * @param $playerAutoplay
      */
-    public function __construct($title, $playerLoc, $contentLoc)
+    public function __construct($title, $contentLoc, $playerLoc, $playerEmbedded = null, $playerAutoplay = null)
     {
         $this->validator = VideoItemValidator::getInstance();
-        $this->xml = $this->reset();
+        $this->xml       = $this->reset();
         $this->setTitle($title);
-        $this->setPlayerLoc($playerLoc);
         $this->setContentLoc($contentLoc);
+        $this->setPlayerLoc($playerLoc, $playerEmbedded, $playerAutoplay);
     }
 
     /**
@@ -42,7 +44,28 @@ class VideoItem extends AbstractItem
     protected function reset()
     {
         return [
-
+            "\t\t" . '<video:video>',
+            'thumbnail_loc'         => '',
+            'title'                 => '',
+            'description'           => '',
+            'content_loc'           => '',
+            'player_loc'            => '',
+            'duration'              => '',
+            'expiration_date'       => '',
+            'rating'                => '',
+            'view_count'            => '',
+            'publication_date'      => '',
+            'family_friendly'       => '',
+            'restriction'           => '',
+            'gallery_loc'           => '',
+            'price'                 => '',
+            'category'              => '',
+            'tag'                   => '',
+            'requires_subscription' => '',
+            'uploader'              => '',
+            'platform'              => '',
+            'live'                  => '',
+            "\t\t" . '</video:video>',
         ];
     }
 
@@ -55,12 +78,12 @@ class VideoItem extends AbstractItem
     protected function setTitle($title)
     {
         $title = $this->validator->validateTitle($title);
-        if(false === $title) {
+        if (false === $title) {
             throw new VideoItemException(
                 sprintf('', $title)
             );
         }
-        $this->xml['title'] = '';
+        $this->xml['title'] = "\t\t\t" . '<video:title><![CDATA[' . $title . ']]></video:title>';
 
         return $this;
     }
@@ -71,26 +94,47 @@ class VideoItem extends AbstractItem
      * @throws VideoItemException
      * @return $this
      */
-    protected function setPlayerLoc($loc)
+    protected function setContentLoc($loc)
     {
-        $loc = $this->validator->validatePlayerLoc($loc);
-        if(false === $loc) {
+        $loc = $this->validator->validateLoc($loc);
+        if (false === $loc) {
             throw new VideoItemException(
                 sprintf('', $loc)
             );
         }
-        $this->xml['player_loc'] = '';
 
+        $this->xml['content_loc'] = "\t\t\t" . '<video:content_loc><![CDATA[' . $loc . ']]></video:content_loc>';
         return $this;
     }
 
     /**
      * @param $loc
      *
+     * @param $playerEmbedded
+     * @param $playerAutoplay
+     *
+     * @throws VideoItemException
      * @return $this
      */
-    protected function setContentLoc($loc)
+    protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoplay)
     {
+        $loc = $this->validator->validatePlayerLoc($loc);
+        if (false === $loc) {
+            throw new VideoItemException(
+                sprintf('', $loc)
+            );
+        }
+        $this->xml['player_loc'] = '';
+
+
+        if (!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) && !empty($this->data['autoplay'])) {
+            $this->xml[] = "\t\t\t" . '<video:player_loc allow_embed="' . $this->data['allow_embed'] . '" autoplay="' . $this->data['autoplay'] . '">' . $this->data['player_loc'] . '</video:player_loc>';
+        } elseif (!empty($this->data['player_loc']) && !empty($this->data['allow_embed'])) {
+            $this->xml[] = "\t\t\t" . '<video:player_loc allow_embed="' . $this->data['allow_embed'] . '">' . $this->data['player_loc'] . '</video:player_loc>';
+        } elseif (!empty($this->data['player_loc']) && !empty($this->data['autoplay'])) {
+            $this->xml[] = "\t\t\t" . '<video:player_loc autoplay="' . $this->data['autoplay'] . '">' . $this->data['player_loc'] . '</video:player_loc>';
+        }
+
         return $this;
     }
 
@@ -99,9 +143,9 @@ class VideoItem extends AbstractItem
      */
     public static function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n"
-        .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
-        .' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'."\n";
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+        . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        . ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">' . "\n";
     }
 
     /**
@@ -115,140 +159,255 @@ class VideoItem extends AbstractItem
     /**
      * @param $loc
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setThumbnailLoc($loc)
     {
+        $loc = $this->validator->validateThumbnailLoc($loc);
+        if (false === $loc) {
+            throw new VideoItemException(
+                sprintf('', $loc)
+            );
+        }
+
+        $this->xml['thumbnail_loc'] = "\t\t\t" .
+            '<video:thumbnail_loc><![CDATA[' . $loc . ']]></video:thumbnail_loc>';
+
         return $this;
     }
 
     /**
      * @param $description
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setDescription($description)
     {
-        return $this;
-    }
+        $description = $this->validator->validateDescription($description);
+        if (false === $description) {
+            throw new VideoItemException(
+                sprintf('', $description)
+            );
+        }
 
-    /**
-     * @param $embedded
-     *
-     * @return $this
-     */
-    public function setPlayerLocAllowEmbedded($embedded)
-    {
-        return $this;
-    }
-
-    /**
-     * @param $autoplay
-     *
-     * @return $this
-     */
-    public function setPlayerLocAutoplay($autoplay)
-    {
+        $this->xml['description'] = "\t\t\t" .
+            '<video:description><![CDATA[' . $description . ']]></video:description>';
         return $this;
     }
 
     /**
      * @param $duration
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setDuration($duration)
     {
+        $duration = $this->validator->validateDuration($duration);
+        if (false === $duration) {
+            throw new VideoItemException(
+                sprintf('', $duration)
+            );
+        }
+
+        $this->xml['duration'] = "\t\t\t" .
+            '<video:duration><![CDATA[' . $duration . ']]></video:duration>';
+
         return $this;
     }
 
     /**
      * @param $expirationDate
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setExpirationDate($expirationDate)
     {
+        $expirationDate = $this->validator->validateExpirationDate($expirationDate);
+        if (false === $expirationDate) {
+            throw new VideoItemException(
+                sprintf('', $expirationDate)
+            );
+        }
+
+        $this->xml['expiration_date'] = "\t\t\t" .
+            '<video:expiration_date><![CDATA[' . $expirationDate . ']]></video:expiration_date>';
+
         return $this;
     }
 
     /**
      * @param $rating
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setRating($rating)
     {
+        $rating = $this->validator->validateRating($rating);
+        if (false === $rating) {
+            throw new VideoItemException(
+                sprintf('', $rating)
+            );
+        }
+
+        $this->xml['rating'] = "\t\t\t" .
+            '<video:rating><![CDATA[' . $rating . ']]></video:rating>';
+
         return $this;
     }
 
     /**
      * @param $viewCount
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setViewCount($viewCount)
     {
+        $viewCount = $this->validator->validateViewCount($viewCount);
+        if (false === $viewCount) {
+            throw new VideoItemException(
+                sprintf('', $viewCount)
+            );
+        }
+
+        $this->xml['view_count'] = "\t\t\t" .
+            '<video:view_count><![CDATA[' . $viewCount . ']]></video:view_count>';
+
         return $this;
     }
 
     /**
      * @param $publicationDate
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setPublicationDate($publicationDate)
     {
+        $publicationDate = $this->validator->validatePublicationDate($publicationDate);
+        if (false === $publicationDate) {
+            throw new VideoItemException(
+                sprintf('', $publicationDate)
+            );
+        }
+
+        $this->xml['publication_date'] = "\t\t\t" .
+            '<video:publication_date><![CDATA[' . $publicationDate . ']]></video:publication_date>';
         return $this;
     }
 
     /**
      * @param $familyFriendly
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setFamilyFriendly($familyFriendly)
     {
+        $familyFriendly = $this->validator->validateFamilyFriendly($familyFriendly);
+        if (false === $familyFriendly) {
+            throw new VideoItemException(
+                sprintf('', $familyFriendly)
+            );
+        }
+
+        $this->xml['family_friendly'] = "\t\t\t" .
+            '<video:family_friendly><![CDATA[' . $familyFriendly . ']]></video:family_friendly>';
+
         return $this;
     }
 
     /**
-     * @param $restriction
+     * @param      $restriction
+     * @param null $relationship
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setRestriction($restriction)
+    public function setRestriction($restriction, $relationship = null)
     {
+        $restriction = $this->validator->validateRestriction($restriction);
+        if (false === $restriction) {
+            throw new VideoItemException(
+                sprintf('', $restriction)
+            );
+        }
+
+        $this->xml['restriction'] = "\t\t\t" . '<video:restriction';
+
+        if (null !== $relationship) {
+            $this->setRestrictionRelationship($relationship);
+        }
+
+        $this->xml['restriction'] .= '>' . $restriction . '</video:restriction>';
         return $this;
     }
 
     /**
      * @param $relationship
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setRestrictionRelationship($relationship)
     {
+        $relationship = $this->validator->validateRestriction($relationship);
+        if (false === $relationship) {
+            throw new VideoItemException(
+                sprintf('', $relationship)
+            );
+        }
+
+        $this->xml['restriction'] .= ' relationship="' . $relationship . '">';
         return $this;
     }
 
     /**
-     * @param $galleryLoc
+     * @param      $galleryLoc
+     * @param null $title
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setGalleryLoc($galleryLoc)
+    public function setGalleryLoc($galleryLoc, $title = null)
     {
+        $galleryLoc = $this->validator->validateGalleryLoc($galleryLoc);
+        if (false === $galleryLoc) {
+            throw new VideoItemException(
+                sprintf('', $galleryLoc)
+            );
+        }
+        $this->xml['gallery_loc'] = "\t\t\t" . '<video:gallery_loc';
+
+        if (null !== $title) {
+            $this->setGalleryTitle($title);
+        }
+        $this->xml['gallery_loc'] .= '>' . $galleryLoc . '</video:gallery_loc>';
+
         return $this;
     }
 
     /**
      * @param $title
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setGalleryTitle($title)
     {
+        $title = $this->validator->validateGalleryLocTitle($title);
+        if (false === $title) {
+            throw new VideoItemException(
+                sprintf('', $title)
+            );
+        }
+
+        $this->xml['gallery_loc'] .= ' title="' . $title . '"';
         return $this;
     }
 
@@ -258,215 +417,300 @@ class VideoItem extends AbstractItem
      * @param string $type
      * @param string $resolution
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setPrice($price, $currency, $type = '', $resolution = '')
+    public function setPrice($price, $currency, $type = null, $resolution = null)
     {
-        $data = array(
-            'price' => $price,
-            'price_currency' => $currency,
-            'type' => $type,
-            'resolution' => $resolution,
-        );
-        $data = array_filter($data);
-        $data = $this->validator->validatePrice($data);
+        $this->xml['price'] .= "\t\t\t" . '<video:price';
 
-        if (!empty($data)) {
-            $this->data['price'][] = $data;
-        }
+        $this->setPriceValue($price);
+        $this->setPriceCurrency($currency);
+        $this->setPriceType($type);
+        $this->setPriceResolution($resolution);
+
+        $this->xml['price'] .= '>' . $price . '</video:price>' . "\n";
 
         return $this;
     }
 
     /**
+     * @param $price
+     *
+     * @throws VideoItemException
+     */
+    protected function setPriceValue($price)
+    {
+        $price = $this->validator->validatePrice($price);
+        if (false === $price) {
+            throw new VideoItemException(
+                sprintf('', $price)
+            );
+        }
+    }
+
+    /**
+     * @param       $currency
+     *
+     * @throws VideoItemException
+     */
+    protected function setPriceCurrency($currency)
+    {
+        $currency = $this->validator->validatePrice($currency);
+        if (false === $currency) {
+            throw new VideoItemException(
+                sprintf('', $currency)
+            );
+        }
+        $this->xml['price'] .= ' currency="' . $currency . '"';
+    }
+
+    /**
+     * @param       $type
+     *
+     * @throws VideoItemException
+     */
+    protected function setPriceType($type)
+    {
+        if (null !== $type) {
+            $type = $this->validator->validatePriceType($type);
+            if (false === $type) {
+                throw new VideoItemException(
+                    sprintf('', $type)
+                );
+            }
+            $this->xml['price'] .= ' type="' . $type . '"';
+        }
+    }
+
+    /**
+     * @param       $resolution
+     *
+     * @throws VideoItemException
+     */
+    protected function setPriceResolution($resolution)
+    {
+        if (null !== $resolution) {
+            $resolution = $this->validator->validatePriceResolution($resolution);
+            if (false === $resolution) {
+                throw new VideoItemException(
+                    sprintf('', $resolution)
+                );
+            }
+            $this->xml['price'] .= ' resolution="' . $resolution . '"';
+        }
+    }
+
+    /**
      * @param $category
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setCategory($category)
     {
+        $category = $this->validator->validateCategory($category);
+
+        if (false === $category) {
+            throw new VideoItemException(
+                sprintf('', implode(',', $category))
+            );
+        }
+
+        $this->xml['category'] = "\t\t\t" . '<video:category><![CDATA[' . $category . ']]></video:category>';
+
         return $this;
     }
 
     /**
      * @param array $tag
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setTag(array $tag)
     {
+        $tag = $this->validator->validateTag($tag);
+        if (false === $tag) {
+            throw new VideoItemException(
+                sprintf('', implode(',', $tag))
+            );
+        }
+
+
+        //Loop tag array
+        if (!empty($this->data['tag'])) {
+            foreach ($this->data['tag'] as &$tag) {
+                $this->xml['tag'] .= "\t\t\t" . '<video:tag>' . $tag . '</video:tag>' . "\n";
+            }
+        }
+
         return $this;
     }
 
     /**
      * @param $requires
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setRequiresSubscription($requires)
     {
+        $requires = $this->validator->validateRequiresSubscription($requires);
+        if (false === $requires) {
+            throw new VideoItemException(
+                sprintf('', $requires)
+            );
+        }
+
+        $this->xml['requires_subscription'] = "\t\t\t" .
+            '<video:requires_subscription><![CDATA[' . $requires . ']]></video:requires_subscription>';
+
         return $this;
     }
 
     /**
-     * @param $uploader
+     * @param      $uploader
+     * @param null $info
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setUploader($uploader)
+    public function setUploader($uploader, $info = null)
     {
+        $uploader = $this->validator->validateUploader($uploader);
+        if (false === $uploader) {
+            throw new VideoItemException(
+                sprintf('', $uploader)
+            );
+        }
+
+        $this->xml['uploader'] = "\t\t\t" . '<video:uploader';
+
+        if (null !== $info) {
+            $this->setUploaderInfo($info);
+        }
+
+        $this->xml['uploader'] .= '>' . $uploader . '</video:uploader>';
+
         return $this;
     }
 
     /**
      * @param $info
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setUploaderInfo($info)
+    protected function setUploaderInfo($info)
     {
+        $info = $this->validator->validateUploaderInfo($info);
+        if (false === $info) {
+            throw new VideoItemException(
+                sprintf('', $info)
+            );
+        }
+        $this->xml['uploader'] .= ' info="' . $info;
+
         return $this;
     }
 
     /**
-     * @param $platform
+     * @param      $platform
+     * @param null $relationship
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setPlatform($platform)
+    public function setPlatform($platform, $relationship = null)
     {
+        $platform = $this->validator->validatePlatform($platform);
+        if (false === $platform) {
+            throw new VideoItemException(
+                sprintf('', $platform)
+            );
+        }
+
+        $this->xml['platform'] = "\t\t\t" . '<video:platform';
+
+        if (null !== $relationship) {
+            $this->setPlatformRelationship($relationship);
+        }
+
+        $this->xml['platform'] .= '>' . $platform . '</video:platform>';
         return $this;
     }
 
     /**
      * @param $relationship
      *
+     * @throws VideoItemException
      * @return $this
      */
-    public function setPlatformRelationship($relationship)
+    protected function setPlatformRelationship($relationship)
     {
+        $relationship = $this->validator->validatePlatformRelationship($relationship);
+        if (false === $relationship) {
+            throw new VideoItemException(
+                sprintf('', $relationship)
+            );
+        }
+        $this->xml['platform'] .= ' relationship="' . $relationship . '"';
+
         return $this;
     }
 
     /**
      * @param $live
      *
+     * @throws VideoItemException
      * @return $this
      */
     public function setLive($live)
     {
+        $live = $this->validator->validateLive($live);
+        if (false === $live) {
+            throw new VideoItemException(
+                sprintf('', $live)
+            );
+        }
+        $this->xml['live'] = "\t\t\t" . '<video:live><![CDATA[' . $live . ']]></video:live>';
+
         return $this;
     }
 
     /**
-     * Collapses the item to its string XML representation.
+     * @param $embedded
      *
-     * @return string
+     * @throws VideoItemException
+     * @return $this
      */
-    public function build()
+    protected function setPlayerLocAllowEmbedded($embedded)
     {
+        $embedded = $this->validator->validateAllowEmbed($embedded);
+        if (false === $embedded) {
+            throw new VideoItemException(
+                sprintf('', $embedded)
+            );
+        }
+        return $this;
+    }
 
-        $xml[] = "\t\t".'<video:video>';
-        $xml['thumbnail_loc'] = "\t\t\t".'<video:thumbnail_loc><![CDATA['.$this->data['thumbnail_loc'].']]></video:thumbnail_loc>';
-        $xml['title'] = "\t\t\t".'<video:title><![CDATA['.$this->data['title'].']]></video:title>';
-        $xml['description'] = "\t\t\t".'<video:description><![CDATA['.$this->data['description'].']]></video:description>';
-        $xml['content_loc'] = "\t\t\t".'<video:content_loc><![CDATA['.$this->data['content_loc'].']]></video:content_loc>';
-
-
-
-
-        if (!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) && !empty($this->data['autoplay'])) {
-            $xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'" autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
-        } elseif (!empty($this->data['player_loc']) && !empty($this->data['allow_embed'])) {
-            $xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'">'.$this->data['player_loc'].'</video:player_loc>';
-        } elseif (!empty($this->data['player_loc']) && !empty($this->data['autoplay'])) {
-            $xml[] = "\t\t\t".'<video:player_loc autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
+    /**
+     * @param $autoPlay
+     *
+     * @throws VideoItemException
+     * @return $this
+     */
+    protected function setPlayerLocAutoPlay($autoPlay)
+    {
+        $autoPlay = $this->validator->validateAutoPlay($autoPlay);
+        if (false === $autoPlay) {
+            throw new VideoItemException(
+                sprintf('', $autoPlay)
+            );
         }
 
-        $xml['duration'] = "\t\t\t".'<video:duration><![CDATA['.$this->data['duration'].']]></video:duration>';
-        $xml['expiration_date'] = "\t\t\t".'<video:expiration_date><![CDATA['.$this->data['expiration_date'].']]></video:expiration_date>';
-        $xml['rating'] = "\t\t\t".'<video:rating><![CDATA['.$this->data['rating'].']]></video:rating>';
-        $xml['view_count'] = "\t\t\t".'<video:view_count><![CDATA['.$this->data['view_count'].']]></video:view_count>';
-        $xml['publication_date'] = "\t\t\t".'<video:publication_date><![CDATA['.$this->data['publication_date'].']]></video:publication_date>';
-
-
-        if (!empty($this->data['family_friendly']) && $this->data['family_friendly'] == 'No') {
-            $xml[] = "\t\t\t".'<video:family_friendly><![CDATA['.$this->data['family_friendly'].']]></video:family_friendly>';
-        }
-
-
-
-        if (!empty($this->data['restriction']) && !empty($this->data['restriction_relationship'])) {
-            $xml[] = "\t\t\t".'<video:restriction relationship="'.$this->data['restriction_relationship'].'">'.$this->data['restriction'].'</video:restriction>';
-        } elseif (!empty($this->data['restriction'])) {
-            $xml[] = "\t\t\t".'<video:restriction>'.$this->data['restriction'].'</video:restriction>';
-        }
-
-
-
-        if (!empty($this->data['gallery_loc']) && !empty($this->data['gallery_loc_title'])) {
-            $xml[] = "\t\t\t".'<video:gallery_loc title="'.$this->data['gallery_loc_title'].'">'.$this->data['gallery_loc'].'</video:gallery_loc>';
-        } elseif (!empty($this->data['gallery_loc'])) {
-            $xml[] = "\t\t\t".'<video:gallery_loc>'.$this->data['gallery_loc'].'</video:gallery_loc>';
-        }
-
-
-
-
-        if (!empty($this->data['price'])) {
-            //Loop price array
-            foreach ($this->data['price'] as &$price) {
-                if (!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type']) && !empty($price['resolution'])) {
-                    $xml['price'] .= "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'" resolution="'.$price['resolution'].'">'.$price['price'].'</video:price>';
-                } elseif (!empty($price['price']) && !empty($price['price_currency']) && !empty($price['resolution'])) {
-                    $xml['price'] .= "\t\t\t".'<video:price currency="'.$price['price_currency'].'" resolution="'.$price['resolution'].'">'.$price['price'].'</video:price>';
-                } elseif (!empty($price['price']) && !empty($price['price_currency']) && !empty($price['type'])) {
-                    $xml['price'] .= "\t\t\t".'<video:price currency="'.$price['price_currency'].'" type="'.$price['type'].'">'.$price['price'].'</video:price>';
-                } elseif (!empty($price['price']) && !empty($price['price_currency'])) {
-                    $xml['price'] .= "\t\t\t".'<video:price currency="'.$price['price_currency'].'">'.$price['price'].'</video:price>';
-                }
-            }
-        }
-
-
-
-
-        $xml['category'] = "\t\t\t".'<video:category><![CDATA['.$this->data['category'].']]></video:category>';
-
-
-
-
-        //Loop tag array
-        if (!empty($this->data['tag'])) {
-            foreach ($this->data['tag'] as &$tag) {
-                $xml['tag'] .= "\t\t\t".'<video:tag>'.$tag.'</video:tag>'."\n";
-            }
-        }
-
-        $xml['requires_subscription'] = "\t\t\t".'<video:requires_subscription><![CDATA['.$this->data['requires_subscription'].']]></video:requires_subscription>';
-
-
-
-
-        if (!empty($this->data['uploader']) && !empty($this->data['uploader_info'])) {
-            $xml['uploader'] = "\t\t\t".'<video:uploader info="'.$this->data['uploader_info'].'">'.$this->data['uploader'].'</video:uploader>';
-        } elseif (!empty($this->data['uploader'])) {
-            $xml['uploader'] = "\t\t\t".'<video:uploader>'.$this->data['uploader'].'</video:uploader>';
-        }
-
-
-
-        //platform
-        if (!empty($this->data['platform']) && !empty($this->data['platform_relationship'])) {
-            $xml['platform'] = "\t\t\t".'<video:platform relationship="'.$this->data['platform_relationship'].'">'.$this->data['platform'].'</video:platform>';
-        } elseif (!empty($this->data['platform'])) {
-            $xml['platform'] = "\t\t\t".'<video:platform>'.$this->data['platform'].'</video:platform>';
-        }
-
-
-
-        $xml['live'] = "\t\t\t".'<video:live><![CDATA['.$this->data['live'].']]></video:live>';
-
-        $xml[] = "\t\t".'</video:video>';
+        return $this;
     }
 }

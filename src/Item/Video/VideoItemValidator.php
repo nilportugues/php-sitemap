@@ -850,7 +850,7 @@ class VideoItemValidator
      *
      * @return bool|string
      */
-    public function validateAutoplay($string)
+    public function validateAutoPlay($string)
     {
         if (!empty($string)) {
             return $string;
@@ -1079,6 +1079,20 @@ class VideoItemValidator
     }
 
     /**
+     * @param $category
+     *
+     * @return bool|string
+     */
+    public function validateCategory($category)
+    {
+        if (is_string($category) && strlen($category) > 0) {
+            return $category;
+        }
+
+        return false;
+    }
+
+    /**
      * @param $title
      *
      * @return bool|string
@@ -1192,37 +1206,30 @@ class VideoItemValidator
     }
 
     /**
-     * @param array $prices
+     * @param $price
      *
-     * @return bool|array
+     * @return bool
      */
-    public function validatePrice(array $prices)
+    public function validatePrice($price)
     {
-        $valid = array();
-
-        if (
-            !empty($prices['price'])
-            && !empty($prices['price_currency'])
-            && (filter_var($prices['price'], FILTER_VALIDATE_FLOAT) || filter_var(
-                    $prices['price'],
-                    FILTER_VALIDATE_INT
-                ))
-            && array_search(strtoupper($prices['price_currency']), array_unique($this->iso4217), true)
-        ) {
-            $prices['price_currency'] = strtoupper($prices['price_currency']);
-
-            if (!empty($prices['resolution'])) {
-                $prices['resolution'] = $this->validatePriceResolution($prices['resolution']);
-            }
-
-            if (!empty($prices['type'])) {
-                $prices['type'] = $this->validatePriceType($prices['type']);
-            }
-
-            $valid = array_filter($prices);
+        if(filter_var($price, FILTER_VALIDATE_FLOAT) || filter_var($price, FILTER_VALIDATE_INT)) {
+            return $price;
         }
 
-        return (count($valid) > 0) ? $valid : false;
+        return false;
+    }
+
+    /**
+     * @param $currency
+     *
+     * @return bool
+     */
+    public function validatePriceCurrency($currency)
+    {
+        if (array_search(strtoupper($currency), array_unique($this->iso4217), true)) {
+            return $currency;
+        }
+        return false;
     }
 
     /**
@@ -1230,7 +1237,7 @@ class VideoItemValidator
      *
      * @return bool|string
      */
-    protected function validatePriceResolution($resolution)
+    public function validatePriceResolution($resolution)
     {
         switch (strtoupper($resolution)) {
             case 'HD':
@@ -1249,7 +1256,7 @@ class VideoItemValidator
      *
      * @return bool|string
      */
-    protected function validatePriceType($type)
+    public function validatePriceType($type)
     {
         switch (strtolower($type)) {
             case 'own':
