@@ -15,11 +15,6 @@ namespace NilPortugues\Sitemap\Item;
 abstract class AbstractItem implements ItemInterface
 {
     /**
-     * @var
-     */
-    protected $validatorClass;
-
-    /**
      * @var array
      */
     protected $xml = [];

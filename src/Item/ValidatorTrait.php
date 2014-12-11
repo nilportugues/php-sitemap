@@ -12,7 +12,7 @@ trait ValidatorTrait
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
      *
      * @param $value
-     * @return bool|string
+     * @return string|false
      */
     public function validateLoc($value)
     {
@@ -29,7 +29,7 @@ trait ValidatorTrait
      *
      * @param string $value
      *
-     * @return bool|string
+     * @return string|false
      */
     protected function validateDate($value)
     {

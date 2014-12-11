@@ -57,7 +57,7 @@ class UrlItemValidator
      * Setting a priority of 1.0 for all URLs will not help you, as the relative priority of pages on your site is what will be considered.
      *
      * @param $priority
-     * @return bool|string
+     * @return string|false
      */
     public function validatePriority($priority)
     {

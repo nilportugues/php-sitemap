@@ -25,7 +25,7 @@ class MediaItemValidator
     /**
      * @param $title
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateTitle($title)
     {
@@ -39,7 +39,7 @@ class MediaItemValidator
     /**
      * @param $mimeType
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateMimeType($mimeType)
     {
@@ -53,7 +53,7 @@ class MediaItemValidator
     /**
      * @param $link
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateLink($link)
     {
@@ -63,7 +63,7 @@ class MediaItemValidator
     /**
      * @param $player
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePlayer($player)
     {
@@ -87,7 +87,7 @@ class MediaItemValidator
     /**
      * @param $description
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateDescription($description)
     {
@@ -101,7 +101,7 @@ class MediaItemValidator
     /**
      * @param $thumbnail
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateThumbnail($thumbnail)
     {

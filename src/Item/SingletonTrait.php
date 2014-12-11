@@ -8,21 +8,12 @@ namespace NilPortugues\Sitemap\Item;
  */
 trait SingletonTrait
 {
-    /**
-     * @var SingletonTrait
-     */
     protected static $instance;
 
-    /**
-     *
-     */
     protected function __construct()
     {
     }
 
-    /**
-     * @return SingletonTrait
-     */
     public static function getInstance()
     {
         if (null === self::$instance) {

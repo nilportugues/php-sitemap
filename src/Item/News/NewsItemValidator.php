@@ -8725,7 +8725,7 @@ class NewsItemValidator
 
     /**
      * @param $name
-     * @return bool|string
+     * @return string|false
      */
     public function validateName($name)
     {
@@ -8738,7 +8738,7 @@ class NewsItemValidator
 
     /**
      * @param $language
-     * @return bool|string
+     * @return string|false
      */
     public function validateLanguage($language)
     {
@@ -8751,7 +8751,7 @@ class NewsItemValidator
 
     /**
      * @param $access
-     * @return bool|string
+     * @return string|false
      */
     public function validateAccess($access)
     {
@@ -8769,7 +8769,7 @@ class NewsItemValidator
 
     /**
      * @param $genres
-     * @return bool|string
+     * @return string|false
      */
     public function validateGenres($genres)
     {
@@ -8795,7 +8795,7 @@ class NewsItemValidator
 
     /**
      * @param $publicationDate
-     * @return bool|string
+     * @return string|false
      */
     public function validatePublicationDate($publicationDate)
     {
@@ -8804,7 +8804,7 @@ class NewsItemValidator
 
     /**
      * @param $title
-     * @return bool|string
+     * @return string|false
      */
     public function validateTitle($title)
     {
@@ -8817,7 +8817,7 @@ class NewsItemValidator
 
     /**
      * @param $keywords
-     * @return bool|mixed
+     * @return string|false
      */
     public function validateKeywords($keywords)
     {
@@ -8830,7 +8830,7 @@ class NewsItemValidator
 
     /**
      * @param $stock
-     * @return bool|mixed
+     * @return string|false
      */
     public function validateStockTickers($stock)
     {

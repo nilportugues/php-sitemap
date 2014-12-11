@@ -25,7 +25,7 @@ class ImageItemValidator
     /**
      * @param $title
      *
-     * @return string|bool
+     * @return string|false
      */
     public function validateTitle($title)
     {
@@ -39,7 +39,7 @@ class ImageItemValidator
     /**
      * @param $caption
      *
-     * @return string|bool
+     * @return string|false
      */
     public function validateCaption($caption)
     {
@@ -53,7 +53,7 @@ class ImageItemValidator
     /**
      * @param $geolocation
      *
-     * @return string|bool
+     * @return string|false
      */
     public function validateGeolocation($geolocation)
     {
@@ -67,7 +67,7 @@ class ImageItemValidator
     /**
      * @param $license
      *
-     * @return string|bool
+     * @return string|false
      */
     public function validateLicense($license)
     {

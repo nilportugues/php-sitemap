@@ -819,7 +819,7 @@ class VideoItemValidator
     /**
      * @param $value
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateAllowEmbed($value)
     {
@@ -829,7 +829,7 @@ class VideoItemValidator
     /**
      * @param $value
      *
-     * @return bool|string
+     * @return string|false
      */
     protected function validateYesNo($value)
     {
@@ -862,7 +862,7 @@ class VideoItemValidator
     /**
      * @param $loc
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateThumbnailLoc($loc)
     {
@@ -872,7 +872,7 @@ class VideoItemValidator
     /**
      * @param $title
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateTitle($title)
     {
@@ -889,7 +889,7 @@ class VideoItemValidator
      *
      * @param $description
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateDescription($description)
     {
@@ -903,7 +903,7 @@ class VideoItemValidator
     /**
      * @param $contentLoc
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateContentLoc($contentLoc)
     {
@@ -913,7 +913,7 @@ class VideoItemValidator
     /**
      * @param $playerLoc
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePlayerLoc($playerLoc)
     {
@@ -939,7 +939,7 @@ class VideoItemValidator
     /**
      * @param $expirationDate
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateExpirationDate($expirationDate)
     {
@@ -951,7 +951,7 @@ class VideoItemValidator
      *
      * @param $rating
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateRating($rating)
     {
@@ -984,7 +984,7 @@ class VideoItemValidator
     /**
      * @param $publicationDate
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePublicationDate($publicationDate)
     {
@@ -994,7 +994,7 @@ class VideoItemValidator
     /**
      * @param $familyFriendly
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateFamilyFriendly($familyFriendly)
     {
@@ -1010,7 +1010,7 @@ class VideoItemValidator
     /**
      * @param $countries
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateRestriction($countries)
     {
@@ -1039,7 +1039,7 @@ class VideoItemValidator
     /**
      * @param $restrictionRelationship
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateRestrictionRelationship($restrictionRelationship)
     {
@@ -1052,7 +1052,7 @@ class VideoItemValidator
      *
      * @param $access
      *
-     * @return bool|string
+     * @return string|false
      */
     protected function validateAllowDeny($access)
     {
@@ -1071,7 +1071,7 @@ class VideoItemValidator
     /**
      * @param $galleryLoc
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateGalleryLoc($galleryLoc)
     {
@@ -1081,7 +1081,7 @@ class VideoItemValidator
     /**
      * @param $category
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateCategory($category)
     {
@@ -1095,7 +1095,7 @@ class VideoItemValidator
     /**
      * @param $title
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateGalleryLocTitle($title)
     {
@@ -1109,7 +1109,7 @@ class VideoItemValidator
     /**
      * @param $requiresSubscription
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateRequiresSubscription($requiresSubscription)
     {
@@ -1119,7 +1119,7 @@ class VideoItemValidator
     /**
      * @param $uploader
      *
-     * @return bool|mixed
+     * @return string|false
      */
     public function validateUploader($uploader)
     {
@@ -1133,7 +1133,7 @@ class VideoItemValidator
     /**
      * @param $uploaderLoc
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateUploaderInfo($uploaderLoc)
     {
@@ -1143,7 +1143,7 @@ class VideoItemValidator
     /**
      * @param $platform
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePlatform($platform)
     {
@@ -1164,7 +1164,7 @@ class VideoItemValidator
     /**
      * @param $platform_access
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePlatformRelationship($platform_access)
     {
@@ -1174,7 +1174,7 @@ class VideoItemValidator
     /**
      * @param $live
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateLive($live)
     {
@@ -1235,7 +1235,7 @@ class VideoItemValidator
     /**
      * @param string $resolution
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePriceResolution($resolution)
     {
@@ -1254,7 +1254,7 @@ class VideoItemValidator
     /**
      * @param string $type
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validatePriceType($type)
     {

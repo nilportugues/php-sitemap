@@ -92,7 +92,7 @@ class MediaItem extends AbstractItem
      * @param      $mimeType
      * @param null $duration
      *
-     * @return mixed
+     * @return MediaItem
      */
     public function setContent($mimeType, $duration = null)
     {

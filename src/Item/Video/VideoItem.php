@@ -466,7 +466,7 @@ class VideoItem extends AbstractItem
     }
 
     /**
-     * @param       $type
+     * @param       string|null $type
      *
      * @throws VideoItemException
      */
@@ -484,7 +484,7 @@ class VideoItem extends AbstractItem
     }
 
     /**
-     * @param       $resolution
+     * @param       string|null $resolution
      *
      * @throws VideoItemException
      */
