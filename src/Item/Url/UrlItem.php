@@ -26,6 +26,11 @@ class UrlItem extends AbstractItem
     private $validator;
 
     /**
+     * @var string
+     */
+    private $exception = '\NilPortugues\Sitemap\Item\Url\UrlItemException';
+
+    /**
      * @param $loc
      */
     public function __construct($loc)
@@ -60,14 +65,15 @@ class UrlItem extends AbstractItem
      */
     protected function setLoc($loc)
     {
-        $loc = $this->validator->validateLoc($loc);
-        if (false === $loc) {
-            throw new UrlItemException(
-                sprintf('Provided URL \'%s\' is not a valid value.', $loc)
-            );
-        }
-
-        $this->xml['loc'] = "\t\t<loc>".$loc."</loc>";
+        $this->writeFullTag(
+            $loc,
+            'loc',
+            'loc',
+            $this->validator,
+            'validateLoc',
+            $this->exception,
+            'Provided URL is not a valid value.'
+        );
 
         return $this;
     }
@@ -97,14 +103,15 @@ class UrlItem extends AbstractItem
      */
     public function setLastMod($lastmod)
     {
-        $lastmod = $this->validator->validateLastmod($lastmod);
-        if (false === $lastmod) {
-            throw new UrlItemException(
-                sprintf('Provided modification date \'%s\' is not a valid value.', $lastmod)
-            );
-        }
-
-        $this->xml['lastmod'] = "\t\t<lastmod>".$lastmod."</lastmod>";
+        $this->writeFullTag(
+            $lastmod,
+            'lastmod',
+            'lastmod',
+            $this->validator,
+            'validateLastmod',
+            $this->exception,
+            'Provided modification date is not a valid value.'
+        );
 
         return $this;
     }
@@ -117,14 +124,15 @@ class UrlItem extends AbstractItem
      */
     public function setChangeFreq($changeFreq)
     {
-        $changeFreq = $this->validator->validateChangeFreq($changeFreq);
-        if (false === $changeFreq) {
-            throw new UrlItemException(
-                sprintf('Provided change frequency \'%s\' is not a valid value.', $changeFreq)
-            );
-        }
-
-        $this->xml['changefreq'] = "\t\t<changefreq>".$changeFreq."</changefreq>";
+        $this->writeFullTag(
+            $changeFreq,
+            'changefreq',
+            'changefreq',
+            $this->validator,
+            'validateChangeFreq',
+            $this->exception,
+            'Provided change frequency is not a valid value.'
+        );
 
         return $this;
     }

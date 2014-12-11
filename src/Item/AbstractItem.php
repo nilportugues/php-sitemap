@@ -34,7 +34,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function build()
     {
-        $xml = array_filter($this->xml);
+        $xml  = array_filter($this->xml);
         $data = implode("\n", $xml);
 
         return $data."\n";
@@ -72,4 +72,37 @@ abstract class AbstractItem implements ItemInterface
      * @return array
      */
     abstract protected function reset();
+
+    /**
+     * @param mixed  $value
+     * @param string $name
+     * @param string $tag
+     * @param string $validationClass
+     * @param string $validationMethod
+     * @param string $exceptionClass
+     * @param string $exceptionMsg
+     */
+    protected function writeFullTag(
+        $value,
+        $name,
+        $tag,
+        $validationClass,
+        $validationMethod,
+        $exceptionClass,
+        $exceptionMsg
+    ) {
+        $value = call_user_func_array([$validationClass, $validationMethod], [$value]);
+        if (false === $value) {
+            throw new $exceptionClass($exceptionMsg, $value);
+        }
+
+        $this->xml[$name] = "<{$tag}>$value</{$tag}>";
+    }
+
+    /**
+     *
+     */
+    protected function writeAttribute()
+    {
+    }
 }
