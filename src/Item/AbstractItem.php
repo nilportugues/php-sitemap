@@ -77,7 +77,7 @@ abstract class AbstractItem implements ItemInterface
      * @param mixed  $value
      * @param string $name
      * @param string $tag
-     * @param string $validationClass
+     * @param mixed $validationClass
      * @param string $validationMethod
      * @param string $exceptionClass
      * @param string $exceptionMsg
@@ -93,7 +93,7 @@ abstract class AbstractItem implements ItemInterface
     ) {
         $value = call_user_func_array([$validationClass, $validationMethod], [$value]);
         if (false === $value) {
-            throw new $exceptionClass($exceptionMsg, $value);
+            throw new $exceptionClass($exceptionMsg);
         }
 
         $this->xml[$name] = "<{$tag}>$value</{$tag}>";
