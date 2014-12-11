@@ -834,10 +834,10 @@ class VideoItemValidator
         switch (strtolower($value)) {
             case 'yes':
                 return 'yes';
-                break;
+
             case 'no':
                 return 'no';
-                break;
+
         }
 
         return false;
@@ -1057,10 +1057,10 @@ class VideoItemValidator
         switch (strtolower($access)) {
             case 'allow':
                 return 'allow';
-                break;
+
             case 'deny':
                 return 'deny';
-                break;
+
         }
 
         return false;
@@ -1241,10 +1241,10 @@ class VideoItemValidator
         switch (strtoupper($resolution)) {
             case 'HD':
                 return 'HD';
-                break;
+
             case 'SD':
                 return 'SD';
-                break;
+
         }
 
         return false;
@@ -1260,10 +1260,10 @@ class VideoItemValidator
         switch (strtolower($type)) {
             case 'own':
                 return 'own';
-                break;
+
             case 'rent':
                 return 'rent';
-                break;
+
         }
 
         return false;

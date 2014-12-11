@@ -8756,10 +8756,10 @@ class NewsItemValidator
         switch (strtolower($access)) {
             case 'subscription':
                 return 'Subscription';
-                break;
+
             case 'registration':
                 return 'Registration';
-                break;
+
         }
 
         return false;
