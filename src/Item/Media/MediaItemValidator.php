@@ -10,7 +10,6 @@
 
 namespace NilPortugues\Sitemap\Item\Media;
 
-use NilPortugues\Sitemap\Item\SingletonTrait;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -19,7 +18,6 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  */
 class MediaItemValidator
 {
-    use SingletonTrait;
     use ValidatorTrait;
 
     /**

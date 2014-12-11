@@ -10,7 +10,6 @@
 
 namespace NilPortugues\Sitemap\Item\Video;
 
-use NilPortugues\Sitemap\Item\SingletonTrait;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -19,7 +18,6 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  */
 class VideoItemValidator
 {
-    use SingletonTrait;
     use ValidatorTrait;
 
     /**
@@ -1212,7 +1210,7 @@ class VideoItemValidator
      */
     public function validatePrice($price)
     {
-        if(filter_var($price, FILTER_VALIDATE_FLOAT) || filter_var($price, FILTER_VALIDATE_INT)) {
+        if (filter_var($price, FILTER_VALIDATE_FLOAT) || filter_var($price, FILTER_VALIDATE_INT)) {
             return $price;
         }
 
@@ -1229,6 +1227,7 @@ class VideoItemValidator
         if (array_search(strtoupper($currency), array_unique($this->iso4217), true)) {
             return $currency;
         }
+
         return false;
     }
 

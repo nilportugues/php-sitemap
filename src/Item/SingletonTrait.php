@@ -3,7 +3,7 @@
 namespace NilPortugues\Sitemap\Item;
 
 /**
- * Trait SingletonTrait
+ * Trait Singleton
  * @package NilPortugues\Sitemap\Item
  */
 trait SingletonTrait

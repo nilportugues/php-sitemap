@@ -8,6 +8,8 @@ namespace NilPortugues\Sitemap\Item;
  */
 trait ValidatorTrait
 {
+    use SingletonTrait;
+
     /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
      *
@@ -31,7 +33,7 @@ trait ValidatorTrait
      *
      * @return string|false
      */
-    protected function validateDate($value)
+    public function validateDate($value)
     {
         if (false !== ($date = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value))) {
             return htmlentities($date->format('c'));

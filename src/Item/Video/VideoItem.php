@@ -44,7 +44,7 @@ class VideoItem extends AbstractItem
     protected function reset()
     {
         return [
-            "\t\t" . '<video:video>',
+            "\t\t".'<video:video>',
             'thumbnail_loc'         => '',
             'title'                 => '',
             'description'           => '',
@@ -65,7 +65,7 @@ class VideoItem extends AbstractItem
             'uploader'              => '',
             'platform'              => '',
             'live'                  => '',
-            "\t\t" . '</video:video>',
+            "\t\t".'</video:video>',
         ];
     }
 
@@ -83,7 +83,7 @@ class VideoItem extends AbstractItem
                 sprintf('', $title)
             );
         }
-        $this->xml['title'] = "\t\t\t" . '<video:title><![CDATA[' . $title . ']]></video:title>';
+        $this->xml['title'] = "\t\t\t".'<video:title><![CDATA['.$title.']]></video:title>';
 
         return $this;
     }
@@ -103,7 +103,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['content_loc'] = "\t\t\t" . '<video:content_loc><![CDATA[' . $loc . ']]></video:content_loc>';
+        $this->xml['content_loc'] = "\t\t\t".'<video:content_loc><![CDATA['.$loc.']]></video:content_loc>';
+
         return $this;
     }
 
@@ -126,13 +127,12 @@ class VideoItem extends AbstractItem
         }
         $this->xml['player_loc'] = '';
 
-
         if (!empty($this->data['player_loc']) && !empty($this->data['allow_embed']) && !empty($this->data['autoplay'])) {
-            $this->xml[] = "\t\t\t" . '<video:player_loc allow_embed="' . $this->data['allow_embed'] . '" autoplay="' . $this->data['autoplay'] . '">' . $this->data['player_loc'] . '</video:player_loc>';
+            $this->xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'" autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
         } elseif (!empty($this->data['player_loc']) && !empty($this->data['allow_embed'])) {
-            $this->xml[] = "\t\t\t" . '<video:player_loc allow_embed="' . $this->data['allow_embed'] . '">' . $this->data['player_loc'] . '</video:player_loc>';
+            $this->xml[] = "\t\t\t".'<video:player_loc allow_embed="'.$this->data['allow_embed'].'">'.$this->data['player_loc'].'</video:player_loc>';
         } elseif (!empty($this->data['player_loc']) && !empty($this->data['autoplay'])) {
-            $this->xml[] = "\t\t\t" . '<video:player_loc autoplay="' . $this->data['autoplay'] . '">' . $this->data['player_loc'] . '</video:player_loc>';
+            $this->xml[] = "\t\t\t".'<video:player_loc autoplay="'.$this->data['autoplay'].'">'.$this->data['player_loc'].'</video:player_loc>';
         }
 
         return $this;
@@ -143,9 +143,9 @@ class VideoItem extends AbstractItem
      */
     public static function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
-        . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
-        . ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">' . "\n";
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n"
+        .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        .' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'."\n";
     }
 
     /**
@@ -171,8 +171,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['thumbnail_loc'] = "\t\t\t" .
-            '<video:thumbnail_loc><![CDATA[' . $loc . ']]></video:thumbnail_loc>';
+        $this->xml['thumbnail_loc'] = "\t\t\t".
+            '<video:thumbnail_loc><![CDATA['.$loc.']]></video:thumbnail_loc>';
 
         return $this;
     }
@@ -192,8 +192,9 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['description'] = "\t\t\t" .
-            '<video:description><![CDATA[' . $description . ']]></video:description>';
+        $this->xml['description'] = "\t\t\t".
+            '<video:description><![CDATA['.$description.']]></video:description>';
+
         return $this;
     }
 
@@ -212,8 +213,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['duration'] = "\t\t\t" .
-            '<video:duration><![CDATA[' . $duration . ']]></video:duration>';
+        $this->xml['duration'] = "\t\t\t".
+            '<video:duration><![CDATA['.$duration.']]></video:duration>';
 
         return $this;
     }
@@ -233,8 +234,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['expiration_date'] = "\t\t\t" .
-            '<video:expiration_date><![CDATA[' . $expirationDate . ']]></video:expiration_date>';
+        $this->xml['expiration_date'] = "\t\t\t".
+            '<video:expiration_date><![CDATA['.$expirationDate.']]></video:expiration_date>';
 
         return $this;
     }
@@ -254,8 +255,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['rating'] = "\t\t\t" .
-            '<video:rating><![CDATA[' . $rating . ']]></video:rating>';
+        $this->xml['rating'] = "\t\t\t".
+            '<video:rating><![CDATA['.$rating.']]></video:rating>';
 
         return $this;
     }
@@ -275,8 +276,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['view_count'] = "\t\t\t" .
-            '<video:view_count><![CDATA[' . $viewCount . ']]></video:view_count>';
+        $this->xml['view_count'] = "\t\t\t".
+            '<video:view_count><![CDATA['.$viewCount.']]></video:view_count>';
 
         return $this;
     }
@@ -296,8 +297,9 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['publication_date'] = "\t\t\t" .
-            '<video:publication_date><![CDATA[' . $publicationDate . ']]></video:publication_date>';
+        $this->xml['publication_date'] = "\t\t\t".
+            '<video:publication_date><![CDATA['.$publicationDate.']]></video:publication_date>';
+
         return $this;
     }
 
@@ -316,8 +318,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['family_friendly'] = "\t\t\t" .
-            '<video:family_friendly><![CDATA[' . $familyFriendly . ']]></video:family_friendly>';
+        $this->xml['family_friendly'] = "\t\t\t".
+            '<video:family_friendly><![CDATA['.$familyFriendly.']]></video:family_friendly>';
 
         return $this;
     }
@@ -338,13 +340,14 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['restriction'] = "\t\t\t" . '<video:restriction';
+        $this->xml['restriction'] = "\t\t\t".'<video:restriction';
 
         if (null !== $relationship) {
             $this->setRestrictionRelationship($relationship);
         }
 
-        $this->xml['restriction'] .= '>' . $restriction . '</video:restriction>';
+        $this->xml['restriction'] .= '>'.$restriction.'</video:restriction>';
+
         return $this;
     }
 
@@ -363,7 +366,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['restriction'] .= ' relationship="' . $relationship . '">';
+        $this->xml['restriction'] .= ' relationship="'.$relationship.'">';
+
         return $this;
     }
 
@@ -382,12 +386,12 @@ class VideoItem extends AbstractItem
                 sprintf('', $galleryLoc)
             );
         }
-        $this->xml['gallery_loc'] = "\t\t\t" . '<video:gallery_loc';
+        $this->xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
 
         if (null !== $title) {
             $this->setGalleryTitle($title);
         }
-        $this->xml['gallery_loc'] .= '>' . $galleryLoc . '</video:gallery_loc>';
+        $this->xml['gallery_loc'] .= '>'.$galleryLoc.'</video:gallery_loc>';
 
         return $this;
     }
@@ -407,7 +411,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['gallery_loc'] .= ' title="' . $title . '"';
+        $this->xml['gallery_loc'] .= ' title="'.$title.'"';
+
         return $this;
     }
 
@@ -422,14 +427,14 @@ class VideoItem extends AbstractItem
      */
     public function setPrice($price, $currency, $type = null, $resolution = null)
     {
-        $this->xml['price'] .= "\t\t\t" . '<video:price';
+        $this->xml['price'] .= "\t\t\t".'<video:price';
 
         $this->setPriceValue($price);
         $this->setPriceCurrency($currency);
         $this->setPriceType($type);
         $this->setPriceResolution($resolution);
 
-        $this->xml['price'] .= '>' . $price . '</video:price>' . "\n";
+        $this->xml['price'] .= '>'.$price.'</video:price>'."\n";
 
         return $this;
     }
@@ -450,7 +455,7 @@ class VideoItem extends AbstractItem
     }
 
     /**
-     * @param       $currency
+     * @param   $currency
      *
      * @throws VideoItemException
      */
@@ -462,11 +467,11 @@ class VideoItem extends AbstractItem
                 sprintf('', $currency)
             );
         }
-        $this->xml['price'] .= ' currency="' . $currency . '"';
+        $this->xml['price'] .= ' currency="'.$currency.'"';
     }
 
     /**
-     * @param       string|null $type
+     * @param string|null $type
      *
      * @throws VideoItemException
      */
@@ -479,12 +484,12 @@ class VideoItem extends AbstractItem
                     sprintf('', $type)
                 );
             }
-            $this->xml['price'] .= ' type="' . $type . '"';
+            $this->xml['price'] .= ' type="'.$type.'"';
         }
     }
 
     /**
-     * @param       string|null $resolution
+     * @param string|null $resolution
      *
      * @throws VideoItemException
      */
@@ -497,7 +502,7 @@ class VideoItem extends AbstractItem
                     sprintf('', $resolution)
                 );
             }
-            $this->xml['price'] .= ' resolution="' . $resolution . '"';
+            $this->xml['price'] .= ' resolution="'.$resolution.'"';
         }
     }
 
@@ -517,7 +522,7 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['category'] = "\t\t\t" . '<video:category><![CDATA[' . $category . ']]></video:category>';
+        $this->xml['category'] = "\t\t\t".'<video:category><![CDATA['.$category.']]></video:category>';
 
         return $this;
     }
@@ -537,11 +542,10 @@ class VideoItem extends AbstractItem
             );
         }
 
-
         //Loop tag array
         if (!empty($this->data['tag'])) {
             foreach ($this->data['tag'] as &$tag) {
-                $this->xml['tag'] .= "\t\t\t" . '<video:tag>' . $tag . '</video:tag>' . "\n";
+                $this->xml['tag'] .= "\t\t\t".'<video:tag>'.$tag.'</video:tag>'."\n";
             }
         }
 
@@ -563,8 +567,8 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['requires_subscription'] = "\t\t\t" .
-            '<video:requires_subscription><![CDATA[' . $requires . ']]></video:requires_subscription>';
+        $this->xml['requires_subscription'] = "\t\t\t".
+            '<video:requires_subscription><![CDATA['.$requires.']]></video:requires_subscription>';
 
         return $this;
     }
@@ -585,13 +589,13 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['uploader'] = "\t\t\t" . '<video:uploader';
+        $this->xml['uploader'] = "\t\t\t".'<video:uploader';
 
         if (null !== $info) {
             $this->setUploaderInfo($info);
         }
 
-        $this->xml['uploader'] .= '>' . $uploader . '</video:uploader>';
+        $this->xml['uploader'] .= '>'.$uploader.'</video:uploader>';
 
         return $this;
     }
@@ -610,7 +614,7 @@ class VideoItem extends AbstractItem
                 sprintf('', $info)
             );
         }
-        $this->xml['uploader'] .= ' info="' . $info;
+        $this->xml['uploader'] .= ' info="'.$info;
 
         return $this;
     }
@@ -631,13 +635,14 @@ class VideoItem extends AbstractItem
             );
         }
 
-        $this->xml['platform'] = "\t\t\t" . '<video:platform';
+        $this->xml['platform'] = "\t\t\t".'<video:platform';
 
         if (null !== $relationship) {
             $this->setPlatformRelationship($relationship);
         }
 
-        $this->xml['platform'] .= '>' . $platform . '</video:platform>';
+        $this->xml['platform'] .= '>'.$platform.'</video:platform>';
+
         return $this;
     }
 
@@ -655,7 +660,7 @@ class VideoItem extends AbstractItem
                 sprintf('', $relationship)
             );
         }
-        $this->xml['platform'] .= ' relationship="' . $relationship . '"';
+        $this->xml['platform'] .= ' relationship="'.$relationship.'"';
 
         return $this;
     }
@@ -674,7 +679,7 @@ class VideoItem extends AbstractItem
                 sprintf('', $live)
             );
         }
-        $this->xml['live'] = "\t\t\t" . '<video:live><![CDATA[' . $live . ']]></video:live>';
+        $this->xml['live'] = "\t\t\t".'<video:live><![CDATA['.$live.']]></video:live>';
 
         return $this;
     }
@@ -693,6 +698,7 @@ class VideoItem extends AbstractItem
                 sprintf('', $embedded)
             );
         }
+
         return $this;
     }
 

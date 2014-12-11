@@ -10,7 +10,6 @@
 
 namespace NilPortugues\Sitemap\Item\News;
 
-use NilPortugues\Sitemap\Item\SingletonTrait;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -19,7 +18,6 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  */
 class NewsItemValidator
 {
-    use SingletonTrait;
     use ValidatorTrait;
 
     /**

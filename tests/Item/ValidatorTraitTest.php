@@ -12,6 +12,10 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
 {
     use ValidatorTrait;
 
+    public function __construct()
+    {
+    }
+
     /**
      * @test
      */
