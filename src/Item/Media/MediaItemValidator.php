@@ -27,11 +27,7 @@ class MediaItemValidator
      */
     public function validateTitle($title)
     {
-        if (is_string($title) && strlen($title)>0) {
-            return $title;
-        }
-
-        return false;
+        return $this->validateString($title);
     }
 
     /**
@@ -41,11 +37,7 @@ class MediaItemValidator
      */
     public function validateMimeType($mimeType)
     {
-        if (is_string($mimeType) && strlen($mimeType)>0) {
-            return $mimeType;
-        }
-
-        return false;
+        return $this->validateString($mimeType);
     }
 
     /**
@@ -89,11 +81,7 @@ class MediaItemValidator
      */
     public function validateDescription($description)
     {
-        if (is_string($description) && strlen($description)>0) {
-            return $description;
-        }
-
-        return false;
+        return $this->validateString($description);
     }
 
     /**

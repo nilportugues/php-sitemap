@@ -1083,11 +1083,7 @@ class VideoItemValidator
      */
     public function validateCategory($category)
     {
-        if (is_string($category) && strlen($category) > 0) {
-            return $category;
-        }
-
-        return false;
+        return $this->validateString($category);
     }
 
     /**
@@ -1097,11 +1093,7 @@ class VideoItemValidator
      */
     public function validateGalleryLocTitle($title)
     {
-        if (is_string($title) && strlen($title) > 0) {
-            return $title;
-        }
-
-        return false;
+        return $this->validateString($title);
     }
 
     /**
@@ -1121,11 +1113,7 @@ class VideoItemValidator
      */
     public function validateUploader($uploader)
     {
-        if (is_string($uploader) && strlen($uploader) > 0) {
-            return $uploader;
-        }
-
-        return false;
+        return $this->validateString($uploader);
     }
 
     /**

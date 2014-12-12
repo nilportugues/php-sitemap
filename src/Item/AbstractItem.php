@@ -116,7 +116,7 @@ abstract class AbstractItem implements ItemInterface
      * @param mixed  $value
      * @param string $name
      * @param string $attributeName
-     * @param mixed $validationClass
+     * @param mixed  $validationClass
      * @param string $validationMethod
      * @param string $exceptionClass
      * @param string $exceptionMsg
@@ -135,8 +135,8 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * @param mixed $value
-     * @param mixed $validationClass
+     * @param mixed  $value
+     * @param mixed  $validationClass
      * @param string $validationMethod
      * @param string $exceptionClass
      * @param string $exceptionMsg

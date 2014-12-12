@@ -8727,11 +8727,7 @@ class NewsItemValidator
      */
     public function validateName($name)
     {
-        if (is_string($name) && strlen($name)>0) {
-            return $name;
-        }
-
-        return false;
+        return $this->validateString($name);
     }
 
     /**
@@ -8806,11 +8802,7 @@ class NewsItemValidator
      */
     public function validateTitle($title)
     {
-        if (is_string($title) && strlen($title)>0) {
-            return $title;
-        }
-
-        return false;
+        return $this->validateString($title);
     }
 
     /**
@@ -8819,11 +8811,7 @@ class NewsItemValidator
      */
     public function validateKeywords($keywords)
     {
-        if (is_string($keywords) && strlen($keywords)>0) {
-            return $keywords;
-        }
-
-        return false;
+        return $this->validateString($keywords);
     }
 
     /**
@@ -8832,10 +8820,6 @@ class NewsItemValidator
      */
     public function validateStockTickers($stock)
     {
-        if (is_string($stock) && strlen($stock)>0) {
-            return $stock;
-        }
-
-        return false;
+        return $this->validateString($stock);
     }
 }

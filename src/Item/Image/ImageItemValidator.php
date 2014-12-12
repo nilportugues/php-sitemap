@@ -27,11 +27,7 @@ class ImageItemValidator
      */
     public function validateTitle($title)
     {
-        if (is_string($title) && strlen($title)>0) {
-            return $title;
-        }
-
-        return false;
+        return $this->validateString($title);
     }
 
     /**
@@ -41,11 +37,7 @@ class ImageItemValidator
      */
     public function validateCaption($caption)
     {
-        if (is_string($caption) && strlen($caption)>0) {
-            return $caption;
-        }
-
-        return false;
+        return $this->validateString($caption);
     }
 
     /**
@@ -55,11 +47,7 @@ class ImageItemValidator
      */
     public function validateGeolocation($geolocation)
     {
-        if (is_string($geolocation) && strlen($geolocation)>0) {
-            return $geolocation;
-        }
-
-        return false;
+        return $this->validateString($geolocation);
     }
 
     /**
@@ -69,10 +57,6 @@ class ImageItemValidator
      */
     public function validateLicense($license)
     {
-        if (is_string($license) && strlen($license)>0) {
-            return $license;
-        }
-
-        return false;
+        return $this->validateString($license);
     }
 }

@@ -21,6 +21,18 @@ trait ValidatorTrait
     }
 
     /**
+     * @param $string
+     * @return bool
+     */
+    public function validateString($string)
+    {
+        if (is_string($string) && strlen($string)>0) {
+            return $string;
+        }
+
+        return false;
+    }
+    /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
      *
      * @param $value
