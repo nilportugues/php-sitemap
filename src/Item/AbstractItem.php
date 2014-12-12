@@ -116,7 +116,7 @@ abstract class AbstractItem implements ItemInterface
      * @param mixed  $value
      * @param string $name
      * @param string $attributeName
-     * @param string $validationClass
+     * @param mixed $validationClass
      * @param string $validationMethod
      * @param string $exceptionClass
      * @param string $exceptionMsg
@@ -128,15 +128,15 @@ abstract class AbstractItem implements ItemInterface
         $validationClass,
         $validationMethod,
         $exceptionClass,
-        $exceptionMsg)
-    {
+        $exceptionMsg
+    ) {
         $value = $this->validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
         $this->xml[$name] .= " {$attributeName}=\"{$value}\"";
     }
 
     /**
-     * @param $value
-     * @param $validationClass
+     * @param mixed $value
+     * @param mixed $validationClass
      * @param string $validationMethod
      * @param string $exceptionClass
      * @param string $exceptionMsg
