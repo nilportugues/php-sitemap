@@ -107,7 +107,7 @@ abstract class AbstractItem implements ItemInterface
     {
         $xml = "<{$tag}>$value</{$tag}>";
         if ($cdata) {
-             $xml = "<{$tag}><![CDATA[$value]]></{$tag}>";
+            $xml = "<{$tag}><![CDATA[$value]]></{$tag}>";
         }
         $this->xml[$name] .= $xml;
     }

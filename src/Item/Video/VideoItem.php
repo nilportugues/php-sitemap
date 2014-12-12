@@ -129,30 +129,20 @@ class VideoItem extends AbstractItem
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
     {
-        $this->setPlayerLocValue($loc);
-        $this->setPlayerEmbedded($playerEmbedded);
-        $this->setPlayerAutoPlay($playerAutoPlay);
-
-        $this->xml['player_loc'] .= '>'.$loc.'</video:player_loc>';
-
-        return $this;
-    }
-
-    /**
-     * @param $loc
-     *
-     * @return false|string
-     * @throws VideoItemException
-     */
-    protected function setPlayerLocValue($loc)
-    {
         $loc = $this->validator->validatePlayerLoc($loc);
         if (false === $loc) {
             throw new VideoItemException(
                 sprintf('', $loc)
             );
         }
+
         $this->xml['player_loc'] .= '<video:player_loc';
+        $this->setPlayerEmbedded($playerEmbedded);
+        $this->setPlayerAutoPlay($playerAutoPlay);
+
+        $this->xml['player_loc'] .= '>'.$loc.'</video:player_loc>';
+
+        return $this;
     }
 
     /**
@@ -163,13 +153,15 @@ class VideoItem extends AbstractItem
     protected function setPlayerEmbedded($playerEmbedded)
     {
         if (null !== $playerEmbedded) {
-            $playerEmbedded = $this->validator->validateAllowEmbed($playerEmbedded);
-            if (false === $playerEmbedded) {
-                throw new VideoItemException(
-                    sprintf('', $playerEmbedded)
-                );
-            }
-            $this->xml['player_loc'] .= ' allow_embed="'.$playerEmbedded.'"';
+            $this->writeAttribute(
+                $playerEmbedded,
+                'allow_embed',
+                'autoplay',
+                $this->validator,
+                'validateAllowEmbed',
+                $this->exception,
+                'Provided player allow embed is not a valid value.'
+            );
         }
     }
 
@@ -181,13 +173,15 @@ class VideoItem extends AbstractItem
     protected function setPlayerAutoPlay($playerAutoplay)
     {
         if (null !== $playerAutoplay) {
-            $playerAutoplay = $this->validator->validateAutoPlay($playerAutoplay);
-            if (false === $playerAutoplay) {
-                throw new VideoItemException(
-                    sprintf('', $playerAutoplay)
-                );
-            }
-            $this->xml['player_loc'] .= ' autoplay="'.$playerAutoplay.'"';
+            $this->writeAttribute(
+                $playerAutoplay,
+                'player_loc',
+                'autoplay',
+                $this->validator,
+                'validateAutoPlay',
+                $this->exception,
+                'Provided player autoplay is not a valid value.'
+            );
         }
     }
 
@@ -402,11 +396,7 @@ class VideoItem extends AbstractItem
         }
 
         $this->xml['restriction'] = "\t\t\t".'<video:restriction';
-
-        if (null !== $relationship) {
-            $this->setRestrictionRelationship($relationship);
-        }
-
+        $this->setRestrictionRelationship($relationship);
         $this->xml['restriction'] .= '>'.$restriction.'</video:restriction>';
 
         return $this;
@@ -420,14 +410,17 @@ class VideoItem extends AbstractItem
      */
     public function setRestrictionRelationship($relationship)
     {
-        $relationship = $this->validator->validateRestriction($relationship);
-        if (false === $relationship) {
-            throw new VideoItemException(
-                sprintf('', $relationship)
+        if (null !== $relationship) {
+            $this->writeAttribute(
+                $relationship,
+                'restriction',
+                'relationship',
+                $this->validator,
+                'validateRestriction',
+                $this->exception,
+                'Provided restriction relationship is not a valid value.'
             );
         }
-
-        $this->xml['restriction'] .= ' relationship="'.$relationship.'">';
 
         return $this;
     }
@@ -447,11 +440,9 @@ class VideoItem extends AbstractItem
                 sprintf('', $galleryLoc)
             );
         }
-        $this->xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
 
-        if (null !== $title) {
-            $this->setGalleryTitle($title);
-        }
+        $this->xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
+        $this->setGalleryTitle($title);
         $this->xml['gallery_loc'] .= '>'.$galleryLoc.'</video:gallery_loc>';
 
         return $this;
@@ -465,14 +456,17 @@ class VideoItem extends AbstractItem
      */
     public function setGalleryTitle($title)
     {
-        $title = $this->validator->validateGalleryLocTitle($title);
-        if (false === $title) {
-            throw new VideoItemException(
-                sprintf('', $title)
+        if (null !== $title) {
+            $this->writeAttribute(
+                $title,
+                'gallery_loc',
+                'title',
+                $this->validator,
+                'validateGalleryLocTitle',
+                $this->exception,
+                'Provided gallery title is not a valid value.'
             );
         }
-
-        $this->xml['gallery_loc'] .= ' title="'.$title.'"';
 
         return $this;
     }
@@ -520,13 +514,15 @@ class VideoItem extends AbstractItem
      */
     protected function setPriceCurrency($currency)
     {
-        $currency = $this->validator->validatePrice($currency);
-        if (false === $currency) {
-            throw new VideoItemException(
-                sprintf('', $currency)
-            );
-        }
-        $this->xml['price'] .= ' currency="'.$currency.'"';
+        $this->writeAttribute(
+            $currency,
+            'price',
+            'currency',
+            $this->validator,
+            'validatePrice',
+            $this->exception,
+            'Provided price currency is not a valid value.'
+        );
     }
 
     /**
@@ -537,13 +533,15 @@ class VideoItem extends AbstractItem
     protected function setPriceType($type)
     {
         if (null !== $type) {
-            $type = $this->validator->validatePriceType($type);
-            if (false === $type) {
-                throw new VideoItemException(
-                    sprintf('', $type)
-                );
-            }
-            $this->xml['price'] .= ' type="'.$type.'"';
+            $this->writeAttribute(
+                $type,
+                'price',
+                'type',
+                $this->validator,
+                'validatePriceType',
+                $this->exception,
+                'Provided price type is not a valid value.'
+            );
         }
     }
 
@@ -555,13 +553,15 @@ class VideoItem extends AbstractItem
     protected function setPriceResolution($resolution)
     {
         if (null !== $resolution) {
-            $resolution = $this->validator->validatePriceResolution($resolution);
-            if (false === $resolution) {
-                throw new VideoItemException(
-                    sprintf('', $resolution)
-                );
-            }
-            $this->xml['price'] .= ' resolution="'.$resolution.'"';
+            $this->writeAttribute(
+                $resolution,
+                'price',
+                'resolution',
+                $this->validator,
+                'validatePriceResolution',
+                $this->exception,
+                'Provided price resolution is not a valid value.'
+            );
         }
     }
 
@@ -648,11 +648,7 @@ class VideoItem extends AbstractItem
         }
 
         $this->xml['uploader'] = "\t\t\t".'<video:uploader';
-
-        if (null !== $info) {
-            $this->setUploaderInfo($info);
-        }
-
+        $this->setUploaderInfo($info);
         $this->xml['uploader'] .= '>'.$uploader.'</video:uploader>';
 
         return $this;
@@ -666,13 +662,17 @@ class VideoItem extends AbstractItem
      */
     protected function setUploaderInfo($info)
     {
-        $info = $this->validator->validateUploaderInfo($info);
-        if (false === $info) {
-            throw new VideoItemException(
-                sprintf('', $info)
+        if (null !== $info) {
+            $this->writeAttribute(
+                $info,
+                'uploader',
+                'info',
+                $this->validator,
+                'validateUploaderInfo',
+                $this->exception,
+                'Provided uploader info is not a valid value.'
             );
         }
-        $this->xml['uploader'] .= ' info="'.$info;
 
         return $this;
     }
@@ -694,11 +694,7 @@ class VideoItem extends AbstractItem
         }
 
         $this->xml['platform'] = "\t\t\t".'<video:platform';
-
-        if (null !== $relationship) {
-            $this->setPlatformRelationship($relationship);
-        }
-
+        $this->setPlatformRelationship($relationship);
         $this->xml['platform'] .= '>'.$platform.'</video:platform>';
 
         return $this;
@@ -712,13 +708,17 @@ class VideoItem extends AbstractItem
      */
     protected function setPlatformRelationship($relationship)
     {
-        $relationship = $this->validator->validatePlatformRelationship($relationship);
-        if (false === $relationship) {
-            throw new VideoItemException(
-                sprintf('', $relationship)
+        if (null !== $relationship) {
+            $this->writeAttribute(
+                $relationship,
+                'platform',
+                'relationship',
+                $this->validator,
+                'validatePlatformRelationship',
+                $this->exception,
+                'Provided relationship is not a valid value.'
             );
         }
-        $this->xml['platform'] .= ' relationship="'.$relationship.'"';
 
         return $this;
     }

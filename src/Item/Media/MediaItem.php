@@ -104,13 +104,9 @@ class MediaItem extends AbstractItem
      */
     public function setContent($mimeType, $duration = null)
     {
-        $this->xml['content'] = "\t\t<media:content ";
+        $this->xml['content'] = "\t\t<media:content";
         $this->setContentMimeType($mimeType);
-
-        if (null !== $duration) {
-            $this->setContentDuration($duration);
-        }
-
+        $this->setContentDuration($duration);
         $this->xml['content'] .= ">";
 
         return $this;
@@ -123,13 +119,15 @@ class MediaItem extends AbstractItem
      */
     protected function setContentMimeType($mimeType)
     {
-        $mimeType = $this->validator->validateMimeType($mimeType);
-        if (false === $mimeType) {
-            throw new MediaItemException(
-                sprintf('The provided mime-type \'%s\' is not a valid value.', $mimeType)
-            );
-        }
-        $this->xml['content'] .= "type=\"{$mimeType}\"";
+        $this->writeAttribute(
+            $mimeType,
+            'content',
+            'type',
+            $this->validator,
+            'validateMimeType',
+            $this->exception,
+            'Provided mime-type is not a valid value.'
+        );
     }
 
     /**
@@ -140,15 +138,15 @@ class MediaItem extends AbstractItem
     protected function setContentDuration($duration)
     {
         if (null !== $duration) {
-            $duration = $this->validator->validateDuration($duration);
-
-            if (false === $duration) {
-                throw new MediaItemException(
-                    sprintf('The provided duration \'%s\' is not a valid value.', $duration)
-                );
-            }
-
-            $this->xml['content'] .= " duration=\"{$duration}\"";
+            $this->writeAttribute(
+                $duration,
+                'content',
+                'duration',
+                $this->validator,
+                'validateDuration',
+                $this->exception,
+                'Provided duration is not a valid value.'
+            );
         }
     }
 
@@ -160,14 +158,19 @@ class MediaItem extends AbstractItem
      */
     public function setPlayer($player)
     {
-        $player = $this->validator->validatePlayer($player);
-        if (false === $player) {
-            throw new MediaItemException(
-                sprintf('Provided player is not a valid value.', $player)
-            );
-        }
+        $this->xml['player'] = "\t\t\t<media:player";
 
-        $this->xml['player'] = "\t\t\t<media:player url=\"{$player}\" />";
+        $this->writeAttribute(
+            $player,
+            'player',
+            'url',
+            $this->validator,
+            'validatePlayer',
+            $this->exception,
+            'Provided player URL is not a valid value.'
+        );
+
+        $this->xml['player'] .= " />";
 
         return $this;
     }
@@ -249,14 +252,15 @@ class MediaItem extends AbstractItem
      */
     protected function setThumbnailUrl($url)
     {
-        $url = $this->validator->validateThumbnail($url);
-        if (false === $url) {
-            throw new MediaItemException(
-                sprintf('The provided url \'%s\' is not a valid value.', $url)
-            );
-        }
-
-        $this->xml['thumbnail'] .= " url=\"{$url}\"";
+        $this->writeAttribute(
+            $url,
+            'thumbnail',
+            'url',
+            $this->validator,
+            'validateThumbnail',
+            $this->exception,
+            'Provided thumbnail URL is not a valid value.'
+        );
 
         return $this;
     }
@@ -269,14 +273,15 @@ class MediaItem extends AbstractItem
      */
     protected function setThumbnailHeight($height)
     {
-        $height = $this->validator->validateHeight($height);
-        if (false === $height) {
-            throw new MediaItemException(
-                sprintf('The provided height \'%s\' is not a valid value.', $height)
-            );
-        }
-
-        $this->xml['thumbnail'] .= " height=\"{$height}\"";
+        $this->writeAttribute(
+            $height,
+            'thumbnail',
+            'height',
+            $this->validator,
+            'validateHeight',
+            $this->exception,
+            'Provided height is not a valid value.'
+        );
 
         return $this;
     }
@@ -289,14 +294,15 @@ class MediaItem extends AbstractItem
      */
     protected function setThumbnailWidth($width)
     {
-        $width = $this->validator->validateWidth($width);
-        if (false === $width) {
-            throw new MediaItemException(
-                sprintf('The provided width \'%s\' is not a valid value.', $width)
-            );
-        }
-
-        $this->xml['thumbnail'] .= " width=\"{$width}\"";
+        $this->writeAttribute(
+            $width,
+            'thumbnail',
+            'width',
+            $this->validator,
+            'validateWidth',
+            $this->exception,
+            'Provided width is not a valid value.'
+        );
 
         return $this;
     }
