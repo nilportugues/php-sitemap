@@ -22,7 +22,7 @@ trait ValidatorTrait
 
     /**
      * @param $string
-     * @return bool
+     * @return string|false
      */
     public static function validateString($string)
     {

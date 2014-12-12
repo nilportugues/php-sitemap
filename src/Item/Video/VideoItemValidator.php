@@ -77,7 +77,7 @@ class VideoItemValidator
     /**
      * @param $title
      *
-     * @return string|false
+     * @return boolean
      */
     public function validateTitle($title)
     {
