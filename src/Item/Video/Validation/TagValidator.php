@@ -20,7 +20,7 @@ final class TagValidator
     {
         if (is_array($tags)) {
             if (count($tags) > self::$maxVideoTagTags) {
-                return array_slice($tags, 0, 32);
+                return false;
             }
 
             return $tags;

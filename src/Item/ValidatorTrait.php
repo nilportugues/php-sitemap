@@ -24,7 +24,7 @@ trait ValidatorTrait
      * @param $string
      * @return bool
      */
-    public function validateString($string)
+    public static function validateString($string)
     {
         if (is_string($string) && strlen($string)>0) {
             return $string;
@@ -38,7 +38,7 @@ trait ValidatorTrait
      * @param $value
      * @return string|false
      */
-    public function validateLoc($value)
+    public static function validateLoc($value)
     {
         if (filter_var($value, FILTER_VALIDATE_URL, array('options' => array('flags' => FILTER_FLAG_PATH_REQUIRED)))) {
             return htmlentities($value);
@@ -55,7 +55,7 @@ trait ValidatorTrait
      *
      * @return string|false
      */
-    public function validateDate($value)
+    public static function validateDate($value)
     {
         if (false !== ($date = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value))) {
             return htmlentities($date->format('c'));

@@ -10,6 +10,7 @@
 
 namespace NilPortugues\Sitemap\Item\Media;
 
+use NilPortugues\Sitemap\Item\Media\Validation\DimensionValidator;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -27,7 +28,7 @@ class MediaItemValidator
      */
     public function validateTitle($title)
     {
-        return $this->validateString($title);
+        return self::validateString($title);
     }
 
     /**
@@ -37,7 +38,7 @@ class MediaItemValidator
      */
     public function validateMimeType($mimeType)
     {
-        return $this->validateString($mimeType);
+        return self::validateString($mimeType);
     }
 
     /**
@@ -47,7 +48,7 @@ class MediaItemValidator
      */
     public function validateLink($link)
     {
-        return $this->validateLoc($link);
+        return self::validateLoc($link);
     }
 
     /**
@@ -57,7 +58,7 @@ class MediaItemValidator
      */
     public function validatePlayer($player)
     {
-        return $this->validateLoc($player);
+        return self::validateLoc($player);
     }
 
     /**
@@ -67,11 +68,7 @@ class MediaItemValidator
      */
     public function validateDuration($duration)
     {
-        if (filter_var($duration, FILTER_SANITIZE_NUMBER_INT) && $duration>0) {
-            return $duration;
-        }
-
-        return false;
+        return DimensionValidator::validate($duration);
     }
 
     /**
@@ -81,7 +78,7 @@ class MediaItemValidator
      */
     public function validateDescription($description)
     {
-        return $this->validateString($description);
+        return self::validateString($description);
     }
 
     /**
@@ -91,7 +88,7 @@ class MediaItemValidator
      */
     public function validateThumbnail($thumbnail)
     {
-        return $this->validateLoc($thumbnail);
+        return self::validateLoc($thumbnail);
     }
 
     /**
@@ -101,11 +98,7 @@ class MediaItemValidator
      */
     public function validateHeight($height)
     {
-        if (filter_var($height, FILTER_SANITIZE_NUMBER_INT) && $height>0) {
-            return $height;
-        }
-
-        return false;
+        return DimensionValidator::validate($height);
     }
 
     /**
@@ -115,10 +108,6 @@ class MediaItemValidator
      */
     public function validateWidth($width)
     {
-        if (filter_var($width, FILTER_SANITIZE_NUMBER_INT) && $width>0) {
-            return $width;
-        }
-
-        return false;
+        return DimensionValidator::validate($width);
     }
 }

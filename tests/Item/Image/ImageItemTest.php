@@ -63,7 +63,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldHaveGeolocation()
     {
-        $this->item->setGeolocation('Limerick, Ireland');
+        $this->item->setGeoLocation('Limerick, Ireland');
         $this->assertContains(
             '<image:geolocation><![CDATA[Limerick, Ireland]]></image:geolocation>',
             $this->item->build()
@@ -132,7 +132,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException($this->exception);
         $geolocation = new \StdClass();
-        $result = $this->item->setGeolocation($geolocation);
+        $result = $this->item->setGeoLocation($geolocation);
         $this->assertFalse($result);
     }
 

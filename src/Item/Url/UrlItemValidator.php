@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap\Item\Url;
 
+use NilPortugues\Sitemap\Item\Url\Validation\ChangeFreqValidator;
+use NilPortugues\Sitemap\Item\Url\Validation\PriorityValidator;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -21,31 +23,22 @@ class UrlItemValidator
     use ValidatorTrait;
 
     /**
-     * @var array
-     */
-    protected $changeFreqValid = array("always", "hourly", "daily", "weekly", "monthly", "yearly", "never");
-
-    /**
      * @param $lastmod
      * @return string|false
      */
-    public function validateLastmod($lastmod)
+    public function validateLastMod($lastmod)
     {
-        return $this->validateDate($lastmod);
+        return self::validateDate($lastmod);
     }
 
     /**
-     * @param $changefreq
+     * @param $changeFreq
      *
      * @return string|false
      */
-    public function validateChangeFreq($changefreq)
+    public function validateChangeFreq($changeFreq)
     {
-        if (in_array(trim(strtolower($changefreq)), $this->changeFreqValid, true)) {
-            return htmlentities($changefreq);
-        }
-
-        return false;
+        return ChangeFreqValidator::validate($changeFreq);
     }
 
     /**
@@ -59,24 +52,6 @@ class UrlItemValidator
      */
     public function validatePriority($priority)
     {
-        $validData = null;
-
-        if (
-            is_numeric($priority)
-            && $priority > -0.01            && $priority <= 1
-            && (($priority * 100 % 10) == 0)
-        ) {
-            preg_match('/([0-9].[0-9])/', $priority, $matches);
-            if (!isset($matches[0])) {
-                return '';
-            }
-
-            $matches[0] = str_replace(",", ".", floatval($matches[0]));
-            if (!empty($matches[0]) && $matches[0] <= 1 && $matches[0] >= 0.0) {
-                $validData = $matches[0];
-            }
-        }
-
-        return (null !== $validData) ?  $validData : false;
+        return PriorityValidator::validate($priority);
     }
 }

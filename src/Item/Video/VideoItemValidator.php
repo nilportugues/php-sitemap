@@ -12,6 +12,8 @@ namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceCurrencyValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\PriceResolutionValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\PriceTypeValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\RestrictionValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\TagValidator;
 
@@ -59,7 +61,7 @@ class VideoItemValidator
      */
     public function validateAutoPlay($string)
     {
-        return $this->validateString($string);
+        return self::validateString($string);
     }
 
     /**
@@ -69,7 +71,7 @@ class VideoItemValidator
      */
     public function validateThumbnailLoc($loc)
     {
-        return $this->validateLoc($loc);
+        return self::validateLoc($loc);
     }
 
     /**
@@ -79,11 +81,7 @@ class VideoItemValidator
      */
     public function validateTitle($title)
     {
-        if (is_string($title) && strlen($title)>0 && strlen($title) < 97) {
-            return $title;
-        }
-
-        return false;
+        return self::validateString($title) && strlen($title) < 97;
     }
 
     /**
@@ -110,7 +108,7 @@ class VideoItemValidator
      */
     public function validateContentLoc($contentLoc)
     {
-        return $this->validateLoc($contentLoc);
+        return self::validateLoc($contentLoc);
     }
 
     /**
@@ -120,7 +118,7 @@ class VideoItemValidator
      */
     public function validatePlayerLoc($playerLoc)
     {
-        return $this->validateLoc($playerLoc);
+        return self::validateLoc($playerLoc);
     }
 
     /**
@@ -146,7 +144,7 @@ class VideoItemValidator
      */
     public function validateExpirationDate($expirationDate)
     {
-        return $this->validateDate($expirationDate);
+        return self::validateDate($expirationDate);
     }
 
     /**
@@ -191,7 +189,7 @@ class VideoItemValidator
      */
     public function validatePublicationDate($publicationDate)
     {
-        return $this->validateDate($publicationDate);
+        return self::validateDate($publicationDate);
     }
 
     /**
@@ -259,7 +257,7 @@ class VideoItemValidator
      */
     public function validateGalleryLoc($galleryLoc)
     {
-        return $this->validateLoc($galleryLoc);
+        return self::validateLoc($galleryLoc);
     }
 
     /**
@@ -269,7 +267,7 @@ class VideoItemValidator
      */
     public function validateCategory($category)
     {
-        return $this->validateString($category);
+        return self::validateString($category);
     }
 
     /**
@@ -279,7 +277,7 @@ class VideoItemValidator
      */
     public function validateGalleryLocTitle($title)
     {
-        return $this->validateString($title);
+        return self::validateString($title);
     }
 
     /**
@@ -299,7 +297,7 @@ class VideoItemValidator
      */
     public function validateUploader($uploader)
     {
-        return $this->validateString($uploader);
+        return self::validateString($uploader);
     }
 
     /**
@@ -309,7 +307,7 @@ class VideoItemValidator
      */
     public function validateUploaderInfo($uploaderLoc)
     {
-        return $this->validateLoc($uploaderLoc);
+        return self::validateLoc($uploaderLoc);
     }
 
     /**
@@ -396,16 +394,7 @@ class VideoItemValidator
      */
     public function validatePriceResolution($resolution)
     {
-        switch (strtoupper($resolution)) {
-            case 'HD':
-                return 'HD';
-
-            case 'SD':
-                return 'SD';
-
-        }
-
-        return false;
+        return PriceResolutionValidator::validate($resolution);
     }
 
     /**
@@ -415,15 +404,6 @@ class VideoItemValidator
      */
     public function validatePriceType($type)
     {
-        switch (strtolower($type)) {
-            case 'own':
-                return 'own';
-
-            case 'rent':
-                return 'rent';
-
-        }
-
-        return false;
+        return PriceTypeValidator::validate($type);
     }
 }

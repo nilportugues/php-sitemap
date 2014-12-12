@@ -27,7 +27,7 @@ class ImageItemValidator
      */
     public function validateTitle($title)
     {
-        return $this->validateString($title);
+        return self::validateString($title);
     }
 
     /**
@@ -37,17 +37,17 @@ class ImageItemValidator
      */
     public function validateCaption($caption)
     {
-        return $this->validateString($caption);
+        return self::validateString($caption);
     }
 
     /**
-     * @param $geolocation
+     * @param $geoLocation
      *
      * @return string|false
      */
-    public function validateGeolocation($geolocation)
+    public function validateGeoLocation($geoLocation)
     {
-        return $this->validateString($geolocation);
+        return self::validateString($geoLocation);
     }
 
     /**
@@ -57,6 +57,6 @@ class ImageItemValidator
      */
     public function validateLicense($license)
     {
-        return $this->validateString($license);
+        return self::validateString($license);
     }
 }

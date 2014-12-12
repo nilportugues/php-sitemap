@@ -138,20 +138,20 @@ class ImageItem extends AbstractItem
     }
 
     /**
-     * @param $geolocation
+     * @param $geoLocation
      *
      * @throws ImageItemException
      * @return $this
      */
-    public function setGeolocation($geolocation)
+    public function setGeoLocation($geoLocation)
     {
         $this->writeFullTag(
-            $geolocation,
+            $geoLocation,
             'geolocation',
             true,
             'image:geolocation',
             $this->validator,
-            'validateGeolocation',
+            'validateGeoLocation',
             $this->exception,
             'Provided geolocation is not a valid value.'
         );
