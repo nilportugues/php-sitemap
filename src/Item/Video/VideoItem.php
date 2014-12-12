@@ -523,7 +523,7 @@ class VideoItem extends AbstractItem
             'price',
             'currency',
             $this->validator,
-            'validatePriceCurrency',
+            'validate',
             $this->exception,
             'Provided price currency is not a valid value.'
         );
