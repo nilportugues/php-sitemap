@@ -11,11 +11,14 @@
 namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Item\ValidatorTrait;
+use NilPortugues\Sitemap\Item\Video\Validator\PlatformValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceCurrencyValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceResolutionValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceTypeValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\RatingValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\RestrictionValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\TagValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\YesNoValidator;
 
 /**
  * Class VideoItemValidator
@@ -32,26 +35,7 @@ class VideoItemValidator
      */
     public function validateAllowEmbed($value)
     {
-        return $this->validateYesNo($value);
-    }
-
-    /**
-     * @param $value
-     *
-     * @return string|false
-     */
-    protected function validateYesNo($value)
-    {
-        switch (strtolower($value)) {
-            case 'yes':
-                return 'yes';
-
-            case 'no':
-                return 'no';
-
-        }
-
-        return false;
+        return YesNoValidator::validate($value);
     }
 
     /**
@@ -156,16 +140,7 @@ class VideoItemValidator
      */
     public function validateRating($rating)
     {
-        if (is_numeric($rating) && $rating > -0.01 && $rating < 5.01) {
-            preg_match('/([0-9].[0-9])/', $rating, $matches);
-            $matches[0] = floatval($matches[0]);
-
-            if (!empty($matches[0]) && $matches[0] <= 5.0 && $matches[0] >= 0.0) {
-                return $matches[0];
-            }
-        }
-
-        return false;
+        return RatingValidator::validate($rating);
     }
 
     /**
@@ -175,11 +150,7 @@ class VideoItemValidator
      */
     public function validateViewCount($viewCount)
     {
-        if (is_integer($viewCount) && $viewCount > 0) {
-            return $viewCount;
-        }
-
-        return false;
+        return self::validateInteger($viewCount);
     }
 
     /**
@@ -199,10 +170,8 @@ class VideoItemValidator
      */
     public function validateFamilyFriendly($familyFriendly)
     {
-        if (strtolower($familyFriendly) == 'no') {
-            return 'No';
-        } elseif (strtolower($familyFriendly) == 'yes') {
-            return 'Yes';
+        if (false !== ($familyFriendly = YesNoValidator::validate($familyFriendly))) {
+            return ucfirst($familyFriendly);
         }
 
         return false;
@@ -287,7 +256,7 @@ class VideoItemValidator
      */
     public function validateRequiresSubscription($requiresSubscription)
     {
-        return $this->validateYesNo($requiresSubscription);
+        return YesNoValidator::validate($requiresSubscription);
     }
 
     /**
@@ -317,18 +286,7 @@ class VideoItemValidator
      */
     public function validatePlatform($platform)
     {
-        $platforms = explode(" ", $platform);
-        array_filter($platforms);
-
-        foreach ($platforms as $key => $platform) {
-            if (strtolower($platform) != 'tv' && strtolower($platform) != 'mobile' && strtolower($platform) != 'web') {
-                unset($platforms[$key]);
-            }
-        }
-
-        $data = implode(' ', $platforms);
-
-        return (strlen($data) > 0) ? $data : false;
+        return PlatformValidator::validate($platform);
     }
 
     /**
@@ -348,7 +306,7 @@ class VideoItemValidator
      */
     public function validateLive($live)
     {
-        return $this->validateYesNo($live);
+        return YesNoValidator::validate($live);
     }
 
     /**

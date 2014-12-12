@@ -67,4 +67,13 @@ trait ValidatorTrait
 
         return false;
     }
+
+    public static function validateInteger($dimension)
+    {
+        if (filter_var($dimension, FILTER_SANITIZE_NUMBER_INT) && $dimension>0) {
+            return $dimension;
+        }
+
+        return false;
+    }
 }

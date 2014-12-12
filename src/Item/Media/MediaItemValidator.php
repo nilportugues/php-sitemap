@@ -10,7 +10,6 @@
 
 namespace NilPortugues\Sitemap\Item\Media;
 
-use NilPortugues\Sitemap\Item\Media\Validation\DimensionValidator;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -68,7 +67,7 @@ class MediaItemValidator
      */
     public function validateDuration($duration)
     {
-        return DimensionValidator::validate($duration);
+        return self::validateInteger($duration);
     }
 
     /**
@@ -98,7 +97,7 @@ class MediaItemValidator
      */
     public function validateHeight($height)
     {
-        return DimensionValidator::validate($height);
+        return self::validateInteger($height);
     }
 
     /**
@@ -108,6 +107,6 @@ class MediaItemValidator
      */
     public function validateWidth($width)
     {
-        return DimensionValidator::validate($width);
+        return self::validateInteger($width);
     }
 }
