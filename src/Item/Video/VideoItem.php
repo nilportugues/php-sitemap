@@ -129,62 +129,16 @@ class VideoItem extends AbstractItem
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
     {
-        $this->validateInput(
-            $loc,
+        $this->xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
             $this->validator,
-            'validatePlayerLoc',
-            $this->exception,
-            'Provided player URL is not a valid value.'
+            $loc,
+            $playerEmbedded,
+            $playerAutoPlay
         );
-
-        $this->xml['player_loc'] .= '<video:player_loc';
-        $this->setPlayerEmbedded($playerEmbedded);
-        $this->setPlayerAutoPlay($playerAutoPlay);
-
-        $this->xml['player_loc'] .= '>'.$loc.'</video:player_loc>';
 
         return $this;
     }
 
-    /**
-     * @param $playerEmbedded
-     *
-     * @throws VideoItemException
-     */
-    protected function setPlayerEmbedded($playerEmbedded)
-    {
-        if (null !== $playerEmbedded) {
-            $this->writeAttribute(
-                $playerEmbedded,
-                'player_loc',
-                'allow_embed',
-                $this->validator,
-                'validateAllowEmbed',
-                $this->exception,
-                'Provided player allow embed is not a valid value.'
-            );
-        }
-    }
-
-    /**
-     * @param $playerAutoplay
-     *
-     * @throws VideoItemException
-     */
-    protected function setPlayerAutoPlay($playerAutoplay)
-    {
-        if (null !== $playerAutoplay) {
-            $this->writeAttribute(
-                $playerAutoplay,
-                'player_loc',
-                'autoplay',
-                $this->validator,
-                'validateAutoPlay',
-                $this->exception,
-                'Provided player autoplay is not a valid value.'
-            );
-        }
-    }
 
     /**
      * @return string
