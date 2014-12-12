@@ -155,14 +155,16 @@ class NewsItem extends AbstractItem
      */
     protected function setPublicationName($name)
     {
-        $name = $this->validator->validateName($name);
-        if (false === $name) {
-            throw new NewsItemException(
-                sprintf('Provided publication name \'%s\' is not a valid value.', $name)
-            );
-        }
-
-        $this->xml['name'] .= "\t\t\t\t".'<news:name>'.$name.'</news:name>'."\n";
+        $this->writeFullTag(
+            $name,
+            'name',
+            false,
+            'news:name',
+            $this->validator,
+            'validateName',
+            $this->exception,
+            'Provided publication name is not a valid value.'
+        );
 
         return $this;
     }
@@ -175,13 +177,16 @@ class NewsItem extends AbstractItem
      */
     protected function setPublicationLanguage($language)
     {
-        $language = $this->validator->validateLanguage($language);
-        if (false === $language) {
-            throw new NewsItemException(
-                sprintf('Provided publication language \'%s\' is not a valid value.', $language)
-            );
-        }
-        $this->xml['name'] .= "\t\t\t\t".'<news:language>'.$language.'</news:language>'."\n";
+        $this->writeFullTag(
+            $language,
+            'name',
+            false,
+            'news:language',
+            $this->validator,
+            'validateLanguage',
+            $this->exception,
+            'Provided publication language is not a valid value.'
+        );
 
         return $this;
     }

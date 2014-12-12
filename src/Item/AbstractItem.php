@@ -93,21 +93,62 @@ abstract class AbstractItem implements ItemInterface
         $exceptionClass,
         $exceptionMsg
     ) {
+        $value = $this->validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
+        $this->writeFullTagTemplate($value, $name, $cdata, $tag);
+    }
+
+    /**
+     * @param $value
+     * @param $name
+     * @param $cdata
+     * @param $tag
+     */
+    protected function writeFullTagTemplate($value, $name, $cdata, $tag)
+    {
+        $this->xml[$name] .= "<{$tag}>$value</{$tag}>";
+        if ($cdata) {
+            $this->xml[$name] .= "<{$tag}><![CDATA[$value]]></{$tag}>";
+        }
+    }
+
+    /**
+     * @param mixed  $value
+     * @param string $name
+     * @param string $attributeName
+     * @param string $validationClass
+     * @param string $validationMethod
+     * @param string $exceptionClass
+     * @param string $exceptionMsg
+     */
+    protected function writeAttribute(
+        $value,
+        $name,
+        $attributeName,
+        $validationClass,
+        $validationMethod,
+        $exceptionClass,
+        $exceptionMsg)
+    {
+        $value = $this->validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
+        $this->xml[$name] .= " {$attributeName}=\"{$value}\"";
+    }
+
+    /**
+     * @param $value
+     * @param $validationClass
+     * @param $validationMethod
+     * @param $exceptionClass
+     * @param $exceptionMsg
+     *
+     * @return mixed
+     */
+    protected function validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg)
+    {
         $value = call_user_func_array([$validationClass, $validationMethod], [$value]);
         if (false === $value) {
             throw new $exceptionClass($exceptionMsg);
         }
 
-        $this->xml[$name] = "<{$tag}>$value</{$tag}>";
-        if ($cdata) {
-            $this->xml[$name] = "<{$tag}><![CDATA[$value]]></{$tag}>";
-        }
-    }
-
-    /**
-     *
-     */
-    protected function writeAttribute()
-    {
+        return $value;
     }
 }

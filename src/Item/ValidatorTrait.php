@@ -48,6 +48,7 @@ trait ValidatorTrait
         if (false !== ($date = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value))) {
             return htmlentities($date->format('c'));
         }
+
         if (false !== ($date = \DateTime::createFromFormat('Y-m-d', $value))) {
             return htmlentities($date->format('Y-m-d'));
         }
