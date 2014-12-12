@@ -846,7 +846,7 @@ class VideoItemValidator
     /**
      * @param $string
      *
-     * @return bool|string
+     * @return string|false
      */
     public function validateAutoPlay($string)
     {
