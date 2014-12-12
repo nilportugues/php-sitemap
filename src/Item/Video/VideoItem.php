@@ -129,12 +129,13 @@ class VideoItem extends AbstractItem
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
     {
-        $loc = $this->validator->validatePlayerLoc($loc);
-        if (false === $loc) {
-            throw new VideoItemException(
-                sprintf('', $loc)
-            );
-        }
+        $this->validateInput(
+            $loc,
+            $this->validator,
+            'validatePlayerLoc',
+            $this->exception,
+            'Provided player URL is not a valid value.'
+        );
 
         $this->xml['player_loc'] .= '<video:player_loc';
         $this->setPlayerEmbedded($playerEmbedded);
@@ -155,8 +156,8 @@ class VideoItem extends AbstractItem
         if (null !== $playerEmbedded) {
             $this->writeAttribute(
                 $playerEmbedded,
+                'player_loc',
                 'allow_embed',
-                'autoplay',
                 $this->validator,
                 'validateAllowEmbed',
                 $this->exception,
@@ -388,12 +389,13 @@ class VideoItem extends AbstractItem
      */
     public function setRestriction($restriction, $relationship = null)
     {
-        $restriction = $this->validator->validateRestriction($restriction);
-        if (false === $restriction) {
-            throw new VideoItemException(
-                sprintf('', $restriction)
-            );
-        }
+        $this->validateInput(
+            $restriction,
+            $this->validator,
+            'validateRestriction',
+            $this->exception,
+            'Provided restriction is not a valid value.'
+        );
 
         $this->xml['restriction'] = "\t\t\t".'<video:restriction';
         $this->setRestrictionRelationship($relationship);
@@ -434,12 +436,13 @@ class VideoItem extends AbstractItem
      */
     public function setGalleryLoc($galleryLoc, $title = null)
     {
-        $galleryLoc = $this->validator->validateGalleryLoc($galleryLoc);
-        if (false === $galleryLoc) {
-            throw new VideoItemException(
-                sprintf('', $galleryLoc)
-            );
-        }
+        $this->validateInput(
+            $galleryLoc,
+            $this->validator,
+            'validateGalleryLoc',
+            $this->exception,
+            'Provided gallery URL is not a valid value.'
+        );
 
         $this->xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
         $this->setGalleryTitle($title);
@@ -499,12 +502,13 @@ class VideoItem extends AbstractItem
      */
     protected function setPriceValue($price)
     {
-        $price = $this->validator->validatePrice($price);
-        if (false === $price) {
-            throw new VideoItemException(
-                sprintf('', $price)
-            );
-        }
+        $this->validateInput(
+            $price,
+            $this->validator,
+            'validatePrice',
+            $this->exception,
+            'Provided price is not a valid value.'
+        );
     }
 
     /**
@@ -519,7 +523,7 @@ class VideoItem extends AbstractItem
             'price',
             'currency',
             $this->validator,
-            'validatePrice',
+            'validatePriceCurrency',
             $this->exception,
             'Provided price currency is not a valid value.'
         );
@@ -595,12 +599,13 @@ class VideoItem extends AbstractItem
      */
     public function setTag(array $tag)
     {
-        $tag = $this->validator->validateTag($tag);
-        if (false === $tag) {
-            throw new VideoItemException(
-                sprintf('', implode(',', $tag))
-            );
-        }
+        $this->validateInput(
+            $tag,
+            $this->validator,
+            'validateTag',
+            $this->exception,
+            'Provided tag array is not a valid value.'
+        );
 
         foreach ($tag as $tagName) {
             $this->xml['tag'] .= "\t\t\t".'<video:tag>'.$tagName.'</video:tag>'."\n";
@@ -640,12 +645,13 @@ class VideoItem extends AbstractItem
      */
     public function setUploader($uploader, $info = null)
     {
-        $uploader = $this->validator->validateUploader($uploader);
-        if (false === $uploader) {
-            throw new VideoItemException(
-                sprintf('', $uploader)
-            );
-        }
+        $this->validateInput(
+            $uploader,
+            $this->validator,
+            'validateUploader',
+            $this->exception,
+            'Provided uploader is not a valid value.'
+        );
 
         $this->xml['uploader'] = "\t\t\t".'<video:uploader';
         $this->setUploaderInfo($info);
@@ -686,12 +692,13 @@ class VideoItem extends AbstractItem
      */
     public function setPlatform($platform, $relationship = null)
     {
-        $platform = $this->validator->validatePlatform($platform);
-        if (false === $platform) {
-            throw new VideoItemException(
-                sprintf('', $platform)
-            );
-        }
+        $this->validateInput(
+            $platform,
+            $this->validator,
+            'validatePlatform',
+            $this->exception,
+            'Provided platform is not a valid value.'
+        );
 
         $this->xml['platform'] = "\t\t\t".'<video:platform';
         $this->setPlatformRelationship($relationship);
@@ -741,42 +748,6 @@ class VideoItem extends AbstractItem
             $this->exception,
             'Provided live value is not a valid.'
         );
-
-        return $this;
-    }
-
-    /**
-     * @param $embedded
-     *
-     * @throws VideoItemException
-     * @return $this
-     */
-    protected function setPlayerLocAllowEmbedded($embedded)
-    {
-        $embedded = $this->validator->validateAllowEmbed($embedded);
-        if (false === $embedded) {
-            throw new VideoItemException(
-                sprintf('', $embedded)
-            );
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param $autoPlay
-     *
-     * @throws VideoItemException
-     * @return $this
-     */
-    protected function setPlayerLocAutoPlay($autoPlay)
-    {
-        $autoPlay = $this->validator->validateAutoPlay($autoPlay);
-        if (false === $autoPlay) {
-            throw new VideoItemException(
-                sprintf('', $autoPlay)
-            );
-        }
 
         return $this;
     }

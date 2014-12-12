@@ -99,9 +99,9 @@ abstract class AbstractItem implements ItemInterface
 
     /**
      * @param $value
-     * @param string $name
+     * @param string  $name
      * @param boolean $cdata
-     * @param string $tag
+     * @param string  $tag
      */
     protected function writeFullTagTemplate($value, $name, $cdata, $tag)
     {
