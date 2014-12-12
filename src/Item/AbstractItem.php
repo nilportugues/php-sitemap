@@ -105,10 +105,11 @@ abstract class AbstractItem implements ItemInterface
      */
     protected function writeFullTagTemplate($value, $name, $cdata, $tag)
     {
-        $this->xml[$name] .= "<{$tag}>$value</{$tag}>";
+        $xml = "<{$tag}>$value</{$tag}>";
         if ($cdata) {
-            $this->xml[$name] .= "<{$tag}><![CDATA[$value]]></{$tag}>";
+             $xml = "<{$tag}><![CDATA[$value]]></{$tag}>";
         }
+        $this->xml[$name] .= $xml;
     }
 
     /**
