@@ -143,7 +143,7 @@ abstract class AbstractItem implements ItemInterface
      *
      * @return mixed
      */
-    protected function validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg)
+    protected static function validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg)
     {
         $value = call_user_func_array([$validationClass, $validationMethod], [$value]);
         if (false === $value) {

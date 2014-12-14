@@ -12,7 +12,6 @@ namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Item\AbstractItem;
 
-
 /**
  * Class VideoItemPlayerTags
  * @package NilPortugues\Sitemap\Item\Video
@@ -22,7 +21,7 @@ abstract class VideoItemPlayerTags extends AbstractItem
     /**
      * @var string
      */
-    protected static $xml = '';
+    protected static $tag = '';
 
     /**
      * @var string
@@ -35,9 +34,9 @@ abstract class VideoItemPlayerTags extends AbstractItem
      * @param $playerEmbedded
      * @param $playerAutoPlay
      *
-     * @return $this
+     * @return string
      */
-    protected static function setPlayerLoc($validator, $loc, $playerEmbedded, $playerAutoPlay)
+    public static function setPlayerLoc($validator, $loc, $playerEmbedded, $playerAutoPlay)
     {
         self::validateInput(
             $loc,
@@ -47,13 +46,13 @@ abstract class VideoItemPlayerTags extends AbstractItem
             'Provided player URL is not a valid value.'
         );
 
-        self::$xml .= '<video:player_loc';
+        self::$tag = '<video:player_loc';
         self::setPlayerEmbedded($validator, $playerEmbedded);
         self::setPlayerAutoPlay($validator, $playerAutoPlay);
 
-        self::$xml .= '>'.$loc.'</video:player_loc>';
+        self::$tag .= '>'.$loc.'</video:player_loc>';
 
-        return self::$xml;
+        return self::$tag;
     }
 
     /**
@@ -61,7 +60,7 @@ abstract class VideoItemPlayerTags extends AbstractItem
      * @param $playerEmbedded
      *
      */
-    protected function setPlayerEmbedded($validator, $playerEmbedded)
+    protected static function setPlayerEmbedded($validator, $playerEmbedded)
     {
         if (null !== $playerEmbedded) {
             self::writeAttribute(
@@ -80,7 +79,7 @@ abstract class VideoItemPlayerTags extends AbstractItem
      * @param $validator
      * @param $playerAutoplay
      */
-    protected function setPlayerAutoPlay($validator, $playerAutoplay)
+    protected static function setPlayerAutoPlay($validator, $playerAutoplay)
     {
         if (null !== $playerAutoplay) {
             self::writeAttribute(
@@ -94,4 +93,4 @@ abstract class VideoItemPlayerTags extends AbstractItem
             );
         }
     }
-} 
+}

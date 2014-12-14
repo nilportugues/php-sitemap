@@ -139,7 +139,6 @@ class VideoItem extends AbstractItem
         return $this;
     }
 
-
     /**
      * @return string
      */
@@ -390,42 +389,7 @@ class VideoItem extends AbstractItem
      */
     public function setGalleryLoc($galleryLoc, $title = null)
     {
-        $this->validateInput(
-            $galleryLoc,
-            $this->validator,
-            'validateGalleryLoc',
-            $this->exception,
-            'Provided gallery URL is not a valid value.'
-        );
-
-        $this->xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
-        $this->setGalleryTitle($title);
-        $this->xml['gallery_loc'] .= '>'.$galleryLoc.'</video:gallery_loc>';
-
-        return $this;
-    }
-
-    /**
-     * @param $title
-     *
-     * @throws VideoItemException
-     * @return $this
-     */
-    public function setGalleryTitle($title)
-    {
-        if (null !== $title) {
-            $this->writeAttribute(
-                $title,
-                'gallery_loc',
-                'title',
-                $this->validator,
-                'validateGalleryLocTitle',
-                $this->exception,
-                'Provided gallery title is not a valid value.'
-            );
-        }
-
-        return $this;
+        return VideoItemGalleryTags::setGalleryLoc($this->validator, $galleryLoc, $title);
     }
 
     /**
@@ -439,88 +403,7 @@ class VideoItem extends AbstractItem
      */
     public function setPrice($price, $currency, $type = null, $resolution = null)
     {
-        $this->xml['price'] .= "\t\t\t".'<video:price';
-        $this->setPriceValue($price);
-        $this->setPriceCurrency($currency);
-        $this->setPriceType($type);
-        $this->setPriceResolution($resolution);
-        $this->xml['price'] .= '>'.$price.'</video:price>'."\n";
-
-        return $this;
-    }
-
-    /**
-     * @param $price
-     *
-     * @throws VideoItemException
-     */
-    protected function setPriceValue($price)
-    {
-        $this->validateInput(
-            $price,
-            $this->validator,
-            'validatePrice',
-            $this->exception,
-            'Provided price is not a valid value.'
-        );
-    }
-
-    /**
-     * @param   $currency
-     *
-     * @throws VideoItemException
-     */
-    protected function setPriceCurrency($currency)
-    {
-        $this->writeAttribute(
-            $currency,
-            'price',
-            'currency',
-            $this->validator,
-            'validate',
-            $this->exception,
-            'Provided price currency is not a valid value.'
-        );
-    }
-
-    /**
-     * @param string|null $type
-     *
-     * @throws VideoItemException
-     */
-    protected function setPriceType($type)
-    {
-        if (null !== $type) {
-            $this->writeAttribute(
-                $type,
-                'price',
-                'type',
-                $this->validator,
-                'validatePriceType',
-                $this->exception,
-                'Provided price type is not a valid value.'
-            );
-        }
-    }
-
-    /**
-     * @param string|null $resolution
-     *
-     * @throws VideoItemException
-     */
-    protected function setPriceResolution($resolution)
-    {
-        if (null !== $resolution) {
-            $this->writeAttribute(
-                $resolution,
-                'price',
-                'resolution',
-                $this->validator,
-                'validatePriceResolution',
-                $this->exception,
-                'Provided price resolution is not a valid value.'
-            );
-        }
+        return VideoItemPriceTags::setPrice($this->validator, $price, $currency, $type, $resolution);
     }
 
     /**
@@ -599,42 +482,7 @@ class VideoItem extends AbstractItem
      */
     public function setUploader($uploader, $info = null)
     {
-        $this->validateInput(
-            $uploader,
-            $this->validator,
-            'validateUploader',
-            $this->exception,
-            'Provided uploader is not a valid value.'
-        );
-
-        $this->xml['uploader'] = "\t\t\t".'<video:uploader';
-        $this->setUploaderInfo($info);
-        $this->xml['uploader'] .= '>'.$uploader.'</video:uploader>';
-
-        return $this;
-    }
-
-    /**
-     * @param $info
-     *
-     * @throws VideoItemException
-     * @return $this
-     */
-    protected function setUploaderInfo($info)
-    {
-        if (null !== $info) {
-            $this->writeAttribute(
-                $info,
-                'uploader',
-                'info',
-                $this->validator,
-                'validateUploaderInfo',
-                $this->exception,
-                'Provided uploader info is not a valid value.'
-            );
-        }
-
-        return $this;
+        return VideoItemUploaderTags::setUploader($this->validator, $uploader, $info);
     }
 
     /**
