@@ -29,7 +29,7 @@ abstract class VideoItemPlayerTags extends AbstractItem
     protected static $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $loc
      * @param $playerEmbedded
      * @param $playerAutoPlay

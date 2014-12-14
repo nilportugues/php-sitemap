@@ -385,7 +385,7 @@ class VideoItem extends AbstractItem
      * @param null $title
      *
      * @throws VideoItemException
-     * @return $this
+     * @return string
      */
     public function setGalleryLoc($galleryLoc, $title = null)
     {
@@ -399,7 +399,7 @@ class VideoItem extends AbstractItem
      * @param string $resolution
      *
      * @throws VideoItemException
-     * @return $this
+     * @return string
      */
     public function setPrice($price, $currency, $type = null, $resolution = null)
     {
@@ -478,7 +478,7 @@ class VideoItem extends AbstractItem
      * @param null $info
      *
      * @throws VideoItemException
-     * @return $this
+     * @return string
      */
     public function setUploader($uploader, $info = null)
     {
