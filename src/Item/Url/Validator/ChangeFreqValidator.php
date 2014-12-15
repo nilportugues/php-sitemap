@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item\Url\Validation;
+namespace NilPortugues\Sitemap\Item\Url\Validator;
 
 /**
  * Class ChangeFreqValidator
- * @package NilPortugues\Sitemap\Item\Url\Validation
+ * @package NilPortugues\Sitemap\Item\Url\Validator
  */
 final class ChangeFreqValidator
 {

@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item\News\Validation;
+namespace NilPortugues\Sitemap\Item\News\Validator;
 
 /**
  * Class LanguageValidator
- * @package NilPortugues\Sitemap\Item\News\Validation
+ * @package NilPortugues\Sitemap\Item\News\Validator
  */
 final class LanguageValidator
 {
@@ -8712,6 +8712,7 @@ final class LanguageValidator
 
     /**
      * @param $language
+     *
      * @return string|false
      */
     public static function validate($language)

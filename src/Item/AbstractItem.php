@@ -17,14 +17,14 @@ abstract class AbstractItem implements ItemInterface
     /**
      * @var array
      */
-    protected $xml = [];
+    protected static $xml = [];
 
     /**
      * @return string
      */
     public function __toString()
     {
-        return $this->build();
+        return self::build();
     }
 
     /**
@@ -34,7 +34,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function build()
     {
-        $xml  = array_filter($this->xml);
+        $xml  = array_filter(self::$xml);
         $data = implode("\n", $xml);
 
         return $data."\n";
@@ -47,7 +47,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function getItemSize()
     {
-        return mb_strlen($this->build(), 'UTF-8');
+        return mb_strlen(self::build(), 'UTF-8');
     }
 
     /**
@@ -55,7 +55,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function getHeaderSize()
     {
-        return mb_strlen($this->getHeader(), 'UTF-8');
+        return mb_strlen(self::getHeader(), 'UTF-8');
     }
 
     /**
@@ -63,7 +63,7 @@ abstract class AbstractItem implements ItemInterface
      */
     public function getFooterSize()
     {
-        return mb_strlen($this->getFooter(), 'UTF-8');
+        return mb_strlen(self::getFooter(), 'UTF-8');
     }
 
     /**
@@ -83,7 +83,7 @@ abstract class AbstractItem implements ItemInterface
      * @param string $exceptionClass
      * @param string $exceptionMsg
      */
-    protected function writeFullTag(
+    protected static function writeFullTag(
         $value,
         $name,
         $cdata,
@@ -93,23 +93,23 @@ abstract class AbstractItem implements ItemInterface
         $exceptionClass,
         $exceptionMsg
     ) {
-        $value = $this->validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
-        $this->writeFullTagTemplate($value, $name, $cdata, $tag);
+        $value = self::validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
+        self::writeFullTagTemplate($value, $name, $cdata, $tag);
     }
 
     /**
-     * @param $value
+     * @param         $value
      * @param string  $name
      * @param boolean $cdata
      * @param string  $tag
      */
-    protected function writeFullTagTemplate($value, $name, $cdata, $tag)
+    protected static function writeFullTagTemplate($value, $name, $cdata, $tag)
     {
         $xml = "<{$tag}>$value</{$tag}>";
         if ($cdata) {
             $xml = "<{$tag}><![CDATA[$value]]></{$tag}>";
         }
-        $this->xml[$name] .= $xml;
+        self::$xml[$name] .= $xml;
     }
 
     /**
@@ -121,7 +121,7 @@ abstract class AbstractItem implements ItemInterface
      * @param string $exceptionClass
      * @param string $exceptionMsg
      */
-    protected function writeAttribute(
+    protected static function writeAttribute(
         $value,
         $name,
         $attributeName,
@@ -130,8 +130,8 @@ abstract class AbstractItem implements ItemInterface
         $exceptionClass,
         $exceptionMsg
     ) {
-        $value = $this->validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
-        $this->xml[$name] .= " {$attributeName}=\"{$value}\"";
+        $value = self::validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
+        self::$xml[$name] .= " {$attributeName}=\"{$value}\"";
     }
 
     /**

@@ -35,7 +35,7 @@ class VideoItem extends AbstractItem
     public function __construct($title, $contentLoc, $playerLoc, $playerEmbedded = null, $playerAutoplay = null)
     {
         $this->validator = VideoItemValidator::getInstance();
-        $this->xml       = $this->reset();
+        self::$xml       = $this->reset();
         $this->setTitle($title);
         $this->setContentLoc($contentLoc);
         $this->setPlayerLoc($playerLoc, $playerEmbedded, $playerAutoplay);
@@ -82,7 +82,7 @@ class VideoItem extends AbstractItem
      */
     protected function setTitle($title)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $title,
             'title',
             true,
@@ -104,7 +104,7 @@ class VideoItem extends AbstractItem
      */
     protected function setContentLoc($loc)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $loc,
             'content_loc',
             true,
@@ -129,7 +129,7 @@ class VideoItem extends AbstractItem
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
     {
-        $this->xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
+        self::$xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
             $this->validator,
             $loc,
             $playerEmbedded,
@@ -165,7 +165,7 @@ class VideoItem extends AbstractItem
      */
     public function setThumbnailLoc($loc)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $loc,
             'thumbnail_loc',
             true,
@@ -187,7 +187,7 @@ class VideoItem extends AbstractItem
      */
     public function setDescription($description)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $description,
             'description',
             true,
@@ -209,7 +209,7 @@ class VideoItem extends AbstractItem
      */
     public function setDuration($duration)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $duration,
             'duration',
             true,
@@ -231,7 +231,7 @@ class VideoItem extends AbstractItem
      */
     public function setExpirationDate($expirationDate)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $expirationDate,
             'expiration_date',
             true,
@@ -253,7 +253,7 @@ class VideoItem extends AbstractItem
      */
     public function setRating($rating)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $rating,
             'rating',
             true,
@@ -275,7 +275,7 @@ class VideoItem extends AbstractItem
      */
     public function setViewCount($viewCount)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $viewCount,
             'view_count',
             true,
@@ -297,7 +297,7 @@ class VideoItem extends AbstractItem
      */
     public function setPublicationDate($publicationDate)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $publicationDate,
             'publication_date',
             true,
@@ -319,7 +319,7 @@ class VideoItem extends AbstractItem
      */
     public function setFamilyFriendly($familyFriendly)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $familyFriendly,
             'family_friendly',
             true,
@@ -350,9 +350,9 @@ class VideoItem extends AbstractItem
             'Provided restriction is not a valid value.'
         );
 
-        $this->xml['restriction'] = "\t\t\t".'<video:restriction';
+        self::$xml['restriction'] = "\t\t\t".'<video:restriction';
         $this->setRestrictionRelationship($relationship);
-        $this->xml['restriction'] .= '>'.$restriction.'</video:restriction>';
+        self::$xml['restriction'] .= '>'.$restriction.'</video:restriction>';
 
         return $this;
     }
@@ -363,7 +363,7 @@ class VideoItem extends AbstractItem
      * @throws VideoItemException
      * @return $this
      */
-    public function setRestrictionRelationship($relationship)
+    protected function setRestrictionRelationship($relationship)
     {
         if (null !== $relationship) {
             $this->writeAttribute(
@@ -371,7 +371,7 @@ class VideoItem extends AbstractItem
                 'restriction',
                 'relationship',
                 $this->validator,
-                'validateRestriction',
+                'validateRestrictionRelationship',
                 $this->exception,
                 'Provided restriction relationship is not a valid value.'
             );
@@ -384,12 +384,13 @@ class VideoItem extends AbstractItem
      * @param      $galleryLoc
      * @param null $title
      *
-     * @throws VideoItemException
-     * @return string
+     * @return $this
      */
     public function setGalleryLoc($galleryLoc, $title = null)
     {
-        return VideoItemGalleryTags::setGalleryLoc($this->validator, $galleryLoc, $title);
+        self::$xml['gallery_loc'] = VideoItemGalleryTags::setGalleryLoc($this->validator, $galleryLoc, $title);
+
+        return $this;
     }
 
     /**
@@ -403,7 +404,9 @@ class VideoItem extends AbstractItem
      */
     public function setPrice($price, $currency, $type = null, $resolution = null)
     {
-        return VideoItemPriceTags::setPrice($this->validator, $price, $currency, $type, $resolution);
+        self::$xml['price'] .= VideoItemPriceTags::setPrice($this->validator, $price, $currency, $type, $resolution);
+
+        return $this;
     }
 
     /**
@@ -414,7 +417,7 @@ class VideoItem extends AbstractItem
      */
     public function setCategory($category)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $category,
             'category',
             true,
@@ -445,7 +448,7 @@ class VideoItem extends AbstractItem
         );
 
         foreach ($tag as $tagName) {
-            $this->xml['tag'] .= "\t\t\t".'<video:tag>'.$tagName.'</video:tag>'."\n";
+            self::$xml['tag'] .= "\t\t\t".'<video:tag>'.$tagName.'</video:tag>'."\n";
         }
 
         return $this;
@@ -459,7 +462,7 @@ class VideoItem extends AbstractItem
      */
     public function setRequiresSubscription($requires)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $requires,
             'requires_subscription',
             true,
@@ -502,9 +505,9 @@ class VideoItem extends AbstractItem
             'Provided platform is not a valid value.'
         );
 
-        $this->xml['platform'] = "\t\t\t".'<video:platform';
+        self::$xml['platform'] = "\t\t\t".'<video:platform';
         $this->setPlatformRelationship($relationship);
-        $this->xml['platform'] .= '>'.$platform.'</video:platform>';
+        self::$xml['platform'] .= '>'.$platform.'</video:platform>';
 
         return $this;
     }
@@ -540,7 +543,7 @@ class VideoItem extends AbstractItem
      */
     public function setLive($live)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $live,
             'live',
             true,

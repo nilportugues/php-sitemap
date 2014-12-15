@@ -10,9 +10,9 @@
 
 namespace NilPortugues\Sitemap\Item\News;
 
-use NilPortugues\Sitemap\Item\News\Validation\AccessValidator;
-use NilPortugues\Sitemap\Item\News\Validation\GenresValidator;
-use NilPortugues\Sitemap\Item\News\Validation\LanguageValidator;
+use NilPortugues\Sitemap\Item\News\Validator\AccessValidator;
+use NilPortugues\Sitemap\Item\News\Validator\GenresValidator;
+use NilPortugues\Sitemap\Item\News\Validator\LanguageValidator;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -25,6 +25,7 @@ class NewsItemValidator
 
     /**
      * @param $name
+     *
      * @return string|false
      */
     public function validateName($name)
@@ -34,6 +35,7 @@ class NewsItemValidator
 
     /**
      * @param $language
+     *
      * @return string|false
      */
     public function validateLanguage($language)
@@ -43,6 +45,7 @@ class NewsItemValidator
 
     /**
      * @param $access
+     *
      * @return string|false
      */
     public function validateAccess($access)
@@ -52,6 +55,7 @@ class NewsItemValidator
 
     /**
      * @param $genres
+     *
      * @return string|false
      */
     public function validateGenres($genres)
@@ -61,6 +65,7 @@ class NewsItemValidator
 
     /**
      * @param $publicationDate
+     *
      * @return string|false
      */
     public function validatePublicationDate($publicationDate)
@@ -70,6 +75,7 @@ class NewsItemValidator
 
     /**
      * @param $title
+     *
      * @return string|false
      */
     public function validateTitle($title)
@@ -79,6 +85,7 @@ class NewsItemValidator
 
     /**
      * @param $keywords
+     *
      * @return string|false
      */
     public function validateKeywords($keywords)
@@ -88,6 +95,7 @@ class NewsItemValidator
 
     /**
      * @param $stock
+     *
      * @return string|false
      */
     public function validateStockTickers($stock)

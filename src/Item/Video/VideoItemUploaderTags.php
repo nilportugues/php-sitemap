@@ -29,9 +29,9 @@ abstract class VideoItemUploaderTags extends AbstractItem
     protected static $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
-     * @param      VideoItemValidator $validator
-     * @param      $uploader
-     * @param null $info
+     * @param VideoItemValidator $validator
+     * @param                    $uploader
+     * @param null               $info
      *
      * @return string
      */

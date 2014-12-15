@@ -29,9 +29,9 @@ abstract class VideoItemGalleryTags extends AbstractItem
     protected static $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
-     * @param      VideoItemValidator $validator
-     * @param      $galleryLoc
-     * @param null $title
+     * @param VideoItemValidator $validator
+     * @param                    $galleryLoc
+     * @param null               $title
      *
      * @return string
      */
@@ -45,18 +45,18 @@ abstract class VideoItemGalleryTags extends AbstractItem
             'Provided gallery URL is not a valid value.'
         );
 
-        self::$tag['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
+        self::$xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
         self::setGalleryTitle($validator, $title);
-        self::$tag['gallery_loc'] .= '>'.$galleryLoc.'</video:gallery_loc>';
+        self::$xml['gallery_loc'] .= '>'.$galleryLoc.'</video:gallery_loc>';
 
-        return self::$tag;
+        return self::$xml['gallery_loc'];
     }
 
     /**
      * @param $validator
      * @param $title
      */
-    public static function setGalleryTitle($validator, $title)
+    protected static function setGalleryTitle($validator, $title)
     {
         if (null !== $title) {
             self::writeAttribute(

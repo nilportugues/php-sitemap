@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item\Url\Validation;
+namespace NilPortugues\Sitemap\Item\Url\Validator;
 
 /**
  * Class PriorityValidator
- * @package NilPortugues\Sitemap\Item\Url\Validation
+ * @package NilPortugues\Sitemap\Item\Url\Validator
  */
 final class PriorityValidator
 {
@@ -23,6 +23,7 @@ final class PriorityValidator
      * Setting a priority of 1.0 for all URLs will not help you, as the relative priority of pages on your site is what will be considered.
      *
      * @param $priority
+     *
      * @return string|false
      */
     public static function validate($priority)
@@ -31,7 +32,7 @@ final class PriorityValidator
 
         if (
             is_numeric($priority)
-            && $priority > -0.01            && $priority <= 1
+            && $priority > -0.01 && $priority <= 1
             && (($priority * 100 % 10) == 0)
         ) {
             preg_match('/([0-9].[0-9])/', $priority, $matches);
@@ -45,6 +46,6 @@ final class PriorityValidator
             }
         }
 
-        return (null !== $validData) ?  $validData : false;
+        return (null !== $validData) ? $validData : false;
     }
 }

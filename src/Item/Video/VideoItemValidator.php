@@ -78,8 +78,8 @@ class VideoItemValidator
      */
     public function validateDescription($description)
     {
-        if (mb_strlen($description, 'UTF-8') > 2048) {
-            return mb_substr($description, 0, 2045, 'UTF-8').'...';
+        if (mb_strlen($description, 'UTF-8') < 2048) {
+            return $description;
         }
 
         return false;

@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item\News\Validation;
+namespace NilPortugues\Sitemap\Item\News\Validator;
 
 /**
  * Class GenresValidator
- * @package NilPortugues\Sitemap\Item\News\Validation
+ * @package NilPortugues\Sitemap\Item\News\Validator
  */
 final class GenresValidator
 {
@@ -32,6 +32,7 @@ final class GenresValidator
 
     /**
      * @param $genres
+     *
      * @return string|false
      */
     public static function validate($genres)
@@ -53,6 +54,6 @@ final class GenresValidator
 
         $data = implode(", ", $data);
 
-        return (strlen($data)>0) ? $data : false;
+        return (strlen($data) > 0) ? $data : false;
     }
 }

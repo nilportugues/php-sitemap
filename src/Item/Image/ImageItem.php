@@ -31,7 +31,7 @@ class ImageItem extends AbstractItem
     public function __construct($loc)
     {
         $this->validator = ImageItemValidator::getInstance();
-        $this->xml       = $this->reset();
+        self::$xml       = $this->reset();
         $this->setLoc($loc);
     }
 
@@ -61,7 +61,7 @@ class ImageItem extends AbstractItem
      */
     protected function setLoc($loc)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $loc,
             'loc',
             false,
@@ -101,7 +101,7 @@ class ImageItem extends AbstractItem
      */
     public function setTitle($title)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $title,
             'title',
             true,
@@ -123,7 +123,7 @@ class ImageItem extends AbstractItem
      */
     public function setCaption($caption)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $caption,
             'caption',
             true,
@@ -145,7 +145,7 @@ class ImageItem extends AbstractItem
      */
     public function setGeoLocation($geoLocation)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $geoLocation,
             'geolocation',
             true,
@@ -167,7 +167,7 @@ class ImageItem extends AbstractItem
      */
     public function setLicense($license)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $license,
             'license',
             true,

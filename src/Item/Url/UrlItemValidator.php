@@ -10,8 +10,8 @@
 
 namespace NilPortugues\Sitemap\Item\Url;
 
-use NilPortugues\Sitemap\Item\Url\Validation\ChangeFreqValidator;
-use NilPortugues\Sitemap\Item\Url\Validation\PriorityValidator;
+use NilPortugues\Sitemap\Item\Url\Validator\ChangeFreqValidator;
+use NilPortugues\Sitemap\Item\Url\Validator\PriorityValidator;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
@@ -24,6 +24,7 @@ class UrlItemValidator
 
     /**
      * @param $lastmod
+     *
      * @return string|false
      */
     public function validateLastMod($lastmod)
@@ -48,6 +49,7 @@ class UrlItemValidator
      * Setting a priority of 1.0 for all URLs will not help you, as the relative priority of pages on your site is what will be considered.
      *
      * @param $priority
+     *
      * @return string|false
      */
     public function validatePriority($priority)

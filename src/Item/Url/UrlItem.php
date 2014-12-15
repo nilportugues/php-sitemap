@@ -16,11 +16,6 @@ use NilPortugues\Sitemap\Item\AbstractItem;
 class UrlItem extends AbstractItem
 {
     /**
-     * @var array
-     */
-    protected $xml = [];
-
-    /**
      * @var UrlItemValidator
      */
     private $validator;
@@ -36,7 +31,7 @@ class UrlItem extends AbstractItem
     public function __construct($loc)
     {
         $this->validator = UrlItemValidator::getInstance();
-        $this->xml = $this->reset();
+        self::$xml       = $this->reset();
         $this->setLoc($loc);
     }
 
@@ -49,10 +44,10 @@ class UrlItem extends AbstractItem
     {
         return [
             "\t<url>",
-            'loc' => '',
-            'lastmod' => '',
+            'loc'        => '',
+            'lastmod'    => '',
             'changefreq' => '',
-            'priority' => '',
+            'priority'   => '',
             "\t</url>"
         ];
     }
@@ -65,7 +60,7 @@ class UrlItem extends AbstractItem
      */
     protected function setLoc($loc)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $loc,
             'loc',
             false,
@@ -104,7 +99,7 @@ class UrlItem extends AbstractItem
      */
     public function setLastMod($lastmod)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $lastmod,
             'lastmod',
             false,
@@ -126,7 +121,7 @@ class UrlItem extends AbstractItem
      */
     public function setChangeFreq($changeFreq)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $changeFreq,
             'changefreq',
             false,
@@ -148,7 +143,7 @@ class UrlItem extends AbstractItem
      */
     public function setPriority($priority)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $priority,
             'priority',
             false,

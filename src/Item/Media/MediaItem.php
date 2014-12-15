@@ -32,7 +32,7 @@ class MediaItem extends AbstractItem
     public function __construct($link)
     {
         $this->validator = MediaItemValidator::getInstance();
-        $this->xml       = $this->reset();
+        self::$xml       = $this->reset();
         $this->setLink($link);
     }
 
@@ -64,7 +64,7 @@ class MediaItem extends AbstractItem
      */
     protected function setLink($link)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $link,
             'link',
             false,
@@ -104,10 +104,10 @@ class MediaItem extends AbstractItem
      */
     public function setContent($mimeType, $duration = null)
     {
-        $this->xml['content'] = "\t\t<media:content";
+        self::$xml['content'] = "\t\t<media:content";
         $this->setContentMimeType($mimeType);
         $this->setContentDuration($duration);
-        $this->xml['content'] .= ">";
+        self::$xml['content'] .= ">";
 
         return $this;
     }
@@ -158,7 +158,7 @@ class MediaItem extends AbstractItem
      */
     public function setPlayer($player)
     {
-        $this->xml['player'] = "\t\t\t<media:player";
+        self::$xml['player'] = "\t\t\t<media:player";
 
         $this->writeAttribute(
             $player,
@@ -170,7 +170,7 @@ class MediaItem extends AbstractItem
             'Provided player URL is not a valid value.'
         );
 
-        $this->xml['player'] .= " />";
+        self::$xml['player'] .= " />";
 
         return $this;
     }
@@ -183,7 +183,7 @@ class MediaItem extends AbstractItem
      */
     public function setTitle($title)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $title,
             'title',
             false,
@@ -205,7 +205,7 @@ class MediaItem extends AbstractItem
      */
     public function setDescription($description)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $description,
             'description',
             false,
@@ -228,7 +228,7 @@ class MediaItem extends AbstractItem
      */
     public function setThumbnail($thumbnail, $height = null, $weight = null)
     {
-        $this->xml['thumbnail'] = "\t\t\t<media:thumbnail";
+        self::$xml['thumbnail'] = "\t\t\t<media:thumbnail";
         $this->setThumbnailUrl($thumbnail);
 
         if (null !== $height) {
@@ -239,7 +239,7 @@ class MediaItem extends AbstractItem
             $this->setThumbnailWidth($weight);
         }
 
-        $this->xml['thumbnail'] .= "/>";
+        self::$xml['thumbnail'] .= "/>";
 
         return $this;
     }

@@ -8,16 +8,17 @@
  * file that was distributed with this source code.
  */
 
-namespace NilPortugues\Sitemap\Item\News\Validation;
+namespace NilPortugues\Sitemap\Item\News\Validator;
 
 /**
  * Class AccessValidator
- * @package NilPortugues\Sitemap\Item\News\Validation
+ * @package NilPortugues\Sitemap\Item\News\Validator
  */
 final class AccessValidator
 {
     /**
      * @param $access
+     *
      * @return string|false
      */
     public static function validate($access)

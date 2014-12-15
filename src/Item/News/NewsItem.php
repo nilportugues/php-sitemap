@@ -35,7 +35,7 @@ class NewsItem extends AbstractItem
     public function __construct($loc, $title, $publicationDate, $name, $language)
     {
         $this->validator = NewsItemValidator::getInstance();
-        $this->xml       = $this->reset();
+        self::$xml       = $this->reset();
         $this->setLoc($loc);
         $this->setTitle($title);
         $this->setPublicationDate($publicationDate);
@@ -73,7 +73,7 @@ class NewsItem extends AbstractItem
      */
     protected function setLoc($loc)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $loc,
             'loc',
             false,
@@ -95,7 +95,7 @@ class NewsItem extends AbstractItem
      */
     protected function setTitle($title)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $title,
             'title',
             false,
@@ -117,7 +117,7 @@ class NewsItem extends AbstractItem
      */
     protected function setPublicationDate($date)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $date,
             'publication_date',
             false,
@@ -139,10 +139,10 @@ class NewsItem extends AbstractItem
      */
     protected function setPublication($name, $language)
     {
-        $this->xml['name'] = "\t\t\t".'<news:publication>'."\n";
+        self::$xml['name'] = "\t\t\t".'<news:publication>'."\n";
         $this->setPublicationName($name);
         $this->setPublicationLanguage($language);
-        $this->xml['name'] .= "\t\t\t".'</news:publication>'."\n";
+        self::$xml['name'] .= "\t\t\t".'</news:publication>'."\n";
 
         return $this;
     }
@@ -155,7 +155,7 @@ class NewsItem extends AbstractItem
      */
     protected function setPublicationName($name)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $name,
             'name',
             false,
@@ -177,7 +177,7 @@ class NewsItem extends AbstractItem
      */
     protected function setPublicationLanguage($language)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $language,
             'name',
             false,
@@ -217,7 +217,7 @@ class NewsItem extends AbstractItem
      */
     public function setAccess($access)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $access,
             'access',
             false,
@@ -239,7 +239,7 @@ class NewsItem extends AbstractItem
      */
     public function setGenres($genres)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $genres,
             'genres',
             false,
@@ -261,7 +261,7 @@ class NewsItem extends AbstractItem
      */
     public function setKeywords($keywords)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $keywords,
             'keywords',
             false,
@@ -283,7 +283,7 @@ class NewsItem extends AbstractItem
      */
     public function setStockTickers($stockTickers)
     {
-        $this->writeFullTag(
+        self::writeFullTag(
             $stockTickers,
             'stock_tickers',
             false,

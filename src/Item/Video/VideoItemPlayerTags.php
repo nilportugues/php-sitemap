@@ -30,9 +30,9 @@ abstract class VideoItemPlayerTags extends AbstractItem
 
     /**
      * @param VideoItemValidator $validator
-     * @param $loc
-     * @param $playerEmbedded
-     * @param $playerAutoPlay
+     * @param                    $loc
+     * @param                    $playerEmbedded
+     * @param                    $playerAutoPlay
      *
      * @return string
      */

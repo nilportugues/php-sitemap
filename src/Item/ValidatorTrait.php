@@ -22,20 +22,23 @@ trait ValidatorTrait
 
     /**
      * @param $string
+     *
      * @return string|false
      */
     public static function validateString($string)
     {
-        if (is_string($string) && strlen($string)>0) {
+        if (is_string($string) && strlen($string) > 0) {
             return $string;
         }
 
         return false;
     }
+
     /**
      * The location URI of a document. The URI must conform to RFC 2396 (http://www.ietf.org/rfc/rfc2396.txt)
      *
      * @param $value
+     *
      * @return string|false
      */
     public static function validateLoc($value)
@@ -70,7 +73,7 @@ trait ValidatorTrait
 
     public static function validateInteger($dimension)
     {
-        if (filter_var($dimension, FILTER_SANITIZE_NUMBER_INT) && $dimension>0) {
+        if (filter_var($dimension, FILTER_SANITIZE_NUMBER_INT) && $dimension > 0) {
             return $dimension;
         }
 

@@ -29,11 +29,11 @@ abstract class VideoItemPriceTags extends AbstractItem
     protected static $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
-     * @param      VideoItemValidator $validator
-     * @param      $price
-     * @param      $currency
-     * @param string|null $type
-     * @param string|null $resolution
+     * @param VideoItemValidator $validator
+     * @param                    $price
+     * @param                    $currency
+     * @param string|null        $type
+     * @param string|null        $resolution
      *
      * @return string
      */
