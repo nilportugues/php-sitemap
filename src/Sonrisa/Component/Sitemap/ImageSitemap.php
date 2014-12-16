@@ -124,6 +124,8 @@ class ImageSitemap extends AbstractSitemap implements SitemapInterface
                 $output[] = implode("\n", $fileData);
             }
         }
+        
+        $this->output = $output;
 
         return $output;
     }

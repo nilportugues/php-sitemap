@@ -248,4 +248,27 @@ XML;
         $files = $this->sitemap->build();
         $this->assertEquals($expected, $files[0]);
     }
+    
+    public function testwriteWithoutBuild()
+    {
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
+        $item->setLoc('http://www.example.com/logo.png');
+        $item->setCaption('This place is called Limerick, Ireland');
+        $this->sitemap->add($item, 'http://www.example.com/');
+
+        $this->setExpectedException('\\Sonrisa\\Component\\Sitemap\\Exceptions\\SitemapException');
+        $this->sitemap->write('./', 'imagesitemap.xml', false);
+    }
+    
+    public function testWritePlainFile()
+    {
+        $item = new \Sonrisa\Component\Sitemap\Items\ImageItem();
+        $item->setLoc('http://www.example.com/logo.png');
+        $item->setCaption('This place is called Limerick, Ireland');
+        $this->sitemap->add($item, 'http://www.example.com/');
+
+        $this->sitemap->build();
+        $this->sitemap->write('./', 'imagesitemap.xml', false);
+        $this->assertFileExists('imagesitemap.xml');
+    }
 }
