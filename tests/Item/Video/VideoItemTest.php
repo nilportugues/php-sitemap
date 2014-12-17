@@ -230,6 +230,31 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
             $this->item->build()
         );
     }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePrice()
+    {
+        $this->item->setPrice(0.99, 'EUR');
+        $this->item->setPrice(0.75, 'EUR');
+        $this->assertContains('<video:price currency="EUR">0.99</video:price>', $this->item->build());
+        $this->assertContains('<video:price currency="EUR">0.75</video:price>', $this->item->build());
+
+        $this->item->setPrice(0.99, 'EUR', 'rent');
+        $this->item->setPrice(0.75, 'EUR', 'rent');
+        $this->assertContains('<video:price currency="EUR" type="rent">0.99</video:price>', $this->item->build());
+        $this->assertContains('<video:price currency="EUR" type="rent">0.75</video:price>', $this->item->build());
+
+        $this->item->setPrice(0.99, 'EUR', 'rent', 'HD');
+        $this->item->setPrice(0.75, 'EUR', 'rent', 'SD');
+        $this->assertContains(
+            '<video:price currency="EUR" type="rent" resolution="HD">0.99</video:price>', $this->item->build()
+        );
+        $this->assertContains(
+            '<video:price currency="EUR" type="rent" resolution="SD">0.75</video:price>', $this->item->build()
+        );
+    }
 /**
  * @test
 
@@ -237,9 +262,6 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
  {
  $expected = <<<XML
  <video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
- <video:gallery_loc title="Cooking Videos">http://cooking.example.com</video:gallery_loc>
- <video:price currency="EUR" type="rent" resolution="HD">0.99</video:price>
- <video:price currency="EUR" type="rent" resolution="SD">0.75</video:price>
  <video:tag>action</video:tag>
  <video:tag>drama</video:tag>
  <video:tag>entrepreneur</video:tag>
@@ -254,20 +276,19 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
 
  $this->item->setGalleryLoc('http://cooking.example.com');
  $this->item->setGalleryLoc('http://cooking.example.com', 'Cooking Videos');
- $this->item->setPrice('0.99', 'EUR', 'rent', 'HD');
- $this->item->setPrice('0.75', 'EUR', 'rent', 'SD');
+ *
  $this->item->setCategory('cooking');
  $this->item->setTag(array('action', 'drama', 'entrepreneur'));
+
  $this->item->setRequiresSubscription('yes');
+
  $this->item->setUploader('GrillyMcGrillerson');
  $this->item->setUploader('GrillyMcGrillerson', 'http://www.example.com/users/grillymcgrillerson');
+
  $this->item->setPlatform('web mobile tv');
  $this->item->setPlatform('web mobile tv', 'allow');
+
  $this->item->setLive('no');
 
- $this->assertContains(
- '',
- $this->item->build()
- );
  }*/
 }

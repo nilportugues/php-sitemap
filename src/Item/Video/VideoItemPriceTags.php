@@ -21,11 +21,6 @@ abstract class VideoItemPriceTags extends AbstractItem
     /**
      * @var string
      */
-    protected static $tag = '';
-
-    /**
-     * @var string
-     */
     protected static $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
@@ -39,14 +34,14 @@ abstract class VideoItemPriceTags extends AbstractItem
      */
     public static function setPrice($validator, $price, $currency, $type = null, $resolution = null)
     {
-        self::$tag['price'] .= "\t\t\t".'<video:price';
+        self::$xml['price'] .= "\t\t\t".'<video:price';
         self::setPriceValue($validator, $price);
         self::setPriceCurrency($validator, $currency);
         self::setPriceType($validator, $type);
         self::setPriceResolution($validator, $resolution);
-        self::$tag['price'] .= '>'.$price.'</video:price>'."\n";
+        self::$xml['price'] .= '>'.$price.'</video:price>'."\n";
 
-        return self::$tag;
+        return self::$xml['price'];
     }
 
     /**
@@ -76,7 +71,7 @@ abstract class VideoItemPriceTags extends AbstractItem
             'price',
             'currency',
             $validator,
-            'validate',
+            'validatePriceCurrency',
             self::$exception,
             'Provided price currency is not a valid value.'
         );
