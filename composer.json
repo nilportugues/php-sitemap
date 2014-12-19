@@ -28,7 +28,8 @@
         "fabpot/php-cs-fixer": "dev-master",
         "pdepend/pdepend": "2.*",
         "phpmd/phpmd": "dev-master",
-        "squizlabs/php_codesniffer": "2.*@dev"
+        "squizlabs/php_codesniffer": "2.*@dev",
+        "fiunchinho/phpunit-randomizer": "1.0.*@dev"
     },
     "config":{
         "bin-dir":"bin/"
