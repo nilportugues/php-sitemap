@@ -485,7 +485,7 @@ class VideoItem extends AbstractItem
      */
     public function setUploader($uploader, $info = null)
     {
-        return VideoItemUploaderTags::setUploader($this->validator, $uploader, $info);
+        self::$xml['uploader'] = VideoItemUploaderTags::setUploader($this->validator, $uploader, $info);
     }
 
     /**

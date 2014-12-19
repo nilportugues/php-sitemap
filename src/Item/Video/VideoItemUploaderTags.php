@@ -21,11 +21,6 @@ abstract class VideoItemUploaderTags extends AbstractItem
     /**
      * @var string
      */
-    protected static $tag = '';
-
-    /**
-     * @var string
-     */
     protected static $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
@@ -45,11 +40,11 @@ abstract class VideoItemUploaderTags extends AbstractItem
             'Provided uploader is not a valid value.'
         );
 
-        self::$tag['uploader'] = "\t\t\t".'<video:uploader';
+        self::$xml['uploader'] = "\t\t\t".'<video:uploader';
         self::setUploaderInfo($validator, $info);
-        self::$tag['uploader'] .= '>'.$uploader.'</video:uploader>';
+        self::$xml['uploader'] .= '>'.$uploader.'</video:uploader>';
 
-        return self::$tag;
+        return self::$xml['uploader'];
     }
 
     /**

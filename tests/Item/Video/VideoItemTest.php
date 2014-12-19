@@ -255,40 +255,75 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
             '<video:price currency="EUR" type="rent" resolution="SD">0.75</video:price>', $this->item->build()
         );
     }
-/**
- * @test
 
- public function itShouldHave()
- {
- $expected = <<<XML
- <video:player_loc allow_embed="yes" autoplay="ap=1">http://www.example.com/videoplayer.swf?video=123</video:player_loc>
- <video:tag>action</video:tag>
- <video:tag>drama</video:tag>
- <video:tag>entrepreneur</video:tag>
- <video:requires_subscription><![CDATA[yes]]></video:requires_subscription>
- <video:uploader info="http://www.example.com/users/grillymcgrillerson">GrillyMcGrillerson</video:uploader>
- <video:platform relationship="allow">web mobile tv</video:platform>
- <video:live><![CDATA[no]]></video:live>
- XML;
+    /**
+     * @test
+     */
+    public function itShouldHaveCategory()
+    {
+        $this->item->setCategory('cooking');
+        $this->assertContains('<video:category><![CDATA[cooking]]></video:category>', $this->item->build());
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHaveTags()
+    {
+        $this->item->setTag(array('action', 'drama', 'entrepreneur'));
+        $this->assertContains('<video:tag>drama</video:tag>', $this->item->build());
+        $this->assertContains('<video:tag>action</video:tag>', $this->item->build());
+        $this->assertContains('<video:tag>entrepreneur</video:tag>', $this->item->build());
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHaveRequiresSubscription()
+    {
+        $this->item->setRequiresSubscription('yes');
+        $this->assertContains(
+            '<video:requires_subscription><![CDATA[yes]]></video:requires_subscription>',
+            $this->item->build()
+        );
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHaveLive()
+    {
+        $this->item->setLive('no');
+        $this->assertContains('<video:live><![CDATA[no]]></video:live>', $this->item->build());
+    }
 
- $this->item->setGalleryLoc('http://cooking.example.com');
- $this->item->setGalleryLoc('http://cooking.example.com', 'Cooking Videos');
- *
- $this->item->setCategory('cooking');
- $this->item->setTag(array('action', 'drama', 'entrepreneur'));
+    /**
+     * @test
+     */
+    public function itShouldHaveUploader()
+    {
+        $this->item->setUploader('GrillyMcGrillerson');
+        $this->assertContains('<video:uploader>GrillyMcGrillerson</video:uploader>', $this->item->build());
 
- $this->item->setRequiresSubscription('yes');
+        $this->item->setUploader('GrillyMcGrillerson', 'http://www.example.com/grillymcgrillerson');
+        $this->assertContains(
+            '<video:uploader info="http://www.example.com/grillymcgrillerson">GrillyMcGrillerson</video:uploader>',
+            $this->item->build()
+        );
+    }
 
- $this->item->setUploader('GrillyMcGrillerson');
- $this->item->setUploader('GrillyMcGrillerson', 'http://www.example.com/users/grillymcgrillerson');
+    /**
+     * @test
+     */
+    public function itShouldHavePlatform()
+    {
+        $this->item->setPlatform('web mobile tv');
+        $this->assertContains('<video:platform>web mobile tv</video:platform>', $this->item->build());
 
- $this->item->setPlatform('web mobile tv');
- $this->item->setPlatform('web mobile tv', 'allow');
-
- $this->item->setLive('no');
-
- }*/
+        $this->item->setPlatform('web mobile tv', 'allow');
+        $this->assertContains(
+            '<video:platform relationship="allow">web mobile tv</video:platform>',
+            $this->item->build()
+        );
+    }
 }
