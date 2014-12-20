@@ -56,7 +56,7 @@ abstract class VideoItemPlayerTags extends AbstractItem
     }
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $playerEmbedded
      *
      */
@@ -76,7 +76,7 @@ abstract class VideoItemPlayerTags extends AbstractItem
     }
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $playerAutoplay
      */
     protected static function setPlayerAutoPlay($validator, $playerAutoplay)

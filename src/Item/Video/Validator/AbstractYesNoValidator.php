@@ -17,11 +17,11 @@ namespace NilPortugues\Sitemap\Item\Video\Validator;
 abstract class AbstractYesNoValidator
 {
     /**
-     * @param $confirmation
-     * @param $positive
-     * @param $negative
+     * @param string $confirmation
+     * @param string $positive
+     * @param string $negative
      *
-     * @return bool|string
+     * @return string|false
      */
     public static function validateMethod($confirmation, $positive, $negative)
     {

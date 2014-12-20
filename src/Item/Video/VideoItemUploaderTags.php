@@ -48,7 +48,7 @@ abstract class VideoItemUploaderTags extends AbstractItem
     }
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $info
      */
     protected static function setUploaderInfo($validator, $info)

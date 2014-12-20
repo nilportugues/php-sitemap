@@ -400,7 +400,7 @@ class VideoItem extends AbstractItem
      * @param string $resolution
      *
      * @throws VideoItemException
-     * @return string
+     * @return VideoItem
      */
     public function setPrice($price, $currency, $type = null, $resolution = null)
     {

@@ -53,7 +53,7 @@ abstract class VideoItemGalleryTags extends AbstractItem
     }
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $title
      */
     protected static function setGalleryTitle($validator, $title)
