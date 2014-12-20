@@ -30,11 +30,7 @@ class Sitemap extends AbstractSitemap
     {
         $this->validateItemClassType($item);
 
-        if (null === $this->filePointer) {
-            $this->filePointer = fopen($this->getFullFilePath(), 'w');
-        }
-
-        if (0 === $this->totalItems) {
+        if (null === $this->filePointer || 0 === $this->totalItems) {
             $this->createNewFilePointer();
         }
 
