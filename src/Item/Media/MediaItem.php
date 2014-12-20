@@ -78,23 +78,6 @@ class MediaItem extends AbstractItem
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public static function getHeader()
-    {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'
-        ."\n".'<channel>'."\n";
-    }
-
-    /**
-     * @return string
-     */
-    public static function getFooter()
-    {
-        return "</channel>\n</rss>";
-    }
 
     /**
      * @param      $mimeType

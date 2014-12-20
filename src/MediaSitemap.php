@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\Media\MediaItem;
+
 /**
  * Class MediaSitemap
  * @package NilPortugues\Sitemap
@@ -19,7 +21,7 @@ class MediaSitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param $item
+     * @param MediaItem $item
      *
      * @return mixed
      */
@@ -29,12 +31,34 @@ class MediaSitemap extends AbstractSitemap
     }
 
     /**
-     * Generates sitemap file.
+     * @param MediaItem $item
      *
-     * @return mixed
+     * @throws SitemapException
      */
-    public function build()
+    protected function validateItemClassType($item)
     {
-        // TODO: Implement build() method.
+        if (!($item instanceof MediaItem)) {
+            throw new SitemapException(
+                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\Media\\MediaItem."
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'
+        . "\n" . '<channel>' . "\n";
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFooter()
+    {
+        return "</channel>\n</rss>";
     }
 }

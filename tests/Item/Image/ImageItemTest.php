@@ -109,27 +109,6 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldOutputHeader()
-    {
-        $this->assertSame(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
-            'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n",
-            $this->item->getHeader()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function itShouldOutputFooter()
-    {
-        $this->assertSame('</urlset>', $this->item->getFooter());
-    }
-
-    /**
-     * @test
-     */
     public function itShouldValidateGeolocationInvalidInput()
     {
         $this->setExpectedException($this->exception);

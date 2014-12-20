@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\Video\VideoItem;
+
 /**
  * Class VideoSitemap
  * @package NilPortugues\Sitemap
@@ -19,7 +21,7 @@ class VideoSitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param $item
+     * @param VideoItem $item
      *
      * @return mixed
      */
@@ -29,12 +31,34 @@ class VideoSitemap extends AbstractSitemap
     }
 
     /**
-     * Generates sitemap file.
+     * @param VideoItem $item
      *
-     * @return mixed
+     * @throws SitemapException
      */
-    public function build()
+    protected function validateItemClassType($item)
     {
-        // TODO: Implement build() method.
+        if (!($item instanceof VideoItem)) {
+            throw new SitemapException(
+                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\Video\\VideoItem."
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+        . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        . ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">' . "\n";
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFooter()
+    {
+        return "</urlset>";
     }
 }

@@ -48,17 +48,6 @@ class IndexItemTest extends \PHPUnit_Framework_TestCase
         $this->item->setPriority(0.1);
     }
 
-    /**
-     * @test
-     */
-    public function itShouldOutputHeader()
-    {
-        $this->assertSame(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-            '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n",
-            $this->item->getHeader()
-        );
-    }
 
     /**
      * @test
@@ -85,14 +74,6 @@ class IndexItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException($this->exception);
         new IndexItem('aaaa');
-    }
-
-    /**
-     * @test
-     */
-    public function itShouldOutputFooter()
-    {
-        $this->assertSame('</sitemapindex>', $this->item->getFooter());
     }
 
     /**

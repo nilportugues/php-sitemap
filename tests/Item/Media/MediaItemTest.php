@@ -33,26 +33,6 @@ class MediaItemTest extends \PHPUnit_Framework_TestCase
         $this->item = new MediaItem($this->link);
     }
 
-    /**
-     * @test
-     */
-    public function itShouldOutputHeader()
-    {
-        $this->assertSame(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-            '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'
-            . "\n" . '<channel>' . "\n",
-            $this->item->getHeader()
-        );
-    }
-
-    /**
-     * @test
-     */
-    public function itShouldOutputFooter()
-    {
-        $this->assertSame("</channel>\n</rss>", $this->item->getFooter());
-    }
 
     /**
      * @test

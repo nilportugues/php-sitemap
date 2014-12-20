@@ -59,22 +59,7 @@ class IndexItem extends UrlItem
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public static function getHeader()
-    {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
-    }
 
-    /**
-     * @return string
-     */
-    public static function getFooter()
-    {
-        return "</sitemapindex>";
-    }
 
     /**
      * @param $lastmod

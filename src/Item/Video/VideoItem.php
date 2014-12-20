@@ -139,23 +139,6 @@ class VideoItem extends AbstractItem
         return $this;
     }
 
-    /**
-     * @return string
-     */
-    public static function getHeader()
-    {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n"
-        .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
-        .' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'."\n";
-    }
-
-    /**
-     * @return string
-     */
-    public static function getFooter()
-    {
-        return "</urlset>";
-    }
 
     /**
      * @param $loc

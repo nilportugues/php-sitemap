@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\Index\IndexItem;
+
 /**
  * Class IndexSitemap
  * @package NilPortugues\Sitemap
@@ -19,7 +21,7 @@ class IndexSitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param $item
+     * @param IndexItem $item
      *
      * @return mixed
      */
@@ -29,12 +31,33 @@ class IndexSitemap extends AbstractSitemap
     }
 
     /**
-     * Generates sitemap file.
+     * @param IndexItem $item
      *
-     * @return mixed
+     * @throws SitemapException
      */
-    public function build()
+    protected function validateItemClassType($item)
     {
-        // TODO: Implement build() method.
+        if (!($item instanceof IndexItem)) {
+            throw new SitemapException(
+                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\Index\\IndexItem."
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFooter()
+    {
+        return "</sitemapindex>";
     }
 }

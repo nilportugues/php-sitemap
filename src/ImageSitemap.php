@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\Image\ImageItem;
+
 /**
  * Class ImageSitemap
  * @package NilPortugues\Sitemap\Item
@@ -19,7 +21,7 @@ class ImageSitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param $item
+     * @param ImageItem $item
      *
      * @return mixed
      */
@@ -29,12 +31,34 @@ class ImageSitemap extends AbstractSitemap
     }
 
     /**
-     * Generates sitemap file.
+     * @param ImageItem $item
      *
-     * @return mixed
+     * @throws SitemapException
      */
-    public function build()
+    protected function validateItemClassType($item)
     {
-        // TODO: Implement build() method.
+        if (!($item instanceof ImageItem)) {
+            throw new SitemapException(
+                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\Image\\ImageItem."
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
+        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFooter()
+    {
+        return "</urlset>";
     }
 }

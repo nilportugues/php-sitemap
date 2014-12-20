@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\News\NewsItem;
+
 /**
  * Class NewsSitemap
  * @package NilPortugues\Sitemap
@@ -19,7 +21,7 @@ class NewsSitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param $item
+     * @param NewsItem $item
      *
      * @return mixed
      */
@@ -29,12 +31,34 @@ class NewsSitemap extends AbstractSitemap
     }
 
     /**
-     * Generates sitemap file.
+     * @param NewsItem $item
      *
-     * @return mixed
+     * @throws SitemapException
      */
-    public function build()
+    protected function validateItemClassType($item)
     {
-        // TODO: Implement build() method.
+        if (!($item instanceof NewsItem)) {
+            throw new SitemapException(
+                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\News\\NewsItem."
+            );
+        }
+    }
+
+    /**
+     * @return string
+     */
+    protected function getHeader()
+    {
+        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
+        'xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">' . "\n";
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFooter()
+    {
+        return "</urlset>";
     }
 }
