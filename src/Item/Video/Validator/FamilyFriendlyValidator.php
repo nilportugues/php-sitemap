@@ -19,7 +19,7 @@ final class FamilyFriendlyValidator
     /**
      * @param $familyFriendly
      *
-     * @return bool|string
+     * @return string|false
      */
     public static function validate($familyFriendly)
     {
