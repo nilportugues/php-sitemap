@@ -12,7 +12,11 @@ namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 use NilPortugues\Sitemap\Item\Video\Validator\AllowDenyValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\DescriptionValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\DurationValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\FamilyFriendlyValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PlatformValidator;
+use NilPortugues\Sitemap\Item\Video\Validator\PriceAmountValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceCurrencyValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceResolutionValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceTypeValidator;
@@ -79,12 +83,7 @@ class VideoItemValidator
      */
     public function validateDescription($description)
     {
-        $length = mb_strlen($description, 'UTF-8');
-        if ($length > 0 && $length < 2048) {
-            return $description;
-        }
-
-        return false;
+        return DescriptionValidator::validate($description);
     }
 
     /**
@@ -116,11 +115,7 @@ class VideoItemValidator
      */
     public function validateDuration($seconds)
     {
-        if ($seconds <= 28800 && $seconds >= 0) {
-            return $seconds;
-        }
-
-        return false;
+        return DurationValidator::validate($seconds);
     }
 
     /**
@@ -172,11 +167,7 @@ class VideoItemValidator
      */
     public function validateFamilyFriendly($familyFriendly)
     {
-        if (false !== ($familyFriendly = YesNoValidator::validate($familyFriendly))) {
-            return ucfirst($familyFriendly);
-        }
-
-        return false;
+        return FamilyFriendlyValidator::validate($familyFriendly);
     }
 
     /**
@@ -321,14 +312,7 @@ class VideoItemValidator
      */
     public function validatePrice($price)
     {
-        if (
-            (filter_var($price, FILTER_VALIDATE_FLOAT) || filter_var($price, FILTER_VALIDATE_INT))
-            && $price >= 0
-        ) {
-            return $price;
-        }
-
-        return false;
+        return PriceAmountValidator::validate($price);
     }
 
     /**

@@ -67,7 +67,6 @@ trait ValidatorTrait
                 || false !== ($date2 = \DateTime::createFromFormat('Y-m-d', $value))
             )
         ) {
-
             $format = 'Y-m-d';
 
             if (false !== $date1) {
