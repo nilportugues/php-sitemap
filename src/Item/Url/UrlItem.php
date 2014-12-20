@@ -43,12 +43,12 @@ class UrlItem extends AbstractItem
     protected function reset()
     {
         return [
-            "\t<url>",
+            "<url>",
             'loc'        => '',
             'lastmod'    => '',
             'changefreq' => '',
             'priority'   => '',
-            "\t</url>"
+            "</url>"
         ];
     }
 
@@ -72,23 +72,6 @@ class UrlItem extends AbstractItem
         );
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public static function getHeader()
-    {
-        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n";
-    }
-
-    /**
-     * @return string
-     */
-    public static function getFooter()
-    {
-        return "</urlset>";
     }
 
     /**

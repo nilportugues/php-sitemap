@@ -35,35 +35,9 @@ abstract class AbstractItem implements ItemInterface
     public function build()
     {
         $xml  = array_filter(self::$xml);
-        $data = implode("\n", $xml);
+        $data = implode("", $xml);
 
         return $data."\n";
-    }
-
-    /**
-     * Converts data to string and measures its size in bytes.
-     *
-     * @return int
-     */
-    public function getItemSize()
-    {
-        return mb_strlen(self::build(), 'UTF-8');
-    }
-
-    /**
-     * @return int
-     */
-    public function getHeaderSize()
-    {
-        return mb_strlen(self::getHeader(), 'UTF-8');
-    }
-
-    /**
-     * @return int
-     */
-    public function getFooterSize()
-    {
-        return mb_strlen(self::getFooter(), 'UTF-8');
     }
 
     /**

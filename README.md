@@ -1,7 +1,7 @@
 Sitemap Component
 =================
 
-[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) [![Coverage Status](https://img.shields.io/coveralls/nilportugues/sitemap-component.svg)](https://coveralls.io/r/nilportugues/sitemap-component)  [![Latest Stable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/sonrisa/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Latest Unstable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/unstable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/sonrisa/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7/mini.png)](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7)
+[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) [![Coverage Status](https://img.shields.io/coveralls/nilportugues/sitemap-component.svg)](https://coveralls.io/r/nilportugues/sitemap-component) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/badges/quality-score.png?b=3.0.0-alpha)](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/?branch=3.0.0-alpha) [![Latest Stable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/sonrisa/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/sonrisa/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7/mini.png)](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7)
 
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
@@ -116,7 +116,7 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 include 'vendor/autoload.php';
 use NilPortugues\Sitemap\IndexSitemap;
 use NilPortugues\Sitemap\Item\Index\IndexItem;
-use NilPortugues\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new IndexSitemap();
@@ -165,7 +165,7 @@ try {
 include 'vendor/autoload.php';
 use NilPortugues\Sitemap\Sitemap;
 use NilPortugues\Sitemap\Item\Url\UrlItem;
-use NilPortugues\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new Sitemap();
@@ -236,7 +236,7 @@ try {
 include 'vendor/autoload.php';
 use NilPortugues\Sitemap\ImageSitemap;
 use NilPortugues\Sitemap\Item\Image\ImageItem;
-use NilPortugues\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new ImageSitemap();
@@ -291,7 +291,7 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 include 'vendor/autoload.php';
 use NilPortugues\Sitemap\VideoSitemap;
 use NilPortugues\Sitemap\Item\Video\VideoItem;
-use NilPortugues\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new VideoSitemap();
@@ -379,7 +379,7 @@ try {
 include 'vendor/autoload.php';
 use NilPortugues\Sitemap\MediaSitemap;
 use NilPortugues\Sitemap\Item\Media\MediaItem;
-use NilPortugues\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new MediaSitemap();
@@ -462,7 +462,7 @@ try {
 include 'vendor/autoload.php';
 use NilPortugues\Sitemap\NewsSitemap;
 use NilPortugues\Sitemap\Item\News\NewsItem;
-use NilPortugues\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new NewsSitemap();
@@ -519,7 +519,7 @@ try {
 
 <a name="block5"></a>
 ## 5. Fully tested.
-Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.6 and [Facebook's HHVM](http://hhvm.com/).
+Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.4 up to PHP 5.6 and [Facebook's HHVM](http://hhvm.com/).
 
 ---
 

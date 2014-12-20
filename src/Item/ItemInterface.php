@@ -22,29 +22,4 @@ interface ItemInterface
      * @return string
      */
     public function build();
-
-    /**
-     * @return integer
-     */
-    public function getItemSize();
-
-    /**
-     * @return string
-     */
-    public static function getHeader();
-
-    /**
-     * @return integer
-     */
-    public function getHeaderSize();
-
-    /**
-     * @return string
-     */
-    public static function getFooter();
-
-    /**
-     * @return integer
-     */
-    public function getFooterSize();
 }
