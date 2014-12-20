@@ -145,8 +145,8 @@ class UrlItemTest extends \PHPUnit_Framework_TestCase
     public function itShouldOutputHeader()
     {
         $this->assertSame(
-            '<?xml version="1.0" encoding="UTF-8"?>'."\n"
-            .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'."\n",
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+            . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n",
             $this->item->getHeader()
         );
     }
@@ -157,7 +157,7 @@ class UrlItemTest extends \PHPUnit_Framework_TestCase
     public function itShouldOutputLastMod()
     {
         $this->item->setLastMod($this->lastmod);
-        $this->assertContains('<lastmod>'.$this->lastmod.'</lastmod>', $this->item->build());
+        $this->assertContains('<lastmod>' . $this->lastmod . '</lastmod>', $this->item->build());
     }
 
     /**

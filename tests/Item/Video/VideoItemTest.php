@@ -21,25 +21,13 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     protected $exception = 'NilPortugues\Sitemap\Item\Video\VideoItemException';
 
     /**
-     *
-     */
-    protected function setUp()
-    {
-        $this->item = new VideoItem(
-            'Grilling steaks for summer',
-            'http://www.example.com/video123.flv',
-            'http://www.example.com/videoplayer.swf?video=123'
-        );
-    }
-
-    /**
      * @test
      */
     public function itShouldThrowExceptionOnNewInstanceNoLoc()
     {
         $this->setExpectedException($this->exception);
         new VideoItem(
-            null,
+            '',
             'http://www.example.com/video123.flv',
             'http://www.example.com/videoplayer.swf?video=123'
         );
@@ -53,7 +41,7 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
         $this->setExpectedException($this->exception);
         new VideoItem(
             'Grilling steaks for summer',
-            null,
+            '',
             'http://www.example.com/videoplayer.swf?video=123'
         );
     }
@@ -67,7 +55,36 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
         new VideoItem(
             'Grilling steaks for summer',
             'http://www.example.com/video123.flv',
-            null
+            ''
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldThrowExceptionOnNewInstanceNoValidPlayerEmbedded()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item = new VideoItem(
+            'Grilling steaks for summer',
+            'http://www.example.com/video123.flv',
+            'http://www.example.com/videoplayer.swf?video=123',
+            ''
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldThrowExceptionOnNewInstanceNoValidPlayerAutoPlay()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item = new VideoItem(
+            'Grilling steaks for summer',
+            'http://www.example.com/video123.flv',
+            'http://www.example.com/videoplayer.swf?video=123',
+            'yes',
+            ''
         );
     }
 
@@ -77,9 +94,9 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     public function itShouldOutputHeader()
     {
         $this->assertSame(
-            '<?xml version="1.0" encoding="UTF-8"?>'."\n"
-            .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
-            .' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'."\n",
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
+            . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+            . ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">' . "\n",
             $this->item->getHeader()
         );
     }
@@ -107,13 +124,34 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveThumbnailLocAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setThumbnailLoc('');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveDescription()
     {
-        $this->item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
+        $this->item->setDescription('Alkis shows you how to get perfectly done steaks');
         $this->assertContains(
-            '<video:description><![CDATA[Alkis shows you how to get perfectly done steaks everytime]]></video:description>',
+            '<video:description><![CDATA[Alkis shows you how to get perfectly done steaks]]></video:description>',
             $this->item->build()
         );
+
+        $this->setExpectedException($this->exception);
+        $this->item->setDescription('');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHaveDescriptionAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setDescription('');
     }
 
     /**
@@ -132,6 +170,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveExpirationDateAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setExpirationDate('');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveDuration()
     {
         $this->item->setDuration('600');
@@ -145,6 +192,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveDurationAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setDuration(-1);
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveRating()
     {
         $this->item->setRating(4.2);
@@ -152,6 +208,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
             '<video:rating><![CDATA[4.2]]></video:rating>',
             $this->item->build()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHaveRatingAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setRating(-1);
     }
 
     /**
@@ -170,6 +235,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveViewCountAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setViewCount(-1);
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHavePublicationDate()
     {
         $this->item->setPublicationDate('2007-11-05T19:20:30+08:00');
@@ -178,6 +252,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
             '<video:publication_date><![CDATA[2007-11-05T19:20:30+08:00]]></video:publication_date>',
             $this->item->build()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePublicationDateAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setPublicationDate('');
     }
 
     /**
@@ -196,6 +279,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveFamilyFriendlyAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setFamilyFriendly('');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveRestriction()
     {
         $this->item->setRestriction('IE GB US CA');
@@ -204,12 +296,36 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
             '<video:restriction>IE GB US CA</video:restriction>',
             $this->item->build()
         );
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHaveRestrictionAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setRestriction('AAA');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHaveRestrictionRelationship()
+    {
         $this->item->setRestriction('IE GB US CA', 'allow');
         $this->assertContains(
             '<video:restriction relationship="allow">IE GB US CA</video:restriction>',
             $this->item->build()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHaveRestrictionRelationshipAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setRestriction('IE GB US CA', '');
     }
 
     /**
@@ -234,26 +350,88 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveGalleryLocAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setGalleryLoc('');
+
+        $this->setExpectedException($this->exception);
+        $this->item->setGalleryLoc('http://cooking.example.com', '');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHavePrice()
     {
         $this->item->setPrice(0.99, 'EUR');
         $this->item->setPrice(0.75, 'EUR');
         $this->assertContains('<video:price currency="EUR">0.99</video:price>', $this->item->build());
         $this->assertContains('<video:price currency="EUR">0.75</video:price>', $this->item->build());
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHavePriceAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setPrice(-0.99, 'EUR');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePriceCurrencyAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setPrice(0.99, 'AAAA');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePriceType()
+    {
         $this->item->setPrice(0.99, 'EUR', 'rent');
         $this->item->setPrice(0.75, 'EUR', 'rent');
         $this->assertContains('<video:price currency="EUR" type="rent">0.99</video:price>', $this->item->build());
         $this->assertContains('<video:price currency="EUR" type="rent">0.75</video:price>', $this->item->build());
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHavePriceTypeAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setPrice(0.75, 'EUR', 'AAAAA');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePriceResolution()
+    {
         $this->item->setPrice(0.99, 'EUR', 'rent', 'HD');
         $this->item->setPrice(0.75, 'EUR', 'rent', 'SD');
         $this->assertContains(
-            '<video:price currency="EUR" type="rent" resolution="HD">0.99</video:price>', $this->item->build()
+            '<video:price currency="EUR" type="rent" resolution="HD">0.99</video:price>',
+            $this->item->build()
         );
         $this->assertContains(
-            '<video:price currency="EUR" type="rent" resolution="SD">0.75</video:price>', $this->item->build()
+            '<video:price currency="EUR" type="rent" resolution="SD">0.75</video:price>',
+            $this->item->build()
         );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePriceResolutionAndThrowException()
+    {
+        $this->setExpectedException($this->exception, 'Provided price resolution is not a valid value.');
+        $this->item->setPrice(0.99, 'EUR', 'rent', 'AAAA');
     }
 
     /**
@@ -268,12 +446,30 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveCategoryAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setCategory('');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveTags()
     {
         $this->item->setTag(array('action', 'drama', 'entrepreneur'));
         $this->assertContains('<video:tag>drama</video:tag>', $this->item->build());
         $this->assertContains('<video:tag>action</video:tag>', $this->item->build());
         $this->assertContains('<video:tag>entrepreneur</video:tag>', $this->item->build());
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHaveTagsAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setTag([]);
     }
 
     /**
@@ -291,6 +487,15 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveRequiresSubscriptionAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setRequiresSubscription('');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveLive()
     {
         $this->item->setLive('no');
@@ -300,11 +505,35 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveLiveAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setLive('');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHaveUploader()
     {
         $this->item->setUploader('GrillyMcGrillerson');
         $this->assertContains('<video:uploader>GrillyMcGrillerson</video:uploader>', $this->item->build());
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHaveUploaderAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setUploader('');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHaveUploaderInfo()
+    {
         $this->item->setUploader('GrillyMcGrillerson', 'http://www.example.com/grillymcgrillerson');
         $this->assertContains(
             '<video:uploader info="http://www.example.com/grillymcgrillerson">GrillyMcGrillerson</video:uploader>',
@@ -315,15 +544,62 @@ class VideoItemTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldHaveUploaderInfoAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setUploader('GrillyMcGrillerson', '');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldHavePlatform()
     {
         $this->item->setPlatform('web mobile tv');
         $this->assertContains('<video:platform>web mobile tv</video:platform>', $this->item->build());
+    }
 
+    /**
+     * @test
+     */
+    public function itShouldHavePlatformAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setPlatform('aaaa');
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePlatformRelationship()
+    {
         $this->item->setPlatform('web mobile tv', 'allow');
         $this->assertContains(
             '<video:platform relationship="allow">web mobile tv</video:platform>',
             $this->item->build()
+        );
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldHavePlatformRelationshipAndThrowException()
+    {
+        $this->setExpectedException($this->exception);
+        $this->item->setPlatform('web mobile tv', 'AAAAAA');
+    }
+
+    /**
+     *
+     */
+    protected function setUp()
+    {
+        $this->item = new VideoItem(
+            'Grilling steaks for summer',
+            'http://www.example.com/video123.flv',
+            'http://www.example.com/videoplayer.swf?video=123',
+            'yes',
+            'ap=1'
         );
     }
 }

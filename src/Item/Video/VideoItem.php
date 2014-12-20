@@ -110,7 +110,7 @@ class VideoItem extends AbstractItem
             true,
             'video:content_loc',
             $this->validator,
-            'validateLoc',
+            'validateContentLoc',
             $this->exception,
             'Provided content URL is not a valid.'
         );

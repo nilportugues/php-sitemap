@@ -29,9 +29,7 @@ final class RatingValidator
             preg_match('/([0-9].[0-9])/', $rating, $matches);
             $matches[0] = floatval($matches[0]);
 
-            if (!empty($matches[0]) && $matches[0] <= 5.0 && $matches[0] >= 0.0) {
-                return $matches[0];
-            }
+            return (!empty($matches[0]) && $matches[0] <= 5.0 && $matches[0] >= 0.0) ? $matches[0] : false;
         }
 
         return false;

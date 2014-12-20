@@ -11,6 +11,7 @@
 namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Item\ValidatorTrait;
+use NilPortugues\Sitemap\Item\Video\Validator\AllowDenyValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PlatformValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceCurrencyValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\PriceResolutionValidator;
@@ -78,7 +79,8 @@ class VideoItemValidator
      */
     public function validateDescription($description)
     {
-        if (mb_strlen($description, 'UTF-8') < 2048) {
+        $length = mb_strlen($description, 'UTF-8');
+        if ($length > 0 && $length < 2048) {
             return $description;
         }
 
@@ -207,16 +209,7 @@ class VideoItemValidator
      */
     protected function validateAllowDeny($access)
     {
-        switch (strtolower($access)) {
-            case 'allow':
-                return 'allow';
-
-            case 'deny':
-                return 'deny';
-
-        }
-
-        return false;
+        return AllowDenyValidator::validate($access);
     }
 
     /**
@@ -290,13 +283,13 @@ class VideoItemValidator
     }
 
     /**
-     * @param $platform_access
+     * @param $platformAccess
      *
      * @return string|false
      */
-    public function validatePlatformRelationship($platform_access)
+    public function validatePlatformRelationship($platformAccess)
     {
-        return $this->validateAllowDeny($platform_access);
+        return AllowDenyValidator::validate($platformAccess);
     }
 
     /**
@@ -328,7 +321,10 @@ class VideoItemValidator
      */
     public function validatePrice($price)
     {
-        if (filter_var($price, FILTER_VALIDATE_FLOAT) || filter_var($price, FILTER_VALIDATE_INT)) {
+        if (
+            (filter_var($price, FILTER_VALIDATE_FLOAT) || filter_var($price, FILTER_VALIDATE_INT))
+            && $price >= 0
+        ) {
             return $price;
         }
 

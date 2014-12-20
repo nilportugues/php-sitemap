@@ -39,9 +39,9 @@ class MediaItemTest extends \PHPUnit_Framework_TestCase
     public function itShouldOutputHeader()
     {
         $this->assertSame(
-            '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
             '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'
-            ."\n".'<channel>'."\n",
+            . "\n" . '<channel>' . "\n",
             $this->item->getHeader()
         );
     }

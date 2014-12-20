@@ -18,18 +18,10 @@ final class TagValidator
      */
     public static function validate($tags)
     {
-        if (is_array($tags)) {
-            if (count($tags) > self::$maxVideoTagTags) {
-                return false;
-            }
-
-            return $tags;
+        if (count($tags) > self::$maxVideoTagTags || 0 === count($tags)) {
+            return false;
         }
 
-        if (is_string($tags)) {
-            return array($tags);
-        }
-
-        return false;
+        return $tags;
     }
 }
