@@ -44,7 +44,7 @@ trait ValidatorTrait
     public static function validateLoc($value)
     {
         if (filter_var($value, FILTER_VALIDATE_URL, ['options' => ['flags' => FILTER_FLAG_PATH_REQUIRED]])
-            && strlen($value)>0
+            && strlen($value) > 0
         ) {
             return htmlentities($value);
         }
@@ -62,12 +62,19 @@ trait ValidatorTrait
      */
     public static function validateDate($value)
     {
-        if (false !== ($date = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value)) && strlen($value) > 0) {
-            return htmlentities($date->format('c'));
-        }
+        if (is_string($value) && strlen($value) > 0 && (
+                false !== ($date1 = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value))
+                || false !== ($date2 = \DateTime::createFromFormat('Y-m-d', $value))
+            )
+        ) {
 
-        if (false !== ($date = \DateTime::createFromFormat('Y-m-d', $value)) && strlen($value) > 0) {
-            return htmlentities($date->format('Y-m-d'));
+            $format = 'Y-m-d';
+
+            if (false !== $date1) {
+                $format = 'c';
+            }
+
+            return htmlentities((new \DateTime($value))->format($format));
         }
 
         return false;
