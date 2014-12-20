@@ -45,7 +45,7 @@ abstract class VideoItemPriceTags extends AbstractItem
     }
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $price
      */
     protected static function setPriceValue($validator, $price)
@@ -60,7 +60,7 @@ abstract class VideoItemPriceTags extends AbstractItem
     }
 
     /**
-     * @param $validator
+     * @param VideoItemValidator $validator
      * @param $currency
      *
      */
@@ -78,7 +78,7 @@ abstract class VideoItemPriceTags extends AbstractItem
     }
 
     /**
-     * @param             $validator
+     * @param             VideoItemValidator $validator
      * @param string|null $type
      *
      */
@@ -98,7 +98,7 @@ abstract class VideoItemPriceTags extends AbstractItem
     }
 
     /**
-     * @param             $validator
+     * @param             VideoItemValidator $validator
      * @param string|null $resolution
      *
      */
