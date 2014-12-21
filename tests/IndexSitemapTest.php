@@ -67,6 +67,7 @@ class IndexSitemapTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $this->tearDown();
         $this->siteMap = new IndexSitemap('.', 'sitemaptest.xml', false);
     }
 

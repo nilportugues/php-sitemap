@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/21/14
- * Time: 12:16 AM
+ * Time: 5:41 PM
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -10,16 +10,17 @@
 
 namespace Tests\NilPortugues\Sitemap;
 
-use NilPortugues\Sitemap\Item\Url\UrlItem;
-use NilPortugues\Sitemap\Sitemap;
+use NilPortugues\Sitemap\ImageSitemap;
+use NilPortugues\Sitemap\Item\Image\ImageItem;
 
 /**
- * Class SitemapTest
+ * Class ImageSitemapTest
+ * @package Tests\NilPortugues\Sitemap
  */
-class SitemapTest extends \PHPUnit_Framework_TestCase
+class ImageSitemapTest extends \PHPUnit_Framework_TestCase
 {
     /**
-     * @var Sitemap
+     * @var ImageSitemap
      */
     protected $siteMap;
 
@@ -44,55 +45,51 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
     public function itShouldCreateOneSiteMapFile()
     {
         for ($i = 0; $i < 20; $i++) {
-            $this->addToSiteMap($i);
+            $item = new ImageItem('http://www.example.com/' . $i.'.jpg');
+            $this->siteMap->add($item, 'http://www.example.com/gallery-1.html');
         }
         $this->siteMap->build();
 
         $this->assertFileExists('sitemaptest.xml');
         $sitemap = file_get_contents('sitemaptest.xml');
 
-        $this->assertContains('http://www.example.com/0', $sitemap);
-        $this->assertContains('http://www.example.com/19', $sitemap);
+        $this->assertContains('http://www.example.com/gallery-1.html', $sitemap);
+        $this->assertContains('http://www.example.com/0.jpg', $sitemap);
+        $this->assertContains('http://www.example.com/19.jpg', $sitemap);
         $this->assertContains(
             '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n",
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
+            'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">',
             $sitemap
         );
         $this->assertContains('</urlset>', $sitemap);
     }
 
-    /**
-     * @param $i
-     */
-    protected function addToSiteMap($i)
-    {
-        $item = new UrlItem('http://www.example.com/' . $i);
-        $item->setPriority('1.0');
-        $item->setChangeFreq('daily');
-        $item->setLastMod('2014-05-10T17:33:30+08:00');
-
-        $this->siteMap->add($item);
-    }
 
     /**
      * @test
      */
     public function itShouldCreateTwoSiteMapFiles()
     {
+        $j = 1;
+        $url = 'http://www.example.com/gallery-' . $j .'.html';
+
         for ($i = 0; $i < 50020; $i++) {
-            $this->addToSiteMap($i);
+            if (0 === $i % 1001) {
+                $url = 'http://www.example.com/gallery-' . $j .'.html';
+                $j++;
+            }
+            $imageUrl = 'http://www.example.com/' . $i .'.jpg';
+            $item = new ImageItem($imageUrl);
+            $this->siteMap->add($item, $url);
         }
         $this->siteMap->build();
 
         $this->assertFileExists('sitemaptest.xml');
-        $sitemap1 = file_get_contents('sitemaptest.xml');
-        $this->assertContains('http://www.example.com/0', $sitemap1);
-        $this->assertContains('http://www.example.com/49999', $sitemap1);
-
-        $this->assertFileExists('sitemaptest1.xml');
-        $sitemap2 = file_get_contents('sitemaptest1.xml');
-        $this->assertContains('http://www.example.com/50000', $sitemap2);
-        $this->assertContains('http://www.example.com/50019', $sitemap2);
+        for ($i=1; $i<=49; $i++) {
+            $this->assertFileExists('sitemaptest'.$i.'.xml');
+            unlink('sitemaptest'.$i.'.xml');
+        }
     }
 
     /**
@@ -101,7 +98,7 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->tearDown();
-        $this->siteMap = new Sitemap('.', 'sitemaptest.xml', false);
+        $this->siteMap = new ImageSitemap('.', 'sitemaptest.xml', false);
     }
 
     /**

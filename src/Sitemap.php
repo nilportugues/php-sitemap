@@ -29,11 +29,7 @@ class Sitemap extends AbstractSitemap
     public function add($item, $url = '')
     {
         $this->validateItemClassType($item);
-
-        if (null === $this->filePointer || 0 === $this->totalItems) {
-            $this->createNewFilePointer();
-            $this->appendToFile($this->getHeader());
-        }
+        $this->createSitemapFile();
 
         $xmlData = $item->build();
         if (false === $this->isNewFileIsRequired() && false === $this->isSurpassingFileSizeLimit($xmlData)) {

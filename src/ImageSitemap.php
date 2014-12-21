@@ -59,22 +59,14 @@ class ImageSitemap extends Sitemap
     public function build()
     {
         foreach ($this->items as $url => $itemArray) {
-            if (null === $this->filePointer || 0 === $this->totalItems) {
-                $this->createNewFilePointer();
-                $this->appendToFile($this->getHeader());
-            }
+            $this->createSitemapFile();
 
             $appendData = "<url>\n<loc>{$url}</loc>\n";
-
             if (false === $this->isNewFileIsRequired() && false === $this->isSurpassingFileSizeLimit($appendData)) {
                 $this->appendToFile($appendData);
             }
 
             $this->writeXmlBody($itemArray, $url);
-
-            if (false === $this->isNewFileIsRequired()) {
-                $this->appendToFile("</url>\n");
-            }
         }
 
         return parent::build();
@@ -117,13 +109,17 @@ class ImageSitemap extends Sitemap
 
             $this->imageCount++;
         }
+
+        if (false === $this->isNewFileIsRequired()) {
+            $this->appendToFile("</url>\n");
+        }
     }
 
     /**
-     * @param $item
-     * @param $url
+     * @param        $item
+     * @param string $url
      */
-    protected function createAdditionalSitemapFile($item, $url)
+    protected function createAdditionalSitemapFile($item, $url = '')
     {
         $this->appendToFile("</url>\n");
         parent::build();

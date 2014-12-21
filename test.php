@@ -22,8 +22,7 @@ try{
             $j++;
         }
 
-        echo $imageUrl = 'http://www.example.com/' . $i .'.jpg';
-        echo PHP_EOL;
+        $imageUrl = 'http://www.example.com/' . $i .'.jpg';
 
         $item = new ImageItem($imageUrl);
         $siteMap->add($item, $url);

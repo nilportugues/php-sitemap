@@ -75,6 +75,7 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
      */
     protected function setUp()
     {
+        $this->tearDown();
         $this->siteMap = new NewsSitemap('.', 'sitemaptest.xml', false);
     }
 

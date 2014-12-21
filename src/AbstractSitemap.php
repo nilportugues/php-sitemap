@@ -163,6 +163,14 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
+     * @return integer
+     */
+    protected function getCurrentFileSize()
+    {
+        return filesize($this->getFullFilePath());
+    }
+
+    /**
      * Before appending data we need to check if we'll surpass the file size limit or not.
      *
      * @param $stringData
@@ -177,17 +185,10 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @return integer
+     * @param        $item
+     * @param string $url
      */
-    protected function getCurrentFileSize()
-    {
-        return filesize($this->getFullFilePath());
-    }
-
-    /**
-     * @param $item
-     */
-    protected function createAdditionalSitemapFile($item)
+    protected function createAdditionalSitemapFile($item, $url = '')
     {
         $this->build();
         $this->totalFiles++;
@@ -265,12 +266,28 @@ abstract class AbstractSitemap implements SitemapInterface
     abstract protected function getHeader();
 
     /**
+     * @param        $item
+     * @param string $url
+     *
+     * @return $this
+     */
+    protected function delayedAdd($item, $url = '')
+    {
+        $this->validateItemClassType($item);
+        $this->validateLoc($url);
+
+
+        $this->items[$url][] = $item->build();
+
+        return $this;
+    }
+
+    /**
      * @param $item
      *
      * @throws SitemapException
      */
     abstract protected function validateItemClassType($item);
-
 
     /**
      * @param $url
@@ -287,19 +304,13 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param        $item
-     * @param string $url
      *
-     * @return $this
      */
-    protected function delayedAdd($item, $url = '')
+    protected function createSitemapFile()
     {
-        $this->validateItemClassType($item);
-        $this->validateLoc($url);
-
-
-        $this->items[$url][] = $item->build();
-
-        return $this;
+        if (null === $this->filePointer || 0 === $this->totalItems) {
+            $this->createNewFilePointer();
+            $this->appendToFile($this->getHeader());
+        }
     }
 }
