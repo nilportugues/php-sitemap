@@ -103,8 +103,8 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @param $filePath
-     * @param $fileName
+     * @param string $filePath
+     * @param string $fileName
      */
     protected function prepareOutputFile($filePath, $fileName)
     {
@@ -153,7 +153,7 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
-     * @return string
+     * @return integer
      */
     protected function getCurrentFileSize()
     {
