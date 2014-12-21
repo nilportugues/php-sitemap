@@ -44,15 +44,15 @@ class MediaItem extends AbstractItem
     protected function reset()
     {
         return [
-            "\t".'<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
+            '<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
             'link'        => '',
             'duration'    => '',
             'player'      => '',
             'title'       => '',
             'description' => '',
             'thumbnail'   => '',
-            "\t\t".'</media:content>',
-            "\t".'</item>',
+            '</media:content>',
+            '</item>',
         ];
     }
 
@@ -87,7 +87,7 @@ class MediaItem extends AbstractItem
      */
     public function setContent($mimeType, $duration = null)
     {
-        self::$xml['content'] = "\t\t<media:content";
+        self::$xml['content'] = "<media:content";
         $this->setContentMimeType($mimeType);
         $this->setContentDuration($duration);
         self::$xml['content'] .= ">";
@@ -141,7 +141,7 @@ class MediaItem extends AbstractItem
      */
     public function setPlayer($player)
     {
-        self::$xml['player'] = "\t\t\t<media:player";
+        self::$xml['player'] = "<media:player";
 
         $this->writeAttribute(
             $player,
@@ -211,7 +211,7 @@ class MediaItem extends AbstractItem
      */
     public function setThumbnail($thumbnail, $height = null, $weight = null)
     {
-        self::$xml['thumbnail'] = "\t\t\t<media:thumbnail";
+        self::$xml['thumbnail'] = "<media:thumbnail";
         $this->setThumbnailUrl($thumbnail);
 
         if (null !== $height) {

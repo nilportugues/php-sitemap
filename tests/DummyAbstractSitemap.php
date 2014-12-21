@@ -55,13 +55,12 @@ class DummyAbstractSitemap extends AbstractSitemap
     }
 
     /**
-     * Adds a new sitemap item.
+     * @param        $item
+     * @param string $url
      *
-     * @param $item
-     *
-     * @return mixed
+     * @return $this|mixed
      */
-    public function add($item)
+    public function add($item, $url = '')
     {
         return $this;
     }

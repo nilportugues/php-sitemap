@@ -11,6 +11,7 @@
 namespace NilPortugues\Sitemap;
 
 use NilPortugues\Sitemap\Item\Image\ImageItem;
+use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
  * Class ImageSitemap
@@ -22,12 +23,18 @@ class ImageSitemap extends AbstractSitemap
      * Adds a new sitemap item.
      *
      * @param ImageItem $item
+     * @param string    $url
+     * @throws SitemapException
      *
      * @return mixed
      */
-    public function add($item)
+    public function add($item, $url = '')
     {
-        // TODO: Implement add() method.
+        if (false === ValidatorTrait::validateLoc($url)) {
+            throw new SitemapException(
+               sprintf('Provided url is not valid.')
+           );
+        }
     }
 
     /**

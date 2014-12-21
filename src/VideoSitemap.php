@@ -21,11 +21,12 @@ class VideoSitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param VideoItem $item
+     * @param        $item
+     * @param string $url
      *
      * @return mixed
      */
-    public function add($item)
+    public function add($item, $url = '')
     {
         // TODO: Implement add() method.
     }

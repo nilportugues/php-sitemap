@@ -19,11 +19,12 @@ interface SitemapInterface
     /**
      * Adds a new sitemap item.
      *
-     * @param $item
+     * @param        $item
+     * @param string $url
      *
      * @return mixed
      */
-    public function add($item);
+    public function add($item, $url = '');
 
     /**
      * Generates sitemap file.

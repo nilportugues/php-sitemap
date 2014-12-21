@@ -22,11 +22,11 @@ class Sitemap extends AbstractSitemap
      * Adds a new sitemap item.
      *
      * @param UrlItem $item
+     * @param string  $url
      *
      * @return $this
-     * @throws SitemapException
      */
-    public function add($item)
+    public function add($item, $url = '')
     {
         $this->validateItemClassType($item);
 
