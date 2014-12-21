@@ -17,7 +17,7 @@ use NilPortugues\Sitemap\Item\Video\VideoItem;
  * Class VideoSitemap
  * @package NilPortugues\Sitemap
  */
-class VideoSitemap extends AbstractSitemap
+class VideoSitemap extends ImageSitemap
 {
     /**
      * Due to the structure of a video sitemap we need to accumulate
@@ -47,6 +47,14 @@ class VideoSitemap extends AbstractSitemap
     public function build()
     {
         return parent::build();
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isNewFileIsRequired()
+    {
+        return AbstractSitemap::isNewFileIsRequired();
     }
 
     /**

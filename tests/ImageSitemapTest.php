@@ -32,7 +32,7 @@ class ImageSitemapTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
-    public function itShouldThrowExceptionIfItemIsNotOfUrlItem()
+    public function itShouldThrowExceptionIfItemIsNotOfImageItem()
     {
         $this->setExpectedException($this->exception);
         $item = 'not a valid item';
