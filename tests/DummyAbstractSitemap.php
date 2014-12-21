@@ -24,7 +24,7 @@ class DummyAbstractSitemap extends AbstractSitemap
      */
     protected function getFooter()
     {
-        return '';
+        return 'footer';
     }
 
     /**
@@ -32,7 +32,16 @@ class DummyAbstractSitemap extends AbstractSitemap
      */
     protected function getHeader()
     {
-        return '';
+        return 'header';
+    }
+
+    /**
+     * @return mixed|void
+     */
+    public function build()
+    {
+        $this->createNewFilePointer();
+        parent::build();
     }
 
     /**

@@ -50,9 +50,9 @@ class NewsItem extends AbstractItem
     protected function reset()
     {
         return [
-            "\t".'<url>',
+            '<url>',
             'loc'              => '',
-            "\t\t".'<news:news>',
+            '<news:news>',
             'name'             => '',
             'access'           => '',
             'genres'           => '',
@@ -60,8 +60,8 @@ class NewsItem extends AbstractItem
             'title'            => '',
             'keywords'         => '',
             'stock_tickers'    => '',
-            "\t\t".'</news:news>',
-            "\t".'</url>',
+            '</news:news>',
+            '</url>',
         ];
     }
 
@@ -139,10 +139,10 @@ class NewsItem extends AbstractItem
      */
     protected function setPublication($name, $language)
     {
-        self::$xml['name'] = "\t\t\t".'<news:publication>'."\n";
+        self::$xml['name'] = '<news:publication>';
         $this->setPublicationName($name);
         $this->setPublicationLanguage($language);
-        self::$xml['name'] .= "\t\t\t".'</news:publication>'."\n";
+        self::$xml['name'] .= '</news:publication>';
 
         return $this;
     }

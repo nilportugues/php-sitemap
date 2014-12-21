@@ -32,6 +32,7 @@ class Sitemap extends AbstractSitemap
 
         if (null === $this->filePointer || 0 === $this->totalItems) {
             $this->createNewFilePointer();
+            $this->appendToFile($this->getHeader());
         }
 
         if (false === $this->isNewFileIsRequired()) {

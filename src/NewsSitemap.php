@@ -16,20 +16,8 @@ use NilPortugues\Sitemap\Item\News\NewsItem;
  * Class NewsSitemap
  * @package NilPortugues\Sitemap
  */
-class NewsSitemap extends AbstractSitemap
+class NewsSitemap extends Sitemap
 {
-    /**
-     * Adds a new sitemap item.
-     *
-     * @param NewsItem $item
-     *
-     * @return mixed
-     */
-    public function add($item)
-    {
-        // TODO: Implement add() method.
-    }
-
     /**
      * @param NewsItem $item
      *

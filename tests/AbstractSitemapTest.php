@@ -28,6 +28,28 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldWriteXmlFile()
+    {
+        $sitemap = new DummyAbstractSitemap('.', $this->sitemapFile, false);
+        $sitemap->build();
+
+        $this->assertFileExists($this->sitemapFile);
+    }
+
+    /**
+     * @test
+     */
+    public function itShouldWriteGZipFile()
+    {
+        $sitemap = new DummyAbstractSitemap('.', $this->sitemapFile, true);
+        $sitemap->build();
+
+        $this->assertFileExists($this->sitemapFile.'.gz');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldThrowExceptionIfFilePathDoesNotExist()
     {
         $this->setExpectedException(
@@ -58,8 +80,6 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
 
         $this->setExpectedException($this->exception);
         new DummyAbstractSitemap('.', $this->sitemapFile, false);
-
-        unlink($this->sitemapFile);
     }
 
     /**
@@ -67,8 +87,15 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        if (file_exists($this->sitemapFile)) {
-            unlink($this->sitemapFile);
+        $fileNames = [
+            $this->sitemapFile,
+            $this->sitemapFile.'.gz'
+        ];
+
+        foreach ($fileNames as $fileName) {
+            if (file_exists($fileName)) {
+                unlink($fileName);
+            }
         }
     }
 }

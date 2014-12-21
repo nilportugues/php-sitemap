@@ -20,14 +20,6 @@ abstract class AbstractItem implements ItemInterface
     protected static $xml = [];
 
     /**
-     * @return string
-     */
-    public function __toString()
-    {
-        return self::build();
-    }
-
-    /**
      * Collapses the item to its string XML representation.
      *
      * @return string

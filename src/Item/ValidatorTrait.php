@@ -11,16 +11,6 @@ trait ValidatorTrait
     use SingletonTrait;
 
     /**
-     * @param $value
-     *
-     * @return mixed
-     */
-    public function noValidation($value)
-    {
-        return $value;
-    }
-
-    /**
      * @param $string
      *
      * @return string|false

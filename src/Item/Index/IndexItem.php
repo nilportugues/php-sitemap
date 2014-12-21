@@ -35,10 +35,10 @@ class IndexItem extends UrlItem
     protected function reset()
     {
         return [
-            "\t".'<sitemap>',
+            '<sitemap>',
             'loc'     => '',
             'lastmod' => '',
-            "\t".'</sitemap>',
+            '</sitemap>',
         ];
     }
 

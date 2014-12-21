@@ -50,8 +50,15 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
 
         $this->assertFileExists('sitemaptest.xml');
         $sitemap = file_get_contents('sitemaptest.xml');
+
         $this->assertContains('http://www.example.com/0', $sitemap);
         $this->assertContains('http://www.example.com/19', $sitemap);
+        $this->assertContains(
+            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n",
+            $sitemap
+        );
+        $this->assertContains('</urlset>', $sitemap);
     }
 
     /**

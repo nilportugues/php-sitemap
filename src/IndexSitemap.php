@@ -16,20 +16,8 @@ use NilPortugues\Sitemap\Item\Index\IndexItem;
  * Class IndexSitemap
  * @package NilPortugues\Sitemap
  */
-class IndexSitemap extends AbstractSitemap
+class IndexSitemap extends Sitemap
 {
-    /**
-     * Adds a new sitemap item.
-     *
-     * @param IndexItem $item
-     *
-     * @return mixed
-     */
-    public function add($item)
-    {
-        // TODO: Implement add() method.
-    }
-
     /**
      * @param IndexItem $item
      *
