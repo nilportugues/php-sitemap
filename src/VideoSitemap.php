@@ -10,7 +10,6 @@
 
 namespace NilPortugues\Sitemap;
 
-use NilPortugues\Sitemap\Item\ValidatorTrait;
 use NilPortugues\Sitemap\Item\Video\VideoItem;
 
 /**

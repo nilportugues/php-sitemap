@@ -11,7 +11,6 @@
 namespace NilPortugues\Sitemap;
 
 use NilPortugues\Sitemap\Item\Image\ImageItem;
-use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
  * Class ImageSitemap
