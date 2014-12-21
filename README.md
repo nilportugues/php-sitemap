@@ -1,7 +1,7 @@
 Sitemap Component
 =================
 
-[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) [![Coverage Status](https://img.shields.io/coveralls/nilportugues/sitemap-component.svg)](https://coveralls.io/r/nilportugues/sitemap-component)  [![Latest Stable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/sonrisa/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Latest Unstable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/unstable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/sonrisa/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7/mini.png)](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7)
+[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) [![Coverage Status](https://img.shields.io/coveralls/nilportugues/sitemap-component.svg)](https://coveralls.io/r/nilportugues/sitemap-component) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/badges/quality-score.png?b=3.0.0-alpha)](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/?branch=3.0.0-alpha) [![Latest Stable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/sonrisa/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/sonrisa/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7/mini.png)](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7)
 
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
@@ -40,7 +40,7 @@ Add the following to your `composer.json` file :
 ```js
 {
     "require": {
-        "sonrisa/sitemap-component":"dev-master"
+        "sonrisa/sitemap-component":"3.0.0"
     }
 }
 ```
@@ -98,7 +98,7 @@ This component also provides a method to submit the generated sitemaps to the fo
 ### 4.1 - Submit to search engines
 ```php
 <?php
-use Sonrisa\Component\Sitemap\SubmitSitemap;
+use NilPortugues\Sitemap\SubmitSitemap;
 
 // $status = array('google' => true, 'bing' => true); if everything went OK.
 $status = SubmitSitemap::send('http://example.com/sitemap-index.xml');
@@ -114,21 +114,19 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\IndexSitemap;
-use \Sonrisa\Component\Sitemap\Items\IndexItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\IndexSitemap;
+use NilPortugues\Sitemap\Item\Index\IndexItem;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new IndexSitemap();
 	
-	$item = new IndexItem();
-	$item->setLoc('http://www.example.com/sitemap.content.xml'); //Mandatory
+	$item = new IndexItem('http://www.example.com/sitemap.content.xml');
 	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
 	$sitemap->add($item);
 	
-	$item = new IndexItem();
-	$item->setLoc('http://www.example.com/sitemap.media.xml'); //Mandatory
-	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
+	$item = new IndexItem('http://www.example.com/sitemap.media.xml');
+	$item->setLastMod('2005-05-10T17:33:30+08:00');
 	$sitemap->add($item);
 	
 	//var_dump($files) should be an array holding the sitemap files created.
@@ -165,34 +163,31 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\Sitemap;
-use \Sonrisa\Component\Sitemap\Items\UrlItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\Sitemap;
+use NilPortugues\Sitemap\Item\Url\UrlItem;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new Sitemap();
 	
-	$item = new UrlItem();
-	$item->setLoc('http://www.example.com/');  //Mandatory
+	$item = new UrlItem('http://www.example.com/');
 	$item->setPriority('1.0'); //Optional
 	$item->setChangeFreq('daily'); //Optional
 	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
 	
 	$sitemap->add($item);
 	
-	$item = new UrlItem();
-	$item->setLoc('http://www.example.com/blog');  //Mandatory
-	$item->setPriority('0.9'); //Optional
-	$item->setChangeFreq('monthly'); //Optional
-	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
+	$item = new UrlItem('http://www.example.com/blog');
+	$item->setPriority('0.9');
+	$item->setChangeFreq('monthly');
+	$item->setLastMod('2014-05-10T17:33:30+08:00');
 	
 	$sitemap->add($item);
 	
-	$item = new UrlItem();
-	$item->setLoc('http://www.example.com/contact');  //Mandatory
-	$item->setPriority('0.8'); //Optional
-	$item->setChangeFreq('never'); //Optional
-	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
+	$item = new UrlItem('http://www.example.com/contact');
+	$item->setPriority('0.8');
+	$item->setChangeFreq('never');
+	$item->setLastMod('2014-05-10T17:33:30+08:00');
 	
 	$sitemap->add($item);
 	
@@ -239,21 +234,19 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\ImageSitemap;
-use \Sonrisa\Component\Sitemap\Items\ImageItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\ImageSitemap;
+use NilPortugues\Sitemap\Item\Image\ImageItem;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new ImageSitemap();
 	
-	$item = new ImageItem();
-	$item->setLoc('http://www.example.com/logo.png'); //Mandatory
+	$item = new ImageItem('http://www.example.com/logo.png');
 	$item->setTitle('Example.com logo'); //Optional
 	
 	$sitemap->add($item,'http://www.example.com/');
 	
-	$item = new ImageItem();
-	$item->setLoc('http://www.example.com/main.png'); //Mandatory
+	$item = new ImageItem('http://www.example.com/main.png');
 	$item->setTitle('Main image'); //Optional
 	
 	$sitemap->add($item,'http://www.example.com/');
@@ -296,19 +289,18 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\VideoSitemap;
-use \Sonrisa\Component\Sitemap\Items\VideoItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\VideoSitemap;
+use NilPortugues\Sitemap\Item\Video\VideoItem;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new VideoSitemap();
 	
-	$item = new VideoItem();
-	
-	//Mandatory values
-	$item->setTitle('Grilling steaks for summer');
-	$item->setContentLoc('http://www.example.com/video123.flv');
-	$item->setPlayerLoc('http://www.example.com/videoplayer.swf?video=123');
+	$item = new VideoItem(
+	    'Grilling steaks for summer', //Title
+	    'http://www.example.com/video123.flv', //URL
+	    'http://www.example.com/videoplayer.swf?video=123' //Player URL
+    );
 	
 	//Optional Values
 	$item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
@@ -385,9 +377,9 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\MediaSitemap;
-use \Sonrisa\Component\Sitemap\Items\MediaItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\MediaSitemap;
+use NilPortugues\Sitemap\Item\Media\MediaItem;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new MediaSitemap();
@@ -395,9 +387,7 @@ try {
 	$sitemap->setLink('http://www.example.com/ejemplos/mrss/');
 	$sitemap->setDescription('Ejemplo de MRSS');
 	
-	$item = new MediaItem();
-	//Mandatory
-	$item->setLink('http://www.example.com/examples/mrss/example1.html');
+	$item = new MediaItem('http://www.example.com/examples/mrss/example1.html');
 	
 	//Optional
 	$item->setContentMimeType('video/x-flv');
@@ -411,8 +401,7 @@ try {
 	
 	$sitemap->add($item);
 	
-	$item = new MediaItem();   
-	$item->setLink('http://www.example.com/examples/mrss/example2.html');
+	$item = new MediaItem('http://www.example.com/examples/mrss/example2.html');
 	$item->setContentMimeType('video/x-flv');
 	$item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
 	$item->setContentDuration(240);
@@ -471,21 +460,20 @@ try {
 ```php
 <?php
 include 'vendor/autoload.php';
-use \Sonrisa\Component\Sitemap\NewsSitemap;
-use \Sonrisa\Component\Sitemap\Items\NewsItem;
-use \Sonrisa\Component\Sitemap\Exceptions\SitemapException;
+use NilPortugues\Sitemap\NewsSitemap;
+use NilPortugues\Sitemap\Item\News\NewsItem;
+use NilPortugues\Sitemap\SitemapException;
 
 try {
 	$sitemap = new NewsSitemap();
 	
-	$item = new NewsItem();
-	
-	//Mandatory values
-	$item->setLoc('http://www.example.org/business/article55.html');
-	$item->setTitle('Companies A, B in Merger Talks');
-	$item->setPublicationDate('2008-12-23');
-	$item->setPublicationName('The Example Times');
-	$item->setPublicationLanguage('en');
+	$item = new NewsItem(
+	    'http://www.example.org/business/article55.html', //URL
+	    'Companies A, B in Merger Talks', //Title
+	    '2008-12-23', //Publication Date
+	    'The Example Times', //Publication Name
+	    'en' //locale
+    );
 	
 	//Optional Values
 	$item->setAccess('Subscription');
@@ -531,7 +519,7 @@ try {
 
 <a name="block5"></a>
 ## 5. Fully tested.
-Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.3 up to PHP 5.6 and [Facebook's HHVM](http://hhvm.com/).
+Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.4 up to PHP 5.6 and [Facebook's HHVM](http://hhvm.com/).
 
 ---
 

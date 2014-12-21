@@ -6,7 +6,7 @@
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"
-         stopOnFailure="true"
+         stopOnFailure="false"
          syntaxCheck="true"
          bootstrap="vendor/autoload.php"
         >
@@ -22,7 +22,7 @@
     
     <testsuites>
         <testsuite name="Test Suite">
-            <directory>./tests/Sonrisa/Component/Sitemap/</directory>
+            <directory>./tests/</directory>
         </testsuite>
     </testsuites>
 
