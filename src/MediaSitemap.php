@@ -43,13 +43,25 @@ class MediaSitemap extends Sitemap
      */
     public function setTitle($title)
     {
-        if (false === ValidatorTrait::validateString($title)) {
-            throw new SitemapException('Value for setTitle is not valid');
-        }
-
-        $this->title = "<title>{$title}</title>";
+        $this->title = $this->setStringValue('title', $title);
 
         return $this;
+    }
+
+    /**
+     * @param $tag
+     * @param $string
+     *
+     * @return string
+     * @throws SitemapException
+     */
+    protected function setStringValue($tag, $string)
+    {
+        if (false === ValidatorTrait::validateString($string)) {
+            throw new SitemapException(sprintf('Value for %s is not valid', $tag));
+        }
+
+        return "<$tag>{$string}</$tag>";
     }
 
     /**
@@ -77,11 +89,7 @@ class MediaSitemap extends Sitemap
      */
     public function setDescription($description)
     {
-        if (false === ValidatorTrait::validateString($description)) {
-            throw new SitemapException('Value for setDescription is not valid');
-        }
-
-        $this->description = "<description>{$description}</description>";
+        $this->description = $this->title = $this->setStringValue('description', $description);
 
         return $this;
     }
