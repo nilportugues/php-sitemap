@@ -20,14 +20,6 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
 class ImageSitemap extends Sitemap
 {
     /**
-     * Due to the structure of a video sitemap we need to accumulate
-     * the items under an array holding the URL they belong to.
-     *
-     * @var array
-     */
-    protected $items = [];
-
-    /**
      * @var int
      */
     protected $imageCount = 0;
@@ -44,13 +36,7 @@ class ImageSitemap extends Sitemap
      */
     public function add($item, $url = '')
     {
-        $this->validateItemClassType($item);
-        $this->validateLoc($url);
-
-
-        $this->items[$url][] = $item->build();
-
-        return $this;
+        return $this->delayedAdd($item, $url);
     }
 
     /**

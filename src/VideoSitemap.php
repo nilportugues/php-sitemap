@@ -38,12 +38,7 @@ class VideoSitemap extends AbstractSitemap
      */
     public function add($item, $url = '')
     {
-        $this->validateItemClassType($item);
-        $this->validateLoc($url);
-
-        $this->items[$url][] = $item;
-
-        return $this;
+        return $this->delayedAdd($item, $url);
     }
 
     /**

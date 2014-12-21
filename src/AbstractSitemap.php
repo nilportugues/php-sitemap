@@ -77,6 +77,14 @@ abstract class AbstractSitemap implements SitemapInterface
     protected $filePointer;
 
     /**
+     * Due to the structure of a video sitemap we need to accumulate
+     * the items under an array holding the URL they belong to.
+     *
+     * @var array
+     */
+    protected $items = [];
+
+    /**
      * @param string $filePath
      * @param string $fileName
      * @param bool   $gzip
@@ -276,5 +284,22 @@ abstract class AbstractSitemap implements SitemapInterface
                 sprintf('Provided url is not valid.')
             );
         }
+    }
+
+    /**
+     * @param        $item
+     * @param string $url
+     *
+     * @return $this
+     */
+    protected function delayedAdd($item, $url = '')
+    {
+        $this->validateItemClassType($item);
+        $this->validateLoc($url);
+
+
+        $this->items[$url][] = $item->build();
+
+        return $this;
     }
 }
