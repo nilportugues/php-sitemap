@@ -165,7 +165,7 @@ abstract class AbstractSitemap implements SitemapInterface
     {
         $expectedFileSize = $this->getCurrentFileSize() + mb_strlen($stringData, mb_detect_encoding($stringData));
 
-        return $this->maxFilesize > $expectedFileSize;
+        return $this->maxFilesize < $expectedFileSize;
     }
 
     /**

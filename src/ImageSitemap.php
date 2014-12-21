@@ -120,7 +120,9 @@ class ImageSitemap extends Sitemap
     {
         $this->imageCount = 0;
         foreach ($itemArray as &$item) {
-            if (false === $this->isNewFileIsRequired() && false === $this->isSurpassingFileSizeLimit($item)) {
+            if (false === $this->isNewFileIsRequired()
+                && false === $this->isSurpassingFileSizeLimit($item."</url>\n")
+            ) {
                 $this->appendToFile($item);
                 $this->totalItems++;
             } else {

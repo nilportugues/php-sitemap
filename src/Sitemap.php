@@ -35,8 +35,9 @@ class Sitemap extends AbstractSitemap
             $this->appendToFile($this->getHeader());
         }
 
-        if (false === $this->isNewFileIsRequired()) {
-            $this->appendToFile($item->build());
+        $xmlData = $item->build();
+        if (false === $this->isNewFileIsRequired() && false === $this->isSurpassingFileSizeLimit($xmlData)) {
+            $this->appendToFile($xmlData);
             $this->totalItems++;
             return $this;
         }
