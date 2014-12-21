@@ -54,7 +54,7 @@ trait ValidatorTrait
     {
         if (is_string($value) && strlen($value) > 0 && (
                 false !== ($date1 = \DateTime::createFromFormat('Y-m-d\TH:i:sP', $value))
-                || false !== ($date2 = \DateTime::createFromFormat('Y-m-d', $value))
+                || false !== \DateTime::createFromFormat('Y-m-d', $value)
             )
         ) {
             $format = 'Y-m-d';
