@@ -290,7 +290,7 @@ abstract class AbstractSitemap implements SitemapInterface
     abstract protected function validateItemClassType($item);
 
     /**
-     * @param $url
+     * @param string $url
      *
      * @throws SitemapException
      */
