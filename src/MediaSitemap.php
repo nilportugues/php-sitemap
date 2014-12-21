@@ -49,8 +49,8 @@ class MediaSitemap extends Sitemap
     }
 
     /**
-     * @param $tag
-     * @param $string
+     * @param string $tag
+     * @param string $string
      *
      * @return string
      * @throws SitemapException
@@ -65,7 +65,7 @@ class MediaSitemap extends Sitemap
     }
 
     /**
-     * @param $link
+     * @param string $link
      *
      * @return $this
      * @throws SitemapException
@@ -82,7 +82,7 @@ class MediaSitemap extends Sitemap
     }
 
     /**
-     * @param $description
+     * @param string $description
      *
      * @throws SitemapException
      * @return $this

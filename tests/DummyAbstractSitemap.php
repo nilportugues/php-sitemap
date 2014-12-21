@@ -62,6 +62,7 @@ class DummyAbstractSitemap extends AbstractSitemap
      */
     public function add($item, $url = '')
     {
+        $this->validateLoc($url);
         return $this;
     }
 }

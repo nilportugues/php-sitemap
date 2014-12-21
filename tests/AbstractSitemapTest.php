@@ -28,6 +28,17 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldThrowExceptionWhenAddWithInvalidUrl()
+    {
+        $sitemap = new DummyAbstractSitemap('.', $this->sitemapFile, false);
+
+        $this->setExpectedException($this->exception);
+        $sitemap->add('dummy', 'not-a-url');
+    }
+
+    /**
+     * @test
+     */
     public function itShouldWriteXmlFile()
     {
         $sitemap = new DummyAbstractSitemap('.', $this->sitemapFile, false);
