@@ -1,7 +1,7 @@
 Sitemap Component
 =================
 
-[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) [![Coverage Status](https://img.shields.io/coveralls/nilportugues/sitemap-component.svg)](https://coveralls.io/r/nilportugues/sitemap-component) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/badges/quality-score.png)](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/) [![Latest Stable Version](https://poser.pugx.org/sonrisa/sitemap-component/v/stable.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![Total Downloads](https://poser.pugx.org/sonrisa/sitemap-component/downloads.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![License](https://poser.pugx.org/sonrisa/sitemap-component/license.svg)](https://packagist.org/packages/sonrisa/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7/mini.png)](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7)
+[![Build Status](https://travis-ci.org/nilportugues/sitemap-component.png)](https://travis-ci.org/nilportugues/sitemap-component) [![Coverage Status](https://img.shields.io/coveralls/nilportugues/sitemap-component.svg)](https://coveralls.io/r/nilportugues/sitemap-component) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/badges/quality-score.png)](https://scrutinizer-ci.com/g/nilportugues/sitemap-component/) [![Latest Stable Version](https://poser.pugx.org/nilportugues/sitemap-component/v/stable.svg)](https://packagist.org/packages/nilportugues/sitemap-component) [![Total Downloads](https://poser.pugx.org/nilportugues/sitemap-component/downloads.svg)](https://packagist.org/packages/nilportugues/sitemap-component) [![License](https://poser.pugx.org/nilportugues/sitemap-component/license.svg)](https://packagist.org/packages/nilportugues/sitemap-component) [![SensioLabsInsight](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7/mini.png)](https://insight.sensiolabs.com/projects/b065a032-4ab2-4feb-a88c-d7a8423e1cf7)
 
 Builds sitemaps for pages, images and media files and provides a class to submit them to search engines.
 
@@ -40,7 +40,7 @@ Add the following to your `composer.json` file :
 ```js
 {
     "require": {
-        "nilportugues/sitemap":"3.0.0"
+        "nilportugues/sitemap-component":"3.0.0"
     }
 }
 ```
