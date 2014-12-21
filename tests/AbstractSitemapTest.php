@@ -21,6 +21,11 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
     protected $exception = 'NilPortugues\Sitemap\SitemapException';
 
     /**
+     * @var string
+     */
+    protected $sitemapFile = 'sitemap.xml';
+
+    /**
      * @test
      */
     public function itShouldThrowExceptionIfFilePathDoesNotExist()
@@ -29,7 +34,7 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
             $this->exception,
             'Provided path \'i/do/not/exist\' does not exist or is not writable.'
         );
-        new DummyAbstractSitemap('i/do/not/exist', 'sitemap.xml', false);
+        new DummyAbstractSitemap('i/do/not/exist', $this->sitemapFile, false);
     }
 
     /**
@@ -41,7 +46,7 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
             $this->exception,
             'Provided path \'/\' does not exist or is not writable.'
         );
-        new DummyAbstractSitemap('/', 'sitemap.xml', false);
+        new DummyAbstractSitemap('/', $this->sitemapFile, false);
     }
 
     /**
@@ -49,11 +54,21 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldThrowExceptionWhenFileAlreadyExists()
     {
-        touch('sitemap.xml');
+        touch($this->sitemapFile);
 
         $this->setExpectedException($this->exception);
-        new DummyAbstractSitemap('.', 'sitemap.xml', false);
+        new DummyAbstractSitemap('.', $this->sitemapFile, false);
 
-        unlink('sitemap.xml');
+        unlink($this->sitemapFile);
+    }
+
+    /**
+     *
+     */
+    protected function tearDown()
+    {
+        if (file_exists($this->sitemapFile)) {
+            unlink($this->sitemapFile);
+        }
     }
 }
