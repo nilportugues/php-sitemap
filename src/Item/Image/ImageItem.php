@@ -43,13 +43,13 @@ class ImageItem extends AbstractItem
     protected function reset()
     {
         return [
-            "\t<image:image>",
+            "<image:image>",
             'loc'         => '',
             'title'       => '',
             'caption'     => '',
             'geolocation' => '',
             'license'     => '',
-            "\t</image:image>"
+            "</image:image>"
         ];
     }
 
@@ -65,7 +65,7 @@ class ImageItem extends AbstractItem
             $loc,
             'loc',
             false,
-            'loc',
+            'image:loc',
             $this->validator,
             'validateLoc',
             $this->exception,

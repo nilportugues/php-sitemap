@@ -1,22 +1,32 @@
 <?php
 include 'vendor/autoload.php';
 
-use NilPortugues\Sitemap\Item\Url\UrlItem;
-use NilPortugues\Sitemap\Sitemap;
+use NilPortugues\Sitemap\ImageSitemap;
+use NilPortugues\Sitemap\Item\Image\ImageItem;
 use NilPortugues\Sitemap\SitemapException;
+
+if(file_exists('sitemaptest.xml')) {
+    unlink('sitemaptest.xml');
+}
 
 try{
 
-    $siteMap = new Sitemap('.', 'sitemaptest.xml', false);
+    $siteMap = new ImageSitemap('.', 'sitemaptest.xml', false);
+    $j = 1;
+    $url = 'http://www.example.com/gallery-' . $j .'.html';
 
     for ($i = 0; $i < 50020; $i++) {
 
-        $item = new UrlItem('http://www.example.com/' . $i);
-        $item->setPriority('1.0');
-        $item->setChangeFreq('daily');
-        $item->setLastMod('2014-05-10T17:33:30+08:00');
+        if(0 === $i % 1001) {
+            $url = 'http://www.example.com/gallery-' . $j .'.html';
+            $j++;
+        }
 
-        $siteMap->add($item);
+        echo $imageUrl = 'http://www.example.com/' . $i .'.jpg';
+        echo PHP_EOL;
+
+        $item = new ImageItem($imageUrl);
+        $siteMap->add($item, $url);
     }
     $siteMap->build();
 

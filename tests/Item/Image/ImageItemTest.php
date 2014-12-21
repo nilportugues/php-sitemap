@@ -41,7 +41,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
         $this->item->setTitle('Example.com 1 logo');
 
         $this->assertContains(
-            '<loc>http://www.example.com/logo.png</loc>',
+            '<image:loc>http://www.example.com/logo.png</image:loc>',
             $this->item->build()
         );
     }

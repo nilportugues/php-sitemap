@@ -10,6 +10,7 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\ValidatorTrait;
 use NilPortugues\Sitemap\Item\Video\VideoItem;
 
 /**
@@ -19,16 +20,38 @@ use NilPortugues\Sitemap\Item\Video\VideoItem;
 class VideoSitemap extends AbstractSitemap
 {
     /**
+     * Due to the structure of a video sitemap we need to accumulate
+     * the items under an array holding the URL they belong to.
+     *
+     * @var array
+     */
+    protected $items = [];
+
+    /**
      * Adds a new sitemap item.
      *
-     * @param        $item
+     * @param VideoItem $item
      * @param string $url
      *
-     * @return mixed
+     * @return $this
+     * @throws SitemapException
      */
     public function add($item, $url = '')
     {
-        // TODO: Implement add() method.
+        $this->validateItemClassType($item);
+        $this->validateLoc($url);
+
+        $this->items[$url][] = $item;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function build()
+    {
+        return parent::build();
     }
 
     /**

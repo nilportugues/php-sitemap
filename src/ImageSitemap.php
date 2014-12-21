@@ -17,24 +17,40 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  * Class ImageSitemap
  * @package NilPortugues\Sitemap\Item
  */
-class ImageSitemap extends AbstractSitemap
+class ImageSitemap extends Sitemap
 {
+    /**
+     * Due to the structure of a video sitemap we need to accumulate
+     * the items under an array holding the URL they belong to.
+     *
+     * @var array
+     */
+    protected $items = [];
+
+    /**
+     * @var int
+     */
+    protected $imageCount = 0;
+
     /**
      * Adds a new sitemap item.
      *
      * @param ImageItem $item
      * @param string    $url
+     *
+     * @return $this
      * @throws SitemapException
      *
-     * @return mixed
      */
     public function add($item, $url = '')
     {
-        if (false === ValidatorTrait::validateLoc($url)) {
-            throw new SitemapException(
-               sprintf('Provided url is not valid.')
-           );
-        }
+        $this->validateItemClassType($item);
+        $this->validateLoc($url);
+
+
+        $this->items[$url][] = $item->build();
+
+        return $this;
     }
 
     /**
@@ -52,6 +68,33 @@ class ImageSitemap extends AbstractSitemap
     }
 
     /**
+     * @return mixed
+     */
+    public function build()
+    {
+        foreach ($this->items as $url => $itemArray) {
+            if (null === $this->filePointer || 0 === $this->totalItems) {
+                $this->createNewFilePointer();
+                $this->appendToFile($this->getHeader());
+            }
+
+            $appendData = "<url>\n<loc>{$url}</loc>\n";
+
+            if (false === $this->isNewFileIsRequired() && false === $this->isSurpassingFileSizeLimit($appendData)) {
+                $this->appendToFile($appendData);
+            }
+
+            $this->writeXmlBody($itemArray, $url);
+
+            if (false === $this->isNewFileIsRequired()) {
+                $this->appendToFile("</url>\n");
+            }
+        }
+
+        return parent::build();
+    }
+
+    /**
      * @return string
      */
     protected function getHeader()
@@ -59,6 +102,53 @@ class ImageSitemap extends AbstractSitemap
         return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
         'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+    }
+
+    /**
+     * @return bool
+     */
+    protected function isNewFileIsRequired()
+    {
+        return parent::isNewFileIsRequired() || 1000 === $this->imageCount;
+    }
+
+    /**
+     * @param array  $itemArray
+     * @param string $url
+     */
+    protected function writeXmlBody(array &$itemArray, $url)
+    {
+        $this->imageCount = 0;
+        foreach ($itemArray as &$item) {
+            if (false === $this->isNewFileIsRequired() && false === $this->isSurpassingFileSizeLimit($item)) {
+                $this->appendToFile($item);
+                $this->totalItems++;
+            } else {
+                $this->createAdditionalSitemapFile($item, $url);
+            }
+
+            $this->imageCount++;
+        }
+    }
+
+    /**
+     * @param $item
+     * @param $url
+     */
+    protected function createAdditionalSitemapFile($item, $url)
+    {
+        $this->appendToFile("</url>\n");
+        parent::build();
+        $this->totalFiles++;
+
+        $this->createNewFilePointer();
+        $this->appendToFile(
+            $this->getHeader()
+            . "<url>\n<loc>{$url}</loc>\n"
+            . $item
+        );
+        $this->totalItems = 1;
+        $this->imageCount = 0;
     }
 
     /**

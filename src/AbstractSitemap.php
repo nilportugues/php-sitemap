@@ -10,6 +10,8 @@
 
 namespace NilPortugues\Sitemap;
 
+use NilPortugues\Sitemap\Item\ValidatorTrait;
+
 /**
  * Class AbstractSitemap
  * @package NilPortugues\Sitemap
@@ -153,6 +155,20 @@ abstract class AbstractSitemap implements SitemapInterface
     }
 
     /**
+     * Before appending data we need to check if we'll surpass the file size limit or not.
+     *
+     * @param $stringData
+     *
+     * @return bool
+     */
+    protected function isSurpassingFileSizeLimit($stringData)
+    {
+        $expectedFileSize = $this->getCurrentFileSize() + mb_strlen($stringData, mb_detect_encoding($stringData));
+
+        return $this->maxFilesize > $expectedFileSize;
+    }
+
+    /**
      * @return integer
      */
     protected function getCurrentFileSize()
@@ -246,4 +262,19 @@ abstract class AbstractSitemap implements SitemapInterface
      * @throws SitemapException
      */
     abstract protected function validateItemClassType($item);
+
+
+    /**
+     * @param $url
+     *
+     * @throws SitemapException
+     */
+    protected function validateLoc($url)
+    {
+        if (false === ValidatorTrait::validateLoc($url)) {
+            throw new SitemapException(
+                sprintf('Provided url is not valid.')
+            );
+        }
+    }
 }

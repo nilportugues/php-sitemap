@@ -19,6 +19,7 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  */
 class MediaSitemap extends Sitemap
 {
+
     /**
      * @var string
      */
@@ -63,7 +64,7 @@ class MediaSitemap extends Sitemap
             throw new SitemapException('Value for setLink is not a valid URL');
         }
 
-        $this->link = $this->link = "<link>{$link}</link>";
+        $this->link = "<link>{$link}</link>";
 
         return $this;
     }
