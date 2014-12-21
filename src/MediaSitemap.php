@@ -86,20 +86,6 @@ class MediaSitemap extends Sitemap
     }
 
     /**
-     * Adds a new sitemap item.
-     *
-     * @param MediaItem $item
-     * @param string    $url
-     *
-     * @return $this
-     * @throws SitemapException
-     */
-    public function add($item, $url = '')
-    {
-        return parent::add($item);
-    }
-
-    /**
      * @param MediaItem $item
      *
      * @throws SitemapException

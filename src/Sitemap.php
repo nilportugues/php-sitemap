@@ -21,7 +21,7 @@ class Sitemap extends AbstractSitemap
     /**
      * Adds a new sitemap item.
      *
-     * @param UrlItem $item
+     * @param $item
      * @param string  $url
      *
      * @return $this

@@ -33,20 +33,6 @@ class IndexSitemap extends Sitemap
     }
 
     /**
-     * Adds a new sitemap item.
-     *
-     * @param IndexItem $item
-     * @param string    $url
-     *
-     * @return $this
-     * @throws SitemapException
-     */
-    public function add($item, $url = '')
-    {
-        return parent::add($item);
-    }
-
-    /**
      * @return string
      */
     protected function getHeader()
