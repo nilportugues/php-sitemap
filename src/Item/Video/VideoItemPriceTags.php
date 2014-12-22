@@ -34,12 +34,12 @@ abstract class VideoItemPriceTags extends AbstractItem
      */
     public static function setPrice($validator, $price, $currency, $type = null, $resolution = null)
     {
-        self::$xml['price'] .= "\t\t\t".'<video:price';
+        self::$xml['price'] .= '<video:price';
         self::setPriceValue($validator, $price);
         self::setPriceCurrency($validator, $currency);
         self::setPriceType($validator, $type);
         self::setPriceResolution($validator, $resolution);
-        self::$xml['price'] .= '>'.$price.'</video:price>'."\n";
+        self::$xml['price'] .= '>'.$price.'</video:price>';
 
         return self::$xml['price'];
     }

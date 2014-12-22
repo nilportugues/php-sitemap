@@ -45,7 +45,7 @@ abstract class VideoItemGalleryTags extends AbstractItem
             'Provided gallery URL is not a valid value.'
         );
 
-        self::$xml['gallery_loc'] = "\t\t\t".'<video:gallery_loc';
+        self::$xml['gallery_loc'] = '<video:gallery_loc';
         self::setGalleryTitle($validator, $title);
         self::$xml['gallery_loc'] .= '>'.$galleryLoc.'</video:gallery_loc>';
 

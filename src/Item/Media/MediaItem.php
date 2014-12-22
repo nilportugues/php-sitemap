@@ -45,6 +45,7 @@ class MediaItem extends AbstractItem
     {
         return [
             '<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
+            'content'        => '',
             'link'        => '',
             'duration'    => '',
             'player'      => '',

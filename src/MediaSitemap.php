@@ -89,7 +89,7 @@ class MediaSitemap extends Sitemap
      */
     public function setDescription($description)
     {
-        $this->description = $this->title = $this->setStringValue('description', $description);
+        $this->description = $this->setStringValue('description', $description);
 
         return $this;
     }

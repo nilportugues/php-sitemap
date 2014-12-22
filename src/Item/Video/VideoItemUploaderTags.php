@@ -40,7 +40,7 @@ abstract class VideoItemUploaderTags extends AbstractItem
             'Provided uploader is not a valid value.'
         );
 
-        self::$xml['uploader'] = "\t\t\t".'<video:uploader';
+        self::$xml['uploader'] = '<video:uploader';
         self::setUploaderInfo($validator, $info);
         self::$xml['uploader'] .= '>'.$uploader.'</video:uploader>';
 

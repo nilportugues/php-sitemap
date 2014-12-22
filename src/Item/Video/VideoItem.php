@@ -49,7 +49,7 @@ class VideoItem extends AbstractItem
     protected function reset()
     {
         return [
-            "\t\t".'<video:video>',
+            '<video:video>',
             'thumbnail_loc'         => '',
             'title'                 => '',
             'description'           => '',
@@ -70,7 +70,7 @@ class VideoItem extends AbstractItem
             'uploader'              => '',
             'platform'              => '',
             'live'                  => '',
-            "\t\t".'</video:video>',
+            '</video:video>',
         ];
     }
 
@@ -333,7 +333,7 @@ class VideoItem extends AbstractItem
             'Provided restriction is not a valid value.'
         );
 
-        self::$xml['restriction'] = "\t\t\t".'<video:restriction';
+        self::$xml['restriction'] = '<video:restriction';
         $this->setRestrictionRelationship($relationship);
         self::$xml['restriction'] .= '>'.$restriction.'</video:restriction>';
 
@@ -431,7 +431,7 @@ class VideoItem extends AbstractItem
         );
 
         foreach ($tag as $tagName) {
-            self::$xml['tag'] .= "\t\t\t".'<video:tag>'.$tagName.'</video:tag>'."\n";
+            self::$xml['tag'] .= '<video:tag>'.$tagName.'</video:tag>';
         }
 
         return $this;
@@ -488,7 +488,7 @@ class VideoItem extends AbstractItem
             'Provided platform is not a valid value.'
         );
 
-        self::$xml['platform'] = "\t\t\t".'<video:platform';
+        self::$xml['platform'] = '<video:platform';
         $this->setPlatformRelationship($relationship);
         self::$xml['platform'] .= '>'.$platform.'</video:platform>';
 

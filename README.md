@@ -112,30 +112,26 @@ In order to use a Sitemap Index, you need to build sitemap files first. Check ou
 <a name="block4.2.1"></a>
 #### Creation
 ```php
-<?php
-include 'vendor/autoload.php';
 use NilPortugues\Sitemap\IndexSitemap;
 use NilPortugues\Sitemap\Item\Index\IndexItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-	$sitemap = new IndexSitemap();
-	
-	$item = new IndexItem('http://www.example.com/sitemap.content.xml');
-	$item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
-	$sitemap->add($item);
-	
-	$item = new IndexItem('http://www.example.com/sitemap.media.xml');
-	$item->setLastMod('2005-05-10T17:33:30+08:00');
-	$sitemap->add($item);
-	
-	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemap->build();
-	$sitemap->write('path/to/public/www','sitemap.index.xml');
-	
+    $sitemap = new IndexSitemap('.','sitemap.index.xml');
+
+    $item = new IndexItem('http://www.example.com/sitemap.content.xml');
+    $item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
+    $sitemap->add($item);
+
+    $item = new IndexItem('http://www.example.com/sitemap.media.xml');
+    $item->setLastMod('2005-05-10T17:33:30+08:00');
+    $sitemap->add($item);
+
+    $sitemap->build();
+
 } catch (SitemapException $e) {
 
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 <a name="block4.2.2"></a>
@@ -161,43 +157,36 @@ try {
 <a name="block4.3.1"></a>
 #### Creation
 ```php
-<?php
-include 'vendor/autoload.php';
 use NilPortugues\Sitemap\Sitemap;
 use NilPortugues\Sitemap\Item\Url\UrlItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-	$sitemap = new Sitemap();
-	
-	$item = new UrlItem('http://www.example.com/');
-	$item->setPriority('1.0'); //Optional
-	$item->setChangeFreq('daily'); //Optional
-	$item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
-	
-	$sitemap->add($item);
-	
-	$item = new UrlItem('http://www.example.com/blog');
-	$item->setPriority('0.9');
-	$item->setChangeFreq('monthly');
-	$item->setLastMod('2014-05-10T17:33:30+08:00');
-	
-	$sitemap->add($item);
-	
-	$item = new UrlItem('http://www.example.com/contact');
-	$item->setPriority('0.8');
-	$item->setChangeFreq('never');
-	$item->setLastMod('2014-05-10T17:33:30+08:00');
-	
-	$sitemap->add($item);
-	
-	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemap->build();
-	$sitemap->write('path/to/public/www','sitemap.index.xml');
-   
+    $sitemap = new Sitemap('.','sitemap.index.xml');
+
+    $item = new UrlItem('http://www.example.com/');
+    $item->setPriority('1.0'); //Optional
+    $item->setChangeFreq('daily'); //Optional
+    $item->setLastMod('2014-05-10T17:33:30+08:00'); //Optional
+    $sitemap->add($item);
+
+    $item = new UrlItem('http://www.example.com/blog');
+    $item->setPriority('0.9');
+    $item->setChangeFreq('monthly');
+    $item->setLastMod('2014-05-10T17:33:30+08:00');
+    $sitemap->add($item);
+
+    $item = new UrlItem('http://www.example.com/contact');
+    $item->setPriority('0.8');
+    $item->setChangeFreq('never');
+    $item->setLastMod('2014-05-10T17:33:30+08:00');
+    $sitemap->add($item);
+
+    $sitemap->build();
+
 } catch (SitemapException $e) {
 
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 <a name="block4.3.2"></a>
@@ -232,35 +221,27 @@ try {
 <a name="block4.4.1"></a>
 #### Creation
 ```php
-<?php
-include 'vendor/autoload.php';
 use NilPortugues\Sitemap\ImageSitemap;
 use NilPortugues\Sitemap\Item\Image\ImageItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-	$sitemap = new ImageSitemap();
-	
-	$item = new ImageItem('http://www.example.com/logo.png');
-	$item->setTitle('Example.com logo'); //Optional
-	
-	$sitemap->add($item,'http://www.example.com/');
-	
-	$item = new ImageItem('http://www.example.com/main.png');
-	$item->setTitle('Main image'); //Optional
-	
-	$sitemap->add($item,'http://www.example.com/');
-	
-	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemap->build();
-	$sitemap->write('path/to/public/www','sitemap.image.xml');
-   
+    $sitemap = new ImageSitemap('path/to/folder','sitemap.image.xml');
+
+    $item = new ImageItem('http://www.example.com/logo.png');
+    $item->setTitle('Example.com logo'); //Optional
+    $sitemap->add($item,'http://www.example.com/');
+
+    $item = new ImageItem('http://www.example.com/main.png');
+    $item->setTitle('Main image'); //Optional
+    $sitemap->add($item,'http://www.example.com/');
+
+    $sitemap->build();
+
 } catch (SitemapException $e) {
 
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
-
-
 ```
 <a name="block4.4.2"></a>
 #### Output
@@ -287,55 +268,47 @@ xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 <a name="block4.5.1"></a>
 #### Creation
 ```php
-<?php
-include 'vendor/autoload.php';
 use NilPortugues\Sitemap\VideoSitemap;
 use NilPortugues\Sitemap\Item\Video\VideoItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-	$sitemap = new VideoSitemap();
-	
-	$item = new VideoItem(
-	    'Grilling steaks for summer', //Title
-	    'http://www.example.com/video123.flv', //URL
-	    'http://www.example.com/videoplayer.swf?video=123' //Player URL
+    $sitemap = new VideoSitemap('path/to/folder','sitemap.video.xml');
+
+    $item = new VideoItem(
+        'Grilling steaks for summer', //Title
+        'http://www.example.com/video123.flv', //URL
+        'http://www.example.com/videoplayer.swf?video=123', //Player URL
+        'yes', //Optional
+        'ap=1' //Optional
     );
-	
-	//Optional Values
-	$item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
-	$item->setThumbnailLoc('http://www.example.com/thumbs/123.jpg');
-	$item->setPlayerLocAllowEmbedded('yes');
-	$item->setPlayerLocAutoplay('ap=1');
-	$item->setDuration(600);
-	$item->setExpirationDate('2009-11-05T19:20:30+08:00');
-	$item->setRating(4.2);
-	$item->setViewCount(12345);
-	$item->setPublicationDate('2007-11-05T19:20:30+08:00');
-	$item->setFamilyFriendly('yes');
-	$item->setRestriction('IE GB US CA');
-	$item->setRestrictionRelationship('allow');
-	$item->setGalleryLoc('http://cooking.example.com');
-	$item->setGalleryTitle('Cooking Videos');
-	$item->setPrice('0.99','EUR','rent','HD');
-	$item->setPrice('0.75','EUR','rent','SD');
-	$item->setCategory('cooking');
-	$item->setTag(array('action','drama','entrepreneur'));
-	$item->setRequiresSubscription('yes');
-	$item->setUploader('GrillyMcGrillerson');
-	$item->setUploaderInfo('http://www.example.com/users/grillymcgrillerson');
-	$item->setPlatform('web mobile tv');
-	$item->setPlatformRelationship('allow');
-	$item->setLive('no');
-	
-	$sitemap->add($item,'http://www.example.com/');
-	
-	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemap->build();
-	$sitemap->write('path/to/public/www','sitemap.video.xml');
-   
+
+    //Optional Values
+    $item->setDescription('Alkis shows you how to get perfectly done steaks everytime');
+    $item->setThumbnailLoc('http://www.example.com/thumbs/123.jpg');
+    $item->setDuration(600);
+    $item->setExpirationDate('2009-11-05T19:20:30+08:00');
+    $item->setRating(4.2);
+    $item->setViewCount(12345);
+    $item->setPublicationDate('2007-11-05T19:20:30+08:00');
+    $item->setFamilyFriendly('yes');
+    $item->setRestriction('IE GB US CA', 'allow');
+    $item->setGalleryLoc('http://cooking.example.com', 'Cooking Videos');
+    $item->setPrice('0.99','EUR','rent','HD');
+    $item->setPrice('0.75','EUR','rent','SD');
+    $item->setCategory('cooking');
+    $item->setTag(array('action','drama','entrepreneur'));
+    $item->setRequiresSubscription('yes');
+    $item->setUploader('GrillyMcGrillerson', 'http://www.example.com/users/grillymcgrillerson');
+    $item->setPlatform('web mobile tv', 'allow');
+    $item->setLive('no');
+
+    $sitemap->add($item,'http://www.example.com/');
+
+    $files = $sitemap->build();
+
 } catch (SitemapException $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 <a name="block4.5.2"></a>
@@ -375,51 +348,41 @@ try {
 <a name="block4.6.1"></a>
 #### Creation
 ```php
-<?php
-include 'vendor/autoload.php';
 use NilPortugues\Sitemap\MediaSitemap;
 use NilPortugues\Sitemap\Item\Media\MediaItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-	$sitemap = new MediaSitemap();
-	$sitemap->setTitle('Media RSS de ejemplo');
-	$sitemap->setLink('http://www.example.com/ejemplos/mrss/');
-	$sitemap->setDescription('Ejemplo de MRSS');
-	
-	$item = new MediaItem('http://www.example.com/examples/mrss/example1.html');
-	
-	//Optional
-	$item->setContentMimeType('video/x-flv');
-	$item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
-	$item->setContentDuration(120);
-	$item->setTitle('Barbacoas en verano');
-	$item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
-	$item->setThumbnailUrl('http://www.example.com/examples/mrss/example1.png');
-	$item->setThumbnailHeight(120);
-	$item->setThumbnailWidth(160);
-	
-	$sitemap->add($item);
-	
-	$item = new MediaItem('http://www.example.com/examples/mrss/example2.html');
-	$item->setContentMimeType('video/x-flv');
-	$item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
-	$item->setContentDuration(240);
-	$item->setTitle('Barbacoas en invierno');
-	$item->setDescription('Consigue unos filetes frios');
-	$item->setThumbnailUrl('http://www.example.com/examples/mrss/example2.png');
-	$item->setThumbnailHeight(120);
-	$item->setThumbnailWidth(160);
-	
-	$sitemap->add($item);
-	
-	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemap->build();
-	$sitemap->write('path/to/public/www','sitemap.media.xml');
-   
+    $sitemap = new MediaSitemap('path/to/folder','sitemap.media.xml');
+
+    $sitemap->setTitle('Media RSS de ejemplo');
+    $sitemap->setLink('http://www.example.com/ejemplos/mrss/');
+    $sitemap->setDescription('Ejemplo de MRSS');
+
+    $item = new MediaItem('http://www.example.com/examples/mrss/example1.html');
+
+    //Optional
+    $item->setContent('video/x-flv', 120);
+    $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+    $item->setTitle('Barbacoas en verano');
+    $item->setDescription('Consigue que los filetes queden perfectamente hechos siempre');
+    $item->setThumbnail('http://www.example.com/examples/mrss/example1.png', 120, 160);
+
+    $sitemap->add($item);
+
+    $item = new MediaItem('http://www.example.com/examples/mrss/example2.html');
+    $item->setContent('video/x-flv', 120);
+    $item->setPlayer('http://www.example.com/shows/example/video.swf?flash_params');
+    $item->setTitle('Barbacoas en invierno');
+    $item->setDescription('Consigue unos filetes frios');
+    $item->setThumbnail('http://www.example.com/examples/mrss/example2.png', 120, 160);
+    $sitemap->add($item);
+
+    $sitemap->build();
+
 } catch (SitemapException $e) {
 
-   echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 <a name="block4.6.2"></a>
@@ -458,38 +421,32 @@ try {
 <a name="block4.7.1"></a>
 #### Creation
 ```php
-<?php
-include 'vendor/autoload.php';
 use NilPortugues\Sitemap\NewsSitemap;
 use NilPortugues\Sitemap\Item\News\NewsItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-	$sitemap = new NewsSitemap();
-	
-	$item = new NewsItem(
-	    'http://www.example.org/business/article55.html', //URL
-	    'Companies A, B in Merger Talks', //Title
-	    '2008-12-23', //Publication Date
-	    'The Example Times', //Publication Name
-	    'en' //locale
+    $sitemap = new NewsSitemap('path/to/folder','sitemap.news.xml');
+
+    $item = new NewsItem(
+        'http://www.example.org/business/article55.html', //URL
+        'Companies A, B in Merger Talks', //Title
+        '2008-12-23', //Publication Date
+        'The Example Times', //Publication Name
+        'en' //locale
     );
-	
-	//Optional Values
-	$item->setAccess('Subscription');
-	$item->setKeywords('business, merger, acquisition, A, B');
-	$item->setStockTickers('NASDAQ:A, NASDAQ:B');
-	$item->setGenres('PressRelease, Blog');
-	$this->sitemap->add($item);
-	
-	$sitemap->add($item);
-	
-	//var_dump($files) should be an array holding the sitemap files created.
-	$files = $sitemap->build();
-	$sitemap->write('path/to/public/www','sitemap.news.xml');
-   
+
+    //Optional Values
+    $item->setAccess('Subscription');
+    $item->setKeywords('business, merger, acquisition, A, B');
+    $item->setStockTickers('NASDAQ:A, NASDAQ:B');
+    $item->setGenres('PressRelease, Blog');
+
+    $sitemap->add($item);
+    $sitemap->build();
+
 } catch (SitemapException $e) {
-	echo $e->getMessage();
+    echo $e->getMessage();
 }
 ```
 <a name="block4.7.2"></a>
