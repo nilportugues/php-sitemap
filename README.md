@@ -40,7 +40,7 @@ Add the following to your `composer.json` file :
 ```js
 {
     "require": {
-        "nilportugues/sitemap-component":"3.0.0"
+        "nilportugues/sitemap-component":"3.0.1"
     }
 }
 ```
