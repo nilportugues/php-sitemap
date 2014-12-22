@@ -100,7 +100,7 @@ This component also provides a method to submit the generated sitemaps to the fo
 <?php
 use NilPortugues\Sitemap\SubmitSitemap;
 
-// $status = array('google' => true, 'bing' => true); if everything went OK.
+// $status = ['google' => true, 'bing' => true]; if everything went OK.
 $status = SubmitSitemap::send('http://example.com/sitemap-index.xml');
 ```
 
@@ -117,7 +117,7 @@ use NilPortugues\Sitemap\Item\Index\IndexItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-    $sitemap = new IndexSitemap('.','sitemap.index.xml');
+    $sitemap = new IndexSitemap('path/to/folder','sitemap.index.xml');
 
     $item = new IndexItem('http://www.example.com/sitemap.content.xml');
     $item->setLastMod('2005-05-10T17:33:30+08:00'); //Optional
@@ -162,7 +162,7 @@ use NilPortugues\Sitemap\Item\Url\UrlItem;
 use NilPortugues\Sitemap\SitemapException;
 
 try {
-    $sitemap = new Sitemap('.','sitemap.index.xml');
+    $sitemap = new Sitemap('path/to/folder','sitemap.index.xml');
 
     $item = new UrlItem('http://www.example.com/');
     $item->setPriority('1.0'); //Optional
