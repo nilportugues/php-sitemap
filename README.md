@@ -35,16 +35,11 @@ Builds sitemaps for pages, images and media files and provides a class to submit
 
 <a name="block1"></a>
 ## 1.Installation
-Add the following to your `composer.json` file :
+The recommended way to install the Sitemap Component is through [Composer](http://getcomposer.org). Run the following command to install it:
 
-```js
-{
-    "require": {
-        "nilportugues/sitemap-component":"3.0.1"
-    }
-}
+```sh
+php composer.phar require nilportugues/sitemap-component
 ```
-
 ---
 
 <a name="block2"></a>
