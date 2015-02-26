@@ -96,7 +96,6 @@ abstract class AbstractItem implements ItemInterface
         $exceptionClass,
         $exceptionMsg
     ) {
-        list() = func_get_args();
         $value = self::validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg);
         self::$xml[$name] .= " {$attributeName}=\"{$value}\"";
     }
