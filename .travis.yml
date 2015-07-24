@@ -25,6 +25,3 @@ script:
   - bin/phpunit --coverage-text
   - bin/phpunit-randomizer --order rand
 
-matrix:
-     allow_failures:
-         - php: hhvm-nightly  
