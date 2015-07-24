@@ -29,7 +29,8 @@ Builds sitemaps for pages, images and media files and provides a class to submit
       * [Creation](#block4.7.1)
       * [Output](#block4.7.2)
 * [5. Fully tested](#block5)
-* [6. Author](#block6)
+* [6. Questions?](#block6)
+* [7. Author](#block7)
 
 ---
 
