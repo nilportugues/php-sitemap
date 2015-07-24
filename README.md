@@ -474,9 +474,16 @@ try {
 Testing has been done using PHPUnit and [Travis-CI](https://travis-ci.org). All code has been tested to be compatible from PHP 5.4 up to PHP 5.6 and [Facebook's HHVM](http://hhvm.com/).
 
 ---
-
 <a name="block6"></a>
-## 6. Author
+## 6. Questions?
+
+Drop me an e-mail or get in touch with me using [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nilportugues/sitemap-component?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
+
+--
+
+<a name="block7"></a>
+## 7. Author
 Nil Portugués Calderó
  - <contact@nilportugues.com>
  - http://nilportugues.com
