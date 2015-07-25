@@ -19,7 +19,6 @@ use NilPortugues\Sitemap\Item\ValidatorTrait;
  */
 class MediaSitemap extends Sitemap
 {
-
     /**
      * @var string
      */

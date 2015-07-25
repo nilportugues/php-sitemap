@@ -85,15 +85,24 @@ abstract class AbstractSitemap implements SitemapInterface
     protected $items = [];
 
     /**
+     * Byte counter.
+     *
+     * @var int
+     */
+    protected $accommulatedFileSize = 0;
+
+    /**
      * @param string $filePath
      * @param string $fileName
      * @param bool   $gzip
+     * @param int    $maxFileSize
      */
-    public function __construct($filePath, $fileName, $gzip = false)
+    public function __construct($filePath, $fileName, $gzip = false, $maxFileSize = null)
     {
         $this->validateFilePath($filePath);
         $this->prepareOutputFile($filePath, $fileName);
         $this->createOutputPlaceholderFile();
+        $this->maxFilesize = (empty($maxFileSize)) ? $this->maxFilesize : $maxFileSize;
 
         $this->gzipOutput = $gzip;
     }
@@ -156,10 +165,7 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function isNewFileIsRequired()
     {
-        return false === (
-            ($this->getCurrentFileSize() <= $this->maxFilesize)
-            && ($this->totalItems < $this->maxItemsPerSitemap)
-        );
+        return ($this->totalItems > $this->maxItemsPerSitemap);
     }
 
     /**
@@ -179,9 +185,19 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function isSurpassingFileSizeLimit($stringData)
     {
-        $expectedFileSize = $this->getCurrentFileSize() + mb_strlen($stringData, mb_detect_encoding($stringData));
+        $expectedFileSize = $this->accommulatedFileSize + $this->getStringSize($stringData);
 
         return $this->maxFilesize < $expectedFileSize;
+    }
+
+    /**
+     * @param string $xmlData
+     *
+     * @return int
+     */
+    protected function getStringSize($xmlData)
+    {
+        return mb_strlen($xmlData, mb_detect_encoding($xmlData));
     }
 
     /**
@@ -197,6 +213,8 @@ abstract class AbstractSitemap implements SitemapInterface
         $this->appendToFile($this->getHeader());
         $this->appendToFile($item->build());
         $this->totalItems = 1;
+
+        $this->accommulatedFileSize = $this->getStringSize($this->getHeader()) + $this->getStringSize($item->build());
     }
 
     /**
@@ -220,6 +238,7 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function appendToFile($xmlData)
     {
+        $this->accommulatedFileSize = $this->accommulatedFileSize + $this->getStringSize($xmlData);
         fwrite($this->filePointer, $xmlData);
     }
 

@@ -96,6 +96,23 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
     }
 
     /**
+     * @test
+     */
+    public function itShouldCreate1MBSitemapFiles()
+    {
+        $this->siteMap = new Sitemap('.', 'sitemaptest2.xml', false, 1000000);
+
+        for ($i = 0; $i < 10020; $i++) {
+            $this->addToSiteMap($i);
+        }
+        $this->siteMap->build();
+
+        $this->assertLessThanOrEqual(1000000, filesize('sitemaptest2.xml'));
+        $this->assertLessThanOrEqual(1000000, filesize('sitemaptest21.xml'));
+    }
+
+
+    /**
      *
      */
     protected function setUp()
@@ -109,7 +126,7 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
      */
     protected function tearDown()
     {
-        $fileNames = ['sitemaptest.xml', 'sitemaptest1.xml'];
+        $fileNames = ['sitemaptest.xml', 'sitemaptest1.xml', 'sitemaptest2.xml', 'sitemaptest21.xml'];
 
         foreach ($fileNames as $fileName) {
             if (file_exists($fileName)) {
