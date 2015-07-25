@@ -165,7 +165,7 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function isNewFileIsRequired()
     {
-        return ($this->totalItems > $this->maxItemsPerSitemap);
+        return (($this->totalItems+1) > $this->maxItemsPerSitemap);
     }
 
     /**

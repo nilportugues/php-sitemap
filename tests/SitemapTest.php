@@ -31,6 +31,28 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
     /**
      * @test
      */
+    public function itShouldCreateTwoSiteMapFiles()
+    {
+        for ($i = 0; $i < 50020; $i++) {
+            $this->addToSiteMap($i);
+        }
+        $this->siteMap->build();
+
+        $this->assertFileExists('sitemaptest.xml');
+        $sitemap1 = file_get_contents('sitemaptest.xml');
+        $this->assertContains('http://www.example.com/0', $sitemap1);
+        $this->assertContains('http://www.example.com/49999', $sitemap1);
+
+        $this->assertFileExists('sitemaptest1.xml');
+        $sitemap2 = file_get_contents('sitemaptest1.xml');
+        $this->assertContains('http://www.example.com/50000', $sitemap2);
+        $this->assertContains('http://www.example.com/50019', $sitemap2);
+    }
+
+
+    /**
+     * @test
+     */
     public function itShouldThrowExceptionIfItemIsNotOfUrlItem()
     {
         $this->setExpectedException($this->exception);
@@ -74,26 +96,6 @@ class SitemapTest extends \PHPUnit_Framework_TestCase
         $this->siteMap->add($item);
     }
 
-    /**
-     * @test
-     */
-    public function itShouldCreateTwoSiteMapFiles()
-    {
-        for ($i = 0; $i < 50020; $i++) {
-            $this->addToSiteMap($i);
-        }
-        $this->siteMap->build();
-
-        $this->assertFileExists('sitemaptest.xml');
-        $sitemap1 = file_get_contents('sitemaptest.xml');
-        $this->assertContains('http://www.example.com/0', $sitemap1);
-        $this->assertContains('http://www.example.com/49999', $sitemap1);
-
-        $this->assertFileExists('sitemaptest1.xml');
-        $sitemap2 = file_get_contents('sitemaptest1.xml');
-        $this->assertContains('http://www.example.com/50000', $sitemap2);
-        $this->assertContains('http://www.example.com/50019', $sitemap2);
-    }
 
     /**
      * @test
