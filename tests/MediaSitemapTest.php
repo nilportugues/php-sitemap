@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/21/14
- * Time: 11:39 AM
+ * Time: 11:39 AM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,7 @@ use NilPortugues\Sitemap\Item\Media\MediaItem;
 use NilPortugues\Sitemap\MediaSitemap;
 
 /**
- * Class MediaSitemapTest
+ * Class MediaSitemapTest.
  */
 class MediaSitemapTest extends \PHPUnit_Framework_TestCase
 {
@@ -74,14 +74,14 @@ class MediaSitemapTest extends \PHPUnit_Framework_TestCase
         $this->siteMap->setTitle('This is a title');
         $this->siteMap->setLink('http://example.com/channel');
 
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $item = new MediaItem('http://www.example.com/'.$i);
             $this->siteMap->add($item);
         }
         $this->siteMap->build();
 
         $this->assertFileExists('sitemaptest.xml');
-        $sitemap = file_get_contents('sitemaptest.xml');
+        $sitemap = \file_get_contents('sitemaptest.xml');
 
         $this->assertContains('<description>This is a description</description>', $sitemap);
         $this->assertContains('<title>This is a title</title>', $sitemap);
@@ -89,9 +89,9 @@ class MediaSitemapTest extends \PHPUnit_Framework_TestCase
         $this->assertContains('http://www.example.com/0', $sitemap);
         $this->assertContains('http://www.example.com/19', $sitemap);
         $this->assertContains(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
+            '<?xml version="1.0" encoding="UTF-8"?>'."\n".
             '<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">'
-            . "\n" . '<channel>',
+            ."\n".'<channel>',
             $sitemap
         );
         $this->assertContains('</channel>', $sitemap);
@@ -115,8 +115,8 @@ class MediaSitemapTest extends \PHPUnit_Framework_TestCase
         $fileNames = ['sitemaptest.xml'];
 
         foreach ($fileNames as $fileName) {
-            if (file_exists($fileName)) {
-                unlink($fileName);
+            if (\file_exists($fileName)) {
+                \unlink($fileName);
             }
         }
     }

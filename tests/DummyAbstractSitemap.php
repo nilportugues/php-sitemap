@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/21/14
- * Time: 12:22 AM
+ * Time: 12:22 AM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,8 +14,7 @@ use NilPortugues\Sitemap\AbstractSitemap;
 use NilPortugues\Sitemap\SitemapException;
 
 /**
- * Class DummyAbstractSitemap
- * @package Tests\NilPortugues\Sitemap
+ * Class DummyAbstractSitemap.
  */
 class DummyAbstractSitemap extends AbstractSitemap
 {
@@ -63,6 +62,7 @@ class DummyAbstractSitemap extends AbstractSitemap
     public function add($item, $url = '')
     {
         $this->validateLoc($url);
+
         return $this;
     }
 }

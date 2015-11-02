@@ -5,8 +5,7 @@ namespace NilPortugues\Sitemap\Item\Image;
 use NilPortugues\Sitemap\Item\ItemException;
 
 /**
- * Class ImageItemException
- * @package NilPortugues\Sitemap\Item
+ * Class ImageItemException.
  */
 class ImageItemException extends ItemException
 {

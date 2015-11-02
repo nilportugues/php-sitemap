@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/10/14
- * Time: 1:59 AM
+ * Time: 1:59 AM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +13,7 @@ namespace NilPortugues\Sitemap\Item\Media;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
- * Class MediaItemValidator
- * @package NilPortugues\Sitemap\Items
+ * Class MediaItemValidator.
  */
 class MediaItemValidator
 {
@@ -63,7 +62,7 @@ class MediaItemValidator
     /**
      * @param $duration
      *
-     * @return bool|integer
+     * @return bool|int
      */
     public function validateDuration($duration)
     {
@@ -93,7 +92,7 @@ class MediaItemValidator
     /**
      * @param $height
      *
-     * @return bool|integer
+     * @return bool|int
      */
     public function validateHeight($height)
     {
@@ -103,7 +102,7 @@ class MediaItemValidator
     /**
      * @param $width
      *
-     * @return bool|integer
+     * @return bool|int
      */
     public function validateWidth($width)
     {

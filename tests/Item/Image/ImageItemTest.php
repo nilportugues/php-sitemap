@@ -5,8 +5,7 @@ namespace Tests\NilPortugues\Sitemap\Item\Image;
 use NilPortugues\Sitemap\Item\Image\ImageItem;
 
 /**
- * Class ImageItemTest
- * @package Tests\NilPortugues\Sitemap\Item\Image
+ * Class ImageItemTest.
  */
 class ImageItemTest extends \PHPUnit_Framework_TestCase
 {
@@ -113,7 +112,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException($this->exception);
         $geolocation = new \StdClass();
-        $result      = $this->item->setGeoLocation($geolocation);
+        $result = $this->item->setGeoLocation($geolocation);
         $this->assertFalse($result);
     }
 
@@ -124,7 +123,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException($this->exception);
         $license = new \StdClass();
-        $result  = $this->item->setLicense($license);
+        $result = $this->item->setLicense($license);
         $this->assertFalse($result);
     }
 
@@ -135,7 +134,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->setExpectedException($this->exception);
         $caption = new \StdClass();
-        $result  = $this->item->setCaption($caption);
+        $result = $this->item->setCaption($caption);
         $this->assertFalse($result);
     }
 
@@ -145,7 +144,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     public function itShouldValidateTitleInvalidInput()
     {
         $this->setExpectedException($this->exception);
-        $title  = new \StdClass();
+        $title = new \StdClass();
         $result = $this->item->setTitle($title);
         $this->assertFalse($result);
     }

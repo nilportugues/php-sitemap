@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/12/14
- * Time: 5:24 PM
+ * Time: 5:24 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +13,7 @@ namespace NilPortugues\Sitemap\Item\Video;
 use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
- * Class VideoItemPriceTags
- * @package NilPortugues\Sitemap\Item\Video
+ * Class VideoItemPriceTags.
  */
 abstract class VideoItemPriceTags extends AbstractItem
 {
@@ -62,7 +61,6 @@ abstract class VideoItemPriceTags extends AbstractItem
     /**
      * @param VideoItemValidator $validator
      * @param $currency
-     *
      */
     protected static function setPriceCurrency($validator, $currency)
     {
@@ -78,9 +76,8 @@ abstract class VideoItemPriceTags extends AbstractItem
     }
 
     /**
-     * @param             VideoItemValidator $validator
-     * @param string|null $type
-     *
+     * @param VideoItemValidator $validator
+     * @param string|null        $type
      */
     protected static function setPriceType($validator, $type)
     {
@@ -98,9 +95,8 @@ abstract class VideoItemPriceTags extends AbstractItem
     }
 
     /**
-     * @param             VideoItemValidator $validator
-     * @param string|null $resolution
-     *
+     * @param VideoItemValidator $validator
+     * @param string|null        $resolution
      */
     protected static function setPriceResolution($validator, $resolution)
     {

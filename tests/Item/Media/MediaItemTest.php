@@ -5,8 +5,7 @@ namespace Tests\NilPortugues\Sitemap\Item\Media;
 use NilPortugues\Sitemap\Item\Media\MediaItem;
 
 /**
- * Class MediaItemTest
- * @package Tests\NilPortugues\Sitemap\Item\Media
+ * Class MediaItemTest.
  */
 class MediaItemTest extends \PHPUnit_Framework_TestCase
 {
@@ -32,7 +31,6 @@ class MediaItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->item = new MediaItem($this->link);
     }
-
 
     /**
      * @test

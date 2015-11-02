@@ -5,8 +5,7 @@ namespace Tests\NilPortugues\Sitemap\Item\Url;
 use NilPortugues\Sitemap\Item\Url\UrlItem;
 
 /**
- * Class UrlItemTest
- * @package Tests\NilPortugues\Sitemap\Item\Url\UrlItem
+ * Class UrlItemTest.
  */
 class UrlItemTest extends \PHPUnit_Framework_TestCase
 {
@@ -145,7 +144,7 @@ class UrlItemTest extends \PHPUnit_Framework_TestCase
     public function itShouldOutputLastMod()
     {
         $this->item->setLastMod($this->lastmod);
-        $this->assertContains('<lastmod>' . $this->lastmod . '</lastmod>', $this->item->build());
+        $this->assertContains('<lastmod>'.$this->lastmod.'</lastmod>', $this->item->build());
     }
 
     /**

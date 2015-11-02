@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/20/14
- * Time: 7:44 PM
+ * Time: 7:44 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +13,7 @@ namespace NilPortugues\Sitemap;
 use NilPortugues\Sitemap\Item\Image\ImageItem;
 
 /**
- * Class ImageSitemap
- * @package NilPortugues\Sitemap\Item
+ * Class ImageSitemap.
  */
 class ImageSitemap extends Sitemap
 {
@@ -30,8 +29,8 @@ class ImageSitemap extends Sitemap
      * @param string    $url
      *
      * @return $this
-     * @throws SitemapException
      *
+     * @throws SitemapException
      */
     public function add($item, $url = '')
     {
@@ -47,7 +46,7 @@ class ImageSitemap extends Sitemap
     {
         if (!($item instanceof ImageItem)) {
             throw new SitemapException(
-                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\Image\\ImageItem."
+                'Provided $item is not instance of \\NilPortugues\\Sitemap\\Item\\Image\\ImageItem.'
             );
         }
     }
@@ -76,9 +75,9 @@ class ImageSitemap extends Sitemap
      */
     protected function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
-        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
+        'xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">'."\n";
     }
 
     /**
@@ -101,12 +100,12 @@ class ImageSitemap extends Sitemap
                 && false === $this->isSurpassingFileSizeLimit($item."</url>\n")
             ) {
                 $this->appendToFile($item);
-                $this->totalItems++;
+                ++$this->totalItems;
             } else {
                 $this->createAdditionalSitemapFile($item, $url);
             }
 
-            $this->imageCount++;
+            ++$this->imageCount;
         }
 
         if (false === $this->isNewFileIsRequired()) {
@@ -122,13 +121,13 @@ class ImageSitemap extends Sitemap
     {
         $this->appendToFile("</url>\n");
         parent::build();
-        $this->totalFiles++;
+        ++$this->totalFiles;
 
         $this->createNewFilePointer();
         $this->appendToFile(
             $this->getHeader()
-            . "<url>\n<loc>{$url}</loc>\n"
-            . $item
+            ."<url>\n<loc>{$url}</loc>\n"
+            .$item
         );
         $this->totalItems = 1;
         $this->imageCount = 0;
@@ -139,6 +138,6 @@ class ImageSitemap extends Sitemap
      */
     protected function getFooter()
     {
-        return "</urlset>";
+        return '</urlset>';
     }
 }

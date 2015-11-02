@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/12/14
- * Time: 4:24 PM
+ * Time: 4:24 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,8 +11,7 @@
 namespace NilPortugues\Sitemap\Item\Url\Validator;
 
 /**
- * Class PriorityValidator
- * @package NilPortugues\Sitemap\Item\Url\Validator
+ * Class PriorityValidator.
  */
 final class PriorityValidator
 {
@@ -31,16 +30,16 @@ final class PriorityValidator
         $validData = null;
 
         if (
-            is_numeric($priority)
+            \is_numeric($priority)
             && $priority > -0.01 && $priority <= 1
             && (($priority * 100 % 10) == 0)
         ) {
-            preg_match('/([0-9].[0-9])/', $priority, $matches);
+            \preg_match('/([0-9].[0-9])/', $priority, $matches);
             if (!isset($matches[0])) {
                 return '';
             }
 
-            $matches[0] = str_replace(",", ".", floatval($matches[0]));
+            $matches[0] = \str_replace(',', '.', \floatval($matches[0]));
             if (!empty($matches[0]) && $matches[0] <= 1 && $matches[0] >= 0.0) {
                 $validData = $matches[0];
             }

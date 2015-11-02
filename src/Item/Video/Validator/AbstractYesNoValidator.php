@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/20/14
- * Time: 5:45 PM
+ * Time: 5:45 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,8 +11,7 @@
 namespace NilPortugues\Sitemap\Item\Video\Validator;
 
 /**
- * Class AbstractYesNoValidator
- * @package NilPortugues\Sitemap\Item\Video\Validator
+ * Class AbstractYesNoValidator.
  */
 abstract class AbstractYesNoValidator
 {
@@ -25,7 +24,7 @@ abstract class AbstractYesNoValidator
      */
     public static function validateMethod($confirmation, $positive, $negative)
     {
-        $lowercase = strtolower($confirmation);
+        $lowercase = \strtolower($confirmation);
         if ($positive === $lowercase || $negative === $lowercase) {
             return $lowercase;
         }

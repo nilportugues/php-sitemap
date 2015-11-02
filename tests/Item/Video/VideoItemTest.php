@@ -5,8 +5,7 @@ namespace Tests\NilPortugues\Sitemap\Item\Video;
 use NilPortugues\Sitemap\Item\Video\VideoItem;
 
 /**
- * Class VideoItemTest
- * @package Tests\NilPortugues\Sitemap\Item\Video
+ * Class VideoItemTest.
  */
 class VideoItemTest extends \PHPUnit_Framework_TestCase
 {

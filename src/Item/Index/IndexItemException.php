@@ -5,8 +5,7 @@ namespace NilPortugues\Sitemap\Item\Index;
 use NilPortugues\Sitemap\Item\ItemException;
 
 /**
- * Class IndexItemException
- * @package NilPortugues\Sitemap\Item
+ * Class IndexItemException.
  */
 class IndexItemException extends ItemException
 {

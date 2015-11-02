@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/10/14
- * Time: 1:59 AM
+ * Time: 1:59 AM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -26,8 +26,7 @@ use NilPortugues\Sitemap\Item\Video\Validator\TagValidator;
 use NilPortugues\Sitemap\Item\Video\Validator\YesNoValidator;
 
 /**
- * Class VideoItemValidator
- * @package NilPortugues\Sitemap\Items
+ * Class VideoItemValidator.
  */
 class VideoItemValidator
 {
@@ -66,11 +65,11 @@ class VideoItemValidator
     /**
      * @param $title
      *
-     * @return boolean
+     * @return bool
      */
     public function validateTitle($title)
     {
-        return self::validateString($title) && strlen($title) < 97;
+        return self::validateString($title) && \strlen($title) < 97;
     }
 
     /**

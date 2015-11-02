@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/12/14
- * Time: 4:25 PM
+ * Time: 4:25 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,8 +11,7 @@
 namespace NilPortugues\Sitemap\Item\News\Validator;
 
 /**
- * Class LanguageValidator
- * @package NilPortugues\Sitemap\Item\News\Validator
+ * Class LanguageValidator.
  */
 final class LanguageValidator
 {
@@ -8717,8 +8716,8 @@ final class LanguageValidator
      */
     public static function validate($language)
     {
-        if (in_array(strtolower($language), self::$validLanguageCode, true)) {
-            return strtolower($language);
+        if (\in_array(\strtolower($language), self::$validLanguageCode, true)) {
+            return \strtolower($language);
         }
 
         return false;

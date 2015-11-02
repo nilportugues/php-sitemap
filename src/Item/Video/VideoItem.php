@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\Sitemap\Item\Video;
 
 use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
- * Class VideoItem
- * @package NilPortugues\Sitemap\Items
+ * Class VideoItem.
  */
 class VideoItem extends AbstractItem
 {
@@ -35,7 +35,7 @@ class VideoItem extends AbstractItem
     public function __construct($title, $contentLoc, $playerLoc, $playerEmbedded = null, $playerAutoplay = null)
     {
         $this->validator = VideoItemValidator::getInstance();
-        self::$xml       = $this->reset();
+        self::$xml = $this->reset();
         $this->setTitle($title);
         $this->setContentLoc($contentLoc);
         $this->setPlayerLoc($playerLoc, $playerEmbedded, $playerAutoplay);
@@ -50,26 +50,26 @@ class VideoItem extends AbstractItem
     {
         return [
             '<video:video>',
-            'thumbnail_loc'         => '',
-            'title'                 => '',
-            'description'           => '',
-            'content_loc'           => '',
-            'player_loc'            => '',
-            'duration'              => '',
-            'expiration_date'       => '',
-            'rating'                => '',
-            'view_count'            => '',
-            'publication_date'      => '',
-            'family_friendly'       => '',
-            'restriction'           => '',
-            'gallery_loc'           => '',
-            'price'                 => '',
-            'category'              => '',
-            'tag'                   => '',
+            'thumbnail_loc' => '',
+            'title' => '',
+            'description' => '',
+            'content_loc' => '',
+            'player_loc' => '',
+            'duration' => '',
+            'expiration_date' => '',
+            'rating' => '',
+            'view_count' => '',
+            'publication_date' => '',
+            'family_friendly' => '',
+            'restriction' => '',
+            'gallery_loc' => '',
+            'price' => '',
+            'category' => '',
+            'tag' => '',
             'requires_subscription' => '',
-            'uploader'              => '',
-            'platform'              => '',
-            'live'                  => '',
+            'uploader' => '',
+            'platform' => '',
+            'live' => '',
             '</video:video>',
         ];
     }
@@ -78,6 +78,7 @@ class VideoItem extends AbstractItem
      * @param $title
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     protected function setTitle($title)
@@ -100,6 +101,7 @@ class VideoItem extends AbstractItem
      * @param $loc
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     protected function setContentLoc($loc)
@@ -120,11 +122,11 @@ class VideoItem extends AbstractItem
 
     /**
      * @param $loc
-     *
      * @param $playerEmbedded
      * @param $playerAutoPlay
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
@@ -139,11 +141,11 @@ class VideoItem extends AbstractItem
         return $this;
     }
 
-
     /**
      * @param $loc
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setThumbnailLoc($loc)
@@ -166,6 +168,7 @@ class VideoItem extends AbstractItem
      * @param $description
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -188,6 +191,7 @@ class VideoItem extends AbstractItem
      * @param $duration
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setDuration($duration)
@@ -210,6 +214,7 @@ class VideoItem extends AbstractItem
      * @param $expirationDate
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setExpirationDate($expirationDate)
@@ -232,6 +237,7 @@ class VideoItem extends AbstractItem
      * @param $rating
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setRating($rating)
@@ -254,6 +260,7 @@ class VideoItem extends AbstractItem
      * @param $viewCount
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setViewCount($viewCount)
@@ -276,6 +283,7 @@ class VideoItem extends AbstractItem
      * @param $publicationDate
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setPublicationDate($publicationDate)
@@ -298,6 +306,7 @@ class VideoItem extends AbstractItem
      * @param $familyFriendly
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setFamilyFriendly($familyFriendly)
@@ -321,6 +330,7 @@ class VideoItem extends AbstractItem
      * @param null $relationship
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setRestriction($restriction, $relationship = null)
@@ -344,6 +354,7 @@ class VideoItem extends AbstractItem
      * @param $relationship
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     protected function setRestrictionRelationship($relationship)
@@ -383,6 +394,7 @@ class VideoItem extends AbstractItem
      * @param string $resolution
      *
      * @throws VideoItemException
+     *
      * @return VideoItem
      */
     public function setPrice($price, $currency, $type = null, $resolution = null)
@@ -396,6 +408,7 @@ class VideoItem extends AbstractItem
      * @param $category
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setCategory($category)
@@ -418,6 +431,7 @@ class VideoItem extends AbstractItem
      * @param array $tag
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setTag(array $tag)
@@ -441,6 +455,7 @@ class VideoItem extends AbstractItem
      * @param $requires
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setRequiresSubscription($requires)
@@ -464,6 +479,7 @@ class VideoItem extends AbstractItem
      * @param null $info
      *
      * @throws VideoItemException
+     *
      * @return string
      */
     public function setUploader($uploader, $info = null)
@@ -476,6 +492,7 @@ class VideoItem extends AbstractItem
      * @param null $relationship
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setPlatform($platform, $relationship = null)
@@ -499,6 +516,7 @@ class VideoItem extends AbstractItem
      * @param $relationship
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     protected function setPlatformRelationship($relationship)
@@ -522,6 +540,7 @@ class VideoItem extends AbstractItem
      * @param $live
      *
      * @throws VideoItemException
+     *
      * @return $this
      */
     public function setLive($live)

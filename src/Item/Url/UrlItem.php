@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\Sitemap\Item\Url;
 
 use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
- * Class UrlItem
- * @package NilPortugues\Sitemap\Items
+ * Class UrlItem.
  */
 class UrlItem extends AbstractItem
 {
@@ -31,7 +31,7 @@ class UrlItem extends AbstractItem
     public function __construct($loc)
     {
         $this->validator = UrlItemValidator::getInstance();
-        self::$xml       = $this->reset();
+        self::$xml = $this->reset();
         $this->setLoc($loc);
     }
 
@@ -43,12 +43,12 @@ class UrlItem extends AbstractItem
     protected function reset()
     {
         return [
-            "<url>",
-            'loc'        => '',
-            'lastmod'    => '',
+            '<url>',
+            'loc' => '',
+            'lastmod' => '',
             'changefreq' => '',
-            'priority'   => '',
-            "</url>"
+            'priority' => '',
+            '</url>',
         ];
     }
 
@@ -56,6 +56,7 @@ class UrlItem extends AbstractItem
      * @param $loc
      *
      * @throws UrlItemException
+     *
      * @return $this
      */
     protected function setLoc($loc)
@@ -78,6 +79,7 @@ class UrlItem extends AbstractItem
      * @param $lastmod
      *
      * @throws UrlItemException
+     *
      * @return $this
      */
     public function setLastMod($lastmod)
@@ -100,6 +102,7 @@ class UrlItem extends AbstractItem
      * @param $changeFreq
      *
      * @throws UrlItemException
+     *
      * @return $this
      */
     public function setChangeFreq($changeFreq)
@@ -122,6 +125,7 @@ class UrlItem extends AbstractItem
      * @param $priority
      *
      * @throws UrlItemException
+     *
      * @return $this
      */
     public function setPriority($priority)

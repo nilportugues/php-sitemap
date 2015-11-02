@@ -5,8 +5,7 @@ namespace NilPortugues\Sitemap\Item\Media;
 use NilPortugues\Sitemap\Item\ItemException;
 
 /**
- * Class MediaItemException
- * @package NilPortugues\Sitemap\Item
+ * Class MediaItemException.
  */
 class MediaItemException extends ItemException
 {

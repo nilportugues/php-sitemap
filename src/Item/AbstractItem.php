@@ -9,8 +9,7 @@
 namespace NilPortugues\Sitemap\Item;
 
 /**
- * Class AbstractItem
- * @package NilPortugues\Sitemap\Items
+ * Class AbstractItem.
  */
 abstract class AbstractItem implements ItemInterface
 {
@@ -26,8 +25,8 @@ abstract class AbstractItem implements ItemInterface
      */
     public function build()
     {
-        $xml  = array_filter(self::$xml);
-        $data = implode("", $xml);
+        $xml = \array_filter(self::$xml);
+        $data = \implode('', $xml);
 
         return $data."\n";
     }
@@ -64,10 +63,10 @@ abstract class AbstractItem implements ItemInterface
     }
 
     /**
-     * @param         $value
-     * @param string  $name
-     * @param boolean $cdata
-     * @param string  $tag
+     * @param        $value
+     * @param string $name
+     * @param bool   $cdata
+     * @param string $tag
      */
     protected static function writeFullTagTemplate($value, $name, $cdata, $tag)
     {
@@ -111,7 +110,7 @@ abstract class AbstractItem implements ItemInterface
      */
     protected static function validateInput($value, $validationClass, $validationMethod, $exceptionClass, $exceptionMsg)
     {
-        $value = call_user_func_array([$validationClass, $validationMethod], [$value]);
+        $value = \call_user_func_array([$validationClass, $validationMethod], [$value]);
         if (false === $value) {
             throw new $exceptionClass($exceptionMsg);
         }

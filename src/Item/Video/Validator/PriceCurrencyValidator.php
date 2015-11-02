@@ -3,8 +3,7 @@
 namespace NilPortugues\Sitemap\Item\Video\Validator;
 
 /**
- * Class PriceCurrencyValidator
- * @package NilPortugues\Sitemap\Item\Video\Validator
+ * Class PriceCurrencyValidator.
  */
 class PriceCurrencyValidator
 {
@@ -298,7 +297,7 @@ class PriceCurrencyValidator
      */
     public static function validate($currency)
     {
-        if (array_search(strtoupper($currency), array_unique(self::$iso4217), true)) {
+        if (\array_search(\strtoupper($currency), \array_unique(self::$iso4217), true)) {
             return $currency;
         }
 

@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/20/14
- * Time: 7:45 PM
+ * Time: 7:45 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +13,7 @@ namespace NilPortugues\Sitemap;
 use NilPortugues\Sitemap\Item\Video\VideoItem;
 
 /**
- * Class VideoSitemap
- * @package NilPortugues\Sitemap
+ * Class VideoSitemap.
  */
 class VideoSitemap extends ImageSitemap
 {
@@ -30,9 +29,10 @@ class VideoSitemap extends ImageSitemap
      * Adds a new sitemap item.
      *
      * @param VideoItem $item
-     * @param string $url
+     * @param string    $url
      *
      * @return $this
+     *
      * @throws SitemapException
      */
     public function add($item, $url = '')
@@ -65,7 +65,7 @@ class VideoSitemap extends ImageSitemap
     {
         if (!($item instanceof VideoItem)) {
             throw new SitemapException(
-                "Provided \$item is not instance of \\NilPortugues\\Sitemap\\Item\\Video\\VideoItem."
+                'Provided $item is not instance of \\NilPortugues\\Sitemap\\Item\\Video\\VideoItem.'
             );
         }
     }
@@ -75,9 +75,9 @@ class VideoSitemap extends ImageSitemap
      */
     protected function getHeader()
     {
-        return '<?xml version="1.0" encoding="UTF-8"?>' . "\n"
-        . '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
-        . ' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">' . "\n";
+        return '<?xml version="1.0" encoding="UTF-8"?>'."\n"
+        .'<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"'
+        .' xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">'."\n";
     }
 
     /**
@@ -85,6 +85,6 @@ class VideoSitemap extends ImageSitemap
      */
     protected function getFooter()
     {
-        return "</urlset>";
+        return '</urlset>';
     }
 }

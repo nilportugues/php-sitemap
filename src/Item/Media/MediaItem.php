@@ -11,8 +11,7 @@ namespace NilPortugues\Sitemap\Item\Media;
 use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
- * Class MediaItem
- * @package NilPortugues\Sitemap\Items
+ * Class MediaItem.
  */
 class MediaItem extends AbstractItem
 {
@@ -32,7 +31,7 @@ class MediaItem extends AbstractItem
     public function __construct($link)
     {
         $this->validator = MediaItemValidator::getInstance();
-        self::$xml       = $this->reset();
+        self::$xml = $this->reset();
         $this->setLink($link);
     }
 
@@ -45,13 +44,13 @@ class MediaItem extends AbstractItem
     {
         return [
             '<item xmlns:media="http://search.yahoo.com/mrss/" xmlns:dcterms="http://purl.org/dc/terms/">',
-            'content'        => '',
-            'link'        => '',
-            'duration'    => '',
-            'player'      => '',
-            'title'       => '',
+            'content' => '',
+            'link' => '',
+            'duration' => '',
+            'player' => '',
+            'title' => '',
             'description' => '',
-            'thumbnail'   => '',
+            'thumbnail' => '',
             '</media:content>',
             '</item>',
         ];
@@ -61,6 +60,7 @@ class MediaItem extends AbstractItem
      * @param $link
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     protected function setLink($link)
@@ -79,7 +79,6 @@ class MediaItem extends AbstractItem
         return $this;
     }
 
-
     /**
      * @param      $mimeType
      * @param null $duration
@@ -88,10 +87,10 @@ class MediaItem extends AbstractItem
      */
     public function setContent($mimeType, $duration = null)
     {
-        self::$xml['content'] = "<media:content";
+        self::$xml['content'] = '<media:content';
         $this->setContentMimeType($mimeType);
         $this->setContentDuration($duration);
-        self::$xml['content'] .= ">";
+        self::$xml['content'] .= '>';
 
         return $this;
     }
@@ -138,11 +137,12 @@ class MediaItem extends AbstractItem
      * @param $player
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     public function setPlayer($player)
     {
-        self::$xml['player'] = "<media:player";
+        self::$xml['player'] = '<media:player';
 
         $this->writeAttribute(
             $player,
@@ -154,7 +154,7 @@ class MediaItem extends AbstractItem
             'Provided player URL is not a valid value.'
         );
 
-        self::$xml['player'] .= " />";
+        self::$xml['player'] .= ' />';
 
         return $this;
     }
@@ -163,6 +163,7 @@ class MediaItem extends AbstractItem
      * @param $title
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     public function setTitle($title)
@@ -185,6 +186,7 @@ class MediaItem extends AbstractItem
      * @param $description
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     public function setDescription($description)
@@ -212,7 +214,7 @@ class MediaItem extends AbstractItem
      */
     public function setThumbnail($thumbnail, $height = null, $weight = null)
     {
-        self::$xml['thumbnail'] = "<media:thumbnail";
+        self::$xml['thumbnail'] = '<media:thumbnail';
         $this->setThumbnailUrl($thumbnail);
 
         if (null !== $height) {
@@ -223,7 +225,7 @@ class MediaItem extends AbstractItem
             $this->setThumbnailWidth($weight);
         }
 
-        self::$xml['thumbnail'] .= "/>";
+        self::$xml['thumbnail'] .= '/>';
 
         return $this;
     }
@@ -232,6 +234,7 @@ class MediaItem extends AbstractItem
      * @param $url
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     protected function setThumbnailUrl($url)
@@ -253,6 +256,7 @@ class MediaItem extends AbstractItem
      * @param $height
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     protected function setThumbnailHeight($height)
@@ -274,6 +278,7 @@ class MediaItem extends AbstractItem
      * @param $width
      *
      * @throws MediaItemException
+     *
      * @return $this
      */
     protected function setThumbnailWidth($width)

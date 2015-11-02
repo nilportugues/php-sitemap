@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/21/14
- * Time: 8:27 PM
+ * Time: 8:27 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +13,7 @@ namespace Tests\NilPortugues\Sitemap;
 use NilPortugues\Sitemap\SubmitSitemap;
 
 /**
- * Class SubmitSitemapTest
- * @package Tests\NilPortugues\Sitemap
+ * Class SubmitSitemapTest.
  */
 class SubmitSitemapTest extends \PHPUnit_Framework_TestCase
 {

@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/12/14
- * Time: 3:55 PM
+ * Time: 3:55 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,8 +11,7 @@
 namespace NilPortugues\Sitemap\Item\Video\Validator;
 
 /**
- * Class PriceResolutionValidator
- * @package NilPortugues\Sitemap\Item\Video\Validator
+ * Class PriceResolutionValidator.
  */
 final class PriceResolutionValidator
 {
@@ -23,7 +22,7 @@ final class PriceResolutionValidator
      */
     public static function validate($resolution)
     {
-        $uppercaseResolution = strtoupper($resolution);
+        $uppercaseResolution = \strtoupper($resolution);
         if ('HD' === $uppercaseResolution || 'SD' === $uppercaseResolution) {
             return $uppercaseResolution;
         }

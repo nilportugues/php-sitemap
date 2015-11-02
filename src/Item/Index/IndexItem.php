@@ -5,6 +5,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\Sitemap\Item\Index;
 
 use NilPortugues\Sitemap\Item\Url\UrlItem;
@@ -12,8 +13,7 @@ use NilPortugues\Sitemap\Item\Url\UrlItemException;
 use NilPortugues\Sitemap\Item\Url\UrlItemValidator;
 
 /**
- * Class IndexItem
- * @package NilPortugues\Sitemap\Items
+ * Class IndexItem.
  */
 class IndexItem extends UrlItem
 {
@@ -36,7 +36,7 @@ class IndexItem extends UrlItem
     {
         return [
             '<sitemap>',
-            'loc'     => '',
+            'loc' => '',
             'lastmod' => '',
             '</sitemap>',
         ];
@@ -46,6 +46,7 @@ class IndexItem extends UrlItem
      * @param $loc
      *
      * @throws IndexItemException
+     *
      * @return $this
      */
     protected function setLoc($loc)
@@ -59,12 +60,11 @@ class IndexItem extends UrlItem
         return $this;
     }
 
-
-
     /**
      * @param $lastmod
      *
      * @throws IndexItemException
+     *
      * @return $this
      */
     public function setLastMod($lastmod)

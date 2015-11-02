@@ -3,8 +3,7 @@
 namespace NilPortugues\Sitemap\Item\Video\Validator;
 
 /**
- * Class RestrictionValidator
- * @package NilPortugues\Sitemap\Item\Video\Validator
+ * Class RestrictionValidator.
  */
 final class RestrictionValidator
 {
@@ -525,21 +524,21 @@ final class RestrictionValidator
 
         //If data is not passed as an array, do so.
         if (!is_array($countries)) {
-            $countries = explode(' ', $countries);
-            $countries = array_filter($countries);
+            $countries = \explode(' ', $countries);
+            $countries = \array_filter($countries);
         }
 
         //Foreach value, check if it is a valid self::$iso3166 value
         foreach ($countries as $country) {
-            $country = preg_replace('/[^a-z]/i', '', $country);
-            $country = strtoupper($country);
-            if (in_array($country, self::$iso3166, true)) {
+            $country = \preg_replace('/[^a-z]/i', '', $country);
+            $country = \strtoupper($country);
+            if (\in_array($country, self::$iso3166, true)) {
                 $valid[] = $country;
             }
         }
 
-        $data = implode(' ', $valid);
+        $data = \implode(' ', $valid);
 
-        return (strlen($data) > 0) ? $data : false;
+        return (\strlen($data) > 0) ? $data : false;
     }
 }

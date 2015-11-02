@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\Sitemap\Item\News;
 
 use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
- * Class NewsItem
- * @package NilPortugues\Sitemap\Items
+ * Class NewsItem.
  */
 class NewsItem extends AbstractItem
 {
@@ -35,7 +35,7 @@ class NewsItem extends AbstractItem
     public function __construct($loc, $title, $publicationDate, $name, $language)
     {
         $this->validator = NewsItemValidator::getInstance();
-        self::$xml       = $this->reset();
+        self::$xml = $this->reset();
         $this->setLoc($loc);
         $this->setTitle($title);
         $this->setPublicationDate($publicationDate);
@@ -51,15 +51,15 @@ class NewsItem extends AbstractItem
     {
         return [
             '<url>',
-            'loc'              => '',
+            'loc' => '',
             '<news:news>',
-            'name'             => '',
-            'access'           => '',
-            'genres'           => '',
+            'name' => '',
+            'access' => '',
+            'genres' => '',
             'publication_date' => '',
-            'title'            => '',
-            'keywords'         => '',
-            'stock_tickers'    => '',
+            'title' => '',
+            'keywords' => '',
+            'stock_tickers' => '',
             '</news:news>',
             '</url>',
         ];
@@ -69,6 +69,7 @@ class NewsItem extends AbstractItem
      * @param $loc
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     protected function setLoc($loc)
@@ -91,6 +92,7 @@ class NewsItem extends AbstractItem
      * @param $title
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     protected function setTitle($title)
@@ -113,6 +115,7 @@ class NewsItem extends AbstractItem
      * @param $date
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     protected function setPublicationDate($date)
@@ -151,6 +154,7 @@ class NewsItem extends AbstractItem
      * @param $name
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     protected function setPublicationName($name)
@@ -173,6 +177,7 @@ class NewsItem extends AbstractItem
      * @param $language
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     protected function setPublicationLanguage($language)
@@ -191,11 +196,11 @@ class NewsItem extends AbstractItem
         return $this;
     }
 
-
     /**
      * @param $access
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     public function setAccess($access)
@@ -218,6 +223,7 @@ class NewsItem extends AbstractItem
      * @param $genres
      *
      * @return $this
+     *
      * @throws NewsItemException
      */
     public function setGenres($genres)
@@ -240,6 +246,7 @@ class NewsItem extends AbstractItem
      * @param $keywords
      *
      * @return $this
+     *
      * @throws NewsItemException
      */
     public function setKeywords($keywords)
@@ -262,6 +269,7 @@ class NewsItem extends AbstractItem
      * @param $stockTickers
      *
      * @throws NewsItemException
+     *
      * @return $this
      */
     public function setStockTickers($stockTickers)

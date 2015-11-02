@@ -5,8 +5,7 @@ namespace NilPortugues\Sitemap\Item\Video;
 use NilPortugues\Sitemap\Item\ItemException;
 
 /**
- * Class VideoItemException
- * @package NilPortugues\Sitemap\Item
+ * Class VideoItemException.
  */
 class VideoItemException extends ItemException
 {

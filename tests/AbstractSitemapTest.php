@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/21/14
- * Time: 12:23 AM
+ * Time: 12:23 AM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -11,7 +11,7 @@
 namespace Tests\NilPortugues\Sitemap;
 
 /**
- * Class AbstractSitemapTest
+ * Class AbstractSitemapTest.
  */
 class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
 {
@@ -87,7 +87,7 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldThrowExceptionWhenFileAlreadyExists()
     {
-        touch($this->sitemapFile);
+        \touch($this->sitemapFile);
 
         $this->setExpectedException($this->exception);
         new DummyAbstractSitemap('.', $this->sitemapFile, false);
@@ -100,12 +100,12 @@ class AbstractSitemapTest extends \PHPUnit_Framework_TestCase
     {
         $fileNames = [
             $this->sitemapFile,
-            $this->sitemapFile.'.gz'
+            $this->sitemapFile.'.gz',
         ];
 
         foreach ($fileNames as $fileName) {
-            if (file_exists($fileName)) {
-                unlink($fileName);
+            if (\file_exists($fileName)) {
+                \unlink($fileName);
             }
         }
     }

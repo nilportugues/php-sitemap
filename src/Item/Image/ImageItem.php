@@ -5,13 +5,13 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace NilPortugues\Sitemap\Item\Image;
 
 use NilPortugues\Sitemap\Item\AbstractItem;
 
 /**
- * Class ImageItem
- * @package NilPortugues\Sitemap\Item\Image
+ * Class ImageItem.
  */
 class ImageItem extends AbstractItem
 {
@@ -31,7 +31,7 @@ class ImageItem extends AbstractItem
     public function __construct($loc)
     {
         $this->validator = ImageItemValidator::getInstance();
-        self::$xml       = $this->reset();
+        self::$xml = $this->reset();
         $this->setLoc($loc);
     }
 
@@ -43,13 +43,13 @@ class ImageItem extends AbstractItem
     protected function reset()
     {
         return [
-            "<image:image>",
-            'loc'         => '',
-            'title'       => '',
-            'caption'     => '',
+            '<image:image>',
+            'loc' => '',
+            'title' => '',
+            'caption' => '',
             'geolocation' => '',
-            'license'     => '',
-            "</image:image>"
+            'license' => '',
+            '</image:image>',
         ];
     }
 
@@ -57,6 +57,7 @@ class ImageItem extends AbstractItem
      * @param $loc
      *
      * @throws ImageItemException
+     *
      * @return $this
      */
     protected function setLoc($loc)
@@ -75,11 +76,11 @@ class ImageItem extends AbstractItem
         return $this;
     }
 
-
     /**
      * @param $title
      *
      * @return $this
+     *
      * @throws ImageItemException
      */
     public function setTitle($title)
@@ -102,6 +103,7 @@ class ImageItem extends AbstractItem
      * @param $caption
      *
      * @throws ImageItemException
+     *
      * @return $this
      */
     public function setCaption($caption)
@@ -124,6 +126,7 @@ class ImageItem extends AbstractItem
      * @param $geoLocation
      *
      * @throws ImageItemException
+     *
      * @return $this
      */
     public function setGeoLocation($geoLocation)
@@ -146,6 +149,7 @@ class ImageItem extends AbstractItem
      * @param $license
      *
      * @throws ImageItemException
+     *
      * @return $this
      */
     public function setLicense($license)

@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/20/14
- * Time: 7:46 PM
+ * Time: 7:46 PM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -13,8 +13,7 @@ namespace NilPortugues\Sitemap;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
- * Class AbstractSitemap
- * @package NilPortugues\Sitemap
+ * Class AbstractSitemap.
  */
 abstract class AbstractSitemap implements SitemapInterface
 {
@@ -114,9 +113,9 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function validateFilePath($filePath)
     {
-        if (false === (is_dir($filePath) && is_writable($filePath))) {
+        if (false === (\is_dir($filePath) && \is_writable($filePath))) {
             throw new SitemapException(
-                sprintf("Provided path '%s' does not exist or is not writable.", $filePath)
+                \sprintf("Provided path '%s' does not exist or is not writable.", $filePath)
             );
         }
     }
@@ -127,27 +126,28 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function prepareOutputFile($filePath, $fileName)
     {
-        $this->filePath      = realpath($filePath);
-        $pathParts           = pathinfo($fileName);
-        $this->fileBaseName  = $pathParts['filename'];
+        $this->filePath = \realpath($filePath);
+        $pathParts = \pathinfo($fileName);
+        $this->fileBaseName = $pathParts['filename'];
         $this->fileExtension = $pathParts['extension'];
     }
 
     /**
      * @return bool
+     *
      * @throws SitemapException
      */
     protected function createOutputPlaceholderFile()
     {
         $filePath = $this->getFullFilePath();
 
-        if (true === file_exists($filePath)) {
+        if (true === \file_exists($filePath)) {
             throw new SitemapException(
-                sprintf('Cannot create sitemap. File \'%s\' already exists.', $filePath)
+                \sprintf('Cannot create sitemap. File \'%s\' already exists.', $filePath)
             );
         }
 
-        return touch($filePath);
+        return \touch($filePath);
     }
 
     /**
@@ -157,7 +157,7 @@ abstract class AbstractSitemap implements SitemapInterface
     {
         $number = (0 == $this->totalFiles) ? '' : $this->totalFiles;
 
-        return $this->filePath . DIRECTORY_SEPARATOR . $this->fileBaseName . $number . "." . $this->fileExtension;
+        return $this->filePath.DIRECTORY_SEPARATOR.$this->fileBaseName.$number.'.'.$this->fileExtension;
     }
 
     /**
@@ -165,15 +165,15 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function isNewFileIsRequired()
     {
-        return (($this->totalItems+1) > $this->maxItemsPerSitemap);
+        return (($this->totalItems + 1) > $this->maxItemsPerSitemap);
     }
 
     /**
-     * @return integer
+     * @return int
      */
     protected function getCurrentFileSize()
     {
-        return filesize($this->getFullFilePath());
+        return \filesize($this->getFullFilePath());
     }
 
     /**
@@ -197,7 +197,7 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function getStringSize($xmlData)
     {
-        return mb_strlen($xmlData, mb_detect_encoding($xmlData));
+        return \mb_strlen($xmlData, \mb_detect_encoding($xmlData));
     }
 
     /**
@@ -207,7 +207,7 @@ abstract class AbstractSitemap implements SitemapInterface
     protected function createAdditionalSitemapFile($item, $url = '')
     {
         $this->build();
-        $this->totalFiles++;
+        ++$this->totalFiles;
 
         $this->createNewFilePointer();
         $this->appendToFile($this->getHeader());
@@ -230,7 +230,7 @@ abstract class AbstractSitemap implements SitemapInterface
             $this->writeGZipFile();
         }
 
-        fclose($this->filePointer);
+        \fclose($this->filePointer);
     }
 
     /**
@@ -239,7 +239,7 @@ abstract class AbstractSitemap implements SitemapInterface
     protected function appendToFile($xmlData)
     {
         $this->accommulatedFileSize = $this->accommulatedFileSize + $this->getStringSize($xmlData);
-        fwrite($this->filePointer, $xmlData);
+        \fwrite($this->filePointer, $xmlData);
     }
 
     /**
@@ -252,13 +252,14 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function writeGZipFile()
     {
-        $status      = false;
-        $gZipPointer = gzopen($this->getFullGZipFilePath(), 'w9');
+        $status = false;
+        $gZipPointer = \gzopen($this->getFullGZipFilePath(), 'w9');
 
         if ($gZipPointer !== false) {
-            gzwrite($gZipPointer, file_get_contents($this->getFullFilePath()));
-            $status = gzclose($gZipPointer);
+            \gzwrite($gZipPointer, \file_get_contents($this->getFullFilePath()));
+            $status = \gzclose($gZipPointer);
         }
+
         return $status;
     }
 
@@ -267,7 +268,7 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function getFullGZipFilePath()
     {
-        return $this->getFullFilePath() . '.gz';
+        return $this->getFullFilePath().'.gz';
     }
 
     /**
@@ -275,8 +276,8 @@ abstract class AbstractSitemap implements SitemapInterface
      */
     protected function createNewFilePointer()
     {
-        $this->filePointer = fopen($this->getFullFilePath(), 'w');
-        $this->files[]     = $this->getFullFilePath();
+        $this->filePointer = \fopen($this->getFullFilePath(), 'w');
+        $this->files[] = $this->getFullFilePath();
     }
 
     /**
@@ -294,7 +295,6 @@ abstract class AbstractSitemap implements SitemapInterface
     {
         $this->validateItemClassType($item);
         $this->validateLoc($url);
-
 
         $this->items[$url][] = $item->build();
 
@@ -317,7 +317,7 @@ abstract class AbstractSitemap implements SitemapInterface
     {
         if (false === ValidatorTrait::validateLoc($url)) {
             throw new SitemapException(
-                sprintf('Provided url is not valid.')
+                \sprintf('Provided url is not valid.')
             );
         }
     }

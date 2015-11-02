@@ -5,8 +5,7 @@ namespace Tests\NilPortugues\Sitemap\Item\Index;
 use NilPortugues\Sitemap\Item\Index\IndexItem;
 
 /**
- * Class IndexItemTest
- * @package Tests\NilPortugues\Sitemap\Item\Index
+ * Class IndexItemTest.
  */
 class IndexItemTest extends \PHPUnit_Framework_TestCase
 {
@@ -48,14 +47,13 @@ class IndexItemTest extends \PHPUnit_Framework_TestCase
         $this->item->setPriority(0.1);
     }
 
-
     /**
      * @test
      */
     public function itShouldOutputLastMod()
     {
         $this->item->setLastMod($this->lastmod);
-        $this->assertContains('<lastmod>' . $this->lastmod . '</lastmod>', $this->item->build());
+        $this->assertContains('<lastmod>'.$this->lastmod.'</lastmod>', $this->item->build());
     }
 
     /**

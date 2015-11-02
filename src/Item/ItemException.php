@@ -3,8 +3,7 @@
 namespace NilPortugues\Sitemap\Item;
 
 /**
- * Class ItemException
- * @package NilPortugues\Sitemap\Item
+ * Class ItemException.
  */
 class ItemException extends \Exception
 {

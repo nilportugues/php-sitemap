@@ -5,8 +5,7 @@ namespace itShoulds\NilPortugues\Sitemap\Item;
 use NilPortugues\Sitemap\Item\ValidatorTrait;
 
 /**
- * Class ValidatorTraititShould
- * @package itShoulds\NilPortugues\Sitemap\Item
+ * Class ValidatorTraititShould.
  */
 class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
 {
@@ -39,8 +38,8 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldValidateDateValidFormat1()
     {
-        $date   = new \DateTime('now');
-        $date   = $date->format('c');
+        $date = new \DateTime('now');
+        $date = $date->format('c');
         $result = $this->validateDate($date);
 
         $this->assertEquals($date, $result);
@@ -51,8 +50,8 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldValidateDateValidFormat2()
     {
-        $date   = new \DateTime('now');
-        $date   = $date->format('Y-m-d\TH:i:sP');
+        $date = new \DateTime('now');
+        $date = $date->format('Y-m-d\TH:i:sP');
         $result = $this->validateDate($date);
 
         $this->assertEquals($date, $result);
@@ -63,8 +62,8 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldValidateDateValidFormat3()
     {
-        $date   = new \DateTime('now');
-        $date   = $date->format('Y-m-d');
+        $date = new \DateTime('now');
+        $date = $date->format('Y-m-d');
         $result = $this->validateDate($date);
 
         $this->assertEquals($date, $result);
@@ -75,7 +74,7 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldValidateDateInvalidFormat()
     {
-        $date   = '2A-13-03';
+        $date = '2A-13-03';
         $result = $this->validateDate($date);
 
         $this->assertEquals(false, $result);

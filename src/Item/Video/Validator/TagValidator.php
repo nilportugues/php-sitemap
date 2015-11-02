@@ -18,7 +18,7 @@ final class TagValidator
      */
     public static function validate($tags)
     {
-        if (count($tags) > self::$maxVideoTagTags || 0 === count($tags)) {
+        if (\count($tags) > self::$maxVideoTagTags || 0 === \count($tags)) {
             return false;
         }
 

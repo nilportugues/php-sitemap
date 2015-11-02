@@ -1,11 +1,11 @@
 <?php
+
 namespace Tests\NilPortugues\Sitemap\Item\News;
 
 use NilPortugues\Sitemap\Item\News\NewsItem;
 
 /**
- * Class NewsItemTest
- * @package Tests\NilPortugues\Sitemap\Item\News
+ * Class NewsItemTest.
  */
 class NewsItemTest extends \PHPUnit_Framework_TestCase
 {

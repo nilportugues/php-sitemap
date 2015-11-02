@@ -2,7 +2,7 @@
 /**
  * Author: Nil Portugués Calderó <contact@nilportugues.com>
  * Date: 12/21/14
- * Time: 11:39 AM
+ * Time: 11:39 AM.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -14,7 +14,7 @@ use NilPortugues\Sitemap\Item\News\NewsItem;
 use NilPortugues\Sitemap\NewsSitemap;
 
 /**
- * Class NewsSitemapTest
+ * Class NewsSitemapTest.
  */
 class NewsSitemapTest extends \PHPUnit_Framework_TestCase
 {
@@ -43,7 +43,7 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldCreateOneSiteMapFile()
     {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $item = new NewsItem(
                 'http://www.example.com/'.$i,
                 'Companies A, B in Merger Talks',
@@ -57,14 +57,14 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
         $this->siteMap->build();
 
         $this->assertFileExists('sitemaptest.xml');
-        $sitemap = file_get_contents('sitemaptest.xml');
+        $sitemap = \file_get_contents('sitemaptest.xml');
 
         $this->assertContains('http://www.example.com/0', $sitemap);
         $this->assertContains('http://www.example.com/19', $sitemap);
         $this->assertContains(
-            '<?xml version="1.0" encoding="UTF-8"?>' . "\n" .
-            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" ' .
-            'xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">' . "\n",
+            '<?xml version="1.0" encoding="UTF-8"?>'."\n".
+            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '.
+            'xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">'."\n",
             $sitemap
         );
         $this->assertContains('</urlset>', $sitemap);
@@ -87,8 +87,8 @@ class NewsSitemapTest extends \PHPUnit_Framework_TestCase
         $fileNames = ['sitemaptest.xml'];
 
         foreach ($fileNames as $fileName) {
-            if (file_exists($fileName)) {
-                unlink($fileName);
+            if (\file_exists($fileName)) {
+                \unlink($fileName);
             }
         }
     }
