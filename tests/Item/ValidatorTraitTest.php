@@ -73,7 +73,7 @@ class ValidatorTraitTest extends \PHPUnit_Framework_TestCase
      */
     public function itShouldValidateTestLocs()
     {
-        foreach($this->testLocs as $test){
+        foreach ($this->testLocs as $test) {
             $result = $this->validateLoc($test[0]);
             $this->assertEquals($test[1], $result);
         }

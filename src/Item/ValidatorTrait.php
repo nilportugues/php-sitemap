@@ -52,7 +52,7 @@ trait ValidatorTrait
             ([^#\?\&]*)([\?|\&][^#]*)?(\#\S*)?              # a /, nothing, a / with something, a query or a fragment
         $~ixu';
 
-        if(\strlen($value) < 1){
+        if (\strlen($value) < 1) {
             return false;
         }
         
