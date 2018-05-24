@@ -47,7 +47,7 @@ class ImageItem extends AbstractItem
             'loc' => '',
             'title' => '',
             'caption' => '',
-            'geolocation' => '',
+            'geo_location' => '',
             'license' => '',
             '</image:image>',
         ];
