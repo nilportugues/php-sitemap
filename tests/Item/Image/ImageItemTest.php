@@ -65,7 +65,7 @@ class ImageItemTest extends \PHPUnit_Framework_TestCase
     {
         $this->item->setGeoLocation('Limerick, Ireland');
         $this->assertContains(
-            '<image:geolocation><![CDATA[Limerick, Ireland]]></image:geolocation>',
+            '<image:geo_location><![CDATA[Limerick, Ireland]]></image:geo_location>',
             $this->item->build()
         );
     }
