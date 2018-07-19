@@ -133,13 +133,13 @@ class ImageItem extends AbstractItem
     {
         self::writeFullTag(
             $geoLocation,
-            'geolocation',
+            'geo_location',
             true,
-            'image:geolocation',
+            'image:geo_location',
             $this->validator,
             'validateGeoLocation',
             $this->exception,
-            'Provided geolocation is not a valid value.'
+            'Provided geo_location is not a valid value.'
         );
 
         return $this;
