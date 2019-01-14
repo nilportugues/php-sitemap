@@ -65,11 +65,16 @@ class VideoItemValidator
     /**
      * @param $title
      *
-     * @return bool
+     * @return string|false
      */
     public function validateTitle($title)
     {
-        return self::validateString($title) && \strlen($title) < 97;
+        $length = \mb_strlen($title, 'UTF-8');
+        if ($length > 0 && $length < 97) {
+            return self::validateString($title);
+        }
+
+        return false;
     }
 
     /**
