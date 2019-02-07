@@ -131,12 +131,14 @@ class VideoItem extends AbstractItem
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
     {
-        self::$xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
-            $this->validator,
-            $loc,
-            $playerEmbedded,
-            $playerAutoPlay
-        );
+        if ($loc) {
+            self::$xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
+                $this->validator,
+                $loc,
+                $playerEmbedded,
+                $playerAutoPlay
+            );            
+        }
 
         return $this;
     }
