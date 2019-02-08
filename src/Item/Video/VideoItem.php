@@ -137,7 +137,7 @@ class VideoItem extends AbstractItem
                 $loc,
                 $playerEmbedded,
                 $playerAutoPlay
-            );            
+            );
         }
 
         return $this;
