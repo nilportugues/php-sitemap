@@ -106,16 +106,18 @@ class VideoItem extends AbstractItem
      */
     protected function setContentLoc($loc)
     {
-        self::writeFullTag(
-            $loc,
-            'content_loc',
-            true,
-            'video:content_loc',
-            $this->validator,
-            'validateContentLoc',
-            $this->exception,
-            'Provided content URL is not a valid.'
-        );
+        if ($loc) {
+            self::writeFullTag(
+                $loc,
+                'content_loc',
+                true,
+                'video:content_loc',
+                $this->validator,
+                'validateContentLoc',
+                $this->exception,
+                'Provided content URL is not a valid.'
+            );
+        }
 
         return $this;
     }
@@ -131,12 +133,14 @@ class VideoItem extends AbstractItem
      */
     protected function setPlayerLoc($loc, $playerEmbedded, $playerAutoPlay)
     {
-        self::$xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
-            $this->validator,
-            $loc,
-            $playerEmbedded,
-            $playerAutoPlay
-        );
+        if ($loc) {
+            self::$xml['player_loc'] = VideoItemPlayerTags::setPlayerLoc(
+                $this->validator,
+                $loc,
+                $playerEmbedded,
+                $playerAutoPlay
+            );
+        }
 
         return $this;
     }
